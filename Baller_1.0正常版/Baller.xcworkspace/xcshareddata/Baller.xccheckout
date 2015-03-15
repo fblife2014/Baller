@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>B1B4007D-6206-4FA2-A087-92FDBDCD23F9</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Baller</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>375b85d5-abd7-4830-b403-6167e6065a21++4330</key>
+		<string>svn://123.57.35.119/baller/Baller_1.0</string>
+		<key>375b85d5-abd7-4830-b403-6167e6065a21++70</key>
+		<string>svn://123.57.35.119/baller/Baller_iOS</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Baller.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>375b85d5-abd7-4830-b403-6167e6065a21++4330</key>
+		<string>..</string>
+		<key>375b85d5-abd7-4830-b403-6167e6065a21++70</key>
+		<string>../../Baller_iOS</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>375b85d5-abd7-4830-b403-6167e6065a21++4330</key>
+		<string>svn://123.57.35.119/baller</string>
+		<key>375b85d5-abd7-4830-b403-6167e6065a21++70</key>
+		<string>svn://123.57.35.119/baller</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>svn://123.57.35.119/baller/Baller_1.0/Baller.xcworkspace</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>375b85d5-abd7-4830-b403-6167e6065a21++4330</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>375b85d5-abd7-4830-b403-6167e6065a21++4330</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Baller_1.0</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>375b85d5-abd7-4830-b403-6167e6065a21++70</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Baller_iOS</string>
+		</dict>
+	</array>
+</dict>
+</plist>

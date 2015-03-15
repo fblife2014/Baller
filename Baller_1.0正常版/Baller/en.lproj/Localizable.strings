@@ -1,0 +1,32 @@
+/* 
+  Localizable.strings
+  Baller
+
+  Created by malong on 15/1/17.
+  Copyright (c) 2015年 malong. All rights reserved.
+*/
+"UserName"="Username";
+"Password"="Password";
+"Login"="Login";
+"Register"="Register";
+"ForgetPassword"="ForgetPassword";
+"PhoneNumber"="Mobile";
+"AuthCode"="AuthCode";
+"GetSMSAuthCode"="GetAuthCode";
+"Submit"="Submit";
+"CompletePersonalInfo"="CompleteInformation";
+"SubmitHeadImage"="Avatar";
+"ClickInputNickname"="InputNickname";
+"Height"="Height";
+"Weight"="Weight";
+"ParkPosition"="Baller-Position";
+"Sex"="Sex";
+"Done"="Done";
+"Male"="Male";
+"Position"="Position";
+"Female"="Female";
+"M/F"="M/F";
+"Save"="Save";
+
+
+

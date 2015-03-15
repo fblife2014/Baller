@@ -1,0 +1,10 @@
+ARCHS = $(ARCHS_STANDARD)
+CLANG_CXX_LANGUAGE_STANDARD = c++11
+CLANG_CXX_LIBRARY = libc++
+FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/AMap2DMap" "$(PODS_ROOT)/AMapSearch"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/AMap2DMap" "${PODS_ROOT}/Headers/AMapSearch" "${PODS_ROOT}/Headers/ConciseKit" "${PODS_ROOT}/Headers/FMDB" "${PODS_ROOT}/Headers/MJRefresh" "${PODS_ROOT}/Headers/Masonry" "${PODS_ROOT}/Headers/RongCloudIMKit" "${PODS_ROOT}/Headers/SDWebImage" "${PODS_ROOT}/Headers/UMeng" "${PODS_ROOT}/Headers/UMengFeedback" "${PODS_ROOT}/Headers/pop"
+LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/RongCloudIMKit/iOS_IMKit" $(PODS_ROOT)/UMeng/Analytics_iOS_SDK_2.2.1.OpenUDID/UMAnalytics_Sdk_2.2.1.OpenUDID "$(PODS_ROOT)/UMengFeedback/**"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers" -isystem "${PODS_ROOT}/Headers/AFNetworking" -isystem "${PODS_ROOT}/Headers/AMap2DMap" -isystem "${PODS_ROOT}/Headers/AMapSearch" -isystem "${PODS_ROOT}/Headers/ConciseKit" -isystem "${PODS_ROOT}/Headers/FMDB" -isystem "${PODS_ROOT}/Headers/MJRefresh" -isystem "${PODS_ROOT}/Headers/Masonry" -isystem "${PODS_ROOT}/Headers/RongCloudIMKit" -isystem "${PODS_ROOT}/Headers/SDWebImage" -isystem "${PODS_ROOT}/Headers/UMeng" -isystem "${PODS_ROOT}/Headers/UMengFeedback" -isystem "${PODS_ROOT}/Headers/pop"
+OTHER_LDFLAGS = -ObjC -lMobClickLibrary -lUMFeedback -lUMOpus -lc++ -liOS_IMKit -lsqlite3 -lstdc++ -lstdc++.6.0.9 -lxml2 -lz -framework AMapSearchKit -framework AVFoundation -framework AudioToolbox -framework CFNetwork -framework CoreAudio -framework CoreGraphics -framework CoreImage -framework CoreLocation -framework CoreMedia -framework CoreTelephony -framework CoreVideo -framework Foundation -framework ImageIO -framework MAMapKit -framework MapKit -framework MobileCoreServices -framework OpenGLES -framework QuartzCore -framework Security -framework SystemConfiguration -framework UIKit
+PODS_ROOT = ${SRCROOT}/Pods
