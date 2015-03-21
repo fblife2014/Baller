@@ -9,17 +9,20 @@
 #import <Foundation/Foundation.h>
 
 @interface Baller_BallerFriendListModel : NSObject
-@property (nonatomic)unsigned long long check_dateline;
-@property (nonatomic, copy)NSString * check_uid;
+{
+    
+}
+@property (nonatomic, copy)NSString * court_id;
+@property (nonatomic, copy)NSString * court_name;
 @property (nonatomic)unsigned long long dateline;
-@property (nonatomic, copy)NSString * photo;
-@property (nonatomic, copy)NSString * position;
-@property (nonatomic) NSInteger status;
-@property (nonatomic, copy)NSString * team_id;
-@property (nonatomic, copy)NSString * tm_id;
+@property (nonatomic, copy)NSString * flag;
+@property (nonatomic, copy)NSString * friend_dateline;
+@property (nonatomic, copy)NSString * friend_uid;
+@property (nonatomic, copy)NSString * friend_user_name;
+@property (nonatomic, copy)NSString * friend_user_photo;
+@property (nonatomic, copy)NSString * g_id;
+@property (nonatomic, copy)NSString * a_id;
 @property (nonatomic, copy)NSString * uid;
-@property (nonatomic, copy)NSString * user_name;
-
+@property (nonatomic, copy)NSString * position;
 - (instancetype)initWithAttributes:(NSDictionary *)attributes;
-
 @end

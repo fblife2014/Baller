@@ -54,7 +54,8 @@ extern NSString * const Baller_get_nearby_teams;    //54、附近的球队列表
 
 extern NSString * const Baller_get_team_info;       //55、根据team_id获取球队详情接口
 extern NSString * const Baller_get_my_team;         //56、获取我的球队详情接口
-
+extern NSString * const Baller_get_friend_list;     //57、获取我的好友接口
+extern NSString * const Baller_get_attention;       //58、关于/取消关注
 #import <Foundation/Foundation.h>
 
 @interface Baller_NetworkInterfaces : NSObject

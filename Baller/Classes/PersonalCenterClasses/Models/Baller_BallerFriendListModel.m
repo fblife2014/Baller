@@ -13,18 +13,18 @@
 - (instancetype)initWithAttributes:(NSDictionary *)attributes
 {
     if (self = [super init]) {
-        self.check_dateline = (unsigned long long)[$safe([attributes valueForKey:@"check_dateline"]) longLongValue];
+        self.court_id = $safe([attributes valueForKey:@"court_id"]);
+        self.court_name = $safe([attributes valueForKey:@"court_name"]);
         self.dateline = (unsigned long long)[$safe([attributes valueForKey:@"dateline"]) longLongValue];
-        self.status = (NSInteger)[$safe([attributes valueForKey:@"status"]) integerValue];
-        self.check_uid = $safe([attributes valueForKey:@"check_uid"]);
-        self.photo = $safe([attributes valueForKey:@"photo"]);
-        self.position = $safe([attributes valueForKey:@"position"]);
-        
-        self.team_id = $safe([attributes valueForKey:@"team_id"]);
-        self.tm_id = $safe([attributes valueForKey:@"tm_id"]);
+        self.flag = $safe([attributes valueForKey:@"flag"]);
+        self.friend_dateline = $safe([attributes valueForKey:@"friend_dateline"]);
+        self.friend_uid = $safe([attributes valueForKey:@"friend_uid"]);
+        self.friend_user_name = $safe([attributes valueForKey:@"friend_user_name"]);
+        self.friend_user_photo = $safe([attributes valueForKey:@"friend_user_photo"]);
+        self.court_id = $safe([attributes valueForKey:@"g_id"]);
+        self.a_id = $safe([attributes valueForKey:@"id"]);
         self.uid = $safe([attributes valueForKey:@"uid"]);
-        self.user_name = $safe([attributes valueForKey:@"user_name"]);
-
+        self.position = $safe([attributes valueForKey:@"position"]);
     }
     return self;
 }

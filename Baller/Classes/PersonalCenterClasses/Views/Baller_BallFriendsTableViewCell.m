@@ -7,7 +7,7 @@
 //
 
 #import "Baller_BallFriendsTableViewCell.h"
-
+#import "Baller_BallerFriendListModel.h"
 @implementation Baller_BallFriendsTableViewCell
 
 - (void)awakeFromNib {
@@ -32,6 +32,24 @@
     }
 
 }
+
+- (void)setFriendListModel:(Baller_BallerFriendListModel *)friendListModel{
+    if (_friendListModel == friendListModel) {
+        return;
+    }
+    
+    _friendListModel = friendListModel;
+    //球场图片
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:friendListModel.friend_user_photo] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+    //球场名字
+    self.BallParkName.text = friendListModel.court_name;
+    //好友名字
+    self.textLabel.text = friendListModel.friend_user_name;
+    //位置
+    self.positionLabel.text = friendListModel.position;
+    [self setNeedsDisplay];
+}
+
 - (void)layoutSubviews{
     [super layoutSubviews];
     self.imageView.frame = CGRectMake(15.0+NUMBER(18.0, 18.0, 18.0, 18.0), 9.5, 41, 41);

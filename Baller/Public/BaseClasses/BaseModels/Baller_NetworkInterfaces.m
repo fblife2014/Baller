@@ -78,9 +78,8 @@ NSString * const Baller_get_nearby_teams = @"&c=team&m=get_nearby_teams";//54、
 NSString * const Baller_get_team_info = @"&c=team&m=get_team_info";//55、根据team_id获取球队详情接口
 
 NSString * const Baller_get_my_team = @"&c=team&m=get_my_team";         //56、获取我的球队详情接口
-
-#import "Baller_NetworkInterfaces.h"
-
+NSString * const Baller_get_friend_list = @"&c=my&m=get_friend_list";   //57、获取我的好友接口
+NSString * const Baller_get_attention = @"&c=my&m=attention";           //58、关于/取消关注
 @implementation Baller_NetworkInterfaces
 
 @end

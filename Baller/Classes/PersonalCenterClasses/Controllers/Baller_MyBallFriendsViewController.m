@@ -8,16 +8,17 @@
 
 #import "Baller_MyBallFriendsViewController.h"
 #import "Baller_BallFriendsTableViewCell.h"
-
+#import "Baller_BallerFriendListModel.h"
 @interface Baller_MyBallFriendsViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 {
     UISearchDisplayController * searchDisplayCtl;
 
     NSMutableArray * friends; //我的球友信息数组
-    NSArray * filterFriends;  //搜索结果数组
+    NSMutableArray * filterFriends;  //搜索结果数组
     
     //邀请的球友数组
      NSMutableArray *  invitedFriends;
+    int currentPage;
 }
 @end
 
@@ -29,8 +30,11 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    friends = [NSMutableArray arrayWithCapacity:1];
+    filterFriends = [NSMutableArray arrayWithCapacity:1];
     [self setupSubViews];
+    currentPage = 1;
+    [self getNetData];
     // Do any additional setup after loading the view.
 }
 
@@ -74,10 +78,10 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     
     [self.tableView registerNib:[UINib nibWithNibName:@"Baller_BallFriendsTableViewCell" bundle:nil] forCellReuseIdentifier:Baller_BallFriendsTableViewCellId];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    friends = [NSMutableArray array];
-    [friends addObjectsFromArray:@[@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@""]];
-    self.tableViewDataSource = [[TableViewDataSource alloc] initWithItems:friends cellIdentifier:Baller_BallFriendsTableViewCellId tableViewConfigureBlock:^(Baller_BallFriendsTableViewCell * cell, id item) {
+    self.tableViewDataSource = [[TableViewDataSource alloc] initWithItems:friends cellIdentifier:Baller_BallFriendsTableViewCellId tableViewConfigureBlock:^(Baller_BallFriendsTableViewCell * cell, Baller_BallerFriendListModel * item)
+    {
         if (self.ballFriendsListType == BallFriendsListTypeChosing)cell.chosing = NO;
+        cell.friendListModel  = item;
 
     }];
     
@@ -94,13 +98,74 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 
 }
 
+- (void)getNetData
+{
+    currentPage = 1;
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",@"get_friends",@"action",@"1",@"page",@"10",@"per_page", nil];
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_friend_list parameters:dic responseBlock:^(id result, NSError *error) {
+        [self.tableView.header endRefreshing];
+        [self.tableView.footer resetNoMoreData];
+        [friends removeAllObjects];
+        if(!error)
+        {
+           for(NSDictionary *dic in [result objectForKey:@"list"])
+           {
+               Baller_BallerFriendListModel *ballerFriendListModel = [[Baller_BallerFriendListModel alloc] initWithAttributes:dic];
+               [friends addObject:ballerFriendListModel];
+           }
+            [self.tableView reloadData];
+        }
+    }];
+}
+- (void)getAddNetData
+{
+    currentPage++;
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",@"get_friends",@"action",[NSString stringWithFormat:@"%d",currentPage],@"page",@"10",@"per_page", nil];
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_friend_list parameters:dic responseBlock:^(id result, NSError *error) {
+        [self.tableView.header endRefreshing];
+        if(!error)
+        {
+            NSArray *array = [result objectForKey:@"list"];
+            if(array.count != 10)
+            {
+                [self.tableView.footer noticeNoMoreData];
+            }
+            for(NSDictionary *dic in [result objectForKey:@"list"])
+            {
+                Baller_BallerFriendListModel *ballerFriendListModel = [[Baller_BallerFriendListModel alloc] initWithAttributes:dic];
+                [friends addObject:ballerFriendListModel];
+            }
+            [self.tableView reloadData];
+        }
+    }];
+}
+#pragma mark 下拉上拉
+- (void)headerRereshing
+{
+    [self getNetData];
+}
+
+- (void)footerRereshing
+{
+    [self getAddNetData];
+}
 
 #pragma mark 按钮方法
 /*!
  *  @brief  添加球友方法
  */
 - (void)addBallFriend{
-    
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",@"at_friend",@"action",@"",@"friend_uid",nil];
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_attention parameters:dic responseBlock:^(id result, NSError *error) {
+        if(!error)
+        {
+            
+        }
+        else
+        {
+            
+        }
+    }];
 }
 
 /*!
@@ -114,17 +179,26 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    NSPredicate * predicate = [NSPredicate predicateWithFormat:@"self contains [cd] %@", searchDisplayCtl.searchBar.text];
-    filterFriends = [NSArray arrayWithArray:[friends filteredArrayUsingPredicate:predicate]];
+    //NSPredicate * predicate = [NSPredicate predicateWithFormat:@"self contains [cd] %@", searchDisplayCtl.searchBar.text];
+    [filterFriends removeAllObjects];
+    for(Baller_BallerFriendListModel * model in friends)
+    {
+        if([model.friend_user_name containsString:searchDisplayCtl.searchBar.text])
+        {
+            [filterFriends addObject:model];
+        }
+    }
     return filterFriends.count;
-
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:SearchFriendsTableViewCellId forIndexPath:indexPath];
-    cell.textLabel.text = @"王宝强";
+    Baller_BallFriendsTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:SearchFriendsTableViewCellId];
+    if(!cell)
+       {
+           cell = [[Baller_BallFriendsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SearchFriendsTableViewCellId];
+       }
+    cell.friendListModel = [filterFriends objectAtIndex:indexPath.row];
     return cell;
 }
 
