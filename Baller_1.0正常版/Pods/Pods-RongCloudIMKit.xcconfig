@@ -1,2 +1,0 @@
-PODS_RONGCLOUDIMKIT_LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/RongCloudIMKit/iOS_IMKit"
-PODS_RONGCLOUDIMKIT_OTHER_LDFLAGS = -lc++ -liOS_IMKit -lsqlite3 -lstdc++ -lxml2 -lz -framework AVFoundation -framework AudioToolbox -framework CFNetwork -framework CoreAudio -framework CoreGraphics -framework CoreImage -framework CoreLocation -framework CoreMedia -framework CoreTelephony -framework CoreVideo -framework Foundation -framework MapKit -framework OpenGLES -framework QuartzCore -framework SystemConfiguration -framework UIKit

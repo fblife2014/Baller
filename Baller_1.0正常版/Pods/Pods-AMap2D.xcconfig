@@ -1,2 +1,0 @@
-PODS_AMAP_D_FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/AMap2D/AMap_iOS_API_Lib_V2.1.3/2D"
-PODS_AMAP_D_OTHER_LDFLAGS = -lstdc++.6.0.9 -lz -framework CoreLocation -framework CoreTelephony -framework MAMapKit -framework OpenGLES -framework QuartzCore -framework Security -framework SystemConfiguration
