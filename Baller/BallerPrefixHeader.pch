@@ -22,7 +22,7 @@
 #import "UIImageView+WebCache.h"
 #import "LTools.h"
 #import "UIView+Frame.h"
-
+#import "NSDictionary+SafeAccessor.h"
 #endif
 
 

@@ -28,7 +28,7 @@
     _teamInfo = teamInfo;
     self.logoImageView.image = [UIImage imageNamed:@"ballPark_default"];
     self.teamNameLabel.text = teamInfo.teamName;
-    self.teamNumberLabel.text = [NSString stringWithFormat:@"%ld人",teamInfo.teamNumber];
+    self.teamNumberLabel.text = [NSString stringWithFormat:@"%ld人",teamInfo.memberNumber];
     
 }
 
