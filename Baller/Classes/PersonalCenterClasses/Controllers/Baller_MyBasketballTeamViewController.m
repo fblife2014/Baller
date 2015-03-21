@@ -9,16 +9,17 @@
 #import "Baller_MyBasketballTeamViewController.h"
 #import "Baller_ChoseTeamViewController.h"
 #import "Baller_CreateBallTeamViewController.h"
-
+#import "Baller_MyBasketballTeamTableViewHeaderView.h"
 #import "Baller_MyBasketBallTeamTableViewCell.h"
 #import "UIView+ML_BlurView.h"
+#import "Baller_BallTeamInfo.h"
 
 @interface Baller_MyBasketballTeamViewController ()<UITableViewDelegate>
 {
     NSMutableArray * myTeamNumbers; //我的队友
     BOOL hasOwnTeam;
 }
-
+@property (nonatomic, strong) Baller_BallTeamInfo *teamInfo;
 @end
 
 @implementation Baller_MyBasketballTeamViewController
@@ -31,7 +32,7 @@
     
     UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithImage:@"qunliao" imageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15) target:self selection:@selector(goToGroupChat)];
     self.navigationItem.rightBarButtonItem = rightItem;
-    
+    hasOwnTeam = YES || [[[USER_DEFAULT valueForKey:Baller_UserInfo] objectForKey:@"team_id"] integerValue] > 0;
     [self setupTableHeaderViewAndFooterView];
     
     // Do any additional setup after loading the view from its nib.
@@ -49,37 +50,40 @@
     self.tableView.tableHeaderView = nil;
     self.tableView.tableFooterView = nil;
     if (hasOwnTeam) {
-        self.navigationItem.rightBarButtonItem.customView.hidden = NO;
         
-        UIView * headView = [ViewFactory clearViewWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 101.0)];
+        [self getBasketballTeamInfo:^(Baller_BallTeamInfo *teamInfo) {
+            self.navigationItem.rightBarButtonItem.customView.hidden = NO;
+            Baller_MyBasketballTeamTableViewHeaderView *headerView = [[[NSBundle mainBundle] loadNibNamed:@"Baller_MyBasketballTeamTableViewHeaderView" owner:nil options:nil] firstObject];
+            headerView.numberLabel.text = [NSString stringWithFormat:@"%ld",self.teamInfo.memberNumber];
+            headerView.courtName.text = @"北大球场";//self.teamInfo.court_name;
+            headerView.teamLeaderName.text = self.teamInfo.teamLeaderUserName;
+            headerView.headImageView.image = [UIImage imageNamed:@"ballPark_default"];
+            [headerView.headImageView showBlurWithDuration:0.5 blurStyle:kUIBlurEffectStyleLight hidenViews:nil];
+            
+//            TopLebel * homeCourtLabel = [[TopLebel alloc] initWithFrame:CGRectMake(0.0, 29.0, [NSStringManager sizeOfCurrentString:self.teamInfo.teamName font:13.0 contentSize:CGSizeMake(ScreenWidth/2.0, 13.0)].width+20, 51.0) title:@"主场" detail:self.teamInfo.teamName];
+//            homeCourtLabel.center = CGPointMake(headView.center.x, 54.0);
+//            [headView addSubview:homeCourtLabel];
+//            
+//            TopLebel * memberNumberLabel = [[TopLebel alloc] initWithFrame:CGRectMake(0.0, 29.0, [NSStringManager sizeOfCurrentString:@"人数" font:13.0 contentSize:CGSizeMake(ScreenWidth/2.0, 13.0)].width+20, 51.0) title:@"人数" detail:[NSString stringWithFormat:@"%ld",self.teamInfo.memberNumber]];
+//            memberNumberLabel.frame = CGRectMake(CGRectGetMinX(homeCourtLabel.frame)-35.0-memberNumberLabel.frame.size.width, 29.0, memberNumberLabel.frame.size.width, 51.0);
+//            [headView addSubview:memberNumberLabel];
+//            
+//            
+//            TopLebel * captainLabel = [[TopLebel alloc] initWithFrame:CGRectMake(0.0, 29.0, [NSStringManager sizeOfCurrentString:@"王抱歉" font:13.0 contentSize:CGSizeMake(ScreenWidth/2.0, 13.0)].width+20, 70.0) title:@"队长" detail:@"王宝强"];
+//            captainLabel.center = CGPointMake(CGRectGetMaxX(homeCourtLabel.frame)+35.0+captainLabel.frame.size.width/2.0, 54.0);
+//            [headView addSubview:captainLabel];
+            
+            self.tableView.tableHeaderView = headerView;
+            
+            UIView * footerView = [ViewFactory clearViewWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 107.0)];
+            
+            UIButton * quitTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(ScreenWidth/2.0-125.0, 27.0, 250.0, 50.0) nomalTitle:@"退出球队" hlTitle:@"退出球队" titleColor:[UIColor whiteColor] bgColor:UIColorFromRGB(0X611b1b) nImage:nil hImage:nil action:@selector(quitTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+            quitTeamButton.titleLabel.font = DEFAULT_BOLDFONT(17.0);
+            quitTeamButton.layer.cornerRadius = 7.5;
+            [footerView addSubview:quitTeamButton];
+            self.tableView.tableFooterView = footerView;
+        }];
         
-        UIImageView * headImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0., 0., ScreenWidth, 101)];
-        headImageView.image = [UIImage imageNamed:@"ballPark_default"];
-        [headImageView showBlurWithDuration:0.5 blurStyle:kUIBlurEffectStyleLight hidenViews:nil];
-        [headView addSubview:headImageView];
-        
-        TopLebel * homeCourtLabel = [[TopLebel alloc] initWithFrame:CGRectMake(0.0, 29.0, [NSStringManager sizeOfCurrentString:@"北大球场" font:13.0 contentSize:CGSizeMake(ScreenWidth/2.0, 13.0)].width+20, 51.0) title:@"主场" detail:@"北大球场"];
-        homeCourtLabel.center = CGPointMake(headView.center.x, 54.0);
-        [headView addSubview:homeCourtLabel];
-        
-        TopLebel * memberNumberLabel = [[TopLebel alloc] initWithFrame:CGRectMake(0.0, 29.0, [NSStringManager sizeOfCurrentString:@"人数" font:13.0 contentSize:CGSizeMake(ScreenWidth/2.0, 13.0)].width+20, 51.0) title:@"人数" detail:@"10"];
-        memberNumberLabel.frame = CGRectMake(CGRectGetMinX(homeCourtLabel.frame)-35.0-memberNumberLabel.frame.size.width, 29.0, memberNumberLabel.frame.size.width, 51.0);
-        [headView addSubview:memberNumberLabel];
-        
-        
-        TopLebel * captainLabel = [[TopLebel alloc] initWithFrame:CGRectMake(0.0, 29.0, [NSStringManager sizeOfCurrentString:@"王宝强" font:13.0 contentSize:CGSizeMake(ScreenWidth/2.0, 13.0)].width+20, 51.0) title:@"队长" detail:@"王宝强"];
-        captainLabel.center = CGPointMake(CGRectGetMaxX(homeCourtLabel.frame)+35.0+captainLabel.frame.size.width/2.0, 54.0);
-        [headView addSubview:captainLabel];
-        
-        self.tableView.tableHeaderView = headView;
-        
-        UIView * footerView = [ViewFactory clearViewWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 107.0)];
-        
-        UIButton * quitTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(ScreenWidth/2.0-125.0, 27.0, 250.0, 50.0) nomalTitle:@"退出球队" hlTitle:@"退出球队" titleColor:[UIColor whiteColor] bgColor:UIColorFromRGB(0X611b1b) nImage:nil hImage:nil action:@selector(quitTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
-        quitTeamButton.titleLabel.font = DEFAULT_BOLDFONT(17.0);
-        quitTeamButton.layer.cornerRadius = 7.5;
-        [footerView addSubview:quitTeamButton];
-        self.tableView.tableFooterView = footerView;
 
     }else{
 #pragma mark 没有所属球队时的头视图
@@ -110,6 +114,19 @@
     }
     
 
+}
+
+- (void)getBasketballTeamInfo:(void (^)())completion
+{
+    NSDictionary *paras = @{
+                            @"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]
+                            };
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_my_team parameters:paras responseBlock:^(id result, NSError *error) {
+        self.teamInfo = [Baller_BallTeamInfo shareWithServerDictionary:result];
+        if (completion) {
+            completion ();
+        }
+    }];
 }
 
 #pragma mark 按钮方法
@@ -176,8 +193,8 @@
     return 64.0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     Baller_MyBasketBallTeamTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"Baller_MyBasketBallTeamTableViewCell" forIndexPath:indexPath];
     if (indexPath.row == 0) {
         cell.partnerType = PartnerType_Captain;
@@ -207,17 +224,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
 }
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
 
