@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="60" id="KGk-i7-Jjw" customClass="Baller_BallFriendsTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="北大球场" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ats-Rk-sZ0">
+                        <rect key="frame" x="176" y="23" width="88" height="13"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PG" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pec-ub-Eqt">
+                        <rect key="frame" x="257" y="23" width="30" height="13"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="13" id="C2w-Ws-taL"/>
+                            <constraint firstAttribute="width" constant="30" id="o45-Tx-FGO"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="Pec-ub-Eqt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="15" id="IZA-5D-mLo"/>
+                    <constraint firstItem="Pec-ub-Eqt" firstAttribute="top" secondItem="ats-Rk-sZ0" secondAttribute="top" id="KRg-iT-kPt"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Pec-ub-Eqt" secondAttribute="trailing" constant="25" id="WPn-L4-cAP"/>
+                    <constraint firstItem="Pec-ub-Eqt" firstAttribute="height" secondItem="ats-Rk-sZ0" secondAttribute="height" id="aW9-Fn-WmA"/>
+                    <constraint firstAttribute="centerX" secondItem="ats-Rk-sZ0" secondAttribute="centerX" constant="-60" id="tH3-Tb-DRc"/>
+                    <constraint firstItem="Pec-ub-Eqt" firstAttribute="leading" secondItem="ats-Rk-sZ0" secondAttribute="trailing" constant="-7" id="xeF-1T-azb"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <connections>
+                <outlet property="basketBallPark" destination="H2p-sc-9uM" id="NSa-8w-bK8"/>
+                <outlet property="positionLabel" destination="Pec-ub-Eqt" id="bGy-Z5-qxg"/>
+            </connections>
+            <point key="canvasLocation" x="381" y="269"/>
+        </tableViewCell>
+    </objects>
+</document>
