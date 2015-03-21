@@ -100,6 +100,7 @@
                                 <constraint firstItem="pT7-xy-w8M" firstAttribute="leading" secondItem="W8C-Z6-i26" secondAttribute="leading" id="eT7-Qy-IZr"/>
                                 <constraint firstItem="wcZ-QI-zOO" firstAttribute="leading" secondItem="8nq-dx-sld" secondAttribute="leading" constant="-130" id="eZJ-BM-8rI"/>
                                 <constraint firstItem="cJm-ss-1P3" firstAttribute="bottom" secondItem="wcZ-QI-zOO" secondAttribute="bottom" constant="5" id="hU1-9r-tt6"/>
+                                <constraint firstItem="8nq-dx-sld" firstAttribute="leading" secondItem="wcZ-QI-zOO" secondAttribute="trailing" constant="65" id="i5V-TR-kdP"/>
                                 <constraint firstItem="8nq-dx-sld" firstAttribute="trailing" secondItem="pT7-xy-w8M" secondAttribute="trailing" constant="-10" id="l5O-ZV-YPb"/>
                                 <constraint firstItem="c8x-8i-APd" firstAttribute="trailing" secondItem="Vdk-7G-n90" secondAttribute="trailing" constant="19" id="lDk-fx-loB"/>
                                 <constraint firstItem="AUM-94-Znd" firstAttribute="leading" secondItem="c8x-8i-APd" secondAttribute="leading" id="nKq-B3-xVS"/>
@@ -111,6 +112,11 @@
                                 <constraint firstItem="cJm-ss-1P3" firstAttribute="top" secondItem="wcZ-QI-zOO" secondAttribute="top" constant="-5" id="zRV-pK-3t2"/>
                                 <constraint firstItem="AUM-94-Znd" firstAttribute="width" secondItem="c8x-8i-APd" secondAttribute="width" id="zzg-LY-toz"/>
                             </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="eZJ-BM-8rI"/>
+                                </mask>
+                            </variation>
                         </view>
                     </subviews>
                     <constraints>
