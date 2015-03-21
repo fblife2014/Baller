@@ -159,6 +159,8 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     
     if (updatingLocation) {
         currentLocation = userLocation.location.coordinate;
+        AppDelegate * appDelegate = (AppDelegate *)[AppDelegate sharedDelegate];
+        appDelegate.currentLocation = currentLocation;
     }
     if (currentLocation.latitude && !hasLocationed) {
         hasLocationed = YES;
