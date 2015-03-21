@@ -10,20 +10,25 @@
 
 @implementation Baller_SystemConfigureTableViewCell
 
-- (void)awakeFromNib {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
-- (void)layoutSubviews{
+- (void)layoutSubviews {
     [super layoutSubviews];
     self.textLabel.frame = CGRectMake(68.0, 22.0, 200.0, 16.0);
+    self.textLabel.backgroundColor = [UIColor clearColor];
     self.textLabel.font = SYSTEM_FONT_S(16.0);
 }
+
+@end
+
+@implementation Baller_SystemConfigureTableViewCell_Message
+
+- (IBAction)switchAction:(UISwitch *)sender {
+    if (self.onMessageSwitch) {
+        self.onMessageSwitch(sender);
+    }
+}
+
+@end
+
+@implementation Baller_SystemConfigureTableViewCell_ClearCache
 
 @end

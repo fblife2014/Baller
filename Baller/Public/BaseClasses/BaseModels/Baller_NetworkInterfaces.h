@@ -24,6 +24,8 @@ extern NSString * const Baller_get_back_password;   //10、找回密码，重置
 extern NSString * const Baller_msg_switch;          //11、开/关消息通知接口
 extern NSString * const Baller_my_attentio;         //12、关注/取消关注
 
+extern NSString * const Baller_change_password;     //15、修改密码
+
 
 extern NSString * const Baller_court_create;        //20、创建球场
 extern NSString * const Baller_get_court_info;      //21、获取球场详情

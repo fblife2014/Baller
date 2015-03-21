@@ -31,7 +31,7 @@ NSString * const Baller_get_back_password = @"&c=user&m=get_back_password";  //1
 NSString * const Baller_msg_switch = @"&c=user&m=msg_switch";   //11、开/关消息通知接口
 NSString * const Baller_my_attentio = @"&c=my&m=attentio";   //12、关注/取消关注
 
-
+NSString * const Baller_change_password = @"&c=user&m=change_password";    //修改密码
 
 
 NSString * const Baller_court_create = @"&c=court&m=create";        //20、创建球场

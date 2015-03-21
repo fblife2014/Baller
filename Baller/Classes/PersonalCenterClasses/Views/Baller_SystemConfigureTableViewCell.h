@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @interface Baller_SystemConfigureTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *jianTouImageView;
+@end
 
+@interface Baller_SystemConfigureTableViewCell_Message : Baller_SystemConfigureTableViewCell
+@property (weak, nonatomic) IBOutlet UISwitch *messageSwitch;
+@property (nonatomic, copy) void (^onMessageSwitch)(UISwitch *messageSwitch);
+@end
+
+@interface Baller_SystemConfigureTableViewCell_ClearCache : Baller_SystemConfigureTableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *cacheSizeLabel;
 @end

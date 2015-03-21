@@ -39,7 +39,9 @@
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, TABLE_SPACE_INSET, ScreenWidth-2*TABLE_SPACE_INSET, 300.0) style:UITableViewStylePlain];
         tableView.delegate = self;
         tableView.dataSource = self;
-        [tableView registerNib:[UINib nibWithNibName:@"Baller_SystemConfigureTableViewCell" bundle:nil] forCellReuseIdentifier:@"Baller_SystemConfigureTableViewCell"];
+//        [tableView registerNib:[UINib nibWithNibName:@"Baller_SystemConfigureTableViewCell" bundle:nil] forCellReuseIdentifier:@"Baller_SystemConfigureTableViewCell"];
+//        [tableView registerNib:[UINib nibWithNibName:@"Baller_SystemConfigureTableViewCell_Message" bundle:nil] forCellReuseIdentifier:@"Baller_SystemConfigureTableViewCell_Message"];
+//        [tableView registerNib:[UINib nibWithNibName:@"Baller_SystemConfigureTableViewCell_ClearCache" bundle:nil] forCellReuseIdentifier:@"Baller_SystemConfigureTableViewCell_ClearCache"];
         tableView.backgroundColor = CLEARCOLOR;
         tableView.layer.cornerRadius = TABLE_CORNERRADIUS;
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -91,13 +93,42 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    Baller_SystemConfigureTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"Baller_SystemConfigureTableViewCell" forIndexPath:indexPath];
+    Baller_SystemConfigureTableViewCell *cell;
+    NSArray * nibObjects = [[NSBundle mainBundle] loadNibNamed:@"Baller_SystemConfigureTableViewCell" owner:nil options:nil];
+    switch (indexPath.row) {
+        case 1:
+        {
+            static NSString *CellIdentiferId = @"Baller_SystemConfigureTableViewCell_Message";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentiferId];
+            if (!cell) {
+                cell = [nibObjects objectAtIndex:1];
+            }
+            [self configMessageCell:(Baller_SystemConfigureTableViewCell_Message *)cell];
+            break;
+        }
+        case 2:
+        {
+            static NSString *CellIdentiferId = @"Baller_SystemConfigureTableViewCell_ClearCache";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentiferId];
+            if (!cell) {
+                cell = [nibObjects lastObject];
+            }
+            [self configClearCacheCell:(Baller_SystemConfigureTableViewCell_ClearCache *)cell];
+            break;
+        }
+        default:
+        {
+            static NSString *CellIdentiferId = @"Baller_SystemConfigureTableViewCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:CellIdentiferId];
+            if (!cell) {
+                cell = [nibObjects firstObject];
+            }
+            break;
+        }
+    }
     cell.backgroundColor = (indexPath.row%2)?BALLER_CORLOR_CELL:[UIColor whiteColor];
     cell.textLabel.text = @[@"密码修改",@"消息通知提醒",@"清理缓存",@"关于"][indexPath.row];
-    cell.jianTouImageView.hidden = (BOOL)(indexPath.row == 2);
     return cell;
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -106,26 +137,68 @@
         {
             Baller_UpdatePasswordViewController * updateVC = [[Baller_UpdatePasswordViewController alloc]init];
             [self.navigationController pushViewController:updateVC animated:YES];
+            break;
+        }
+        case 2:
+        {
+            [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
+                [Baller_HUDView bhud_showWithTitle:@"清除成功"];
+                Baller_SystemConfigureTableViewCell_ClearCache *cell = (Baller_SystemConfigureTableViewCell_ClearCache *)[tableView cellForRowAtIndexPath:indexPath];
+                cell.cacheSizeLabel.text = @"0 M";
+            }];
         }
             break;
         case 3:
   
             break;
-            
         default:
             break;
     }
 }
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (BOOL)userWeatherReceiveMessage
+{
+    NSDictionary *userInfo = [USER_DEFAULT valueForKey:Baller_UserInfo];
+    return [[userInfo objectForKey:@"msg_status"] boolValue];
 }
-*/
+
+- (void)configMessageCell:(Baller_SystemConfigureTableViewCell_Message *)cell
+{
+    cell.messageSwitch.on = [self userWeatherReceiveMessage];
+    __WEAKOBJ(weakCell, cell);
+    cell.onMessageSwitch = ^(UISwitch *messageSwich){
+        NSString *authcode = [USER_DEFAULT valueForKey:Baller_UserInfo_Authcode];
+        NSDictionary *paras = @{
+                                @"authcode" : authcode,
+                                @"action" : @(messageSwich.on)
+                                };
+        [AFNHttpRequestOPManager getWithSubUrl:Baller_msg_switch parameters:paras responseBlock:^(id result, NSError *error) {
+            __STRONGOBJ(strongCell, weakCell);
+            if (error){
+                strongCell.messageSwitch.on = !strongCell.messageSwitch.on;
+                [Baller_HUDView bhud_showWithTitle:error.description];
+                return;
+            }
+            if (0 == [[result valueForKey:@"errorcode"] integerValue]) {
+                [Baller_HUDView bhud_showWithTitle:[result objectForKey:@"msg"]];
+            }else{
+                strongCell.messageSwitch.on = !strongCell.messageSwitch.on;
+                [Baller_HUDView bhud_showWithTitle:[result valueForKey:@"msg"]];
+            }
+            NSDictionary *userInfo = [USER_DEFAULT valueForKey:Baller_UserInfo];
+            [userInfo setValue:@(strongCell.messageSwitch.on) forKey:@"msg_status"];
+        }];
+    };
+}
+
+- (void)configClearCacheCell:(Baller_SystemConfigureTableViewCell_ClearCache *)cell
+{
+    NSInteger size = [[SDImageCache sharedImageCache] getSize];
+    if (size == 0) {
+        cell.cacheSizeLabel.text = @"0 M";
+    }else{
+        cell.cacheSizeLabel.text = [NSString stringWithFormat:@"%0.2f M",size / 1024 / 1024.0];
+    }
+}
 
 @end
