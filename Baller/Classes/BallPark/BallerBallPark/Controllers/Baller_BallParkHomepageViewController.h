@@ -12,6 +12,7 @@
 
 @property (nonatomic,strong)Baller_BallParkListModel * ballParkModel;
 - (void)ballerParkHome_get_activities;
+@property (nonatomic,copy)NSString * court_id;
 
 @end
 

@@ -10,6 +10,7 @@
 #import "Baller_MessageViewCell.h"
 #import "RCIM.h"
 #import "RCChatViewController.h"
+#import "Baller_ChatListViewController.h"
 
 @interface Baller_MessageViewController ()<RCIMUserInfoFetcherDelegagte>
 
@@ -74,6 +75,17 @@ static NSString * const Baller_MessageViewCellId = @"Baller_MessageViewCellId";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    if (indexPath.row == 0) {
+        // 创建会话列表视图控制器。
+        Baller_ChatListViewController *chatlistVc = [[Baller_ChatListViewController alloc]init];
+        chatlistVc.portraitStyle = RCUserAvatarCycle;
+        chatlistVc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:chatlistVc animated:YES];
+        
+        return;
+        
+        
+    }
     NSString * uid = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"];
 
     RCChatViewController * rcChatVC = [[RCIM sharedRCIM]createPrivateChat:[uid isEqualToString:@"2"]?@"5":@"2" title:@"自聊" completion:^{

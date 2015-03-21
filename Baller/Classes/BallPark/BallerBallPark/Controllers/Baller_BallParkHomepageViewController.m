@@ -19,6 +19,7 @@
 
 #import "Baller_BallParkActivityListTableViewCell.h"
 #import "Baller_HUDView.h"
+#import "RCChatViewController.h"
 
 @interface Baller_BallParkHomepageViewController ()<UITableViewDelegate,Baller_BallParkHeadViewDelegate>
 {
@@ -179,7 +180,6 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     Baller_ActivityDetailViewController * activityDetailVC = [[Baller_ActivityDetailViewController alloc]init];
     activityDetailVC.activityModel  = activities[indexPath.row];
     activityDetailVC.ballParkVC = self;
@@ -207,6 +207,14 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     [self.navigationController pushViewController:editADVC animated:YES];
 }
 
+- (void)ballParkHeadView:(Baller_BallParkHeadView *)ballParkHeadView chatButtonSelected:(UIButton *)chatButton{
+    
+    RCChatViewController *temp = [[RCChatViewController alloc]init];
+    temp.currentTarget = self.court_id?(self.court_id):($str(@"%ld",(long)_ballParkModel.court_id));
+    temp.conversationType = ConversationType_GROUP;
+    temp.currentTargetName = @"马龙群";
+    [self.navigationController pushViewController:temp animated:YES];
+}
 
 @end
 

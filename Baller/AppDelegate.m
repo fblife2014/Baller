@@ -46,7 +46,7 @@
 
 -(void)getTokenFromRC
 {
-    if ([USER_DEFAULT valueForKey:Baller_UserInfo] && ![USER_DEFAULT valueForKey:Baller_RCToken]) {
+    
         //向融云请求token
         [AFNHttpRequestOPManager getRCTokenWithUserId:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"] userName:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"user_name"] portrait_uri:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"photo"] responseBlock:^(id result, NSError *error) {
             DLog(@"result = %@",result);
@@ -55,6 +55,11 @@
                 [self connectRC];
             }
         }];
+    
+    
+    if ([USER_DEFAULT valueForKey:Baller_UserInfo] && ![USER_DEFAULT valueForKey:Baller_RCToken]){
+        
+        
     }
 }
 

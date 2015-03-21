@@ -27,6 +27,7 @@
 		75565A241ABD831200B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75565A231ABD831200B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.m */; };
 		75565A261ABD833000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75565A251ABD833000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.xib */; };
 		DF6A1CDC1ABD614D00A2B793 /* Baller_MyAttentionBallPark.m in Sources */ = {isa = PBXBuildFile; fileRef = DF6A1CDB1ABD614D00A2B793 /* Baller_MyAttentionBallPark.m */; };
+		EFCC59A01ABD7241007F2D9C /* Baller_ChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCC599F1ABD7241007F2D9C /* Baller_ChatListViewController.m */; };
 		FB2ABEB91AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABE9D1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m */; };
 		FB2ABEBA1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABE9F1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.m */; };
 		FB2ABEBB1AADF97C007D7E52 /* Baller_CreateBallParkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABEA11AADF97C007D7E52 /* Baller_CreateBallParkViewController.m */; };
@@ -207,6 +208,8 @@
 		75565A251ABD833000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Baller_MyBasketballTeamTableViewHeaderView.xib; sourceTree = "<group>"; };
 		DF6A1CDA1ABD614D00A2B793 /* Baller_MyAttentionBallPark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MyAttentionBallPark.h; sourceTree = "<group>"; };
 		DF6A1CDB1ABD614D00A2B793 /* Baller_MyAttentionBallPark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MyAttentionBallPark.m; sourceTree = "<group>"; };
+		EFCC599E1ABD7241007F2D9C /* Baller_ChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_ChatListViewController.h; sourceTree = "<group>"; };
+		EFCC599F1ABD7241007F2D9C /* Baller_ChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_ChatListViewController.m; sourceTree = "<group>"; };
 		FB2ABE9C1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_BallParkHomepageViewController.h; sourceTree = "<group>"; };
 		FB2ABE9D1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_BallParkHomepageViewController.m; sourceTree = "<group>"; };
 		FB2ABE9E1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_BPAttentionPersonListViewController.h; sourceTree = "<group>"; };
@@ -774,6 +777,8 @@
 			children = (
 				FB9EF28E1AADF830001D77CB /* Baller_MessageViewController.h */,
 				FB9EF28F1AADF830001D77CB /* Baller_MessageViewController.m */,
+				EFCC599E1ABD7241007F2D9C /* Baller_ChatListViewController.h */,
+				EFCC599F1ABD7241007F2D9C /* Baller_ChatListViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1633,6 +1638,7 @@
 				FB9EF3351AADF830001D77CB /* Baller_MyGameListViewController.m in Sources */,
 				FB5726831ABD54C0006D50A2 /* Baller_BallParkAttentionBallerListModel.m in Sources */,
 				FB9EF32D1AADF830001D77CB /* Baller_InfoItemView.m in Sources */,
+				EFCC59A01ABD7241007F2D9C /* Baller_ChatListViewController.m in Sources */,
 				FB9EF34F1AADF830001D77CB /* SKInnerShadowLayer.m in Sources */,
 				FBD9B7531AAD7F7F00CDC1C6 /* Baller_PositionRelated.m in Sources */,
 				FB9EF3241AADF830001D77CB /* Baller_BallParkCollectionReusableView.m in Sources */,
@@ -1789,8 +1795,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: WANG XIN (NGE5QX674T)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: WANG XIN (NGE5QX674T)";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
@@ -1812,7 +1818,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "57c60bc0-8730-40fb-bda6-43bc1869717c";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(CACHE_ROOT)/SharedPrecompiledHeaders";
 				SYMROOT = build;
@@ -1853,7 +1859,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "57c60bc0-8730-40fb-bda6-43bc1869717c";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(CACHE_ROOT)/SharedPrecompiledHeaders";
 				SYMROOT = build;
@@ -1866,8 +1872,8 @@
 			baseConfigurationReference = 495D5AA4BA95A7054E4EC211 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: WANG XIN (NGE5QX674T)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: WANG XIN (NGE5QX674T)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Baller/Umeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
@@ -1883,7 +1889,7 @@
 					"$(PROJECT_DIR)/Baller/Umeng/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "57c60bc0-8730-40fb-bda6-43bc1869717c";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Debug;
@@ -1910,7 +1916,7 @@
 					"$(PROJECT_DIR)/Baller/Umeng/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "57c60bc0-8730-40fb-bda6-43bc1869717c";
+				PROVISIONING_PROFILE = "";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Release;
