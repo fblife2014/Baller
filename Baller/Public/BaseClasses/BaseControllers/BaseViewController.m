@@ -17,6 +17,12 @@
 
 @implementation BaseViewController
 
+- (void)loadView{
+    [super loadView];
+    self.page = 1; //列表默认页码为1
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.clipsToBounds = YES;
@@ -27,7 +33,6 @@
     backItem.title = @"";
     self.navigationItem.backBarButtonItem = backItem;
     self.view.backgroundColor = UIColorFromRGB(0xe7e7e7);
-    self.page = 1; //列表默认页码为1
     [[MLViewConrollerManager sharedVCMInstance]setRootController:self];
 
     // Do any additional setup after loading the view from its nib.
