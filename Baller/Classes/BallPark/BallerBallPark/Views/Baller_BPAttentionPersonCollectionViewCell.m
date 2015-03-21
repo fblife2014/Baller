@@ -8,7 +8,8 @@
 
 #import "Baller_BPAttentionPersonCollectionViewCell.h"
 #import "Baller_PositionRelated.h"
-#
+#import "Baller_BallParkAttentionBallerListModel.h"
+
 
 @implementation Baller_BPAttentionPersonCollectionViewCell
 
@@ -18,6 +19,11 @@
     // Initialization code
 }
 
-
+- (void)setBallerModel:(Baller_BallParkAttentionBallerListModel *)ballerModel{
+    if (_ballerModel == ballerModel) {
+        return;
+    }
+    _ballerModel = ballerModel;
+}
 
 @end
