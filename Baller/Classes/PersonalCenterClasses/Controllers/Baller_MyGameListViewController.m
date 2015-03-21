@@ -9,6 +9,7 @@
 #import "Baller_MyGameListViewController.h"
 #import "Baller_GameListTableViewCell.h"
 #import "Baller_BallParkActivityListModel.h"
+#import "Baller_ActivityDetailViewController.h"
 
 @interface Baller_MyGameListViewController ()<UITableViewDelegate>
 {
@@ -164,7 +165,9 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    Baller_ActivityDetailViewController * activityDVC = [[Baller_ActivityDetailViewController alloc]init];
+    activityDVC.activityModel = _gameLists[indexPath.row];
+    [self.navigationController pushViewController:activityDVC animated:YES];
 }
 
 /*
