@@ -12,4 +12,6 @@
 
 @interface Baller_PersonalInfoViewController : BaseViewController
 
+@property (nonatomic,copy)NSString * uid; //用户id
+
 @end

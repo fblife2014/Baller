@@ -7,7 +7,7 @@
 //
 
 #import "Baller_BPAttentionPersonListViewController.h"
-
+#import "Baller_PersonalInfoViewController.h"
 #import "Baller_BallParkListModel.h"
 #import "Baller_BallTeamInfo.h"
 
@@ -34,7 +34,7 @@
 
 - (void)loadView{
     [super loadView];
-    
+    self.ballers = $marrnew;
     //1、顶部分栏
     bpHeaderView = [[Baller_BPAttentionPersonListHeader alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 40.0)];
     bpHeaderView.target = self;
@@ -164,11 +164,12 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
-    return 16.0;
+    return _ballers.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     Baller_BPAttentionPersonCollectionViewCell * bpAttentionCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Baller_BPAttentionPersonCollectionViewCellId" forIndexPath:indexPath];
+    bpAttentionCell.ballerModel = _ballers[indexPath.row];
     return bpAttentionCell;
 }
 
@@ -177,9 +178,10 @@
 #pragma mark UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    
+    Baller_PersonalInfoViewController * personalVC = [[Baller_PersonalInfoViewController alloc]init];
+    personalVC.uid = [_ballers[indexPath.row] valueForKey:@"uid"];
+    [self.navigationController pushViewController:personalVC animated:YES];
 
-    
 }
 
 #pragma mark UICollectionViewDelegate

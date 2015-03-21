@@ -24,6 +24,10 @@
         return;
     }
     _ballerModel = ballerModel;
+    _positionLabel.text = ballerModel.position;
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:ballerModel.photo] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+    _userNameLabel.text = ballerModel.user_name;
+    [self setNeedsDisplay];
 }
 
 @end
