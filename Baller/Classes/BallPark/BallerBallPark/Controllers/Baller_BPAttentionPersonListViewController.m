@@ -116,6 +116,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark 网络请求
+
+- (void)getBallerballers_by_court_id
+{
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_ballers_by_court_id parameters:@{@"court_id":@(_ballParkModel.court_id)} responseBlock:^(id result, NSError *error) {
+        if (error)return ;
+        
+    }];
+}
+
 #pragma mark header action
 
 - (void)bpAttention_ShowBaller{

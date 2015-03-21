@@ -11,7 +11,8 @@
 
 @implementation Baller_GameListTableViewCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.textLabel.backgroundColor = CLEARCOLOR;
     self.imageView.layer.cornerRadius = 7.0;
@@ -39,6 +40,7 @@
     _activityModel = activityModel;
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:activityModel.user_photo] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
     self.textLabel.text = activityModel.user_name;
+    _dateLabel.text = [TimeManager getPointStringOfTimeInterval:activityModel.start_time];
     _timeLabel.text = [TimeManager getHourAndMiniteStringOfTimeInterval:activityModel.start_time];
     
     _joinedNumberLabel.text = $str(@"%ld人已加入",activityModel.join_num);
@@ -51,10 +53,25 @@
     
     switch (activityModel.status) {
         case 1:
+        {
+            [self.gameStadusButton setTitleShadowColor:BALLER_CORLOR_696969 forState:UIControlStateNormal];
+            if ([TimeManager theSuccessivelyWithCurrentTimeFrom:activityModel.start_time]) {
+                
+                [self.gameStadusButton setTitle:@"未开始" forState:UIControlStateNormal];
+                
+            }else if ([TimeManager theSuccessivelyWithCurrentTimeFrom:activityModel.end_time]){
+                [self.gameStadusButton setTitle:@"进行中" forState:UIControlStateNormal];
+                self.line.hidden = NO;
+
+            }else{
+                [self.gameStadusButton setTitle:@"已结束" forState:UIControlStateNormal];
+            }
             
+        }
             break;
         case 2:
             [self.gameStadusButton setTitle:@"已解散" forState:UIControlStateNormal];
+            [self.gameStadusButton setTitleColor:BALLER_CORLOR_RED forState:UIControlStateNormal];
             break;
         default:
             break;
