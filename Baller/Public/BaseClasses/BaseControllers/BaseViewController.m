@@ -17,6 +17,12 @@
 
 @implementation BaseViewController
 
+- (void)loadView{
+    [super loadView];
+    self.page = 1; //列表默认页码为1
+
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.clipsToBounds = YES;
@@ -27,7 +33,6 @@
     backItem.title = @"";
     self.navigationItem.backBarButtonItem = backItem;
     self.view.backgroundColor = UIColorFromRGB(0xe7e7e7);
-    self.page = 1; //列表默认页码为1
     [[MLViewConrollerManager sharedVCMInstance]setRootController:self];
 
     // Do any additional setup after loading the view from its nib.
@@ -99,7 +104,36 @@
 }
 
 
-#pragma mark 视图设置
+#pragma mark 下拉刷新
+/*!
+ *  @brief  设置列表的可刷新性
+ */
+- (void)setupMJRefreshScrollView:(UIScrollView *)scrollView
+{
+    _dataScrollView = scrollView;
+    
+    [self.dataScrollView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
+    [self.dataScrollView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
+}
+
+- (void)headerRereshing
+{
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.dataScrollView.header endRefreshing];
+    });
+ 
+}
+
+- (void)footerRereshing
+{
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.dataScrollView.footer endRefreshing];
+    });
+
+}
+
 
 
 

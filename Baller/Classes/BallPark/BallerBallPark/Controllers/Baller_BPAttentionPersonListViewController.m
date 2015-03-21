@@ -17,6 +17,7 @@
 #import "Baller_BPAttentionPersonCollectionViewCell.h"
 #import "Baller_BPAttentionPersonCellFlowLayout.h"
 #import "Baller_BPAttentionTeamTableViewCell.h"
+#import "Baller_BallParkAttentionBallerListModel.h"
 
 @interface Baller_BPAttentionPersonListViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDelegate>
 {
@@ -37,7 +38,7 @@
     //1、顶部分栏
     bpHeaderView = [[Baller_BPAttentionPersonListHeader alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 40.0)];
     bpHeaderView.target = self;
-    bpHeaderView.leftClickedAction = @selector(bpAttention_ShowBaller);
+    bpHeaderView.leftClickedAction = @selector(bpAttention_ShowBallPark);
     bpHeaderView.rightClickedAction = @selector(bpAttention_ShowBallTeam);
     [bpHeaderView leftButtonClicked:bpHeaderView.leftButton];
     [self.view addSubview:bpHeaderView];
@@ -66,7 +67,7 @@
         ballerCollectionView.dataSource = self;
     }
     [self.view addSubview:ballerCollectionView];
-    
+    [self getBallerballers_by_court_id];
 }
 
 /*!
@@ -85,14 +86,6 @@
         teamTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [teamTableView registerNib:[UINib nibWithNibName:@"Baller_BPAttentionTeamTableViewCell" bundle:nil] forCellReuseIdentifier:@"Baller_BPAttentionTeamTableViewCellId"];
         self.teams = $marrnew;
-        
-        for (int i = 0; i < 10; i++) {
-            Baller_BallTeamInfo * teamInfo = [[Baller_BallTeamInfo alloc]init];
-            teamInfo.teamName = $str(@"北大勇士队%d",i);
-            teamInfo.teamNumber = i+1;
-            teamInfo.logoImageUrl = @"";
-            [_teams addObject:teamInfo];
-        }
         
         tableViewDataSource = [[TableViewDataSource alloc] initWithItems:self.teams cellIdentifier:@"Baller_BPAttentionTeamTableViewCellId" tableViewConfigureBlock:^(Baller_BPAttentionTeamTableViewCell * cell, Baller_BallTeamInfo * item) {
             cell.teamInfo = item;
@@ -116,9 +109,28 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark 网络请求
+
+- (void)getBallerballers_by_court_id
+{
+    __WEAKOBJ(weakSelf, self);
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_ballers_by_court_id parameters:@{@"court_id":@(_ballParkModel.court_id),@"page":@(self.page),@"per_page":@(10)} responseBlock:^(id result, NSError *error) {
+        if (error)return ;
+        __STRONGOBJ(strongSelf, weakSelf);
+        if ([[result valueForKey:@"errorcode"] integerValue] == 0) {
+            if (self.page == 1) [strongSelf.ballers removeAllObjects];
+            for (NSDictionary * ballerDic in [result valueForKey:@"list"]) {
+                Baller_BallParkAttentionBallerListModel * ballerModel = [[Baller_BallParkAttentionBallerListModel alloc]initWithAttributes:ballerDic];
+                [strongSelf.ballers addObject:ballerModel];
+            }
+            [ballerCollectionView reloadData];
+        }
+    }];
+}
+
 #pragma mark header action
 
-- (void)bpAttention_ShowBaller{
+- (void)bpAttention_ShowBallPark{
     [self showBallerCollectionView];
 }
 

@@ -44,7 +44,6 @@
     if (_target && _leftClickedAction) {
         if ([_target respondsToSelector:_leftClickedAction]) {
             SuppressPerformSelectorLeakWarning([_target performSelector:_leftClickedAction withObject:nil]);
-
         }
     }
 }

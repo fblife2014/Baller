@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		190D8606DE1347369A181C5A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59C3DF6DA1164908988512CC /* libPods.a */; };
-		DF6A1CD91ABD303100A2B793 /* Baller_MyAttentionBallPark.m in Sources */ = {isa = PBXBuildFile; fileRef = DF6A1CD81ABD303100A2B793 /* Baller_MyAttentionBallPark.m */; };
 		FB2ABEB91AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABE9D1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m */; };
 		FB2ABEBA1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABE9F1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.m */; };
 		FB2ABEBB1AADF97C007D7E52 /* Baller_CreateBallParkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABEA11AADF97C007D7E52 /* Baller_CreateBallParkViewController.m */; };
@@ -157,8 +156,6 @@
 		23BDDA1FD93E8A2B37A70E54 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		495D5AA4BA95A7054E4EC211 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		59C3DF6DA1164908988512CC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF6A1CD71ABD303100A2B793 /* Baller_MyAttentionBallPark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MyAttentionBallPark.h; sourceTree = "<group>"; };
-		DF6A1CD81ABD303100A2B793 /* Baller_MyAttentionBallPark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MyAttentionBallPark.m; sourceTree = "<group>"; };
 		FB2ABE9C1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_BallParkHomepageViewController.h; sourceTree = "<group>"; };
 		FB2ABE9D1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_BallParkHomepageViewController.m; sourceTree = "<group>"; };
 		FB2ABE9E1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_BPAttentionPersonListViewController.h; sourceTree = "<group>"; };
@@ -1482,7 +1479,6 @@
 				FBD9B74E1AAD7F7F00CDC1C6 /* MLViewConrollerManager.m in Sources */,
 				FBD9B7761AAD7F7F00CDC1C6 /* OpenUDID.m in Sources */,
 				FB5E8B4E1AB6B73C007F9617 /* LTools.m in Sources */,
-				DF6A1CD91ABD303100A2B793 /* Baller_MyAttentionBallPark.m in Sources */,
 				FB2ABEBE1AADF97C007D7E52 /* Baller_BallParkActivityListTableViewCell.m in Sources */,
 				FBDEA3871A22042B0084FEBD /* AppDelegate.m in Sources */,
 				FB2ABEBA1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.m in Sources */,

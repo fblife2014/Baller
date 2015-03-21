@@ -15,7 +15,9 @@
 @property (nonatomic)NSInteger page;         //页码
 @property (nonatomic, weak) UIImageView * blurBackImageView;
 @property (nonatomic, weak) UIScrollView * bottomScrollView; //底部可滑动视图
+
 @property (nonatomic,strong)TableViewDataSource * tableViewDataSource;
+@property (nonatomic,strong)UIScrollView * dataScrollView; //展示数据的tableview或者collectionView
 
 /*!
  *  @brief  显示模糊背景
@@ -42,6 +44,8 @@
 - (void)PopToRootViewController;
 
 
-
+- (void)setupMJRefreshScrollView:(UIScrollView *)scrollView;
+- (void)headerRereshing;
+- (void)footerRereshing;
 
 @end

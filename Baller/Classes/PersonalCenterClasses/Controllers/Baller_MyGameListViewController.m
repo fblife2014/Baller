@@ -9,6 +9,7 @@
 #import "Baller_MyGameListViewController.h"
 #import "Baller_GameListTableViewCell.h"
 #import "Baller_BallParkActivityListModel.h"
+#import "Baller_ActivityDetailViewController.h"
 
 @interface Baller_MyGameListViewController ()<UITableViewDelegate>
 {
@@ -54,7 +55,7 @@
     }
     [self showBlurBackImageViewWithImage:[UIImage imageNamed:@"ballPark_default"]];
     [self gameListTableView];
-    [self setupMJRefreshTableView];
+
     [self getGameLists];
 
 }
@@ -86,33 +87,24 @@
         tableView.backgroundColor = CLEARCOLOR;
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview: _gameListTableView = tableView];
+        [self setupMJRefreshScrollView:_gameListTableView];
     }
 
     return _gameListTableView;
 }
 
-/*!
- *  @brief  设置列表的可刷新性
- */
-- (void)setupMJRefreshTableView{
-    [self.gameListTableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
-    [self.gameListTableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
-}
+
 
 - (void)headerRereshing{
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.gameListTableView.header endRefreshing];
-    });
+    [super headerRereshing];
     self.page = 1;
     [self getGameLists];
 }
 
 - (void)footerRereshing{
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.gameListTableView.footer endRefreshing];
-    });
+    [super footerRereshing];
     self.page = 1+self.gameLists.count/10;
     [self getGameLists];
 }
@@ -164,7 +156,9 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    Baller_ActivityDetailViewController * activityDVC = [[Baller_ActivityDetailViewController alloc]init];
+    activityDVC.activityModel = _gameLists[indexPath.row];
+    [self.navigationController pushViewController:activityDVC animated:YES];
 }
 
 /*
