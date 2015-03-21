@@ -10,7 +10,11 @@ typedef void (^BallerAnnotionCallBack)(NSDictionary * positionInfo);
 
 #import "BaseViewController.h"
 
-@interface Baller_AnnotationMapViewController : BaseViewController
+@interface Baller_AnnotationMapViewController : BaseViewController{
+
+
+
+}
 
 @property (nonatomic)BOOL autoAnnotion; //自动标注，即获取当前位置
 
