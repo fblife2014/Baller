@@ -35,7 +35,8 @@ typedef void(^CardView_BottomButtonClicked) (BallerCardType ballerCardType);
     
     Baller_AbilityView * abilityView;
     CAShapeLayer * abilityContentLabyer;  //能力值呈现图谱
-    
+    @public
+    UIButton * ballParkButton ;
 }
 
 @property (nonatomic) BallerCardType ballerCardType;

@@ -193,7 +193,7 @@
 {
     if (!_ballParkButton) {
         NSString * ballParkString = _ballerCardType == kBallerCardType_FirstBorn?@"未加入球场":@"我的球场";
-        UIButton * ballParkButton = [ViewFactory getAButtonWithFrame:CGRectMake(0.0, CGRectGetMaxY(_nickNameLabel.frame), pathRect.size.width/2.0, pathRect.size.width*PCV_SegmentHeightRatio) nomalTitle:ballParkString hlTitle:ballParkString titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:@"homeCourt" hImage:@"homeCourt" action:@selector(ballParkButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+        ballParkButton = [ViewFactory getAButtonWithFrame:CGRectMake(0.0, CGRectGetMaxY(_nickNameLabel.frame), pathRect.size.width/2.0, pathRect.size.width*PCV_SegmentHeightRatio) nomalTitle:ballParkString hlTitle:ballParkString titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:@"homeCourt" hImage:@"homeCourt" action:@selector(ballParkButtonAction) target:self buttonTpye:UIButtonTypeCustom];
         ballParkButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, -10, 0.0, 10.0);
         ballParkButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 0.0, -1.0, 0.0);
 
@@ -310,6 +310,7 @@
  */
 - (void)ballParkButtonAction{
     Baller_MyBallParkViewController * ballParkVC = [[Baller_MyBallParkViewController alloc]init];
+    ballParkVC ->soureVC = @"2";
     [[[MLViewConrollerManager sharedVCMInstance]rootViewController].navigationController pushViewController:ballParkVC animated:YES];
 }
 

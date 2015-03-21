@@ -8,11 +8,12 @@
 
 #import "Baller_PlayerCardViewController.h"
 #import "UIButton+AFNetworking.h"
-
+#import "Baller_MyAttentionBallPark.h"
 @interface Baller_PlayerCardViewController ()
 
 {
     __weak Baller_CardView * _playCardView;
+    Baller_CardView * playCardView;
 }
 
 @end
@@ -43,7 +44,7 @@
 - (Baller_CardView *)playCardView
 {
     if (!_playCardView) {
-        Baller_CardView * playCardView = [[Baller_CardView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, 10.0, ScreenWidth-2*TABLE_SPACE_INSET, self.view.frame.size.height-20.0) playerCardType:self.ballerCardType];
+        playCardView = [[Baller_CardView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, 10.0, ScreenWidth-2*TABLE_SPACE_INSET, self.view.frame.size.height-20.0) playerCardType:self.ballerCardType];
         __BLOCKOBJ(blockPlayCard, playCardView);
         [AFNHttpRequestOPManager getWithSubUrl:Baller_get_user_attr parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]?:@""} responseBlock:^(id result, NSError *error) {
             
@@ -77,6 +78,7 @@
 - (void)setMyPlayerCardSubviews{
     
     self.navigationItem.title = @"我的球员卡";
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chooseQiuChang:) name:@"ChooseZhuChang" object:nil];
     if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData])
     {
         UIImage * image = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];
@@ -95,7 +97,11 @@
     }
     
 }
-
+-(void)chooseQiuChang:(NSNotification *) sender
+{
+    Baller_MyAttentionBallPark *currentBallPark = sender.object;
+    [playCardView ->ballParkButton setTitle:currentBallPark.court_name forState:UIControlStateNormal];
+}
 #pragma mark 按钮方法
 /*!
  *  @brief  进入主页方法

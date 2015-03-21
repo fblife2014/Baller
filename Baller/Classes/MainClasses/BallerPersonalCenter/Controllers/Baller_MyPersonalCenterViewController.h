@@ -7,7 +7,6 @@
 //
 
 #import "BaseViewController.h"
-
 @interface Baller_MyPersonalCenterViewController : BaseViewController
 
 @property (strong, nonatomic)UITableView * myCenterTableView;

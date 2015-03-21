@@ -5,7 +5,7 @@
 //  Created by malong on 15/1/21.
 //  Copyright (c) 2015年 malong. All rights reserved.
 //
-
+#import "Baller_MyBallParkViewController.h"
 #import "Baller_MyPersonalCenterViewController.h"
 #import "Baller_PersonalInfoViewController.h"
 #import "Baller_MyGameViewController.h"
@@ -15,7 +15,6 @@
 
 #import "Baller_MyPersonalCenterTableViewCell.h"
 #import "Baller_MyCenterTopTableViewCell.h"
-
 @interface Baller_MyPersonalCenterViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSArray * images;
@@ -135,8 +134,14 @@ static NSString * const Baller_MyCenterTopTableViewCellId = @"Baller_MyCenterTop
         }
             break;
         case 1:
-            [MLViewConrollerManager pushToTheViewController:@"Baller_MyBallParkViewController" transferInfo:nil];
-
+            
+        {
+           //[MLViewConrollerManager pushToTheViewController:@"Baller_MyBallParkViewController" transferInfo:nil];
+            Baller_MyBallParkViewController *myBallParkVC = [[Baller_MyBallParkViewController alloc]init];
+            myBallParkVC ->soureVC = @"1";
+            myBallParkVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:myBallParkVC animated:YES];
+        }
             break;
         case 2:
         {
