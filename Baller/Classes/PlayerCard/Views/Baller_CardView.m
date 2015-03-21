@@ -17,6 +17,8 @@
 #import "Baller_AbilityView.h"
 #import "Baller_AbilityEditorView.h"
 
+#import "LShareSheetView.h"
+
 @implementation Baller_CardView
 
 - (id)initWithFrame:(CGRect)frame{
@@ -303,6 +305,42 @@
  */
 - (void)shareButtonAction{
     
+    NSString *share_content = @"baller分享内容";
+    NSString *share_title = @"baller分享的标题";
+    NSString *share_link_url = @"http://www.baidu.com";
+    UIImage *share_image = [UIImage imageNamed:@"login_back"];
+    
+    [[LShareSheetView shareInstance] showShareContent:share_content title:share_title shareUrl:share_link_url shareImage:share_image targetViewController:nil];
+    [[LShareSheetView shareInstance]actionBlock:^(NSInteger buttonIndex, Share_Type shareType) {
+        
+        if (shareType == Share_QQ) {
+            
+            NSLog(@"Share_QQ");
+            
+        }else if (shareType == Share_QQZone){
+            
+            NSLog(@"Share_QQZone");
+            
+        }else if (shareType == Share_WeiBo){
+            
+            NSLog(@"Share_WeiBo");
+            
+        }else if (shareType == Share_WX_HaoYou){
+            
+            NSLog(@"Share_WX_HaoYou");
+            
+        }else if (shareType == Share_WX_PengYouQuan){
+            
+            NSLog(@"Share_WX_PengYouQuan");
+            
+        }
+        
+        if (shareType == Share_Success) {
+            
+            [LTools showMBProgressWithText:@"分享成功" addToView:self];
+        }
+        
+    }];
 }
 
 /*!

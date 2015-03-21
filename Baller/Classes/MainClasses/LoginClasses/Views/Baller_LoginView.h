@@ -29,6 +29,8 @@ typedef void (^DismissBlock)(BOOL isLogin);
 
 - (id)initWithFrame:(CGRect)frame dismissBlock:(DismissBlock)block;
 
+@property(nonatomic,assign)UIViewController *targetViewController;//目标controller
+
 @end
 
 
@@ -43,6 +45,9 @@ typedef void (^DismissBlock)(BOOL isLogin);
  *  @brief  当前登录状态
  */
 @property (nonatomic, assign)LoginStatus loginStatus;
+
+@property(nonatomic,assign)UIViewController *targetViewController;//目标controller
+
 
 @end
 

@@ -47,6 +47,9 @@
         }
 
     }];
+    
+    baller_loginView.targetViewController = self;
+    
     [self.view addSubview:baller_loginView];
     // Do any additional setup after loading the view.
 }

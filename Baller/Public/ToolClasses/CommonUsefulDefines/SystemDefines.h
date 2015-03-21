@@ -20,7 +20,9 @@
 
 #define SYSTEM_LANGUAGE ([[NSLocale preferredLanguages] objectAtIndex:0])
 
-#define UMKEY @"55050828fd98c5518e000c31"
+//#define UMKEY @"55050828fd98c5518e000c31"//
+
+#define UMKEY @"548bae91fd98c50d0c000b8b"//衣+衣
 
 #define Baller_AMAP_Key @"8a1575d24fe2d11e7ee537c50550029e" //高德地图key
 #define Baller_RongCloudAppKey @"kj7swf8o7zrx2" //容云appkey

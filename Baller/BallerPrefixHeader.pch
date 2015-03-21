@@ -21,6 +21,7 @@
 #import "UIKit+AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "LTools.h"
+#import "UIView+Frame.h"
 
 #endif
 

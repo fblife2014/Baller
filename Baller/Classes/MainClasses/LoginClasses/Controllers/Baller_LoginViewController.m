@@ -28,6 +28,7 @@
             [[NSNotificationCenter defaultCenter]postNotificationName:BallerLogoutThenLoginNotification object:nil];
         }];
     }];
+    
     [self.view addSubview:baller_loginView];
     
 //    [self setUpSubViews];

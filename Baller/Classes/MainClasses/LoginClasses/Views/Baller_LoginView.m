@@ -13,6 +13,24 @@
 #import "Baller_AlertLabel.h"
 #import <POP/POP.h>
 
+#import "UMSocial.h"
+
+
+
+//登录类型 normal为正常手机登陆，sweibo、qq、weixin分别代表新浪微博、qq、微信登陆
+typedef enum{
+    Login_Normal = 0,
+    Login_Sweibo,
+    Login_QQ,
+    Login_Weixin
+}Login_Type;
+
+//性别
+typedef enum{
+    Gender_Girl = 1,
+    Gender_Boy
+}Gender;
+
 @interface Baller_LoginView()
 
 {
@@ -73,6 +91,8 @@
         LoginScrollView * loginScroll = [[LoginScrollView alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, ScreenHeight)];
         [self addSubview:_loginScrollView = loginScroll];
     }
+    
+    _loginScrollView.targetViewController = self.targetViewController;
     return _loginScrollView;
 }
 
@@ -147,6 +167,14 @@
         [self passwordNameTF];
         [self addButtons];
         [self registerButton];
+        
+        [self thirdLoginButton];
+        
+        
+//        UIButton *btn = [LTools createButtonWithType:UIButtonTypeCustom frame:CGRectMake(10, 300, 200, 50) normalTitle:@"hahha" image:nil backgroudImage:nil superView:self target:self action:@selector(setBufferIndex:)];
+//        
+//        [self addSubview:btn];
+        
     }
     return self;
 }
@@ -231,6 +259,28 @@
     
     return _passwordNameTF;
 }
+/**
+ *  三方登录按钮
+ */
+- (void)thirdLoginButton
+{
+    //添加第三方登录按钮
+    UIImage * tencentImage = [UIImage imageNamed:@"login_qq"];
+    CGFloat thirdLoginWidth = tencentImage.size.width+kThirdLoginButton_Space;
+    CGFloat thirdLoginHeight = tencentImage.size.height;
+    
+    _wechatLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0-thirdLoginWidth, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) normalTitle:nil image:[UIImage imageNamed:@"login_wechat"] backgroudImage:nil superView:self target:self action:@selector(wechatLogin)];
+    
+    [self addSubview:_wechatLoginButton];
+    
+    
+    _tencentLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) normalTitle:nil image:[UIImage imageNamed:@"login_qq"] backgroudImage:nil superView:self target:self action:@selector(tencentLogin)];
+    
+    [self addSubview:_tencentLoginButton];
+       
+    _wechatLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0+thirdLoginWidth, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) normalTitle:nil image:[UIImage imageNamed:@"login_weibo"] backgroudImage:nil superView:self target:self action:@selector(weiboLogin)];
+    [self addSubview:_weiboLoginButton];
+}
 
 - (UIButton *)addButtons{
     
@@ -243,21 +293,21 @@
         [self addSubview:_loginButton];
         [_loginButton setFrame:CGRectMake(kLoginTextField_OriginX, kLoginButton_OriginY, kLoginTextField_Width, kLoginTextField_Height)];
         
-        //添加第三方登录按钮
-        UIImage * tencentImage = [UIImage imageNamed:@"login_qq"];
-        CGFloat thirdLoginWidth = tencentImage.size.width+kThirdLoginButton_Space;
-        CGFloat thirdLoginHeight = tencentImage.size.height;
-
-        
-        _wechatLoginButton = [ViewFactory getAButtonWithFrame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0-thirdLoginWidth, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) nomalTitle:nil hlTitle:nil titleColor:nil bgColor:nil nImage:@"login_wechat" hImage:@"login_wechat" action:@selector(wechatLogin) target:self buttonTpye:UIButtonTypeCustom];
-        [self addSubview:_wechatLoginButton];
-        
-        
-        _tencentLoginButton = [ViewFactory getAButtonWithFrame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) nomalTitle:nil hlTitle:nil titleColor:nil bgColor:nil nImage:@"login_qq" hImage:@"login_qq" action:@selector(tencentLogin) target:self buttonTpye:UIButtonTypeCustom];
-        [self addSubview:_tencentLoginButton];
-        
-        _weiboLoginButton = [ViewFactory getAButtonWithFrame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0+thirdLoginWidth, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) nomalTitle:nil hlTitle:nil titleColor:nil bgColor:nil nImage:@"login_weibo" hImage:@"login_weibo" action:@selector(weiboLogin) target:self buttonTpye:UIButtonTypeCustom];
-        [self addSubview:_weiboLoginButton];
+//        //添加第三方登录按钮
+//        UIImage * tencentImage = [UIImage imageNamed:@"login_qq"];
+//        CGFloat thirdLoginWidth = tencentImage.size.width+kThirdLoginButton_Space;
+//        CGFloat thirdLoginHeight = tencentImage.size.height;
+//
+//        
+//        _wechatLoginButton = [ViewFactory getAButtonWithFrame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0-thirdLoginWidth, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) nomalTitle:nil hlTitle:nil titleColor:nil bgColor:nil nImage:@"login_wechat" hImage:@"login_wechat" action:@selector(wechatLogin) target:self buttonTpye:UIButtonTypeCustom];
+//        [self addSubview:_wechatLoginButton];
+//        
+//        
+//        _tencentLoginButton = [ViewFactory getAButtonWithFrame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) nomalTitle:nil hlTitle:nil titleColor:nil bgColor:nil nImage:@"login_qq" hImage:@"login_qq" action:@selector(tencentLogin) target:self buttonTpye:UIButtonTypeCustom];
+//        [self addSubview:_tencentLoginButton];
+//        
+//        _weiboLoginButton = [ViewFactory getAButtonWithFrame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0+thirdLoginWidth, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) nomalTitle:nil hlTitle:nil titleColor:nil bgColor:nil nImage:@"login_weibo" hImage:@"login_weibo" action:@selector(weiboLogin) target:self buttonTpye:UIButtonTypeCustom];
+//        [self addSubview:_weiboLoginButton];
         
     }
     
@@ -292,6 +342,161 @@
     }
     return _registerButton;
 }
+
+#pragma mark - 第三方授权
+
+- (void)loginToPlat:(NSString *)snsPlatName
+{
+    //此处调用授权的方法,你可以把下面的platformName 替换成 UMShareToSina,UMShareToTencent等
+    
+    __weak typeof(self)weakSelf = self;
+    
+    
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    UIViewController *rootVc = delegate.window.rootViewController;
+    
+//    rootVc = [[((UINavigationController *)rootVc) viewControllers] lastObject];
+    
+    UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:snsPlatName];
+    snsPlatform.loginClickHandler(rootVc,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
+        NSLog(@"login response is %@",response);
+        
+        //获取微博用户名、uid、token等
+        if (response.responseCode == UMSResponseCodeSuccess) {
+            UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:snsPlatName];
+            NSLog(@"username is %@, uid is %@, token is %@",snsAccount.userName,snsAccount.usid,[UMSocialAccountManager socialAccountDictionary]);
+            
+            Login_Type type;
+            if ([snsPlatName isEqualToString:UMShareToSina]) {
+                type = Login_Sweibo;
+            }else if ([snsPlatName isEqualToString:UMShareToQQ]) {
+                type = Login_QQ;
+            }else if ([snsPlatName isEqualToString:UMShareToWechatSession]) {
+                type = Login_Weixin;
+            }
+            
+            NSLog(@"name %@ photo %@",snsAccount.userName,snsAccount.iconURL);
+            [weakSelf loginType:type thirdId:snsAccount.usid nickName:snsAccount.userName thirdphoto:snsAccount.iconURL gender:Gender_Girl password:nil mobile:nil];
+        }else
+        {
+            NSLog(@"hhaha 三方登录错误");
+        }
+        
+    });
+}
+
+/**
+ *  @param type       (登录方式，normal为正常手机登录，s_weibo、qq、weixin分别代表新浪微博、qq、微信登录) string
+ *  @param thirdId    (第三方id，若为第三方登录需要该参数)
+ *  @param nickName   (第三方昵称，若为第三方登录需要该参数)
+ *  @param thirdphoto (第三方头像，若为第三方登录需要该参数)
+ *  @param gender     (性别，若第三方登录可填写，也可不填写，1=》男 2=》女 默认为女) int
+ */
+
+- (void)loginType:(Login_Type)loginType
+          thirdId:(NSString *)thirdId
+         nickName:(NSString *)nickName
+       thirdphoto:(NSString *)thirdphoto
+           gender:(Gender)gender
+         password:(NSString *)password
+           mobile:(NSString *)mobile
+{
+    NSString *type;
+    switch (loginType) {
+        case Login_Normal:
+        {
+            type = @"normal";
+        }
+            break;
+        case Login_Sweibo:
+        {
+            type = @"s_weibo";
+        }
+            break;
+        case Login_QQ:
+        {
+            type = @"qq";
+        }
+            break;
+        case Login_Weixin:
+        {
+            type = @"weixin";
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    
+    __WEAKOBJ(weakSelf, self);
+    
+    int gender_id = gender == Gender_Boy ? 2 : 1;
+    
+    NSString *genderString = [NSString stringWithFormat:@"%d",gender_id];
+    
+    
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_login parameters:@{@"type":type,@"mobile":$safe(mobile),@"password":$safe(password),@"thirdid":$safe(thirdId),@"nickname":$safe(nickName),@"third_photo":$safe(thirdphoto),@"gender":$safe(genderString),@"devicetoken":[USER_DEFAULT valueForKey:Baller_UserInfo_Devicetoken]?:@"",@"login_source":@"ios"} responseBlock:^(id result, NSError *error) {
+        if (error) {
+            
+        }else
+        {
+            if (0 == [[result valueForKey:@"errorcode"] intValue])
+            {
+                [self saveUserInfo:(NSDictionary *)result];
+                [self dismiss:YES];
+                
+            }else{
+                [self shakeView:_loginButton];
+                self.alertLabel.text =[result valueForKey:@"msg"];
+                [self.alertLabel showLabel];
+            }
+        }
+    }
+     ];
+     
+
+    
+//    __weak typeof(self)weakSelf = self;
+//    
+//    NSString *token = [LTools cacheForKey:USER_DEVICE_TOKEN];
+//    
+//    NSString *url = [NSString stringWithFormat:USER_LOGIN_ACTION,type,password,thirdId,nickName,thirdphoto,gender,token,mobile];
+//    
+//    LTools *tool = [[LTools alloc]initWithUrl:url isPost:NO postData:nil];
+//    [tool requestCompletion:^(NSDictionary *result, NSError *erro) {
+//        
+//        NSLog(@"result %@ erro %@",result,erro);
+//        
+//        UserInfo *user = [[UserInfo alloc]initWithDictionary:result];
+//        
+//        //保存用户信息
+//        
+//        [LTools cache:user.user_name ForKey:USER_NAME];
+//        [LTools cache:user.uid ForKey:USER_UID];
+//        [LTools cache:user.authcode ForKey:USER_AUTHOD];
+//        [LTools cache:user.photo ForKey:USER_HEAD_IMAGEURL];
+//        
+//        //保存登录状态 yes
+//        
+//        [LTools cacheBool:YES ForKey:LOGIN_SERVER_STATE];
+//        
+//        [LTools showMBProgressWithText:result[RESULT_INFO] addToView:self.view];
+//        
+//        [[NSNotificationCenter defaultCenter]postNotificationName:NOTIFICATION_LOGIN object:nil];
+//        
+//        [weakSelf performSelector:@selector(leftButtonTap:) withObject:nil afterDelay:0.2];
+//        
+//        
+//    } failBlock:^(NSDictionary *failDic, NSError *erro) {
+//        
+//        NSLog(@"failDic %@ erro %@",failDic,erro);
+//        
+//        [LTools showMBProgressWithText:failDic[RESULT_INFO] addToView:self.view];
+//    }];
+}
+
 
 #pragma mark 点击 方法
 
@@ -592,6 +797,9 @@
 - (void)wechatLogin{
     DLog(@"%s",__FUNCTION__);
 
+    NSLog(@"微信");
+    [self loginToPlat:UMShareToWechatSession];
+
 }
 
 /*!
@@ -599,7 +807,8 @@
  */
 - (void)tencentLogin{
     DLog(@"%s",__FUNCTION__);
-    
+    [self loginToPlat:UMShareToQQ];
+
 }
 
 /*!
@@ -607,7 +816,8 @@
  */
 - (void)weiboLogin{
     DLog(@"%s",__FUNCTION__);
-    
+    [self loginToPlat:UMShareToSina];
+
 }
 
 /*!

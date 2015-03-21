@@ -11,6 +11,11 @@
 #import "RCIM.h"
 #import "MobClick.h"
 
+#import "UMSocial.h"
+#import "UMSocialWechatHandler.h"
+#import "UMSocialQQHandler.h"
+#import "UMSocialSinaHandler.h"
+
 @interface AppDelegate ()
 {
     CLLocationManager * _locationManager;
@@ -74,6 +79,23 @@
 
 -(void)userUM{
     [MobClick startWithAppkey:UMKEY];
+    
+    [UMSocialData setAppKey:UMKEY];
+    
+    //打开调试log的开关
+    [UMSocialData openLog:YES];
+    
+    //打开新浪微博的SSO开关
+    [UMSocialSinaHandler openSSOWithRedirectURL:RedirectUrl];
+    
+    //设置分享到QQ空间的应用Id，和分享url 链接
+    [UMSocialQQHandler setQQWithAppId:QQAPPID appKey:QQAPPKEY url:@"http://www.umeng.com/social"];
+    
+    //设置支持没有客户端情况下使用SSO授权
+    [UMSocialQQHandler setSupportWebView:YES];
+    
+    //设置微信AppId，设置分享url，默认使用友盟的网址
+    [UMSocialWechatHandler setWXAppId:WXAPPID appSecret:WXAPPSECRET url:@"http://www.umeng.com/social"];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

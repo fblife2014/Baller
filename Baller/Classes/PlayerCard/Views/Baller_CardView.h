@@ -45,6 +45,8 @@ typedef void(^CardView_BottomButtonClicked) (BallerCardType ballerCardType);
 @property (nonatomic, strong)UIButton * ballParkButton;
 @property (nonatomic, strong)UIButton * ballTeamButton;
 
+@property (nonatomic, assign)UIViewController *tagetViewController;//分享目标
+
 @property (nonatomic, copy)CardView_BottomButtonClicked bottomButtonClickedBlock; //底部按钮点中后的块方法
 
 @property (nonatomic, strong)UIButton * bottomButton;

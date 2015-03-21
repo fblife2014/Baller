@@ -13,3 +13,5 @@ pod 'RongCloudIMKit'
 pod 'MJRefresh'
 pod 'UMeng'
 pod 'UMengFeedback'
+pod 'UMengSocial', '~> 4.2.1'
+
