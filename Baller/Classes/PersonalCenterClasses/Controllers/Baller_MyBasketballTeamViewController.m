@@ -9,7 +9,7 @@
 #import "Baller_MyBasketballTeamViewController.h"
 #import "Baller_ChoseTeamViewController.h"
 #import "Baller_CreateBallTeamViewController.h"
-
+#import "Baller_MyBasketballTeamTableViewHeaderView.h"
 #import "Baller_MyBasketBallTeamTableViewCell.h"
 #import "UIView+ML_BlurView.h"
 #import "Baller_BallTeamInfo.h"
@@ -52,30 +52,28 @@
     if (hasOwnTeam) {
         
         [self getBasketballTeamInfo:^(Baller_BallTeamInfo *teamInfo) {
-            
             self.navigationItem.rightBarButtonItem.customView.hidden = NO;
+            Baller_MyBasketballTeamTableViewHeaderView *headerView = [[[NSBundle mainBundle] loadNibNamed:@"Baller_MyBasketballTeamTableViewHeaderView" owner:nil options:nil] firstObject];
+            headerView.numberLabel.text = [NSString stringWithFormat:@"%ld",self.teamInfo.memberNumber];
+            headerView.courtName.text = @"北大球场";//self.teamInfo.court_name;
+            headerView.teamLeaderName.text = self.teamInfo.teamLeaderUserName;
+            headerView.headImageView.image = [UIImage imageNamed:@"ballPark_default"];
+            [headerView.headImageView showBlurWithDuration:0.5 blurStyle:kUIBlurEffectStyleLight hidenViews:nil];
             
-            UIView * headView = [ViewFactory clearViewWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 101.0)];
+//            TopLebel * homeCourtLabel = [[TopLebel alloc] initWithFrame:CGRectMake(0.0, 29.0, [NSStringManager sizeOfCurrentString:self.teamInfo.teamName font:13.0 contentSize:CGSizeMake(ScreenWidth/2.0, 13.0)].width+20, 51.0) title:@"主场" detail:self.teamInfo.teamName];
+//            homeCourtLabel.center = CGPointMake(headView.center.x, 54.0);
+//            [headView addSubview:homeCourtLabel];
+//            
+//            TopLebel * memberNumberLabel = [[TopLebel alloc] initWithFrame:CGRectMake(0.0, 29.0, [NSStringManager sizeOfCurrentString:@"人数" font:13.0 contentSize:CGSizeMake(ScreenWidth/2.0, 13.0)].width+20, 51.0) title:@"人数" detail:[NSString stringWithFormat:@"%ld",self.teamInfo.memberNumber]];
+//            memberNumberLabel.frame = CGRectMake(CGRectGetMinX(homeCourtLabel.frame)-35.0-memberNumberLabel.frame.size.width, 29.0, memberNumberLabel.frame.size.width, 51.0);
+//            [headView addSubview:memberNumberLabel];
+//            
+//            
+//            TopLebel * captainLabel = [[TopLebel alloc] initWithFrame:CGRectMake(0.0, 29.0, [NSStringManager sizeOfCurrentString:@"王抱歉" font:13.0 contentSize:CGSizeMake(ScreenWidth/2.0, 13.0)].width+20, 70.0) title:@"队长" detail:@"王宝强"];
+//            captainLabel.center = CGPointMake(CGRectGetMaxX(homeCourtLabel.frame)+35.0+captainLabel.frame.size.width/2.0, 54.0);
+//            [headView addSubview:captainLabel];
             
-            UIImageView * headImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0., 0., ScreenWidth, 101)];
-            headImageView.image = [UIImage imageNamed:@"ballPark_default"];
-            [headImageView showBlurWithDuration:0.5 blurStyle:kUIBlurEffectStyleLight hidenViews:nil];
-            [headView addSubview:headImageView];
-            
-            TopLebel * homeCourtLabel = [[TopLebel alloc] initWithFrame:CGRectMake(0.0, 29.0, [NSStringManager sizeOfCurrentString:self.teamInfo.teamName font:13.0 contentSize:CGSizeMake(ScreenWidth/2.0, 13.0)].width+20, 51.0) title:@"主场" detail:self.teamInfo.teamName];
-            homeCourtLabel.center = CGPointMake(headView.center.x, 54.0);
-            [headView addSubview:homeCourtLabel];
-            
-            TopLebel * memberNumberLabel = [[TopLebel alloc] initWithFrame:CGRectMake(0.0, 29.0, [NSStringManager sizeOfCurrentString:@"人数" font:13.0 contentSize:CGSizeMake(ScreenWidth/2.0, 13.0)].width+20, 51.0) title:@"人数" detail:[NSString stringWithFormat:@"%ld",self.teamInfo.memberNumber]];
-            memberNumberLabel.frame = CGRectMake(CGRectGetMinX(homeCourtLabel.frame)-35.0-memberNumberLabel.frame.size.width, 29.0, memberNumberLabel.frame.size.width, 51.0);
-            [headView addSubview:memberNumberLabel];
-            
-            
-            TopLebel * captainLabel = [[TopLebel alloc] initWithFrame:CGRectMake(0.0, 29.0, [NSStringManager sizeOfCurrentString:@"王抱歉" font:13.0 contentSize:CGSizeMake(ScreenWidth/2.0, 13.0)].width+20, 70.0) title:@"队长" detail:@"王宝强"];
-            captainLabel.center = CGPointMake(CGRectGetMaxX(homeCourtLabel.frame)+35.0+captainLabel.frame.size.width/2.0, 54.0);
-            [headView addSubview:captainLabel];
-            
-            self.tableView.tableHeaderView = headView;
+            self.tableView.tableHeaderView = headerView;
             
             UIView * footerView = [ViewFactory clearViewWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 107.0)];
             
