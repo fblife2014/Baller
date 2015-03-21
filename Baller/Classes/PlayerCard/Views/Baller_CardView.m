@@ -194,7 +194,8 @@
 - (UIButton *)ballParkButton
 {
     if (!_ballParkButton) {
-        NSString * ballParkString = _ballerCardType == kBallerCardType_FirstBorn?@"未加入球场":@"我的球场";
+        NSLog(@"USER_DEFAULT = %@",[USER_DEFAULT valueForKey:@"court_id"]);
+        NSString * ballParkString = [[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"court_id"] integerValue]?@"我的球场":@"未加入球场";
         ballParkButton = [ViewFactory getAButtonWithFrame:CGRectMake(0.0, CGRectGetMaxY(_nickNameLabel.frame), pathRect.size.width/2.0, pathRect.size.width*PCV_SegmentHeightRatio) nomalTitle:ballParkString hlTitle:ballParkString titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:@"homeCourt" hImage:@"homeCourt" action:@selector(ballParkButtonAction) target:self buttonTpye:UIButtonTypeCustom];
         ballParkButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, -10, 0.0, 10.0);
         ballParkButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 0.0, -1.0, 0.0);
@@ -212,7 +213,9 @@
 - (UIButton *)ballTeamButton
 {
     if (!_ballTeamButton) {
-        NSString * ballTeamString = _ballerCardType == kBallerCardType_FirstBorn?@"未加入球队":@"我的球队";
+        NSLog(@"ddd = %@",[USER_DEFAULT valueForKey:Baller_UserInfo]);
+        
+        NSString * ballTeamString = [[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_id"] integerValue]?@"我的球队":@"未加入球队";
         UIButton * ballTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(pathRect.size.width/2.0, CGRectGetMaxY(_nickNameLabel.frame), pathRect.size.width/2.0, pathRect.size.width*PCV_SegmentHeightRatio) nomalTitle:ballTeamString hlTitle:ballTeamString titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:@"ballTeam" hImage:@"ballTeam" action:@selector(ballTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
         ballTeamButton.titleLabel.font = SYSTEM_FONT_S(15.0);
         ballTeamButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 10.0, -1.0, -10.0);

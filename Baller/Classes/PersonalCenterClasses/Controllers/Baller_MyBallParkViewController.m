@@ -147,9 +147,20 @@
     Baller_MyAttentionBallPark *currentModel = (Baller_MyAttentionBallPark *)[dataSourceArray objectAtIndex:indexPath.row];
     if( [soureVC integerValue] == 2)
     {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"ChooseZhuChang" object:currentModel];
-        [self.navigationController popViewControllerAnimated:YES];
+        [AFNHttpRequestOPManager getWithSubUrl:Baller_select_my_court parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":@(currentModel.court_id)} responseBlock:^(id result, NSError *error) {
+            if (error) return ;
+            if ([[result valueForKey:@"errorcode"] integerValue] == 0) {
+                
+                NSMutableDictionary * userinfo = [NSMutableDictionary dictionaryWithDictionary:[USER_DEFAULT valueForKey:Baller_UserInfo]];
+                [userinfo setValue:$str(@"%ld",currentModel.court_id) forKey:@"court_id"];
+                [USER_DEFAULT setValue:userinfo forKey:Baller_UserInfo];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ChooseZhuChang" object:currentModel];
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }];
     }
+    
 }
 
 

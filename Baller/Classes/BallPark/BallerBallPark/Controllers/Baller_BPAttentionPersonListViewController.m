@@ -28,6 +28,7 @@
 }
 @property (nonatomic,strong)NSMutableArray * ballers;
 @property (nonatomic,strong)NSMutableArray * teams;
+@property (nonatomic)NSInteger ballTeamPage; //球队列表页码
 @end
 
 @implementation Baller_BPAttentionPersonListViewController
@@ -112,6 +113,23 @@
 #pragma mark 网络请求
 
 - (void)getBallerballers_by_court_id
+{
+    __WEAKOBJ(weakSelf, self);
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_ballers_by_court_id parameters:@{@"court_id":@(_ballParkModel.court_id),@"page":@(self.page),@"per_page":@(10)} responseBlock:^(id result, NSError *error) {
+        if (error)return ;
+        __STRONGOBJ(strongSelf, weakSelf);
+        if ([[result valueForKey:@"errorcode"] integerValue] == 0) {
+            if (self.page == 1) [strongSelf.ballers removeAllObjects];
+            for (NSDictionary * ballerDic in [result valueForKey:@"list"]) {
+                Baller_BallParkAttentionBallerListModel * ballerModel = [[Baller_BallParkAttentionBallerListModel alloc]initWithAttributes:ballerDic];
+                [strongSelf.ballers addObject:ballerModel];
+            }
+            [ballerCollectionView reloadData];
+        }
+    }];
+}
+
+- (void)getBallParkTeams_by_court_id
 {
     __WEAKOBJ(weakSelf, self);
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_ballers_by_court_id parameters:@{@"court_id":@(_ballParkModel.court_id),@"page":@(self.page),@"per_page":@(10)} responseBlock:^(id result, NSError *error) {

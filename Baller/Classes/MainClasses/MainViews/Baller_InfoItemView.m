@@ -18,7 +18,7 @@
     if (self) {
         
         self.titleLabelHorizontalScale = 0.156;
-        self.infoTextFieldHorizontalScale = 0.553;
+        self.infoTextFieldHorizontalScale = 0.453;
         self.backgroundColor = [UIColor whiteColor];
     }
     return  self;

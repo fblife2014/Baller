@@ -8,12 +8,16 @@
 
 #import "Baller_EditActivityDetailViewController.h"
 #import "Baller_InfoItemView.h"
+#import "MGConferenceDatePicker.h"
+#import "MGConferenceDatePickerDelegate.h"
 
-@interface Baller_EditActivityDetailViewController ()<UITextFieldDelegate>
+@interface Baller_EditActivityDetailViewController ()<UITextFieldDelegate,MGConferenceDatePickerDelegate>
 {
     UIView * bottomView;
     NSMutableArray * bottomViewTextFields; //底部视图的输入框集合
+    UIViewController *pickerViewController;
 }
+
 @end
 
 @implementation Baller_EditActivityDetailViewController
@@ -30,6 +34,7 @@
  *  @brief  设置子视图
  */
 - (void)setupSubViews{
+    
     float space = NUMBER(22.0, 20.0, 15.0, 15.0);
     
     bottomView = [[UIView alloc]initWithFrame:CGRectMake(space, 1.5*space, ScreenWidth-2*space, 5*PersonInfoCell_Height)];
@@ -53,6 +58,7 @@
             itemView.titleLabel.font = SYSTEM_FONT_S(17.0);
             itemView.infoTextField.delegate = self;
             itemView.tag= 100+i;
+            itemView.infoTextField.tag = 1000+i;
             itemView.infoCanEdited = YES;
             if (i<3) {
                 itemView.infoTextField.returnKeyType = UIReturnKeyNext;
@@ -76,6 +82,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 
 /*!
@@ -109,8 +116,9 @@
                 break;
         }
     }
-    
-    [AFNHttpRequestOPManager postWithSubUrl:Baller_activity_create parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":_court_id,@"title":@"测试活动接口",@"info":@"",@"start_time":@"2015-3-24 14:00",@"max_num":@"15"} responseBlock:^(id result, NSError *error) {
+    UITextField * timetf = (UITextField *)bottomViewTextFields[2];
+
+    [AFNHttpRequestOPManager postWithSubUrl:Baller_activity_create parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":_court_id,@"title":@"测试活动接口",@"info":@"",@"start_time":timetf.text,@"max_num":@"15"} responseBlock:^(id result, NSError *error) {
         if (error)return ;
         
         if (0 == [[result valueForKey:@"errorcode"] integerValue]) {
@@ -135,9 +143,45 @@
     [self.view endEditing:YES];
 }
 
+- (void)showDatePickerVC
+{
+    //New view controller
+    if (!pickerViewController) {
+        pickerViewController = [[UIViewController alloc] init];
+        pickerViewController.view.backgroundColor = RGBAColor(0.0, 0.0, 0., 0.5);
+        //Init the datePicker view and set self as delegate
+        MGConferenceDatePicker *datePicker = [[MGConferenceDatePicker alloc] initWithFrame:self.view.bounds];
+        [datePicker setDelegate:self];
+        
+        //OPTIONAL: Choose the background color
+        [datePicker setBackgroundColor:BALLER_CORLOR_CELL];
+        
+        //Set the data picker as view of the new view controller
+        [pickerViewController setView:datePicker];
+        
+    }
+
+    //Present the view controller
+    [self presentViewController:pickerViewController animated:YES completion:nil];
+}
+
+#pragma mark MGConferenceDatePickerDelegate
+
+-(void)conferenceDatePicker:(MGConferenceDatePicker *)datePicker saveDate:(NSDate *)date {
+    [pickerViewController dismissViewControllerAnimated:YES completion:nil];
+    NSDateFormatter * df = [[NSDateFormatter alloc]init];
+    [df setDateFormat:@"yyyy-MM-dd HH:mm"];
+    UITextField * timetf = (UITextField *)bottomViewTextFields[2];
+    timetf.text = [df stringFromDate:date];
+}
+
 #pragma mark uitextfield delegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    
+    if (textField.tag == 1002)
+    {
+        [self showDatePickerVC];
+        return NO;
+    }
     return YES;
 }
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
