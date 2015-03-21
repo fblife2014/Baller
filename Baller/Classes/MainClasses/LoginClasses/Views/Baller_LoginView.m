@@ -358,6 +358,7 @@ typedef enum{
     
 //    rootVc = [[((UINavigationController *)rootVc) viewControllers] lastObject];
     
+    
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:snsPlatName];
     snsPlatform.loginClickHandler(rootVc,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
         NSLog(@"login response is %@",response);
@@ -384,6 +385,11 @@ typedef enum{
         }
         
     });
+}
+
+- (NSString *)notNilString:(NSString *)old
+{
+    return old == nil ? @"" : old;
 }
 
 /**
@@ -437,7 +443,15 @@ typedef enum{
     NSString *genderString = [NSString stringWithFormat:@"%d",gender_id];
     
     
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_login parameters:@{@"type":type,@"mobile":$safe(mobile),@"password":$safe(password),@"thirdid":$safe(thirdId),@"nickname":$safe(nickName),@"third_photo":$safe(thirdphoto),@"gender":$safe(genderString),@"devicetoken":[USER_DEFAULT valueForKey:Baller_UserInfo_Devicetoken]?:@"",@"login_source":@"ios"} responseBlock:^(id result, NSError *error) {
+    [AFNHttpRequestOPManager postWithSubUrl:Baller_login parameters:@{@"type":type,
+                                                                     @"mobile":[self notNilString:mobile],
+                                                                     @"password":[self notNilString:password],
+                                                                     @"thirdid":[self notNilString:thirdId],
+                                                                     @"nickname":[self notNilString:nickName],
+                                                                     @"third_photo":[self notNilString:thirdphoto],
+                                                                     @"gender":[self notNilString:genderString],
+                                                                     @"devicetoken":[USER_DEFAULT valueForKey:Baller_UserInfo_Devicetoken]?:@"",
+                                                                     @"login_source":@"ios"} responseBlock:^(id result, NSError *error) {
         if (error) {
             
         }else

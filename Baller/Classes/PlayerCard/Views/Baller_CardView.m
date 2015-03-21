@@ -308,7 +308,7 @@
     NSString *share_content = @"baller分享内容";
     NSString *share_title = @"baller分享的标题";
     NSString *share_link_url = @"http://www.baidu.com";
-    UIImage *share_image = [UIImage imageNamed:@"login_back"];
+    UIImage *share_image = [ImageFactory saveImageFromView:self];
     
     [[LShareSheetView shareInstance] showShareContent:share_content title:share_title shareUrl:share_link_url shareImage:share_image targetViewController:nil];
     [[LShareSheetView shareInstance]actionBlock:^(NSInteger buttonIndex, Share_Type shareType) {
@@ -334,10 +334,17 @@
             NSLog(@"Share_WX_PengYouQuan");
             
         }
+                
+    }];
+    
+    [[LShareSheetView shareInstance]shareResult:^(Share_Result result, Share_Type type) {
         
-        if (shareType == Share_Success) {
+        if (result == Share_Success) {
             
-            [LTools showMBProgressWithText:@"分享成功" addToView:self];
+           [LTools showMBProgressWithText:@"分享成功" addToView:self];
+        }else
+        {
+            NSLog(@"分享失败");
         }
         
     }];

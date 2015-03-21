@@ -60,6 +60,8 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     [self ballerParkHome_get_activities];
     //设置列表
     
+    self.view.sizeToFit 
+    
 }
 
 #pragma mark 网络请求
