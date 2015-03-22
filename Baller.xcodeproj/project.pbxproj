@@ -24,8 +24,9 @@
 		190D8606DE1347369A181C5A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59C3DF6DA1164908988512CC /* libPods.a */; };
 		75565A1E1ABD72ED00B4C2BC /* NSDictionary+SafeAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 75565A1D1ABD72ED00B4C2BC /* NSDictionary+SafeAccessor.m */; };
 		75565A211ABD762800B4C2BC /* Baller_BallTeamMemberInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 75565A201ABD762800B4C2BC /* Baller_BallTeamMemberInfo.m */; };
-		75565A241ABD831200B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75565A231ABD831200B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.m */; };
-		75565A261ABD833000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75565A251ABD833000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.xib */; };
+		75565A421ABEAC7000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 75565A401ABEAC7000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.m */; };
+		75565A431ABEAC7000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 75565A411ABEAC7000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.xib */; };
+		75565A461ABEAC8000B4C2BC /* BTLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 75565A451ABEAC8000B4C2BC /* BTLabel.m */; };
 		DF6A1CDC1ABD614D00A2B793 /* Baller_MyAttentionBallPark.m in Sources */ = {isa = PBXBuildFile; fileRef = DF6A1CDB1ABD614D00A2B793 /* Baller_MyAttentionBallPark.m */; };
 		EFCC59A01ABD7241007F2D9C /* Baller_ChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCC599F1ABD7241007F2D9C /* Baller_ChatListViewController.m */; };
 		FB2ABEB91AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABE9D1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m */; };
@@ -130,7 +131,6 @@
 		FBD9B75C1AAD7F7F00CDC1C6 /* Baller_HUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B6F41AAD7F7E00CDC1C6 /* Baller_HUDView.m */; };
 		FBD9B75D1AAD7F7F00CDC1C6 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B6F61AAD7F7E00CDC1C6 /* MBProgressHUD.m */; };
 		FBD9B75E1AAD7F7F00CDC1C6 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = FBD9B6F91AAD7F7E00CDC1C6 /* LICENSE */; };
-		FBD9B75F1AAD7F7F00CDC1C6 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B6FA1AAD7F7E00CDC1C6 /* README.markdown */; };
 		FBD9B7601AAD7F7F00CDC1C6 /* UIImage+APLBlurEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B6FD1AAD7F7E00CDC1C6 /* UIImage+APLBlurEffect.m */; };
 		FBD9B7611AAD7F7F00CDC1C6 /* UIView+ML_BlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B7001AAD7F7E00CDC1C6 /* UIView+ML_BlurView.m */; };
 		FBD9B7621AAD7F7F00CDC1C6 /* FlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B7041AAD7F7E00CDC1C6 /* FlatButton.m */; };
@@ -146,7 +146,6 @@
 		FBD9B7741AAD7F7F00CDC1C6 /* DeviceIdentifierTool.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B7381AAD7F7F00CDC1C6 /* DeviceIdentifierTool.m */; };
 		FBD9B7751AAD7F7F00CDC1C6 /* DeviceMemory.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B73A1AAD7F7F00CDC1C6 /* DeviceMemory.m */; };
 		FBD9B7761AAD7F7F00CDC1C6 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B73D1AAD7F7F00CDC1C6 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		FBD9B7771AAD7F7F00CDC1C6 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B73E1AAD7F7F00CDC1C6 /* README.md */; };
 		FBD9B7781AAD7F7F00CDC1C6 /* ArchiveDataBase.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B7411AAD7F7F00CDC1C6 /* ArchiveDataBase.m */; };
 		FBD9B7791AAD7F7F00CDC1C6 /* DataBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B7431AAD7F7F00CDC1C6 /* DataBaseManager.m */; };
 		FBD9B77A1AAD7F7F00CDC1C6 /* FileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B7451AAD7F7F00CDC1C6 /* FileManager.m */; };
@@ -203,9 +202,11 @@
 		75565A1D1ABD72ED00B4C2BC /* NSDictionary+SafeAccessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+SafeAccessor.m"; sourceTree = "<group>"; };
 		75565A1F1ABD762800B4C2BC /* Baller_BallTeamMemberInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_BallTeamMemberInfo.h; sourceTree = "<group>"; };
 		75565A201ABD762800B4C2BC /* Baller_BallTeamMemberInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_BallTeamMemberInfo.m; sourceTree = "<group>"; };
-		75565A221ABD831200B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MyBasketballTeamTableViewHeaderView.h; sourceTree = "<group>"; };
-		75565A231ABD831200B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MyBasketballTeamTableViewHeaderView.m; sourceTree = "<group>"; };
-		75565A251ABD833000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Baller_MyBasketballTeamTableViewHeaderView.xib; sourceTree = "<group>"; };
+		75565A3F1ABEAC7000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MyBasketballTeamTableViewHeaderView.h; sourceTree = "<group>"; };
+		75565A401ABEAC7000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MyBasketballTeamTableViewHeaderView.m; sourceTree = "<group>"; };
+		75565A411ABEAC7000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Baller_MyBasketballTeamTableViewHeaderView.xib; sourceTree = "<group>"; };
+		75565A441ABEAC8000B4C2BC /* BTLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTLabel.h; sourceTree = "<group>"; };
+		75565A451ABEAC8000B4C2BC /* BTLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTLabel.m; sourceTree = "<group>"; };
 		DF6A1CDA1ABD614D00A2B793 /* Baller_MyAttentionBallPark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MyAttentionBallPark.h; sourceTree = "<group>"; };
 		DF6A1CDB1ABD614D00A2B793 /* Baller_MyAttentionBallPark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MyAttentionBallPark.m; sourceTree = "<group>"; };
 		EFCC599E1ABD7241007F2D9C /* Baller_ChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_ChatListViewController.h; sourceTree = "<group>"; };
@@ -401,7 +402,6 @@
 		FBD9B6F51AAD7F7E00CDC1C6 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		FBD9B6F61AAD7F7E00CDC1C6 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		FBD9B6F91AAD7F7E00CDC1C6 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		FBD9B6FA1AAD7F7E00CDC1C6 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
 		FBD9B6FC1AAD7F7E00CDC1C6 /* UIImage+APLBlurEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+APLBlurEffect.h"; sourceTree = "<group>"; };
 		FBD9B6FD1AAD7F7E00CDC1C6 /* UIImage+APLBlurEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+APLBlurEffect.m"; sourceTree = "<group>"; };
 		FBD9B6FE1AAD7F7E00CDC1C6 /* UIImageBlurEffectCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageBlurEffectCategory.h; sourceTree = "<group>"; };
@@ -442,7 +442,6 @@
 		FBD9B73A1AAD7F7F00CDC1C6 /* DeviceMemory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceMemory.m; sourceTree = "<group>"; };
 		FBD9B73C1AAD7F7F00CDC1C6 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
 		FBD9B73D1AAD7F7F00CDC1C6 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
-		FBD9B73E1AAD7F7F00CDC1C6 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		FBD9B7401AAD7F7F00CDC1C6 /* ArchiveDataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchiveDataBase.h; sourceTree = "<group>"; };
 		FBD9B7411AAD7F7F00CDC1C6 /* ArchiveDataBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchiveDataBase.m; sourceTree = "<group>"; };
 		FBD9B7421AAD7F7F00CDC1C6 /* DataBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBaseManager.h; sourceTree = "<group>"; };
@@ -1020,9 +1019,11 @@
 				FB9EF2F41AADF830001D77CB /* Baller_SystemConfigureTableViewCell.h */,
 				FB9EF2F51AADF830001D77CB /* Baller_SystemConfigureTableViewCell.m */,
 				FB9EF2F61AADF830001D77CB /* Baller_SystemConfigureTableViewCell.xib */,
-				75565A221ABD831200B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.h */,
-				75565A231ABD831200B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.m */,
-				75565A251ABD833000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.xib */,
+				75565A441ABEAC8000B4C2BC /* BTLabel.h */,
+				75565A451ABEAC8000B4C2BC /* BTLabel.m */,
+				75565A3F1ABEAC7000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.h */,
+				75565A401ABEAC7000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.m */,
+				75565A411ABEAC7000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1212,7 +1213,6 @@
 			isa = PBXGroup;
 			children = (
 				FBD9B6F91AAD7F7E00CDC1C6 /* LICENSE */,
-				FBD9B6FA1AAD7F7E00CDC1C6 /* README.markdown */,
 				FBD9B6FB1AAD7F7E00CDC1C6 /* UIImageBlurEffectCategory */,
 			);
 			path = UIImageBlurEffectCategory;
@@ -1339,7 +1339,6 @@
 			children = (
 				FBD9B73C1AAD7F7F00CDC1C6 /* OpenUDID.h */,
 				FBD9B73D1AAD7F7F00CDC1C6 /* OpenUDID.m */,
-				FBD9B73E1AAD7F7F00CDC1C6 /* README.md */,
 			);
 			path = OpenUDID;
 			sourceTree = "<group>";
@@ -1535,6 +1534,7 @@
 				FBDD315C1A5FC18700EBA059 /* LaunchScreen.xib in Resources */,
 				FB9EF3421AADF830001D77CB /* Baller_GameListTableViewCell.xib in Resources */,
 				13277F781ABD39B700E9621C /* qqzone@2x.png in Resources */,
+				75565A431ABEAC7000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.xib in Resources */,
 				13277F7A1ABD39B700E9621C /* weibo90_72@2x.png in Resources */,
 				FB9EF3391AADF830001D77CB /* Baller_UpdatePasswordViewController.xib in Resources */,
 				FB9EF33E1AADF830001D77CB /* Baller_BasketBallTeamTableViewCell.xib in Resources */,
@@ -1556,7 +1556,6 @@
 				13277F661ABD33FF00E9621C /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				13277F7B1ABD39B700E9621C /* weixin72_72@2x.png in Resources */,
 				13277F771ABD39B700E9621C /* QQ72_72@2x.png in Resources */,
-				75565A261ABD833000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.xib in Resources */,
 				FB2ABEBF1AADF97C007D7E52 /* Baller_BallParkActivityListTableViewCell.xib in Resources */,
 				FB2ABEC31AADF97C007D7E52 /* Baller_BPAttentionPersonCollectionViewCell.xib in Resources */,
 				FB2ABEC61AADF97C007D7E52 /* Baller_BPAttentionTeamTableViewCell.xib in Resources */,
@@ -1668,9 +1667,7 @@
 				13277F6B1ABD34CD00E9621C /* LShareSheetView.m in Sources */,
 				FBD9B7731AAD7F7F00CDC1C6 /* ViewFactory.m in Sources */,
 				FB9EF31E1AADF830001D77CB /* Baller_MyCenterTopTableViewCell.m in Sources */,
-				75565A241ABD831200B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.m in Sources */,
 				FB5726801ABD51C5006D50A2 /* Baller_BallerFriendListModel.m in Sources */,
-				FBD9B7771AAD7F7F00CDC1C6 /* README.md in Sources */,
 				FBD9B7711AAD7F7F00CDC1C6 /* NSStringManager.m in Sources */,
 				FB9EF32E1AADF830001D77CB /* Baller_PersonalInfoView.m in Sources */,
 				FBD9B7621AAD7F7F00CDC1C6 /* FlatButton.m in Sources */,
@@ -1690,10 +1687,10 @@
 				FB9EF3381AADF830001D77CB /* Baller_UpdatePasswordViewController.m in Sources */,
 				FBD9B7581AAD7F7F00CDC1C6 /* UIColor+CustomColors.m in Sources */,
 				FB9EF32A1AADF830001D77CB /* Baller_PickView.m in Sources */,
+				75565A461ABEAC8000B4C2BC /* BTLabel.m in Sources */,
 				FBD9B77B1AAD7F7F00CDC1C6 /* NSObject+DateBaseModel.m in Sources */,
 				FB9EF3341AADF830001D77CB /* Baller_MyBasketballTeamViewController.m in Sources */,
 				FBD9B7611AAD7F7F00CDC1C6 /* UIView+ML_BlurView.m in Sources */,
-				FBD9B75F1AAD7F7F00CDC1C6 /* README.markdown in Sources */,
 				FB9EF3171AADF830001D77CB /* Baller_AnnotationMapViewController.m in Sources */,
 				FB9EF3201AADF830001D77CB /* Baller_MyPersonalCenterTableViewCell.m in Sources */,
 				FB2ABEBC1AADF97C007D7E52 /* Baller_BallParkActivityListModel.m in Sources */,
@@ -1703,6 +1700,7 @@
 				FB9EF32F1AADF830001D77CB /* Baller_ChoseTeamViewController.m in Sources */,
 				FB2ABEBB1AADF97C007D7E52 /* Baller_CreateBallParkViewController.m in Sources */,
 				FB9EF3481AADF830001D77CB /* Baller_SystemConfigureTableViewCell.m in Sources */,
+				75565A421ABEAC7000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.m in Sources */,
 				FB57268D1ABD8F58006D50A2 /* MGConferenceDatePicker.m in Sources */,
 				FB9EF34E1AADF830001D77CB /* Baller_CardView.m in Sources */,
 				FBD9B7521AAD7F7F00CDC1C6 /* Baller_NetworkInterfaces.m in Sources */,

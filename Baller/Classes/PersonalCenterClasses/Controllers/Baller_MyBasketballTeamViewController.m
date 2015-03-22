@@ -13,10 +13,10 @@
 #import "Baller_MyBasketBallTeamTableViewCell.h"
 #import "UIView+ML_BlurView.h"
 #import "Baller_BallTeamInfo.h"
+#import "Baller_BallTeamMemberInfo.h"
 
-@interface Baller_MyBasketballTeamViewController ()<UITableViewDelegate>
-{
-    NSMutableArray * myTeamNumbers; //我的队友
+@interface Baller_MyBasketballTeamViewController () <UITableViewDelegate> {
+    NSMutableArray *myTeamNumbers; //我的队友
     BOOL hasOwnTeam;
 }
 @property (nonatomic, strong) Baller_BallTeamInfo *teamInfo;
@@ -29,118 +29,85 @@
     self.navigationItem.title = @"我的球队";
     [self.tableView registerNib:[UINib nibWithNibName:@"Baller_MyBasketBallTeamTableViewCell" bundle:nil] forCellReuseIdentifier:@"Baller_MyBasketBallTeamTableViewCell"];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithImage:@"qunliao" imageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15) target:self selection:@selector(goToGroupChat)];
+
+    UIBarButtonItem *rightItem = [ViewFactory getABarButtonItemWithImage:@"qunliao" imageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15) target:self selection:@selector(goToGroupChat)];
     self.navigationItem.rightBarButtonItem = rightItem;
+#warning 现在返回的team_id为空，需要服务器返回正确的id或者什么标识能标识用户已经加入球队了。现在debug直接用的YES
     hasOwnTeam = YES || [[[USER_DEFAULT valueForKey:Baller_UserInfo] objectForKey:@"team_id"] integerValue] > 0;
     [self setupTableHeaderViewAndFooterView];
-    
-    // Do any additional setup after loading the view from its nib.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 /*!
  *  @brief 设置已经加入球队后的headerview和footerview
  */
-- (void)setupTableHeaderViewAndFooterView{
+- (void)setupTableHeaderViewAndFooterView {
     self.tableView.tableHeaderView = nil;
     self.tableView.tableFooterView = nil;
     if (hasOwnTeam) {
-        
-        [self getBasketballTeamInfo:^(Baller_BallTeamInfo *teamInfo) {
+        [self getBasketballTeamInfo:^() {
             self.navigationItem.rightBarButtonItem.customView.hidden = NO;
             Baller_MyBasketballTeamTableViewHeaderView *headerView = [[[NSBundle mainBundle] loadNibNamed:@"Baller_MyBasketballTeamTableViewHeaderView" owner:nil options:nil] firstObject];
-            headerView.numberLabel.text = [NSString stringWithFormat:@"%ld",self.teamInfo.memberNumber];
-            headerView.courtName.text = @"北大球场";//self.teamInfo.court_name;
-            headerView.teamLeaderName.text = self.teamInfo.teamLeaderUserName;
-            headerView.headImageView.image = [UIImage imageNamed:@"ballPark_default"];
+            headerView.memberCount.text = [NSString stringWithFormat:@"%ld", (long)self.teamInfo.memberNumber];
+            headerView.courtName.text = self.teamInfo.teamName;
+            headerView.captainName.text = self.teamInfo.teamLeaderUserName;
             [headerView.headImageView showBlurWithDuration:0.5 blurStyle:kUIBlurEffectStyleLight hidenViews:nil];
-            
-//            TopLebel * homeCourtLabel = [[TopLebel alloc] initWithFrame:CGRectMake(0.0, 29.0, [NSStringManager sizeOfCurrentString:self.teamInfo.teamName font:13.0 contentSize:CGSizeMake(ScreenWidth/2.0, 13.0)].width+20, 51.0) title:@"主场" detail:self.teamInfo.teamName];
-//            homeCourtLabel.center = CGPointMake(headView.center.x, 54.0);
-//            [headView addSubview:homeCourtLabel];
-//            
-//            TopLebel * memberNumberLabel = [[TopLebel alloc] initWithFrame:CGRectMake(0.0, 29.0, [NSStringManager sizeOfCurrentString:@"人数" font:13.0 contentSize:CGSizeMake(ScreenWidth/2.0, 13.0)].width+20, 51.0) title:@"人数" detail:[NSString stringWithFormat:@"%ld",self.teamInfo.memberNumber]];
-//            memberNumberLabel.frame = CGRectMake(CGRectGetMinX(homeCourtLabel.frame)-35.0-memberNumberLabel.frame.size.width, 29.0, memberNumberLabel.frame.size.width, 51.0);
-//            [headView addSubview:memberNumberLabel];
-//            
-//            
-//            TopLebel * captainLabel = [[TopLebel alloc] initWithFrame:CGRectMake(0.0, 29.0, [NSStringManager sizeOfCurrentString:@"王抱歉" font:13.0 contentSize:CGSizeMake(ScreenWidth/2.0, 13.0)].width+20, 70.0) title:@"队长" detail:@"王宝强"];
-//            captainLabel.center = CGPointMake(CGRectGetMaxX(homeCourtLabel.frame)+35.0+captainLabel.frame.size.width/2.0, 54.0);
-//            [headView addSubview:captainLabel];
-            
             self.tableView.tableHeaderView = headerView;
-            
-            UIView * footerView = [ViewFactory clearViewWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 107.0)];
-            
-            UIButton * quitTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(ScreenWidth/2.0-125.0, 27.0, 250.0, 50.0) nomalTitle:@"退出球队" hlTitle:@"退出球队" titleColor:[UIColor whiteColor] bgColor:UIColorFromRGB(0X611b1b) nImage:nil hImage:nil action:@selector(quitTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+
+            UIView *footerView = [ViewFactory clearViewWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 107.0)];
+            UIButton *quitTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(ScreenWidth / 2.0 - 125.0, 27.0, 250.0, 50.0) nomalTitle:@"退出球队" hlTitle:@"退出球队" titleColor:[UIColor whiteColor] bgColor:UIColorFromRGB(0X611b1b) nImage:nil hImage:nil action:@selector(quitTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
             quitTeamButton.titleLabel.font = DEFAULT_BOLDFONT(17.0);
             quitTeamButton.layer.cornerRadius = 7.5;
             [footerView addSubview:quitTeamButton];
             self.tableView.tableFooterView = footerView;
+            [self.tableView reloadData];
         }];
-        
-
-    }else{
-#pragma mark 没有所属球队时的头视图
+    } else {
         self.navigationItem.rightBarButtonItem.customView.hidden = YES;
-
-        UIView * hasNoTeamHeaderView = [[UIView alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, ScreenWidth)];
-        UIView * whiteView = [[UIView alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 43.0)];
+        UIView *hasNoTeamHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, ScreenWidth)];
+        UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 43.0)];
         whiteView.backgroundColor = [UIColor whiteColor];
         [hasNoTeamHeaderView addSubview:whiteView];
-        
-        [ViewFactory addAlabelForAView:hasNoTeamHeaderView withText:@"选择加入球队或者创建球队，找到自己的梦想之队" frame:CGRectMake(10.0, 15.0, ScreenWidth-20.0, 13.0) font:SYSTEM_FONT_S(13.0) textColor:UIColorFromRGB(0x282828)];
+
+        [ViewFactory addAlabelForAView:hasNoTeamHeaderView withText:@"选择加入球队或者创建球队，找到自己的梦想之队" frame:CGRectMake(10.0, 15.0, ScreenWidth - 20.0, 13.0) font:SYSTEM_FONT_S(13.0) textColor:UIColorFromRGB(0x282828)];
         hasNoTeamHeaderView.backgroundColor = CLEARCOLOR;
-        
-        
-        
-        UIButton * jionTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(ScreenWidth/2.0-125.0, 56.0, 250.0, 50.0) nomalTitle:@"加入球队" hlTitle:@"加入球队" titleColor:[UIColor whiteColor] bgColor:BALLER_CORLOR_NAVIGATIONBAR nImage:nil hImage:nil action:@selector(jionTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+
+        UIButton *jionTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(ScreenWidth / 2.0 - 125.0, 56.0, 250.0, 50.0) nomalTitle:@"加入球队" hlTitle:@"加入球队" titleColor:[UIColor whiteColor] bgColor:BALLER_CORLOR_NAVIGATIONBAR nImage:nil hImage:nil action:@selector(jionTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
         jionTeamButton.titleLabel.font = DEFAULT_BOLDFONT(17.0);
         jionTeamButton.layer.cornerRadius = 7.5;
         [hasNoTeamHeaderView addSubview:jionTeamButton];
-        
-        
-        UIButton * createTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(ScreenWidth/2.0-125.0, CGRectGetMaxY(jionTeamButton.frame)+38.0, 250.0, 50.0) nomalTitle:@"创建球队" hlTitle:@"创建球队" titleColor:[UIColor whiteColor] bgColor:BALLER_CORLOR_NAVIGATIONBAR nImage:nil hImage:nil action:@selector(createTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+
+        UIButton *createTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(ScreenWidth / 2.0 - 125.0, CGRectGetMaxY(jionTeamButton.frame) + 38.0, 250.0, 50.0) nomalTitle:@"创建球队" hlTitle:@"创建球队" titleColor:[UIColor whiteColor] bgColor:BALLER_CORLOR_NAVIGATIONBAR nImage:nil hImage:nil action:@selector(createTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
         createTeamButton.titleLabel.font = DEFAULT_BOLDFONT(17.0);
         createTeamButton.layer.cornerRadius = 7.5;
         [hasNoTeamHeaderView addSubview:createTeamButton];
-        
+
         self.tableView.tableHeaderView = hasNoTeamHeaderView;
     }
-    
-
 }
 
-- (void)getBasketballTeamInfo:(void (^)())completion
-{
-    NSDictionary *paras = @{
-                            @"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]
-                            };
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_my_team parameters:paras responseBlock:^(id result, NSError *error) {
-        self.teamInfo = [Baller_BallTeamInfo shareWithServerDictionary:result];
-        if (completion) {
-            completion ();
-        }
-    }];
+- (void)getBasketballTeamInfo:(void (^)())completion {
+    NSDictionary *paras = @{ @"authcode": [USER_DEFAULT valueForKey:Baller_UserInfo_Authcode] };
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_my_team
+                                parameters:paras
+                             responseBlock:^(id result, NSError *error) {
+                                 self.teamInfo = [Baller_BallTeamInfo shareWithServerDictionary:result];
+                                 if (completion) {
+                                     completion();
+                                 }
+                             }];
 }
 
 #pragma mark 按钮方法
 /*!
  *  @brief  前往群聊
  */
-- (void)goToGroupChat{
-    
+- (void)goToGroupChat {
 }
 
 /*!
  *  @brief  退出球队
  */
-- (void)quitTeamButtonAction{
+- (void)quitTeamButtonAction {
     hasOwnTeam = NO;
     [self setupTableHeaderViewAndFooterView];
     [self.tableView reloadData];
@@ -149,11 +116,11 @@
 /*!
  *  @brief  加入球队
  */
-- (void)jionTeamButtonAction{
-    
-    Baller_ChoseTeamViewController * choseTeamVC = [[Baller_ChoseTeamViewController alloc]init];
+- (void)jionTeamButtonAction {
+
+    Baller_ChoseTeamViewController *choseTeamVC = [[Baller_ChoseTeamViewController alloc] init];
     __WEAKOBJ(weakSelf, self)
-    choseTeamVC.choseTeamBlock = ^(NSDictionary * chosenTeamDic){
+    choseTeamVC.choseTeamBlock = ^(NSDictionary *chosenTeamDic) {
         hasOwnTeam = YES;
         [weakSelf setupTableHeaderViewAndFooterView];
         MAIN_BLOCK(^{
@@ -163,16 +130,13 @@
     [self.navigationController pushViewController:choseTeamVC animated:YES];
 }
 
-
 /*!
  *  @brief  创建球队
  */
-- (void)createTeamButtonAction
-{
-    
-    Baller_CreateBallTeamViewController * createTeamVC = [[Baller_CreateBallTeamViewController alloc]init];
+- (void)createTeamButtonAction {
+    Baller_CreateBallTeamViewController *createTeamVC = [[Baller_CreateBallTeamViewController alloc] init];
     __WEAKOBJ(weakSelf, self);
-    createTeamVC.basketBallTeamCreatedBlock = ^(NSDictionary * resultDic){
+    createTeamVC.basketBallTeamCreatedBlock = ^(NSDictionary *resultDic) {
         [MLViewConrollerManager popToLastViewController];
         hasOwnTeam = YES;
         [weakSelf setupTableHeaderViewAndFooterView];
@@ -186,78 +150,41 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return hasOwnTeam?10:0;
+    return self.teamInfo.memberNumber;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 64.0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    Baller_MyBasketBallTeamTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"Baller_MyBasketBallTeamTableViewCell" forIndexPath:indexPath];
-    if (indexPath.row == 0) {
-        cell.partnerType = PartnerType_Captain;
-    }else if(indexPath.row <5){
-        cell.partnerType = PartnerType_Online;
-    }else{
-        cell.partnerType = PartnerType_Offline;
-    }
-    
-    if (indexPath.row == 0) {
-        cell.backgroundType = BaseCellBackgroundTypeUpWhite;
-        
-    }else if (indexPath.row == 9){
-        cell.backgroundType = (indexPath.row%2)?BaseCellBackgroundTypeDownGrey:BaseCellBackgroundTypeDownWhite;
-        
-    }else{
-        cell.backgroundType = indexPath.row%2?BaseCellBackgroundTypeMiddleGrey:BaseCellBackgroundTypeMiddleWhite;
-        
-    }
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Baller_MyBasketBallTeamTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Baller_MyBasketBallTeamTableViewCell" forIndexPath:indexPath];
+    [self configUIForCell:cell indexPath:indexPath];
     return cell;
-    
 }
 
 #pragma mark - Table view data delegate
 
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 }
 
-@end
+#pragma mark - Private
 
-@implementation TopLebel
-
-- (id)initWithFrame:(CGRect)frame title:(NSString *)title detail:(NSString *)detail{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.layer.cornerRadius = 5.0;
-        self.clipsToBounds = YES;
+- (void)configUIForCell:(Baller_MyBasketBallTeamTableViewCell *)cell indexPath:(NSIndexPath *)indexPath
+{
+    Baller_BallTeamMemberInfo *teamMemberInfo = [self.teamInfo.members objectAtIndex:indexPath.row];
+    [cell.memberImage sd_setImageWithURL:[NSURL URLWithString:teamMemberInfo.photo]];
+    cell.memberName.text = teamMemberInfo.user_name;
     
-        CALayer * topLayer = [CALayer layer];
-        topLayer.frame = CGRectMake(0.0, 0.0, frame.size.width, frame.size.height/2.0);
-        topLayer.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR.CGColor;
-        [self.layer addSublayer:topLayer];
-        
-        CALayer * bottomLayer = [CALayer layer];
-        bottomLayer.frame = CGRectMake(0.0, frame.size.height/2.0, frame.size.width, frame.size.height/2.0);
-        bottomLayer.backgroundColor = BALLER_CORLOR_CELL.CGColor;
-        [self.layer addSublayer:bottomLayer];
-        
-        [ViewFactory addAlabelForAView:self withText:title frame:CGRectMake(5.0, 7.0, frame.size.width-10.0, 13.0) font:DEFAULT_BOLDFONT(13.0) textColor:[UIColor whiteColor]];
-        
-        [ViewFactory addAlabelForAView:self withText:detail frame:CGRectMake(5.0, 7.0+frame.size.height/2.0, frame.size.width-10.0, 13.0) font:DEFAULT_BOLDFONT(13.0) textColor:BALLER_CORLOR_696969];
-
-        
-        
+    cell.partnerType = [teamMemberInfo.state integerValue];
+    if (indexPath.row == 0) {
+        cell.backgroundType = BaseCellBackgroundTypeUpWhite;
+    } else if (indexPath.row == 9) {
+        cell.backgroundType = (indexPath.row % 2) ? BaseCellBackgroundTypeDownGrey : BaseCellBackgroundTypeDownWhite;
+    } else {
+        cell.backgroundType = indexPath.row % 2 ? BaseCellBackgroundTypeMiddleGrey : BaseCellBackgroundTypeMiddleWhite;
     }
-    return self;
 }
 
 @end
-
-
-
-
-

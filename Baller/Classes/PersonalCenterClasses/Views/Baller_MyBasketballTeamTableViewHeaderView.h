@@ -7,10 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BTLabel.h"
 
 @interface Baller_MyBasketballTeamTableViewHeaderView : UIView
+
+@property (weak, nonatomic) IBOutlet UIView *memberCountView;
+
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
-@property (weak, nonatomic) IBOutlet UILabel *numberLabel;
-@property (weak, nonatomic) IBOutlet UILabel *courtName;
-@property (weak, nonatomic) IBOutlet UILabel *teamLeaderName;
+
+@property (weak, nonatomic) IBOutlet UILabel *memberCount;
+
+@property (weak, nonatomic) IBOutlet BTLabel *captainName;
+
+@property (weak, nonatomic) IBOutlet BTLabel *courtName;
+
 @end

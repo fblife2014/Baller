@@ -28,13 +28,18 @@
     info.teamLeaderUserID = [dic integerForKey:@"team_leader_uid"];
     info.court_name = [dic stringForKey:@"court_name"];
     NSMutableArray *temp = @[].mutableCopy;
-    NSDictionary *members = [dic dictionaryForKey:@"members"];
+    NSArray *members = [dic arrayForKey:@"members"];
     for (NSDictionary *member in members) {
         Baller_BallTeamMemberInfo *memberInfo = [Baller_BallTeamMemberInfo shareWithServerDictionary:member];
         [temp addObject:memberInfo];
     }
     info.members = [NSArray arrayWithArray:temp];
     return info;
+}
+
+- (NSInteger)memberNumber
+{
+    return self.members.count;
 }
 
 @end
