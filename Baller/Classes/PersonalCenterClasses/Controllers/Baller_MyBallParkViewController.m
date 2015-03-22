@@ -9,6 +9,10 @@
 #import "Baller_MyBallParkViewController.h"
 #import "Baller_MineBallParkTableViewCell.h"
 #import "Baller_MyAttentionBallPark.h"
+
+#import "MJRefresh.h"
+
+
 @interface Baller_MyBallParkViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSMutableArray *dataSourceArray;
@@ -73,7 +77,7 @@
     NSDictionary *dicParmter = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",@"1",@"page",@"10",@"per_page",nil];
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_attend_courts parameters:dicParmter responseBlock:^(id result, NSError *error) {
         [myTableView.header endRefreshing];
-        [myTableView.footer resetNoMoreData];
+        [myTableView.footer noticeNoMoreData];
         NSArray *array = [result objectForKey:@"list"];
         if(array.count == 10)
         {

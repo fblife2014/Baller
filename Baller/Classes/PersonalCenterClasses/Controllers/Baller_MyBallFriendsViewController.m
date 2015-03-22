@@ -104,7 +104,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",@"get_friends",@"action",@"1",@"page",@"10",@"per_page", nil];
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_friend_list parameters:dic responseBlock:^(id result, NSError *error) {
         [self.tableView.header endRefreshing];
-        [self.tableView.footer resetNoMoreData];
+        [self.tableView.footer noticeNoMoreData];
         [friends removeAllObjects];
         if(!error)
         {
