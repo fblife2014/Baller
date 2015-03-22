@@ -23,6 +23,14 @@
  */
 + (NSString *)theInterValTimeFromCreateTime:(NSString *)createTime
                                formatString:(NSString *)formatString;
+
+//2015-03-22格式字符串
++ (NSString *)standardDateStringWithMonthAndDay:(NSDate *)date;
+
+//日月格式字符串
++ (NSString *)dateStringWithMonthAndDay:(NSDate *)date;
+
+
 //计算跟当前时间的先后关系
 + (BOOL)theSuccessivelyWithCurrentTimeFrom:(unsigned long long)createTime;
 /*

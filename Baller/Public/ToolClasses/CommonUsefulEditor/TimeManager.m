@@ -51,6 +51,28 @@
     return @"刚发布";
 }
 
+//2015-03-22格式字符串
++ (NSString *)standardDateStringWithMonthAndDay:(NSDate *)date
+{
+    //创建日期格式化对象
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString * dateString = [dateFormatter stringFromDate:date];
+    return dateString;
+}
+
+
+//日月格式字符串
++ (NSString *)dateStringWithMonthAndDay:(NSDate *)date
+{
+    //创建日期格式化对象
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM月dd日"];
+    NSString * dateString = [dateFormatter stringFromDate:date];
+    return dateString;
+}
+
+
 
 //计算跟当前时间的先后关系
 + (BOOL)theSuccessivelyWithCurrentTimeFrom:(unsigned long long)createTime

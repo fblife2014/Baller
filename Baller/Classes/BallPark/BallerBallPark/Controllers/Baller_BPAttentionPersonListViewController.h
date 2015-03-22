@@ -9,8 +9,10 @@
 //球场关注人员列表界面
 
 #import "BaseViewController.h"
-@class Baller_BallParkListModel;
 
 @interface Baller_BPAttentionPersonListViewController : BaseViewController
-@property (nonatomic,strong)Baller_BallParkListModel * ballParkModel;
+
+@property (nonatomic,copy)NSString * court_id;
+@property (nonatomic,copy)NSString * court_name;
+
 @end

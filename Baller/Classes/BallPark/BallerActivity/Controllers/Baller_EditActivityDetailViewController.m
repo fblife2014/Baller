@@ -62,8 +62,10 @@
             itemView.infoCanEdited = YES;
             if (i<3) {
                 itemView.infoTextField.returnKeyType = UIReturnKeyNext;
+
             }else{
                 itemView.infoTextField.returnKeyType = UIReturnKeyGo;
+                itemView.infoTextField.keyboardType = UIKeyboardTypeNumberPad;
 
             }
             [bottomView addSubview:itemView];

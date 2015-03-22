@@ -9,7 +9,7 @@
 #import "Baller_BPAttentionPersonListViewController.h"
 #import "Baller_PersonalInfoViewController.h"
 #import "Baller_BallParkListModel.h"
-#import "Baller_BallTeamInfo.h"
+#import "Baller_BallParkAttentionTeamListModel.h"
 
 #import "TableViewDataSource.h"
 
@@ -28,7 +28,7 @@
 }
 @property (nonatomic,strong)NSMutableArray * ballers;
 @property (nonatomic,strong)NSMutableArray * teams;
-@property (nonatomic)NSInteger ballTeamPage; //球队列表页码
+@property (nonatomic)NSInteger teamPage; //球队列表页码
 @end
 
 @implementation Baller_BPAttentionPersonListViewController
@@ -36,6 +36,7 @@
 - (void)loadView{
     [super loadView];
     self.ballers = $marrnew;
+    self.teamPage = 1;
     //1、顶部分栏
     bpHeaderView = [[Baller_BPAttentionPersonListHeader alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 40.0)];
     bpHeaderView.target = self;
@@ -68,7 +69,9 @@
         ballerCollectionView.dataSource = self;
     }
     [self.view addSubview:ballerCollectionView];
-    [self getBallerballers_by_court_id];
+    if (0 == _ballers.count) {
+        [self getBallerballers_by_court_id];
+    }
 }
 
 /*!
@@ -88,19 +91,22 @@
         [teamTableView registerNib:[UINib nibWithNibName:@"Baller_BPAttentionTeamTableViewCell" bundle:nil] forCellReuseIdentifier:@"Baller_BPAttentionTeamTableViewCellId"];
         self.teams = $marrnew;
         
-        tableViewDataSource = [[TableViewDataSource alloc] initWithItems:self.teams cellIdentifier:@"Baller_BPAttentionTeamTableViewCellId" tableViewConfigureBlock:^(Baller_BPAttentionTeamTableViewCell * cell, Baller_BallTeamInfo * item) {
+        tableViewDataSource = [[TableViewDataSource alloc] initWithItems:self.teams cellIdentifier:@"Baller_BPAttentionTeamTableViewCellId" tableViewConfigureBlock:^(Baller_BPAttentionTeamTableViewCell * cell, Baller_BallParkAttentionTeamListModel * item) {
             cell.teamInfo = item;
         }];
         teamTableView.dataSource = tableViewDataSource;
         
     }
     [self.view addSubview:teamTableView];
+    if (0 == _teams.count) {
+        [self getBallParkTeams_by_court_id];
+    }
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = self.ballParkModel.court_name;
+    self.navigationItem.title = self.court_name;
     
     // Do any additional setup after loading the view.
 }
@@ -115,7 +121,7 @@
 - (void)getBallerballers_by_court_id
 {
     __WEAKOBJ(weakSelf, self);
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_ballers_by_court_id parameters:@{@"court_id":@(_ballParkModel.court_id),@"page":@(self.page),@"per_page":@(10)} responseBlock:^(id result, NSError *error) {
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_ballers_by_court_id parameters:@{@"court_id":_court_id,@"page":@(self.page),@"per_page":@(10)} responseBlock:^(id result, NSError *error) {
         if (error)return ;
         __STRONGOBJ(strongSelf, weakSelf);
         if ([[result valueForKey:@"errorcode"] integerValue] == 0) {
@@ -132,16 +138,15 @@
 - (void)getBallParkTeams_by_court_id
 {
     __WEAKOBJ(weakSelf, self);
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_ballers_by_court_id parameters:@{@"court_id":@(_ballParkModel.court_id),@"page":@(self.page),@"per_page":@(10)} responseBlock:^(id result, NSError *error) {
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_teams_by_court_id parameters:@{@"court_id":_court_id,@"page":@(self.teamPage),@"per_page":@(10)} responseBlock:^(id result, NSError *error) {
         if (error)return ;
         __STRONGOBJ(strongSelf, weakSelf);
         if ([[result valueForKey:@"errorcode"] integerValue] == 0) {
-            if (self.page == 1) [strongSelf.ballers removeAllObjects];
-            for (NSDictionary * ballerDic in [result valueForKey:@"list"]) {
-                Baller_BallParkAttentionBallerListModel * ballerModel = [[Baller_BallParkAttentionBallerListModel alloc]initWithAttributes:ballerDic];
-                [strongSelf.ballers addObject:ballerModel];
+            if (self.teamPage == 1) [strongSelf.teams removeAllObjects];
+            for (NSDictionary * teamDic in [result valueForKey:@"list"]) {
+                [strongSelf.teams addObject:[Baller_BallParkAttentionTeamListModel shareWithServerDictionary:teamDic]];
             }
-            [ballerCollectionView reloadData];
+            [teamTableView reloadData];
         }
     }];
 }

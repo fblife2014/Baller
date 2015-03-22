@@ -45,8 +45,9 @@
 		FB2ABEC71AADF97C007D7E52 /* Baller_CreateBallParkView.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABEB81AADF97C007D7E52 /* Baller_CreateBallParkView.m */; };
 		FB5726801ABD51C5006D50A2 /* Baller_BallerFriendListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FB57267F1ABD51C5006D50A2 /* Baller_BallerFriendListModel.m */; };
 		FB5726831ABD54C0006D50A2 /* Baller_BallParkAttentionBallerListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5726821ABD54C0006D50A2 /* Baller_BallParkAttentionBallerListModel.m */; };
-		FB57268C1ABD8F58006D50A2 /* MGCDPImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB5726881ABD8F58006D50A2 /* MGCDPImages.xcassets */; };
-		FB57268D1ABD8F58006D50A2 /* MGConferenceDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = FB57268A1ABD8F58006D50A2 /* MGConferenceDatePicker.m */; };
+		FB5726A11ABE692A006D50A2 /* MGCDPImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FB57269D1ABE692A006D50A2 /* MGCDPImages.xcassets */; };
+		FB5726A21ABE692A006D50A2 /* MGConferenceDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = FB57269F1ABE692A006D50A2 /* MGConferenceDatePicker.m */; };
+		FB5726A51ABE75A9006D50A2 /* Baller_BallParkAttentionTeamListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5726A41ABE75A9006D50A2 /* Baller_BallParkAttentionTeamListModel.m */; };
 		FB5E8B4B1AB5B9E1007F9617 /* Baller_LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5E8B4A1AB5B9E1007F9617 /* Baller_LoginViewController.m */; };
 		FB5E8B4E1AB6B73C007F9617 /* LTools.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5E8B4D1AB6B73C007F9617 /* LTools.m */; };
 		FB5E8B511AB6D157007F9617 /* LocationChange.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5E8B501AB6D157007F9617 /* LocationChange.m */; };
@@ -240,10 +241,12 @@
 		FB57267F1ABD51C5006D50A2 /* Baller_BallerFriendListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_BallerFriendListModel.m; sourceTree = "<group>"; };
 		FB5726811ABD54C0006D50A2 /* Baller_BallParkAttentionBallerListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_BallParkAttentionBallerListModel.h; sourceTree = "<group>"; };
 		FB5726821ABD54C0006D50A2 /* Baller_BallParkAttentionBallerListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_BallParkAttentionBallerListModel.m; sourceTree = "<group>"; };
-		FB5726881ABD8F58006D50A2 /* MGCDPImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MGCDPImages.xcassets; sourceTree = "<group>"; };
-		FB5726891ABD8F58006D50A2 /* MGConferenceDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGConferenceDatePicker.h; sourceTree = "<group>"; };
-		FB57268A1ABD8F58006D50A2 /* MGConferenceDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGConferenceDatePicker.m; sourceTree = "<group>"; };
-		FB57268B1ABD8F58006D50A2 /* MGConferenceDatePickerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGConferenceDatePickerDelegate.h; sourceTree = "<group>"; };
+		FB57269D1ABE692A006D50A2 /* MGCDPImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MGCDPImages.xcassets; sourceTree = "<group>"; };
+		FB57269E1ABE692A006D50A2 /* MGConferenceDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGConferenceDatePicker.h; sourceTree = "<group>"; };
+		FB57269F1ABE692A006D50A2 /* MGConferenceDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGConferenceDatePicker.m; sourceTree = "<group>"; };
+		FB5726A01ABE692A006D50A2 /* MGConferenceDatePickerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGConferenceDatePickerDelegate.h; sourceTree = "<group>"; };
+		FB5726A31ABE75A9006D50A2 /* Baller_BallParkAttentionTeamListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_BallParkAttentionTeamListModel.h; sourceTree = "<group>"; };
+		FB5726A41ABE75A9006D50A2 /* Baller_BallParkAttentionTeamListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_BallParkAttentionTeamListModel.m; sourceTree = "<group>"; };
 		FB5A15971A8CBBBB007F6D9D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		FB5A15991A8CBCBB007F6D9D /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		FB5A159B1A8CBCCE007F6D9D /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.0.9.dylib"; path = "usr/lib/libstdc++.6.0.9.dylib"; sourceTree = SDKROOT; };
@@ -614,6 +617,8 @@
 				FB2ABEA41AADF97C007D7E52 /* Baller_BallParkActivityListModel.m */,
 				FB5726811ABD54C0006D50A2 /* Baller_BallParkAttentionBallerListModel.h */,
 				FB5726821ABD54C0006D50A2 /* Baller_BallParkAttentionBallerListModel.m */,
+				FB5726A31ABE75A9006D50A2 /* Baller_BallParkAttentionTeamListModel.h */,
+				FB5726A41ABE75A9006D50A2 /* Baller_BallParkAttentionTeamListModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -642,13 +647,13 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		FB5726871ABD8F58006D50A2 /* MGConferenceDatePicker */ = {
+		FB57269C1ABE692A006D50A2 /* MGConferenceDatePicker */ = {
 			isa = PBXGroup;
 			children = (
-				FB5726881ABD8F58006D50A2 /* MGCDPImages.xcassets */,
-				FB5726891ABD8F58006D50A2 /* MGConferenceDatePicker.h */,
-				FB57268A1ABD8F58006D50A2 /* MGConferenceDatePicker.m */,
-				FB57268B1ABD8F58006D50A2 /* MGConferenceDatePickerDelegate.h */,
+				FB57269D1ABE692A006D50A2 /* MGCDPImages.xcassets */,
+				FB57269E1ABE692A006D50A2 /* MGConferenceDatePicker.h */,
+				FB57269F1ABE692A006D50A2 /* MGConferenceDatePicker.m */,
+				FB5726A01ABE692A006D50A2 /* MGConferenceDatePickerDelegate.h */,
 			);
 			path = MGConferenceDatePicker;
 			sourceTree = "<group>";
@@ -1231,7 +1236,7 @@
 		FBD9B7011AAD7F7E00CDC1C6 /* Thirds */ = {
 			isa = PBXGroup;
 			children = (
-				FB5726871ABD8F58006D50A2 /* MGConferenceDatePicker */,
+				FB57269C1ABE692A006D50A2 /* MGConferenceDatePicker */,
 				FBD9B7021AAD7F7E00CDC1C6 /* FlatButton */,
 				FBD9B7051AAD7F7E00CDC1C6 /* JSONKit.h */,
 				FBD9B7061AAD7F7E00CDC1C6 /* JSONKit.m */,
@@ -1544,10 +1549,10 @@
 				FBD9B75E1AAD7F7F00CDC1C6 /* LICENSE in Resources */,
 				FB8EAAAB1A6A4CE800460B8C /* Localizable.strings in Resources */,
 				FB9EF31F1AADF830001D77CB /* Baller_MyCenterTopTableViewCell.xib in Resources */,
+				FB5726A11ABE692A006D50A2 /* MGCDPImages.xcassets in Resources */,
 				FBD9B7501AAD7F7F00CDC1C6 /* BaseTableViewController.xib in Resources */,
 				FB9EF3211AADF830001D77CB /* Baller_MyPersonalCenterTableViewCell.xib in Resources */,
 				FBD64B681A7E69230070E003 /* Default-568h@2x.png in Resources */,
-				FB57268C1ABD8F58006D50A2 /* MGCDPImages.xcassets in Resources */,
 				13277F761ABD39B700E9621C /* pengyouquan72_7222x.png in Resources */,
 				FB9EF3471AADF830001D77CB /* Baller_MyBasketBallTeamTableViewCell.xib in Resources */,
 				FB9EF33C1AADF830001D77CB /* Baller_BallFriendsTableViewCell.xib in Resources */,
@@ -1640,6 +1645,7 @@
 				EFCC59A01ABD7241007F2D9C /* Baller_ChatListViewController.m in Sources */,
 				FB9EF34F1AADF830001D77CB /* SKInnerShadowLayer.m in Sources */,
 				FBD9B7531AAD7F7F00CDC1C6 /* Baller_PositionRelated.m in Sources */,
+				FB5726A21ABE692A006D50A2 /* MGConferenceDatePicker.m in Sources */,
 				FB9EF3241AADF830001D77CB /* Baller_BallParkCollectionReusableView.m in Sources */,
 				FB9EF34D1AADF830001D77CB /* Baller_AbilityView.m in Sources */,
 				FBD9B74E1AAD7F7F00CDC1C6 /* MLViewConrollerManager.m in Sources */,
@@ -1702,6 +1708,7 @@
 				FB9EF3481AADF830001D77CB /* Baller_SystemConfigureTableViewCell.m in Sources */,
 				75565A421ABEAC7000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.m in Sources */,
 				FB57268D1ABD8F58006D50A2 /* MGConferenceDatePicker.m in Sources */,
+
 				FB9EF34E1AADF830001D77CB /* Baller_CardView.m in Sources */,
 				FBD9B7521AAD7F7F00CDC1C6 /* Baller_NetworkInterfaces.m in Sources */,
 				FBD9B76E1AAD7F7F00CDC1C6 /* AFNHttpRequestOPManager.m in Sources */,
@@ -1717,6 +1724,7 @@
 				FBD9B74C1AAD7F7F00CDC1C6 /* PopingAnimator.m in Sources */,
 				FB9EF31D1AADF830001D77CB /* Baller_PersonalInfoViewController.m in Sources */,
 				FB2ABEC71AADF97C007D7E52 /* Baller_CreateBallParkView.m in Sources */,
+				FB5726A51ABE75A9006D50A2 /* Baller_BallParkAttentionTeamListModel.m in Sources */,
 				FBD9B7541AAD7F7F00CDC1C6 /* TableViewDataSource.m in Sources */,
 				FBD9B77A1AAD7F7F00CDC1C6 /* FileManager.m in Sources */,
 				FBD9B76F1AAD7F7F00CDC1C6 /* AFSessionManagerClient.m in Sources */,

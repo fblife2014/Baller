@@ -192,8 +192,8 @@ const float LBL_BORDER_OFFSET = 8.0;
     
     //Create array Moments and create the dictionary MOMENT -> TIME
     _arrMoments = @[@"当前",
-                    @"早晨",
-                    @"午间",
+                    @"上午",
+                    @"中午",
                     @"下午",
                     @"傍晚",
                     @"晚间",

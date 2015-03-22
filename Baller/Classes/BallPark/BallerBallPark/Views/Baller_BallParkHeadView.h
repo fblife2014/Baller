@@ -57,7 +57,11 @@
     
 }
 
-@property (nonatomic,strong)Baller_BallParkListModel * ballParkModel;
+@property (nonatomic,strong)NSDate * currentDate;
+
+@property (nonatomic,copy)NSString * dateString;
+
+@property (nonatomic,strong)NSDictionary * ballParkInfo;
 
 @property (nonatomic,strong)UIImageView * ballParkImageView; //球场图片
 

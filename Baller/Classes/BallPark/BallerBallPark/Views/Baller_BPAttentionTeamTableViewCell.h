@@ -9,7 +9,7 @@
 //球场相关球队列表的cell
 #import <UIKit/UIKit.h>
 #import "Baller_BaseTableViewCell.h"
-@class Baller_BallTeamInfo;
+@class Baller_BallParkAttentionTeamListModel;
 
 @interface Baller_BPAttentionTeamTableViewCell : Baller_BaseTableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
@@ -17,5 +17,5 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *teamNumberLabel;
 
-@property (nonatomic, strong)Baller_BallTeamInfo * teamInfo;
+@property (nonatomic, strong)Baller_BallParkAttentionTeamListModel * teamInfo;
 @end

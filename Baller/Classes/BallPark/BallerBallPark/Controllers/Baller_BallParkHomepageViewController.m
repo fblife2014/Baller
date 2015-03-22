@@ -42,6 +42,9 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 {
     [super loadView];
 
+    if (_ballParkModel) {
+        _court_id = $str(@"%ld",_ballParkModel.court_id);
+    }
     self.tableView.delegate = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"Baller_BallParkActivityListTableViewCell" bundle:nil] forCellReuseIdentifier:@"Baller_BallParkActivityListTableViewCell"];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -49,8 +52,7 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     //添加headview图片
     ballParkHeadView = [[Baller_BallParkHeadView alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 330)];
     ballParkHeadView.delegate = self;
-    ballParkHeadView.ballParkModel = self.ballParkModel;
-    self.tableView.tableHeaderView = ballParkHeadView;
+     self.tableView.tableHeaderView = ballParkHeadView;
 
 }
 
@@ -58,9 +60,8 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     [super viewDidLoad];
     self.navigationItem.title = self.ballParkModel.court_name;
     [self getCourtInfo];
-    [self ballerParkHome_get_activities];
-    //设置列表
-    
+ 
+
 }
 
 #pragma mark 网络请求
@@ -70,15 +71,18 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 - (void)getCourtInfo{
     if (nil == self.ballParkModel)return;
     __WEAKOBJ(weakSelf, self);
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_court_info parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":@(self.ballParkModel.court_id)} responseBlock:^(id result, NSError *error) {
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_court_info parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":_court_id} responseBlock:^(id result, NSError *error) {
         if (error) {
             
         }else {
             courtInfoDic = [NSMutableDictionary dictionaryWithDictionary:result];
+            ballParkHeadView.ballParkInfo = courtInfoDic;
             if (0 == [[result valueForKey:@"errorcode"] intValue]){
                 [self addAttentionButton];
                 if (2 == weakSelf.ballParkModel.status) {
                     [self addAuthedCourtSubViews];
+                    //设置列表
+                    [self ballerParkHome_get_activities];
                 }else{
                     [self addAuthingCourtSubViews];
                 }
@@ -92,8 +96,10 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
  *  @brief  获取活动列表
  */
 - (void)ballerParkHome_get_activities{
+  
+    NSString * standardString =[TimeManager standardDateStringWithMonthAndDay:ballParkHeadView.currentDate?:[NSDate date]];
     
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_activities parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":$str(@"%ld",(long)self.ballParkModel.court_id),@"time":@"2015-3-24"} responseBlock:^(id result, NSError *error) {
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_activities parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":_court_id,@"time":standardString} responseBlock:^(id result, NSError *error) {
         if (error) return;
         [activities removeAllObjects];
         if ([[result valueForKey:@"errorcode"] integerValue] == 0) {
@@ -136,7 +142,7 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
  */
 - (void)addAuthingCourtSubViews{
     AuthenticationView * authenticationView = [[AuthenticationView alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, ScreenWidth)];
-    authenticationView.court_id = $str(@"%ld",(long)self.ballParkModel.court_id);
+    authenticationView.court_id = _court_id;
     authenticationView.hasIdentified = [[courtInfoDic valueForKey:@"my_auth"] boolValue];
     authenticationView.auth_num = [[courtInfoDic valueForKey:@"auth_num"] integerValue];
     self.tableView.tableFooterView = authenticationView;
@@ -148,7 +154,7 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 */
 - (void)attentionButtonAction:(UIBarButtonItem *)item{
     
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_attend_court parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":@(self.ballParkModel.court_id)} responseBlock:^(id result, NSError *error) {
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_attend_court parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":_court_id} responseBlock:^(id result, NSError *error) {
         if (0 == [[result valueForKey:@"errorcode"] intValue]) {
             BOOL attentioned = [[courtInfoDic valueForKey:@"my_attend"] boolValue];
             [courtInfoDic setValue:attentioned?@"0":@"1" forKey:@"my_attend"];
@@ -195,20 +201,21 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 
 - (void)ballParkHeadView:(Baller_BallParkHeadView *)ballParkHeadView userButtonSelected:(UIButton *)userButton{
     Baller_BPAttentionPersonListViewController * bpAttentionListVC = [[Baller_BPAttentionPersonListViewController alloc]init];
-    bpAttentionListVC.ballParkModel = self.ballParkModel;
+    bpAttentionListVC.court_id = _court_id;
+    bpAttentionListVC.court_name = [courtInfoDic valueForKey:@"court_name"];
     [self.navigationController pushViewController:bpAttentionListVC animated:YES];
 }
 
 - (void)ballParkHeadView:(Baller_BallParkHeadView *)ballParkHeadView activitieButtonSelected:(UIButton *)activitieButton{
     Baller_EditActivityDetailViewController * editADVC = [[Baller_EditActivityDetailViewController alloc]init];
-    editADVC.court_id = $str(@"%ld",(long)_ballParkModel.court_id);
+    editADVC.court_id = _court_id;
     [self.navigationController pushViewController:editADVC animated:YES];
 }
 
 - (void)ballParkHeadView:(Baller_BallParkHeadView *)ballParkHeadView chatButtonSelected:(UIButton *)chatButton{
     
     RCChatViewController *temp = [[RCChatViewController alloc]init];
-    temp.currentTarget = self.court_id?(self.court_id):($str(@"%ld",(long)_ballParkModel.court_id));
+    temp.currentTarget = _court_id;
     temp.conversationType = ConversationType_GROUP;
     temp.currentTargetName = @"马龙群";
     [self.navigationController pushViewController:temp animated:YES];

@@ -7,7 +7,7 @@
 //
 
 #import "Baller_BPAttentionTeamTableViewCell.h"
-#import "Baller_BallTeamInfo.h"
+#import "Baller_BallParkAttentionTeamListModel.h"
 
 @implementation Baller_BPAttentionTeamTableViewCell
 
@@ -21,15 +21,15 @@
     // Configure the view for the selected state
 }
 
-- (void)setTeamInfo:(Baller_BallTeamInfo *)teamInfo{
+- (void)setTeamInfo:(Baller_BallParkAttentionTeamListModel *)teamInfo{
     if (_teamInfo == teamInfo) {
         return;
     }
     _teamInfo = teamInfo;
-    self.logoImageView.image = [UIImage imageNamed:@"ballPark_default"];
-    self.teamNameLabel.text = teamInfo.teamName;
-    self.teamNumberLabel.text = [NSString stringWithFormat:@"%ld人",teamInfo.memberNumber];
-    
+    [self.logoImageView sd_setImageWithURL:[NSURL URLWithString:teamInfo.team_logo] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+    self.teamNameLabel.text = teamInfo.team_name;
+    self.teamNumberLabel.text = [NSString stringWithFormat:@"%@人",teamInfo.member_num];
+    [self setNeedsDisplay];
 }
 
 @end

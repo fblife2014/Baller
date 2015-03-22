@@ -23,13 +23,32 @@
     return self;
 }
 
-- (void)setBallParkModel:(Baller_BallParkListModel *)ballParkModel{
-    if (_ballParkModel == ballParkModel) return;
-    _ballParkModel = ballParkModel;
+- (void)setBallParkInfo:(NSDictionary *)ballParkInfo{
+    if (_ballParkInfo == ballParkInfo) {
+        return;
+    }
+    _ballParkInfo = ballParkInfo;
     
-    [self.ballParkImageView sd_setImageWithURL:[NSURL URLWithString:self.ballParkModel.court_img] placeholderImage:[UIImage imageNamed:@"weishangchuan"]];
-    self.hasIdentified = (self.ballParkModel.status == 2);
+    [self.ballParkImageView sd_setImageWithURL:[NSURL URLWithString:[ballParkInfo valueForKey:@"court_img"]] placeholderImage:[UIImage imageNamed:@"weishangchuan"]];
+    self.hasIdentified = ([[ballParkInfo valueForKey:@"status"] intValue] == 2);
+}
 
+- (void)setCurrentDate:(NSDate *)currentDate
+{
+    if (_currentDate == currentDate) {
+        return;
+    }
+    _currentDate = currentDate;
+    self.dateString = [TimeManager dateStringWithMonthAndDay:currentDate];
+
+}
+
+- (void)setDateString:(NSString *)dateString{
+    if ([_dateString isEqualToString:dateString]) {
+        return;
+    }
+    _dateString = dateString;
+    [calendarButton setTitle:dateString forState:UIControlStateNormal];
 }
 
 - (UIImageView *)ballParkImageView
@@ -41,7 +60,7 @@
         imageView.clipsToBounds = YES;
        [self addSubview: _ballParkImageView = imageView ];
         //若没有图片
-        if (!(_ballParkModel.court_img.length>10)) {
+        if (!([[_ballParkInfo valueForKey:@"court_img"] length]>10)) {
             [self addUpdateImageButton];
         }
     }
@@ -77,9 +96,10 @@
         dateLayer.anchorPoint = CGPointZero;
         dateLayer.frame = CGRectMake(33.0, frame.size.height-34.0, 16.0, 16.0);
         [self.layer addSublayer:dateLayer];
-        
-        calendarButton = [ViewFactory getAButtonWithFrame:CGRectMake(56.0, frame.size.height-45.0, 80, 40.0) nomalTitle:@"12月25日" hlTitle:@"12月25日" titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:nil hImage:nil action:@selector(calendarButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+                
+        calendarButton = [ViewFactory getAButtonWithFrame:CGRectMake(56.0, frame.size.height-45.0, 80, 40.0) nomalTitle:nil hlTitle:nil titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:nil hImage:nil action:@selector(calendarButtonAction) target:self buttonTpye:UIButtonTypeCustom];
         calendarButton.titleLabel.font = DEFAULT_BOLDFONT(16.0);
+        self.currentDate = [NSDate date];
         [self addSubview:calendarButton];
         
         activitieButton = [ViewFactory getAButtonWithFrame:CGRectMake(frame.size.width-NUMBER(117.0, 107, 90, 80)-15.0, frame.size.height-40.0, NUMBER(117.0, 107, 90, 80), 30.0) nomalTitle:@"发起活动" hlTitle:@"发起活动" titleColor:[UIColor whiteColor] bgColor:UIColorFromRGB(0x51d3b7) nImage:nil hImage:nil action:@selector(activitieButtonAction) target:self buttonTpye:UIButtonTypeCustom];
@@ -101,7 +121,7 @@
         weizhiLayer.frame = CGRectMake(33.0, 15.0, 14.0, 20.0);
         [goRightButton.layer addSublayer:weizhiLayer];
         
-       UILabel * locationLabel = [ViewFactory addAlabelForAView:self withText:_ballParkModel.address frame:CGRectMake(CGRectGetMaxX(weizhiLayer.frame)+15.0, 17.5, ScreenWidth-CGRectGetMaxY(weizhiLayer.frame)-50.0, 15.0) font:SYSTEM_FONT_S(15.0) textColor:UIColorFromRGB(0x6a6a6a)];
+       UILabel * locationLabel = [ViewFactory addAlabelForAView:self withText:[_ballParkInfo valueForKey:@"address"] frame:CGRectMake(CGRectGetMaxX(weizhiLayer.frame)+15.0, 17.5, ScreenWidth-CGRectGetMaxY(weizhiLayer.frame)-50.0, 15.0) font:SYSTEM_FONT_S(15.0) textColor:UIColorFromRGB(0x6a6a6a)];
        [goRightButton addSubview:locationLabel];
         locationLabel.textAlignment = NSTextAlignmentLeft;
         
@@ -122,7 +142,7 @@
         __BLOCKOBJ(blockUpdateImageButton, updateImageButton)
         _baller_ImagePicker.baller_ImagePicker_ImageChosenBlock = (^(UIImage * image){
             
-            [AFNHttpRequestOPManager postImageWithSubUrl:Baller_update_court_img parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":@(weakSelf.ballParkModel.court_id)} fileName:@"pic" fileData:UIImageJPEGRepresentation(image, 0.5) fileType:@"image/png" responseBlock:^(id result, NSError *error) {
+            [AFNHttpRequestOPManager postImageWithSubUrl:Baller_update_court_img parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":[weakSelf.ballParkInfo valueForKey:@"city_id"]} fileName:@"pic" fileData:UIImageJPEGRepresentation(image, 0.5) fileType:@"image/png" responseBlock:^(id result, NSError *error) {
                 if (error) {
                     [Baller_HUDView bhud_showWithTitle:@"图片上传失败！"];
                     return ;
