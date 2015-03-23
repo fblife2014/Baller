@@ -11,10 +11,12 @@
 
 @implementation Baller_BallTeamInfo
 
-+ (instancetype)shareWithServerDictionary:(NSDictionary *)dic
-{
++ (instancetype)shareWithServerDictionary:(NSDictionary *)dic {
+    if (!dic) {
+        return nil;
+    }
     Baller_BallTeamInfo *info = [[Baller_BallTeamInfo alloc] init];
-    info.createTime = [dic stringForKey:@"create_time"];
+    info.createTime = [dic longLongIntForKey:@"create_time"];
     info.status = [dic stringForKey:@"status"];
     info.courtID = [dic integerForKey:@"court_id"];
     info.teamLeaderUserName = [dic stringForKey:@"team_leader_user_name"];
@@ -31,15 +33,22 @@
     NSArray *members = [dic arrayForKey:@"members"];
     for (NSDictionary *member in members) {
         Baller_BallTeamMemberInfo *memberInfo = [Baller_BallTeamMemberInfo shareWithServerDictionary:member];
-        [temp addObject:memberInfo];
+        [temp addObjectOrNil:memberInfo];
     }
     info.members = [NSArray arrayWithArray:temp];
     return info;
 }
 
-- (NSInteger)memberNumber
-{
+- (NSInteger)memberNumber {
     return self.members.count;
+}
+
++ (NSArray *)teamsWithArray:(NSArray *)aArray {
+    NSMutableArray *array = @[].mutableCopy;
+    for (NSDictionary *dic in aArray) {
+        [array addObjectOrNil:[Baller_BallTeamInfo shareWithServerDictionary:dic]];
+    }
+    return [NSArray arrayWithArray:array];
 }
 
 @end

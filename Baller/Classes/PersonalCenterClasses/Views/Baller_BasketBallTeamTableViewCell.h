@@ -12,5 +12,6 @@
 #import <UIKit/UIKit.h>
 #import "Baller_BaseTableViewCell.h"
 @interface Baller_BasketBallTeamTableViewCell : Baller_BaseTableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *courtName;
 
 @end

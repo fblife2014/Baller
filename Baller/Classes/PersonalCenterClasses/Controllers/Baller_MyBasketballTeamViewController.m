@@ -33,7 +33,7 @@
     UIBarButtonItem *rightItem = [ViewFactory getABarButtonItemWithImage:@"qunliao" imageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15) target:self selection:@selector(goToGroupChat)];
     self.navigationItem.rightBarButtonItem = rightItem;
 #warning 现在返回的team_id为空，需要服务器返回正确的id或者什么标识能标识用户已经加入球队了。现在debug直接用的YES
-    hasOwnTeam = YES || [[[USER_DEFAULT valueForKey:Baller_UserInfo] objectForKey:@"team_id"] integerValue] > 0;
+    hasOwnTeam = [[[USER_DEFAULT valueForKey:Baller_UserInfo] objectForKey:@"team_id"] integerValue] > 0;
     [self setupTableHeaderViewAndFooterView];
 }
 
@@ -90,6 +90,9 @@
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_my_team
                                 parameters:paras
                              responseBlock:^(id result, NSError *error) {
+                                 if (error) {
+                                     return;
+                                 }
                                  self.teamInfo = [Baller_BallTeamInfo shareWithServerDictionary:result];
                                  if (completion) {
                                      completion();
@@ -102,6 +105,7 @@
  *  @brief  前往群聊
  */
 - (void)goToGroupChat {
+    
 }
 
 /*!
@@ -185,6 +189,11 @@
     } else {
         cell.backgroundType = indexPath.row % 2 ? BaseCellBackgroundTypeMiddleGrey : BaseCellBackgroundTypeMiddleWhite;
     }
+}
+
+- (void)dealloc
+{
+    NSLog(@"000");
 }
 
 @end

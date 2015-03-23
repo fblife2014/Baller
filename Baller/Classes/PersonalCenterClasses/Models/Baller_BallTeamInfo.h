@@ -10,7 +10,7 @@
 
 @interface Baller_BallTeamInfo : NSObject
 
-@property (nonatomic, copy) NSString *createTime;
+@property (nonatomic) long long createTime;
 @property (nonatomic, copy) NSString *status;
 @property (nonatomic) NSInteger courtID;
 @property (nonatomic, copy) NSString *teamLeaderUserName;
@@ -27,5 +27,7 @@
 @property (nonatomic) NSArray *members;
 
 + (instancetype)shareWithServerDictionary:(NSDictionary *)dic;
+
++ (NSArray *)teamsWithArray:(NSArray *)array;
 
 @end

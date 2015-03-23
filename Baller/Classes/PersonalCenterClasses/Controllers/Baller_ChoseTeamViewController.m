@@ -8,10 +8,10 @@
 
 #import "Baller_ChoseTeamViewController.h"
 #import "Baller_BasketBallTeamTableViewCell.h"
+#import "Baller_BallTeamInfo.h"
+
 @interface Baller_ChoseTeamViewController ()<UITableViewDelegate>
-{
-    NSMutableArray * teams;
-}
+@property (nonatomic, strong) NSArray *teams;
 @end
 
 @implementation Baller_ChoseTeamViewController
@@ -20,19 +20,57 @@
     [super viewDidLoad];
     self.navigationItem.title = @"选择球队";
     [self.tableView registerNib:[UINib nibWithNibName:@"Baller_BasketBallTeamTableViewCell" bundle:nil] forCellReuseIdentifier:@"Baller_BasketBallTeamTableViewCell"];
-    teams = [NSMutableArray array];
-    [teams addObjectsFromArray:@[@"北大小牛1队",@"北大小牛2队",@"北大小牛3队",@"北大小牛4队",@"北大小牛5队",@"北大小牛6队",@"北大小牛7队",@"北大小牛8队",@"北大小牛9队",@"北大小牛10队"]];
-    self.tableViewDataSource = [[TableViewDataSource alloc]initWithItems:teams cellIdentifier:@"Baller_BasketBallTeamTableViewCell" tableViewConfigureBlock:^(Baller_BasketBallTeamTableViewCell * cell, NSString * item) {
-        cell.textLabel.text = item;
-    }];
-    self.tableView.dataSource = self.tableViewDataSource;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    [self reloadTableView:self.teams];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)reloadTableView:(NSArray *)teams
+{
+    CLLocationCoordinate2D location = {39.91549069,116.38086026};
+    __WEAKOBJ(weakSelf, self);
+    [self getTeamInfoWithLocation:location array:teams completion:^(NSArray *newData){
+        __STRONGOBJ(strongSelf, weakSelf);
+        strongSelf.teams = newData;
+        strongSelf.tableViewDataSource = [[TableViewDataSource alloc] initWithItems:strongSelf.teams cellIdentifier:@"Baller_BasketBallTeamTableViewCell" tableViewConfigureBlock:^(Baller_BasketBallTeamTableViewCell * cell, Baller_BallTeamInfo * item) {
+            cell.textLabel.text = item.teamName;
+            NSLog(@"%@",item.logoImageUrl);
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:item.logoImageUrl] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+            cell.courtName.text = item.court_name;
+        }];
+        strongSelf.tableView.dataSource = strongSelf.tableViewDataSource;
+        [strongSelf.tableView reloadData];
+    }];
+}
+
+- (void)getTeamInfoWithLocation:(CLLocationCoordinate2D)location array:(NSArray *)teams completion:(void (^)(NSArray *))completion
+{
+    if (!teams) {
+        teams = @[];
+    }
+    NSInteger per_page = 10;
+    NSInteger currentCount = teams.count;
+    NSDictionary *paras = @{
+                            @"authcode" : [USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],
+                            @"latitude" : @(location.latitude),
+                            @"longitude" : @(location.longitude),
+                            @"page" : @(currentCount / per_page),
+                            @"per_page" : @(per_page)
+                            };
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_nearby_teams
+                                parameters:paras
+                             responseBlock:^(id result, NSError *error) {
+                                 NSMutableArray *array = teams.mutableCopy;
+                                 if ([result longForKey:@"errorcode"] == 0){
+                                     [array addObjectsFromArray:[Baller_BallTeamInfo teamsWithArray:[result arrayForKey:@"list"]]];
+                                 }else if ([result longForKey:@"errorcode"] == 1) {
+                                     [Baller_HUDView bhud_showWithTitle:[result stringForKey:@"msg"]];
+                                 }else if (error) {
+                                     [Baller_HUDView bhud_showWithTitle:error.domain];
+                                 }
+                                 if (completion) {
+                                     completion([NSArray arrayWithArray:array]);
+                                 }
+                             }];
 }
 
 #pragma mark - Table view data delegate
@@ -46,16 +84,16 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark - override
 
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)headerRereshing
+{
+    [self reloadTableView:@[]];
 }
-*/
+
+- (void)footerRereshing
+{
+    [self reloadTableView:self.teams];
+}
 
 @end

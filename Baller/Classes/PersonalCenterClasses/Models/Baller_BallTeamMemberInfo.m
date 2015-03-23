@@ -10,8 +10,10 @@
 
 @implementation Baller_BallTeamMemberInfo
 
-+ (instancetype)shareWithServerDictionary:(NSDictionary *)dic
-{
++ (instancetype)shareWithServerDictionary:(NSDictionary *)dic {
+    if (!dic) {
+        return nil;
+    }
     Baller_BallTeamMemberInfo *info = [[Baller_BallTeamMemberInfo alloc] init];
     info.favor_num = [dic stringForKey:@"favor_num"];
     info.weight = [dic stringForKey:@"weight"];
