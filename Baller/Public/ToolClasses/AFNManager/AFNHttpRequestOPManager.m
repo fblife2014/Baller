@@ -177,13 +177,14 @@
     NSLog(@"parameter = %@",parameters);
     
     [[[self class] sharedManager] POST:totalUrlString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-        //添加图片
-        [formData appendPartWithFileData:fileData
-                                    name:fileName?:@"pic"
-                                fileName:fileName?:@"headPhoto.jpg"
-                                mimeType:fileType?:@"image/jpg"];
-        
+        if (fileData) {
+            //添加图片
+            [formData appendPartWithFileData:fileData
+                                        name:fileName?:@"pic"
+                                    fileName:fileName?:@"headPhoto.jpg"
+                                    mimeType:fileType?:@"image/jpg"];
+
+        }
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[[self class]sharedManager] hideMyprogressHud];

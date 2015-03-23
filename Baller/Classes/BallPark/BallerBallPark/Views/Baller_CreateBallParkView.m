@@ -17,7 +17,7 @@
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         self.clipsToBounds = YES;
-        ballParkInfos = [NSMutableDictionary dictionary];
+        self.ballParkInfos = [NSMutableDictionary dictionary];
         
         CGFloat titleFontSize = NUMBER(17.0, 16.0, 15.0, 15.0); //主标题字号
         CGFloat detailFontSize = NUMBER(16.0, 15.0, 14.0, 14.0);//副标题字号
@@ -25,6 +25,8 @@
     
         Baller_InfoItemView * ballParkNameItem = [[Baller_InfoItemView alloc]initWithFrame:CGRectMake(0.0, 0.0, frame.size.width, PersonInfoCell_Height) title:@"球场名字" placeHolder:@"输入球场名字"];
         ballParkNameItem.infoTextField.userInteractionEnabled = YES;
+        [ballParkNameItem.infoTextField addTarget:self action:@selector(setBallParkInfosWithTF:) forControlEvents:UIControlEventEditingChanged];
+        
         [ballParkNameItem.infoTextField addTarget:self action:@selector(ballParkNameTextFieldChanged:) forControlEvents:UIControlEventEditingChanged];
         [self addSubview:ballParkNameItem];
         
@@ -42,11 +44,10 @@
         [ballParkImageItem.infoTextField removeFromSuperview];
         [self addSubview:ballParkImageItem];
         
-        ballParkImageView = [[UIImageView alloc]initWithFrame:CGRectMake(ballParkImageItem.frame.size.width/2.0-20.0, ballParkImageItem.frame.size.height/2.0-NUMBER(90.0, 80.0, 70.0, 70.0)/2.0, NUMBER(90.0, 80.0, 70.0, 70.0), NUMBER(90.0, 80.0, 70.0, 70.0))];
-        ballParkImageView.image = [UIImage imageNamed:@"ballPark_default"];
-        ballParkImageView.layer.cornerRadius = TABLE_CORNERRADIUS;
-        ballParkImageView.clipsToBounds = YES;
-        [ballParkImageItem addSubview:ballParkImageView];
+        self.ballParkImageView = [[UIImageView alloc]initWithFrame:CGRectMake(ballParkImageItem.frame.size.width/2.0-20.0, ballParkImageItem.frame.size.height/2.0-NUMBER(90.0, 80.0, 70.0, 70.0)/2.0, NUMBER(90.0, 80.0, 70.0, 70.0), NUMBER(90.0, 80.0, 70.0, 70.0))];
+        _ballParkImageView.layer.cornerRadius = TABLE_CORNERRADIUS;
+        _ballParkImageView.clipsToBounds = YES;
+        [ballParkImageItem addSubview:_ballParkImageView];
         
         UIButton * updateImageButton = [ViewFactory getAButtonWithFrame:CGRectMake(frame.size.width-86.0, ballParkImageItem.frame.size.height/2.0-17.0, 71.0, 37.0) nomalTitle:@"上传" hlTitle:@"上传" titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:nil hImage:nil action:@selector(updateImage) target:self buttonTpye:UIButtonTypeCustom];
         updateImageButton.layer.cornerRadius = 5.0;
@@ -98,15 +99,22 @@
     return self;
 }
 
+- (void)setBallParkInfosWithTF:(UITextField *)textfield
+{
+    [self.ballParkInfos setValue:textfield.text forKey:@"name"];
+}
+
 - (Baller_ImagePicker *)baller_ImagePicker
 {
     if (!_baller_ImagePicker) {
         Baller_ImagePicker * baller_ImagePicker = [[Baller_ImagePicker alloc]init];
         _baller_ImagePicker = baller_ImagePicker;
-        __BLOCKOBJ(blockImageView, ballParkImageView);
-        
+        __BLOCKOBJ(blockImageView, _ballParkImageView);
+        __WEAKOBJ(weakSelf, self);
         _baller_ImagePicker.baller_ImagePicker_ImageChosenBlock = (^(UIImage * image){
             blockImageView.image = image;
+            __STRONGOBJ(strongSelf, weakSelf);
+            [strongSelf.ballParkInfos setValue:UIImagePNGRepresentation(image) forKey:@"imageData"];
         });
     }
     return _baller_ImagePicker;

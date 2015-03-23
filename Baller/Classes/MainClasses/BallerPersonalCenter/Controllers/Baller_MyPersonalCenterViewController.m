@@ -168,6 +168,7 @@ static NSString * const Baller_MyCenterTopTableViewCellId = @"Baller_MyCenterTop
         case 5:
         {
             Baller_MyBasketballTeamViewController * myteamVC = [[Baller_MyBasketballTeamViewController alloc]init];
+            myteamVC.isCloseMJRefresh = YES;
             myteamVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:myteamVC animated:YES];
             

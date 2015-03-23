@@ -12,7 +12,9 @@
 #import "Baller_CardView.h"
 
 @interface Baller_CreateBallParkViewController ()
-
+{
+    __block NSMutableDictionary * chosedPositionInfo;
+}
 @end
 
 @implementation Baller_CreateBallParkViewController
@@ -20,12 +22,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"创建球场";
-
+    chosedPositionInfo = [NSMutableDictionary dictionary];
     Baller_CardView * createCardView = [[Baller_CardView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, 10.0, ScreenWidth-2*TABLE_SPACE_INSET, self.view.frame.size.height-20.0) playerCardType:kBallerCardType_CreateBallPark];
-    
-//    createCardView.bottomButtonClickedBlock = ^(BallerCardType cardType){
-//        [AFNHttpRequestOPManager postImageWithSubUrl:Baller_court_create parameters:@{ fileName:<#(NSString *)#> fileData:<#(NSData *)#> fileType:<#(NSString *)#> responseBlock:<#^(id result, NSError *error)block#>]
-//    };
+    __WEAKOBJ(weakCardView, createCardView);
+
+    createCardView.bottomButtonClickedBlock = ^(BallerCardType cardType){
+        if ([[weakCardView.createBallParkView.ballParkInfos valueForKey:@"name"] length] == 0) {
+            [Baller_HUDView bhud_showWithTitle:@"请输入球场名！"];
+            return ;
+        }else if(!chosedPositionInfo.allValues.count){
+            [Baller_HUDView bhud_showWithTitle:@"请选择球场位置！"];
+            return;
+        }else if (!weakCardView.createBallParkView.ballParkImageView.image){
+            [Baller_HUDView bhud_showWithTitle:@"未上传球场图片！"];
+        }
+        NSDictionary * createInfo = @{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_name":[weakCardView.createBallParkView.ballParkInfos valueForKey:@"name"],@"address":[chosedPositionInfo valueForKey:@"address"],@"latitude":[chosedPositionInfo valueForKey:@"latitude"],@"longitude":[chosedPositionInfo valueForKey:@"longitude"]};
+        NSData * imageData = nil;
+        if (weakCardView.createBallParkView.ballParkImageView.image) {
+            imageData = UIImagePNGRepresentation(weakCardView.createBallParkView.ballParkImageView.image);
+        }
+        
+        [AFNHttpRequestOPManager postImageWithSubUrl:Baller_court_create parameters:createInfo fileName:@"pic" fileData:imageData?imageData:nil fileType:@"image/png" responseBlock:^(id result, NSError *error) {
+            if (error)return ;
+            if ([[result valueForKey:@"errorcode"] intValue] == 0) {
+                [Baller_HUDView bhud_showWithTitle:[result valueForKey:@"msg"]];
+                [self PopToLastViewController];
+            }
+        }];
+    };
     
     if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]) {
         UIImage * headImage = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];
@@ -43,7 +67,10 @@
         Baller_AnnotationMapViewController * anntionMapVC = [[Baller_AnnotationMapViewController alloc]init];
         anntionMapVC.autoAnnotion = isAutoAnnotion;
         anntionMapVC.posionCallBack = ^(NSDictionary * positonInfo){
-            DLog(@"positonInfo = %@",positonInfo);
+            [chosedPositionInfo removeAllObjects];
+            [chosedPositionInfo setValuesForKeysWithDictionary:positonInfo];
+            DLog(@"chosedPositionInfo = %@",chosedPositionInfo);
+
         };
         [weakSelf.navigationController pushViewController:anntionMapVC animated:YES];
         

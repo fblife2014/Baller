@@ -12,6 +12,8 @@
 #define ShareButtonWidth 63.0
 
 #import "Baller_CardView.h"
+#import "UIButton+AFNetworking.h"
+
 #import "Baller_MyBallParkViewController.h"
 #import "Baller_MyBasketballTeamViewController.h"
 #import "Baller_AbilityView.h"
@@ -20,6 +22,8 @@
 #import "LShareSheetView.h"
 
 @implementation Baller_CardView
+
+@synthesize ballParkButton = _ballParkButton;
 
 - (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
@@ -71,6 +75,10 @@
                 [self addBottomSegments];
                 
                 break;
+            case kBallerCardType_OtherBallerPlayerCard:
+                
+                
+                break;
             case kBallerCardType_CreateBallPark:
             {
                 self.createBallParkView = [[Baller_CreateBallParkView alloc]initWithFrame:CGRectMake(0.0, CGRectGetMaxY(_nickNameLabel.frame), self.frame.size.width, 4.5*PersonInfoCell_Height)];
@@ -99,6 +107,13 @@
     return self;
 }
 
+//
+- (void)setPersonalInfo:(NSDictionary *)personalInfo{
+    if (_personalInfo == personalInfo) {
+        return;
+    }
+
+}
 
 #pragma mark  添加子视图
 - (UIButton *)headImageButton
@@ -177,7 +192,7 @@
 }
 
 
-#pragma mark 首次生成我的球员卡状态视图
+#pragma mark 我的球员卡状态视图
 /*!
  *  @brief  分享按钮
  */
@@ -191,11 +206,27 @@
     
 }
 
+
+#pragma mark 其他球员卡状态视图
+
+/*!
+ *  @brief  关注按钮
+ */
+- (void)attentionButton{
+    
+    attentionButton = [ViewFactory getAButtonWithFrame:CGRectMake(pathRect.size.width-BackLayer_CornerRadius-ShareButtonWidth, pathRect.origin.y, ShareButtonWidth, ShareButtonWidth) nomalTitle:@"关注" hlTitle:@"关注" titleColor:[UIColor whiteColor] bgColor:CLEARCOLOR nImage:@"guanzhu" hImage:@"guanzhu" action:@selector(attentionButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+    attentionButton.titleLabel.font = SYSTEM_FONT_S(13.0);
+    attentionButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 10, 0.0, 10.0);
+    attentionButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 10, -1.0, -8.0);
+    [self addSubview:attentionButton];
+    
+}
+
 - (UIButton *)ballParkButton
 {
     if (!_ballParkButton) {
-        NSLog(@"USER_DEFAULT = %@",[USER_DEFAULT valueForKey:@"court_id"]);
-        NSString * ballParkString = [[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"court_id"] integerValue]?@"我的球场":@"未加入球场";
+        NSString * court_nameString = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"court_name"];
+        NSString * ballParkString = court_nameString.length?court_nameString:@"未加入球场";
         ballParkButton = [ViewFactory getAButtonWithFrame:CGRectMake(0.0, CGRectGetMaxY(_nickNameLabel.frame), pathRect.size.width/2.0, pathRect.size.width*PCV_SegmentHeightRatio) nomalTitle:ballParkString hlTitle:ballParkString titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:@"homeCourt" hImage:@"homeCourt" action:@selector(ballParkButtonAction) target:self buttonTpye:UIButtonTypeCustom];
         ballParkButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, -10, 0.0, 10.0);
         ballParkButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 0.0, -1.0, 0.0);
@@ -213,9 +244,10 @@
 - (UIButton *)ballTeamButton
 {
     if (!_ballTeamButton) {
-        NSLog(@"ddd = %@",[USER_DEFAULT valueForKey:Baller_UserInfo]);
         
-        NSString * ballTeamString = [[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_id"] integerValue]?@"我的球队":@"未加入球队";
+        NSString * team_nameString = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_name"];
+
+        NSString * ballTeamString = team_nameString.length?team_nameString:@"未加入球队";
         UIButton * ballTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(pathRect.size.width/2.0, CGRectGetMaxY(_nickNameLabel.frame), pathRect.size.width/2.0, pathRect.size.width*PCV_SegmentHeightRatio) nomalTitle:ballTeamString hlTitle:ballTeamString titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:@"ballTeam" hImage:@"ballTeam" action:@selector(ballTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
         ballTeamButton.titleLabel.font = SYSTEM_FONT_S(15.0);
         ballTeamButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 10.0, -1.0, -10.0);
@@ -353,6 +385,11 @@
     }];
 }
 
+//关注按钮方法
+- (void)attentionButtonAction{
+    
+}
+
 /*!
  *  @brief  我的球场按钮方法
  */
@@ -368,6 +405,7 @@
 - (void)ballTeamButtonAction
 {
     Baller_MyBasketballTeamViewController * ballTeamVC = [[Baller_MyBasketballTeamViewController alloc]init];
+    ballTeamVC.isCloseMJRefresh = YES;
     [[[MLViewConrollerManager sharedVCMInstance]rootViewController].navigationController pushViewController:ballTeamVC animated:YES];
 
 }

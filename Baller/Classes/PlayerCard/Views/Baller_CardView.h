@@ -14,6 +14,7 @@
 typedef NS_ENUM(NSUInteger, BallerCardType) {
     kBallerCardType_FirstBorn = 0,      //首次生成我的球员卡
     kBallerCardType_MyPlayerCard,       //平时我的球员卡
+    kBallerCardType_OtherBallerPlayerCard,//其他球员的球员卡
     kBallerCardType_CreateBallPark,     //创建球场
     kBallerCardType_CreateBasketBallTeam    //创建球队
 
@@ -35,11 +36,14 @@ typedef void(^CardView_BottomButtonClicked) (BallerCardType ballerCardType);
     
     Baller_AbilityView * abilityView;
     CAShapeLayer * abilityContentLabyer;  //能力值呈现图谱
+    UIButton * attentionButton;
     @public
     UIButton * ballParkButton ;
 }
 
 @property (nonatomic) BallerCardType ballerCardType;
+
+@property (nonatomic,strong)NSDictionary * personalInfo;
 
 @property (nonatomic, strong)UIButton * headImageButton;
 @property (nonatomic, strong)UIButton * ballParkButton;

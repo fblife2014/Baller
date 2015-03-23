@@ -15,11 +15,12 @@ typedef void (^Baller_CreateBallParkViewAnnotionButtonClicked)(BOOL autoAnnotion
 
 @interface Baller_CreateBallParkView : UIView
 {
-    UIImageView * ballParkImageView;
-    NSMutableDictionary * ballParkInfos; //球场信息字典
     Baller_ImagePicker * _baller_ImagePicker;
 }
 
 @property (nonatomic,copy)Baller_CreateBallParkViewAnnotionButtonClicked autoAnnotion;
+@property (nonatomic,strong)NSMutableDictionary * ballParkInfos; //球场信息字典
+
+@property (nonatomic,strong)UIImageView * ballParkImageView;
 
 @end

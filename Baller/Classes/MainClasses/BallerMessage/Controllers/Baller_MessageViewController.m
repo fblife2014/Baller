@@ -35,6 +35,11 @@ static NSString * const Baller_MessageViewCellId = @"Baller_MessageViewCellId";
     // Do any additional setup after loading the view.
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self reloadMessageData];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -42,9 +47,8 @@ static NSString * const Baller_MessageViewCellId = @"Baller_MessageViewCellId";
 
 - (void)reloadMessageData
 {
-    [[AppDelegate sharedDelegate]getTokenFromRC];
+    [[AppDelegate sharedDelegate] getTokenFromRC];
     [[AppDelegate sharedDelegate]connectRC];
-    
 }
 
 #pragma mark - Table view data source
