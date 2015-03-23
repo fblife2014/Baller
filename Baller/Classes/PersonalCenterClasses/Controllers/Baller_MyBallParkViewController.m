@@ -7,6 +7,7 @@
 //
 
 #import "Baller_MyBallParkViewController.h"
+#import "Baller_BallParkHomepageViewController.h"
 #import "Baller_MineBallParkTableViewCell.h"
 #import "Baller_MyAttentionBallPark.h"
 
@@ -163,6 +164,12 @@
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }];
+    }else{
+        Baller_BallParkHomepageViewController * ballParkHomePageVc = [[Baller_BallParkHomepageViewController alloc]init];
+        ballParkHomePageVc.court_id = [NSString stringWithFormat:@"%ld",currentModel.court_id];
+        ballParkHomePageVc.court_name = currentModel.court_name;
+        [self.navigationController pushViewController:ballParkHomePageVc animated:YES];
+        
     }
     
 }

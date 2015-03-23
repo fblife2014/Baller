@@ -44,6 +44,7 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 
     if (_ballParkModel) {
         _court_id = $str(@"%ld",_ballParkModel.court_id);
+        _court_name = _ballParkModel.court_name;
     }
     self.tableView.delegate = self;
     [self.tableView registerNib:[UINib nibWithNibName:@"Baller_BallParkActivityListTableViewCell" bundle:nil] forCellReuseIdentifier:@"Baller_BallParkActivityListTableViewCell"];
@@ -58,7 +59,7 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = self.ballParkModel.court_name;
+    self.navigationItem.title = self.court_name;
     [self getCourtInfo];
  
 
@@ -69,7 +70,7 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
  *  @brief  获取球场详情信息
  */
 - (void)getCourtInfo{
-    if (nil == self.ballParkModel)return;
+    if (nil == self.court_id)return;
     __WEAKOBJ(weakSelf, self);
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_court_info parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":_court_id} responseBlock:^(id result, NSError *error) {
         if (error) {
