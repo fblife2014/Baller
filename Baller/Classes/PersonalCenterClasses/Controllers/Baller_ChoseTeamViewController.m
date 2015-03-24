@@ -8,10 +8,10 @@
 
 #import "Baller_ChoseTeamViewController.h"
 #import "Baller_BasketBallTeamTableViewCell.h"
-#import "Baller_BallTeamInfo.h"
+#import "Baller_BallParkAttentionTeamListModel.h"
 
 @interface Baller_ChoseTeamViewController ()<UITableViewDelegate>
-@property (nonatomic, strong) NSArray *teams;
+
 @end
 
 @implementation Baller_ChoseTeamViewController
@@ -21,56 +21,53 @@
     self.navigationItem.title = @"选择球队";
     [self.tableView registerNib:[UINib nibWithNibName:@"Baller_BasketBallTeamTableViewCell" bundle:nil] forCellReuseIdentifier:@"Baller_BasketBallTeamTableViewCell"];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self reloadTableView:self.teams];
+    self.items = [NSMutableArray array];
+    self.tableViewDataSource = [[TableViewDataSource alloc] initWithItems:self.items cellIdentifier:@"Baller_BasketBallTeamTableViewCell" tableViewConfigureBlock:^(Baller_BasketBallTeamTableViewCell * cell, Baller_BallParkAttentionTeamListModel * item) {
+        cell.textLabel.text = item.team_name;
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:item.team_logo] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+        cell.courtName.text = item.court_name;
+    }];
+    self.tableView.dataSource = self.tableViewDataSource;
+    [self reloadTableView];
 }
 
-- (void)reloadTableView:(NSArray *)teams
+
+
+
+- (void)reloadTableView
 {
     CLLocationCoordinate2D location = {39.91549069,116.38086026};
     __WEAKOBJ(weakSelf, self);
-    [self getTeamInfoWithLocation:location array:teams completion:^(NSArray *newData){
-        __STRONGOBJ(strongSelf, weakSelf);
-        strongSelf.teams = newData;
-        strongSelf.tableViewDataSource = [[TableViewDataSource alloc] initWithItems:strongSelf.teams cellIdentifier:@"Baller_BasketBallTeamTableViewCell" tableViewConfigureBlock:^(Baller_BasketBallTeamTableViewCell * cell, Baller_BallTeamInfo * item) {
-            cell.textLabel.text = item.teamName;
-            NSLog(@"%@",item.logoImageUrl);
-            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:item.logoImageUrl] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
-            cell.courtName.text = item.court_name;
-        }];
-        strongSelf.tableView.dataSource = strongSelf.tableViewDataSource;
-        [strongSelf.tableView reloadData];
-    }];
-}
-
-- (void)getTeamInfoWithLocation:(CLLocationCoordinate2D)location array:(NSArray *)teams completion:(void (^)(NSArray *))completion
-{
-    if (!teams) {
-        teams = @[];
-    }
     NSInteger per_page = 10;
-    NSInteger currentCount = teams.count;
     NSDictionary *paras = @{
                             @"authcode" : [USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],
                             @"latitude" : @(location.latitude),
                             @"longitude" : @(location.longitude),
-                            @"page" : @(currentCount / per_page),
+                            @"page" : @(self.page),
                             @"per_page" : @(per_page)
                             };
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_nearby_teams
                                 parameters:paras
                              responseBlock:^(id result, NSError *error) {
-                                 NSMutableArray *array = teams.mutableCopy;
+                                 __STRONGOBJ(strongSelf, weakSelf);
                                  if ([result longForKey:@"errorcode"] == 0){
-                                     [array addObjectsFromArray:[Baller_BallTeamInfo teamsWithArray:[result arrayForKey:@"list"]]];
+                                     if (strongSelf.page == 1) {
+                                         [strongSelf.items removeAllObjects];
+                                     }
+                                     
+                                     for (NSDictionary * teamInfo in [result arrayForKey:@"list"]) {
+                                         [strongSelf.items addObject:[Baller_BallParkAttentionTeamListModel shareWithServerDictionary:teamInfo]];
+
+                                     }
+                                     [strongSelf.tableView reloadData];
                                  }else if ([result longForKey:@"errorcode"] == 1) {
                                      [Baller_HUDView bhud_showWithTitle:[result stringForKey:@"msg"]];
                                  }else if (error) {
                                      [Baller_HUDView bhud_showWithTitle:error.domain];
                                  }
-                                 if (completion) {
-                                     completion([NSArray arrayWithArray:array]);
-                                 }
+                            
                              }];
+    
 }
 
 #pragma mark - Table view data delegate
@@ -88,12 +85,17 @@
 
 - (void)headerRereshing
 {
-    [self reloadTableView:@[]];
+    [super headerRereshing];
+    self.page = 1;
+    [self reloadTableView];
 }
 
 - (void)footerRereshing
 {
-    [self reloadTableView:self.teams];
+    [super footerRereshing];
+    self.page = self.items.count/10+1;
+    [self reloadTableView];
+    
 }
 
 @end

@@ -11,6 +11,7 @@
 @interface Baller_BallParkAttentionTeamListModel : NSObject
 
 @property (nonatomic, copy) NSString * court_id;
+@property (nonatomic, copy) NSString * court_name;
 @property (nonatomic, copy) NSString * create_time;
 @property (nonatomic, copy) NSString * create_uid;
 @property (nonatomic, copy) NSString * logo_size;

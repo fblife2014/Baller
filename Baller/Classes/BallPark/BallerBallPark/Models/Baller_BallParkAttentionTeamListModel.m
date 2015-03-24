@@ -14,6 +14,7 @@
 {
     Baller_BallParkAttentionTeamListModel *info = [[Baller_BallParkAttentionTeamListModel alloc] init];
     info.court_id = [dic stringForKey:@"court_id"];
+    info.court_name = [dic stringForKey:@"court_name"];
     info.create_time = [dic stringForKey:@"create_uid"];
     info.create_uid = [dic stringForKey:@"birthday"];
     info.logo_size = [dic stringForKey:@"logo_size"];
