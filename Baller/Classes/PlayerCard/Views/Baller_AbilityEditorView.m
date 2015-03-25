@@ -71,6 +71,7 @@
     
     [UIView animateWithDuration:0.5 animations:^{
         button.alpha = 0;
+        button.bounds = CGRectMake([[AppDelegate sharedDelegate] window].center.x, [[AppDelegate sharedDelegate] window].center.y, 0, 0);
     }completion:^(BOOL finished) {
         [button removeFromSuperview];
     }];

@@ -57,21 +57,23 @@
         playCardView = [[Baller_CardView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, 10.0, ScreenWidth-2*TABLE_SPACE_INSET, self.view.frame.size.height-20.0) playerCardType:self.ballerCardType];
         if (_friendModel) {
             playCardView.uid = _friendModel.friend_uid;
+        }else{
+            __BLOCKOBJ(blockPlayCard, playCardView);
+            [AFNHttpRequestOPManager getWithSubUrl:Baller_get_user_attr parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]?:@""} responseBlock:^(id result, NSError *error) {
+                
+                if([result isKindOfClass:[NSDictionary class]]){
+                    blockPlayCard.abilityDetails =
+                    @[@(MAX([[result valueForKey:@"shoot"] floatValue]/1000.0, 0.4)),
+                      @(MAX([[result valueForKey:@"assists"] floatValue]/1000.0, 0.4)),
+                      @(MAX([[result valueForKey:@"backboard"] floatValue]/1000.0, 0.4)),
+                      @(MAX([[result valueForKey:@"steal"] floatValue]/1000.0, 0.4)),
+                      @(MAX([[result valueForKey:@"over"] floatValue]/1000.0, 0.4)),
+                      @(MAX([[result valueForKey:@"breakthrough"] floatValue]/1000.0, 0.4))];
+                }
+                
+            }];
+
         }
-        __BLOCKOBJ(blockPlayCard, playCardView);
-        [AFNHttpRequestOPManager getWithSubUrl:Baller_get_user_attr parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]?:@""} responseBlock:^(id result, NSError *error) {
-            
-            if([result isKindOfClass:[NSDictionary class]]){
-                blockPlayCard.abilityDetails =
-                @[@(MAX([[result valueForKey:@"shoot"] floatValue]/1000.0, 0.4)),
-                  @(MAX([[result valueForKey:@"assists"] floatValue]/1000.0, 0.4)),
-                  @(MAX([[result valueForKey:@"backboard"] floatValue]/1000.0, 0.4)),
-                  @(MAX([[result valueForKey:@"steal"] floatValue]/1000.0, 0.4)),
-                  @(MAX([[result valueForKey:@"over"] floatValue]/1000.0, 0.4)),
-                  @(MAX([[result valueForKey:@"breakthrough"] floatValue]/1000.0, 0.4))];
-            }
-      
-        }];
         
         [self.view addSubview:_playCardView = playCardView];
         [self.view bringSubviewToFront:_playCardView];
