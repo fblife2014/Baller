@@ -30,7 +30,7 @@
     self.navigationItem.title = @"活动详情";
     [self getActivityInfo];
     isCreator = [_activityModel.uid isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]];
-    [self showBlurBackImageViewWithImage:[UIImage imageNamed:@"ballPark_default"]];
+    [self showBlurBackImageViewWithImage:[UIImage imageNamed:@"ballPark_default"] belowView:nil];
     [self setupSubViews];
     // Do any additional setup after loading the view.
 }

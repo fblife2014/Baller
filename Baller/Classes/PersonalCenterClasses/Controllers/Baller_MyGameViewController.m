@@ -25,7 +25,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"我的比赛";
-    [self showBlurBackImageViewWithImage:[UIImage imageNamed:@"ballPark_default"]];
+    UIImage * image = nil;
+    if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]) {
+        image = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];
+    }
+    [self showBlurBackImageViewWithImage:image?image:[UIImage imageNamed:@"ballPark_default"] belowView:nil];
     titles = @[@"我发起的比赛",@"我收藏的比赛",@"参加过的比赛",@"评价过的比赛",@"待评价的比赛"];
   
     self.bottomScrollView.contentSize = CGSizeMake(ScreenWidth, ScreenHeight+30.0);

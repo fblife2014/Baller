@@ -23,7 +23,7 @@
     if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]) {
         UIImage * headImage = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];
         
-        [self showBlurBackImageViewWithImage:headImage];
+        [self showBlurBackImageViewWithImage:headImage belowView:nil];
         [[self.createTeamCardView headImageButton]setImage:headImage forState:UIControlStateNormal];
         
     }else{

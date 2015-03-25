@@ -9,7 +9,7 @@
 /*!
  *  @brief  选择球队控制器
  */
-typedef void (^ChoseTeamBlock)(NSDictionary * chosenTeamInfo);  //选中的球队信息回调
+typedef void (^ChoseTeamBlock)(NSString * chosenTeamId);  //选中的球队信息回调
 
 #import "BaseTableViewController.h"
 

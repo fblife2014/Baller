@@ -30,10 +30,10 @@
     if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData])
     {
         UIImage * image = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];
-        [self showBlurBackImageViewWithImage:image];
+        [self showBlurBackImageViewWithImage:image belowView:nil];
         
     }else{
-        [self showBlurBackImageViewWithImage:[UIImage imageNamed:@"ballPark_default"]];
+        [self showBlurBackImageViewWithImage:[UIImage imageNamed:@"ballPark_default"] belowView:nil];
     }
     
     [self personalInfoView];
@@ -41,7 +41,7 @@
 
 #pragma mark 网络请求
 - (void)getUserInfo
-{
+{    
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_user_info parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]} responseBlock:^(id result, NSError *error) {
         if (error) {
             return ;

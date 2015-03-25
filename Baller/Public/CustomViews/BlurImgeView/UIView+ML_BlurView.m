@@ -41,13 +41,11 @@ static char ML_BlurView_blurViewKey;
 
 - (void)showBlurWithDuration:(NSTimeInterval)duration
                    blurStyle:(BlurStyle)blurStyle
-                  hidenViews:(NSArray *)hidenViews;
+                   belowView:(UIView *)belowView
 {
     
     [self removeOldBlurEffectView];
-    for (UIView * view in hidenViews) {
-        view.hidden = YES;
-    }
+
     if (IOS8) {
         //创建模糊效果对象
         UIBlurEffect * blurEffect = [UIBlurEffect effectWithStyle:(blurStyle == kUIBlurEffectStyleExtraLight)?UIBlurEffectStyleExtraLight:((blurStyle == kUIBlurEffectStyleLight)?UIBlurEffectStyleLight:UIBlurEffectStyleDark)];
@@ -61,7 +59,12 @@ static char ML_BlurView_blurViewKey;
         //    blurEffectView.frame = self.bounds;
         
         //将模糊视图添加到当前视图上
-        [self insertSubview:blurEffectView atIndex:0];
+        if (belowView) {
+            [self insertSubview:blurEffectView belowSubview:belowView];
+
+        }else{
+            [self addSubview:blurEffectView];
+        }
         self.blurView = blurEffectView;
         
         //创建活力效果

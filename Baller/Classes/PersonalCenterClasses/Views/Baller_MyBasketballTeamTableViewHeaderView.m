@@ -21,7 +21,7 @@
     self.memberCountView.layer.cornerRadius = 5;
     self.memberCountView.clipsToBounds = YES;
     [self configInDiffVersion];
-    [self.headImageView showBlurWithDuration:0 blurStyle:kUIBlurEffectStyleLight hidenViews:nil];
+    [self.headImageView showBlurWithDuration:0 blurStyle:kUIBlurEffectStyleLight belowView:nil];
 }
 
 - (void)configInDiffVersion {

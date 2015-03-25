@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     self.ballParkImageView.clipsToBounds = YES;
-    [self.ballParkImageView showBlurWithDuration:0.5 blurStyle:kUIBlurEffectStyleLight hidenViews:nil];
+    [self.ballParkImageView showBlurWithDuration:0.5 blurStyle:kUIBlurEffectStyleLight belowView:nil];
     self.ballParkImageView.blurView.alpha = 0.8;
 }
 

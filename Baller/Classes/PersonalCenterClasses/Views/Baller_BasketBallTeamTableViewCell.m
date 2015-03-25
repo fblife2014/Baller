@@ -29,7 +29,7 @@
 - (void)layoutSubviews{
     [super layoutSubviews];
     self.imageView.frame = CGRectMake(NUMBER(20.0, 15.0, 10.0, 10.0)+TABLE_SPACE_INSET, 23.0, 64, 64);
-    self.textLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame)+15.0, 45.5, 120, 19.0);
+    self.textLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame)+15.0, CGRectGetMinY(self.imageView.frame)+5, 220, 19.0);
 
 
 }

@@ -29,10 +29,12 @@ NSString * const BallerLogoutThenLoginNotification = @"BallerLogoutThenLoginNoti
 NSString * const Baller_get_back_password = @"&c=user&m=get_back_password";  //10、找回密码，重置密码
 
 NSString * const Baller_msg_switch = @"&c=user&m=msg_switch";   //11、开/关消息通知接口
-NSString * const Baller_my_attentio = @"&c=my&m=attentio";   //12、关注/取消关注
-NSString * const Baller_select_my_court = @"&c=user&m=select_my_court";    //13、选择我的主场
+NSString * const Baller_my_attention = @"&c=my&m=attention";   //12、关注/取消关注
+NSString * const Baller_get_friend_list = @"&c=my&m=get_friend_list";   //13、获取我的好友接口
 
-NSString * const Baller_change_password = @"&c=user&m=change_password";    //修改密码
+NSString * const Baller_select_my_court = @"&c=user&m=select_my_court";    //14、选择我的主场
+
+NSString * const Baller_change_password = @"&c=user&m=change_password";    //15、修改密码
 
 
 
@@ -81,8 +83,10 @@ NSString * const Baller_get_nearby_teams = @"&c=team&m=get_nearby_teams";//54、
 NSString * const Baller_get_team_info = @"&c=team&m=get_team_info";//55、根据team_id获取球队详情接口
 
 NSString * const Baller_get_my_team = @"&c=team&m=get_my_team";         //56、获取我的球队详情接口
-NSString * const Baller_get_friend_list = @"&c=my&m=get_friend_list";   //57、获取我的好友接口
-NSString * const Baller_get_attention = @"&c=my&m=attention";           //58、关注/取消关注
+NSString * const Baller_team_out = @"&c=team&m=out_team";            //57、退出、解散球队
+NSString * const Baller_team_change_leader = @"&c=team&m=change_leader";  //58、更换队长
+
+
 @implementation Baller_NetworkInterfaces
 
 @end

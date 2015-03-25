@@ -9,6 +9,8 @@
 #import "Baller_PlayerCardViewController.h"
 #import "UIButton+AFNetworking.h"
 #import "Baller_MyAttentionBallPark.h"
+#import "Baller_BallerFriendListModel.h"
+
 @interface Baller_PlayerCardViewController ()
 
 {
@@ -26,16 +28,24 @@
 }
 
 - (void)showSubViews{
- 
+    if (_friendModel) {
+        _uid = _friendModel.friend_uid;
+        self.navigationItem.title = _friendModel.friend_user_name;
+    }
     switch (_ballerCardType) {
         case kBallerCardType_FirstBorn:
         case kBallerCardType_MyPlayerCard:
-            [self setMyPlayerCardSubviews];
+            self.navigationItem.title = @"我的球员卡";
+            break;
+        case kBallerCardType_OtherBallerPlayerCard:
+            self.navigationItem.title = _friendModel.friend_user_name;
             break;
             
         default:
             break;
     }
+    [self setMyPlayerCardSubviews];
+
 }
 
 /*!
@@ -45,6 +55,9 @@
 {
     if (!_playCardView) {
         playCardView = [[Baller_CardView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, 10.0, ScreenWidth-2*TABLE_SPACE_INSET, self.view.frame.size.height-20.0) playerCardType:self.ballerCardType];
+        if (_friendModel) {
+            playCardView.uid = _friendModel.friend_uid;
+        }
         __BLOCKOBJ(blockPlayCard, playCardView);
         [AFNHttpRequestOPManager getWithSubUrl:Baller_get_user_attr parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]?:@""} responseBlock:^(id result, NSError *error) {
             
@@ -77,20 +90,30 @@
 
 - (void)setMyPlayerCardSubviews{
     
-    self.navigationItem.title = @"我的球员卡";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chooseQiuChang:) name:@"ChooseZhuChang" object:nil];
-    if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData])
-    {
-        UIImage * image = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];
-        [self showBlurBackImageViewWithImage:image];
+
+    if (_friendModel) {
         
-        [[[self playCardView] headImageButton] setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImage]] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+        [[[self playCardView] headImageButton]setImageForState:UIControlStateNormal withURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_friendModel.friend_user_photo]] placeholderImage:[UIImage imageNamed:@"ballPark_default"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+            [self showBlurBackImageViewWithImage:image belowView:[self playCardView]];
+        } failure:^(NSError *error) {
+            [self showBlurBackImageViewWithImage:[UIImage imageNamed:@"ballPark_default"] belowView:[self playCardView]];
+        }];
         
     }else{
-        [self showBlurBackImageViewWithImage:[UIImage imageNamed:@"ballPark_default"]];
-        [self playCardView];
-
+        if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData])
+        {
+            UIImage * image = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];
+            [self showBlurBackImageViewWithImage:image belowView:nil];
+            [[[self playCardView] headImageButton] setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImage]] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+            
+        }else{
+            [self showBlurBackImageViewWithImage:[UIImage imageNamed:@"ballPark_default"] belowView:nil];
+            [self playCardView];
+            
+        }
     }
+
     
     if (self.ballerCardType == kBallerCardType_FirstBorn) {
         self.navigationItem.rightBarButtonItem = [ViewFactory getABarButtonItemWithTitle:@"进入主页" titleEdgeInsets:UIEdgeInsetsZero target:self selection:@selector(goToMainView)];

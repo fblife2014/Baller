@@ -33,12 +33,27 @@ static NSString * const Baller_MyCenterTopTableViewCellId = @"Baller_MyCenterTop
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
+- (void)getPersonalInfo
+{
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_user_info parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]} responseBlock:^(id result, NSError *error) {
+        if (error) {
+            return ;
+        }
+        
+        
+    }];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     cellHeight = NUMBER(80.0, 70.0, 60.0, 60.0);
+    [self getPersonalInfo];
+    UIImage * image = nil;
+    if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]) {
+        image = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];
+    }
+    [self showBlurBackImageViewWithImage:image?image:[UIImage imageNamed:@"ballPark_default"] belowView:nil];
     
-    [self showBlurBackImageViewWithImage:[UIImage imageNamed:@"ballPark_default"]];
-
     self.bottomScrollView.contentSize = CGSizeMake(ScreenWidth, MAX(ScreenHeight, self.myCenterTableView.frame.size.height)+50);
     self.bottomScrollView.showsVerticalScrollIndicator = NO;
     
@@ -108,7 +123,7 @@ static NSString * const Baller_MyCenterTopTableViewCellId = @"Baller_MyCenterTop
         cell.backgroundColor = [UIColor whiteColor];
         [cell.headImageView sd_setImageWithURL:[NSURL URLWithString:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImage]] placeholderImage:[UIImage imageNamed:@"ballPark_default"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             [USER_DEFAULT setValue:UIImageJPEGRepresentation(image, 1.0) forKey:Baller_UserInfo_HeadImageData];
-            [self showBlurBackImageViewWithImage:image?:[UIImage imageNamed:@"ballPark_default"]];
+            [self showBlurBackImageViewWithImage:image?:[UIImage imageNamed:@"ballPark_default"] belowView:nil];
         }];
         return cell;
     }else{
@@ -136,7 +151,6 @@ static NSString * const Baller_MyCenterTopTableViewCellId = @"Baller_MyCenterTop
         case 1:
             
         {
-           //[MLViewConrollerManager pushToTheViewController:@"Baller_MyBallParkViewController" transferInfo:nil];
             Baller_MyBallParkViewController *myBallParkVC = [[Baller_MyBallParkViewController alloc]init];
             myBallParkVC ->soureVC = @"1";
             myBallParkVC.hidesBottomBarWhenPushed = YES;

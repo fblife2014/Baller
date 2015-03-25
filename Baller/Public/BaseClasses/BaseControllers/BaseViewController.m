@@ -44,15 +44,15 @@
  *
  *  @param image 模糊背景视图
  */
-- (void)showBlurBackImageViewWithImage:(UIImage *)image
+- (void)showBlurBackImageViewWithImage:(UIImage *)image belowView:(UIView *)belowView
 {
     if (image) {
         [self.blurBackImageView setImage:image];
-        [self.blurBackImageView showBlurWithDuration:0.0 blurStyle:kUIBlurEffectStyleLight hidenViews:nil];
+        [self.blurBackImageView showBlurWithDuration:0.0 blurStyle:kUIBlurEffectStyleLight belowView:belowView];
         self.blurBackImageView.frame = CGRectMake(0.0, 0.0, ScreenWidth, ScreenHeight);
 
     }else{
-        [self.view showBlurWithDuration:0.0 blurStyle:kUIBlurEffectStyleLight hidenViews:nil];
+        [self.view showBlurWithDuration:0.0 blurStyle:kUIBlurEffectStyleLight belowView:belowView];
     }
     
 }

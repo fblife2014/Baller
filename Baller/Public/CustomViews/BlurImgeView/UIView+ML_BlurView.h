@@ -82,7 +82,7 @@ typedef enum {
  */
 - (void)showBlurWithDuration:(NSTimeInterval)duration
                    blurStyle:(BlurStyle)blurStyle
-                   hidenViews:(NSArray *)hidenViews;
+                   belowView:(UIView *)belowView;
 
 /*!
  *  @brief  直接移除上个模糊效果视图

@@ -22,8 +22,9 @@ extern NSString * const BallerLogoutThenLoginNotification;  //注销后从新等
 
 extern NSString * const Baller_get_back_password;   //10、找回密码，重置密码
 extern NSString * const Baller_msg_switch;          //11、开/关消息通知接口
-extern NSString * const Baller_my_attentio;         //12、关注/取消关注
-extern NSString * const Baller_select_my_court;     //13、选择我的主场
+extern NSString * const Baller_my_attention;         //12、关注/取消关注
+extern NSString * const Baller_get_friend_list;     //13、获取我的好友接口
+extern NSString * const Baller_select_my_court;     //14、选择我的主场
 
 extern NSString * const Baller_change_password;     //15、修改密码
 
@@ -55,8 +56,9 @@ extern NSString * const Baller_get_nearby_teams;    //54、附近的球队列表
 
 extern NSString * const Baller_get_team_info;       //55、根据team_id获取球队详情接口
 extern NSString * const Baller_get_my_team;         //56、获取我的球队详情接口
-extern NSString * const Baller_get_friend_list;     //57、获取我的好友接口
-extern NSString * const Baller_get_attention;       //58、关于/取消关注
+extern NSString * const Baller_team_out;            //57、退出、解散球队
+extern NSString * const Baller_team_change_leader;  //58、更换队长
+
 #import <Foundation/Foundation.h>
 
 @interface Baller_NetworkInterfaces : NSObject

@@ -77,8 +77,20 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    self.choseTeamBlock(nil);
-    [self.navigationController popViewControllerAnimated:YES];
+    Baller_BallParkAttentionTeamListModel * chosedTeam = self.items[indexPath.row];
+    __WEAKOBJ(weakSelf, self);
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_team_join_team parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"team_id":chosedTeam.team_id} responseBlock:^(id result, NSError *error) {
+        if (error) {
+            [Baller_HUDView bhud_showWithTitle:error.domain];
+            return ;
+        };
+        __STRONGOBJ(strongSelf, weakSelf);
+        if ([result longForKey:@"errorcode"] == 0) {
+            [Baller_HUDView bhud_showWithTitle:@"请求已发送！"];
+            strongSelf.choseTeamBlock(chosedTeam.team_id);
+            [strongSelf PopToLastViewController];
+        }
+    }];
 }
 
 #pragma mark - override

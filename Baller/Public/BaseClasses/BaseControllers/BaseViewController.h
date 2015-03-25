@@ -24,7 +24,7 @@
  *
  *  @param image 模糊背景视图
  */
-- (void)showBlurBackImageViewWithImage:(UIImage *)image;
+- (void)showBlurBackImageViewWithImage:(UIImage *)image belowView:(UIView *)belowView;
 
 
 /*!

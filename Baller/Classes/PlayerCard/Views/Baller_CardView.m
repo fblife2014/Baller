@@ -21,6 +21,11 @@
 
 #import "LShareSheetView.h"
 
+#import "RCIM.h"
+@interface Baller_CardView ()<RCIMUserInfoFetcherDelegagte>
+
+
+@end
 @implementation Baller_CardView
 
 @synthesize ballParkButton = _ballParkButton;
@@ -76,7 +81,14 @@
                 
                 break;
             case kBallerCardType_OtherBallerPlayerCard:
+                [self addPrivateChatButton];
+                whiteBottomlayer.frame = CGRectMake(0.0, CGRectGetMaxY(_nickNameLabel.frame), pathRect.size.width, CGRectGetMaxY(backLayer.frame)-pathRect.size.width*PCV_BottomSegHeightRatio-CGRectGetMaxY(_nickNameLabel.frame));
                 
+                whiteBottomlayer.backgroundColor = BALLER_CORLOR_CELL.CGColor;
+                [self addSubview: self.ballParkButton];
+                [self addSubview: self.ballTeamButton];
+                [self addLineAndAbility];
+                [self addBottomSegments];
                 
                 break;
             case kBallerCardType_CreateBallPark:
@@ -107,11 +119,85 @@
     return self;
 }
 
-//
+#pragma mark 请求个人信息
+
+- (void)setUid:(NSString *)uid{
+    if (_uid == uid) {
+        return;
+    }
+    _uid = uid;
+    [self getPersonalInfoWithUid];
+}
+
+- (void)getPersonalInfoWithUid
+{
+    if (_uid == nil) {
+        return;
+    }
+    
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_user_info parameters:@{@"uid":_uid,@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]} responseBlock:^(id result, NSError *error) {
+        if (error) return ;
+        if ([result longForKey:@"errorcode"] == 0) {
+            [self setPersonalInfo:[result valueForKey:@"user_info"]];
+        }
+    }];
+    
+}
+
 - (void)setPersonalInfo:(NSDictionary *)personalInfo{
     if (_personalInfo == personalInfo) {
         return;
     }
+    if(!_personalInfo) _personalInfo = [NSMutableDictionary dictionary];
+    [_personalInfo setValuesForKeysWithDictionary:personalInfo];
+    [_headImageButton setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[personalInfo valueForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+    
+    if (![[personalInfo valueForKey:@"appraise"] boolForKey:@"can_appraise"]) {
+        [self addEvaluateButton];
+    }
+    _nickNameLabel.text = [personalInfo valueForKey:@"user_name"];
+    
+    switch ([personalInfo intForKey:@"attend_status"]) {
+        case 0:
+            [self addAttentionButtonWithTitle:@"关注" imageName:@"guangzhu"];
+            break;
+        case 2:
+            [self addAttentionButtonWithTitle:@"也关注他" imageName:@"guangzhu"];
+            break;
+        case 1:
+            [self addAttentionButtonWithTitle:@"已关注" imageName:nil];
+            break;
+        case 3:
+            [self addAttentionButtonWithTitle:@"我的球友" imageName:nil];
+            break;
+            
+        default:
+            break;
+    }
+    
+    if ([personalInfo intForKey:@"court_id"]) {
+        [ballParkButton setTitle:[personalInfo valueForKey:@"court_name"] forState:UIControlStateNormal];
+        [ballParkButton setTitle:[personalInfo valueForKey:@"court_name"] forState:UIControlStateNormal];
+    }
+    
+    if ([personalInfo intForKey:@"team_id"]) {
+        [ballParkButton setTitle:[personalInfo valueForKey:@"team_name"] forState:UIControlStateNormal];
+        [ballParkButton setTitle:[personalInfo valueForKey:@"team_name"] forState:UIControlStateNormal];
+    }
+    
+    self.abilityDetails =  @[@(MAX([[personalInfo valueForKey:@"shoot"] floatValue]/1000.0, 0.4)),
+                             @(MAX([[personalInfo valueForKey:@"assists"] floatValue]/1000.0, 0.4)),
+                             @(MAX([[personalInfo valueForKey:@"backboard"] floatValue]/1000.0, 0.4)),
+                             @(MAX([[personalInfo valueForKey:@"steal"] floatValue]/1000.0, 0.4)),
+                             @(MAX([[personalInfo valueForKey:@"over"] floatValue]/1000.0, 0.4)),
+                             @(MAX([[personalInfo valueForKey:@"breakthrough"] floatValue]/1000.0, 0.4))];
+    
+    heightLabel.text = $str(@"%@ cm",[personalInfo valueForKey:@"height"]);
+    weightLabel.text = $str(@"%@ kg",[personalInfo valueForKey:@"weight"]);
+    positonLabel.text = $str(@"%@",[personalInfo valueForKey:@"position"]);
+
+    
+    [self setNeedsDisplay];
 
 }
 
@@ -210,15 +296,61 @@
 #pragma mark 其他球员卡状态视图
 
 /*!
+ *  @brief  添加私聊按钮
+ */
+- (void)addPrivateChatButton
+{
+    UIButton * chatButton = [ViewFactory getAButtonWithFrame:CGRectMake(pathRect.size.width-BackLayer_CornerRadius-ShareButtonWidth, pathRect.origin.y, 87.0, 23) nomalTitle:@"私信" hlTitle:@"私信" titleColor:[UIColor whiteColor] bgColor:UIColorFromRGB(0x51d3b7) nImage:@"sixin" hImage:@"sixin" action:@selector(chatButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+    
+    chatButton.center = CGPointMake(self.headImageButton.center.x-CGRectGetWidth(self.headImageButton.bounds)*3/4.0, self.headImageButton.center.y-15.0);
+    
+    chatButton.titleLabel.font = SYSTEM_FONT_S(13.0);
+    chatButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, -25, 0.0, 0.0);
+    chatButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, -15, -1.0, 0.0);
+    chatButton.layer.cornerRadius = 5.0;
+    
+    [self insertSubview:chatButton belowSubview:self.headImageButton];
+}
+
+/*!
+ *  @brief  添加评价按钮
+ */
+- (void)addEvaluateButton
+{
+    UIButton * evaluateButton = [ViewFactory getAButtonWithFrame:CGRectMake(pathRect.size.width-BackLayer_CornerRadius-ShareButtonWidth, pathRect.origin.y, 87.0, 23) nomalTitle:@"评价ta" hlTitle:@"评价ta" titleColor:[UIColor whiteColor] bgColor:UIColorFromRGB(0xf07d8a) nImage:@"pingjia" hImage:@"pingjia" action:@selector(evaluateButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+    evaluateButton.center = CGPointMake(self.headImageButton.center.x+CGRectGetWidth(self.headImageButton.bounds)*3/4.0, self.headImageButton.center.y-15.0);
+    evaluateButton.titleLabel.font = SYSTEM_FONT_S(13.0);
+    evaluateButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 15, 0.0, 0.0);
+    evaluateButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 15, -1.0, 0.0);
+    evaluateButton.layer.cornerRadius = 5.0;
+    
+    [self insertSubview:evaluateButton belowSubview:self.headImageButton];
+
+    
+}
+
+/*!
  *  @brief  关注按钮
  */
-- (void)attentionButton{
-    
-    attentionButton = [ViewFactory getAButtonWithFrame:CGRectMake(pathRect.size.width-BackLayer_CornerRadius-ShareButtonWidth, pathRect.origin.y, ShareButtonWidth, ShareButtonWidth) nomalTitle:@"关注" hlTitle:@"关注" titleColor:[UIColor whiteColor] bgColor:CLEARCOLOR nImage:@"guanzhu" hImage:@"guanzhu" action:@selector(attentionButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+- (void)addAttentionButtonWithTitle:(NSString *)buttonTitle imageName:(NSString *)imageName
+{
+    if (!attentionButton) {
+        attentionButton = [ViewFactory getAButtonWithFrame:CGRectMake(pathRect.size.width-BackLayer_CornerRadius-ShareButtonWidth, pathRect.origin.y, ShareButtonWidth, ShareButtonWidth) nomalTitle:nil hlTitle:nil titleColor:[UIColor whiteColor] bgColor:CLEARCOLOR nImage:@"guanzhu" hImage:@"guanzhu" action:@selector(attentionButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+        [self addSubview:attentionButton];
+
+    }
+    [attentionButton setTitle:buttonTitle forState:UIControlStateNormal];
     attentionButton.titleLabel.font = SYSTEM_FONT_S(13.0);
-    attentionButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 10, 0.0, 10.0);
-    attentionButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 10, -1.0, -8.0);
-    [self addSubview:attentionButton];
+    if (imageName) {
+        [attentionButton setImage:[UIImage imageNamed:@"guanzhu"] forState:UIControlStateNormal];
+
+        attentionButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 10, 0.0, 10.0);
+        attentionButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 10, -1.0, -8.0);
+    }else{
+        [attentionButton setImage:nil forState:UIControlStateNormal];
+        attentionButton.titleEdgeInsets = UIEdgeInsetsMake(0.0, 0, 0.0, 0.0);
+
+    }
     
 }
 
@@ -230,7 +362,7 @@
         ballParkButton = [ViewFactory getAButtonWithFrame:CGRectMake(0.0, CGRectGetMaxY(_nickNameLabel.frame), pathRect.size.width/2.0, pathRect.size.width*PCV_SegmentHeightRatio) nomalTitle:ballParkString hlTitle:ballParkString titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:@"homeCourt" hImage:@"homeCourt" action:@selector(ballParkButtonAction) target:self buttonTpye:UIButtonTypeCustom];
         ballParkButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, -10, 0.0, 10.0);
         ballParkButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 0.0, -1.0, 0.0);
-
+        ballParkButton.userInteractionEnabled = !_ballerCardType==kBallerCardType_OtherBallerPlayerCard;
         ballParkButton.titleLabel.font = SYSTEM_FONT_S(15.0);
         _ballParkButton = ballParkButton;
     }
@@ -251,6 +383,7 @@
         UIButton * ballTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(pathRect.size.width/2.0, CGRectGetMaxY(_nickNameLabel.frame), pathRect.size.width/2.0, pathRect.size.width*PCV_SegmentHeightRatio) nomalTitle:ballTeamString hlTitle:ballTeamString titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:@"ballTeam" hImage:@"ballTeam" action:@selector(ballTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
         ballTeamButton.titleLabel.font = SYSTEM_FONT_S(15.0);
         ballTeamButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 10.0, -1.0, -10.0);
+        ballTeamButton.userInteractionEnabled = !_ballerCardType==kBallerCardType_OtherBallerPlayerCard;
 
         _ballTeamButton = ballTeamButton;
         
@@ -281,7 +414,8 @@
         return;
     }
     _abilityDetails = abilityDetails;
-    Baller_AbilityEditorView * abilityEditorView = [[Baller_AbilityEditorView alloc]initWithFrame:CGRectMake(0.0, 0.0, 154.0, 158.0)];
+    [abilityEditorView removeFromSuperview];
+    abilityEditorView = [[Baller_AbilityEditorView alloc]initWithFrame:CGRectMake(0.0, 0.0, 154.0, 158.0)];
     abilityEditorView.center = CGPointMake(abilityView.frame.size.width/2.0, abilityView.frame.size.height/2.0-5.0);
     abilityEditorView.abilities = abilityDetails;
     [abilityView addSubview:abilityEditorView];
@@ -303,8 +437,9 @@
         imageView.frame = CGRectMake(pathRect.origin.x+i*1.0/3.0*pathRect.size.width, CGRectGetMaxY(whiteBottomlayer.frame)+TextFontSize, pathRect.size.width/3.0, imageView.image.size.height);
         imageView.contentMode = UIViewContentModeCenter;
         [self addSubview:imageView];
-        
-        [ViewFactory addAlabelForAView:self withText:parameters[i] frame:CGRectMake(pathRect.origin.x+i*1.0/3.0*pathRect.size.width, CGRectGetMaxY(imageView.frame), pathRect.size.width/3.0, BackLayer_CornerRadius) font:SYSTEM_FONT_S(TextFontSize) textColor:[UIColor whiteColor]];
+        UILabel * label = [ViewFactory addAlabelForAView:self withText:parameters[i] frame:CGRectMake(pathRect.origin.x+i*1.0/3.0*pathRect.size.width, CGRectGetMaxY(imageView.frame), pathRect.size.width/3.0, BackLayer_CornerRadius) font:SYSTEM_FONT_S(TextFontSize) textColor:[UIColor whiteColor]];
+        i?(i == 1? (weightLabel = label): (positonLabel = label)):(heightLabel = label);
+
     }
     
     [ViewFactory addLayerToView:self.layer frame:CGRectMake(pathRect.origin.x + pathRect.size.width/3.0-0.5, CGRectGetMaxY(whiteBottomlayer.frame)+TextFontSize+2.0, 0.5, pathRect.size.width*PCV_SegmentHeightRatio) layerColor:UIColorFromRGB(0X8c949f)];
@@ -330,6 +465,9 @@
             
             break;
         case kBallerCardType_CreateBasketBallTeam:
+            break;
+        case kBallerCardType_OtherBallerPlayerCard:
+            
             break;
     }
     
@@ -384,9 +522,61 @@
         
     }];
 }
+/*!
+ *  @brief  私聊按钮方法
+ */
+- (void)chatButtonAction
+{
+    [[AppDelegate sharedDelegate] connectRC];
+    RCChatViewController * rcChatVC = [[RCIM sharedRCIM]createPrivateChat:[_personalInfo stringForKey:@"uid"] title:[_personalInfo stringForKey:@"user_name"] completion:^{
+        [self setRCUserinfo];
+    }];
+    
+    [[[MLViewConrollerManager sharedVCMInstance] navigationController] pushViewController:(UIViewController *)rcChatVC animated:YES];
+}
+
+/*!
+ *  @brief  评价按钮方法
+ */
+- (void)evaluateButtonAction{
+    
+}
 
 //关注按钮方法
 - (void)attentionButtonAction{
+    
+    int attendStatus = [_personalInfo intForKey:@"attend_status"];
+    BOOL hasAttention = 1==attendStatus%2;
+    
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_my_attention parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"action":hasAttention?@"can_friend":@"at_friend",@"friend_uid":[_personalInfo valueForKey:@"uid"]} responseBlock:^(id result, NSError *error) {
+        if (error) {
+            [Baller_HUDView bhud_showWithTitle:@"操作失败，请重试"];
+            return ;
+        }
+        
+        if ([result intForKey:@"errorcode"] == 0) {
+            [_personalInfo setValue:@(attendStatus==0?1:(attendStatus==1?0:(attendStatus==2?3:2))) forKey:@"attend_status"];
+            
+            switch ([_personalInfo intForKey:@"attend_status"]) {
+                case 0:
+                    [self addAttentionButtonWithTitle:@"关注" imageName:@"guangzhu"];
+                    break;
+                case 2:
+                    [self addAttentionButtonWithTitle:@"也关注他" imageName:nil];
+                    break;
+                case 1:
+                    [self addAttentionButtonWithTitle:@"已关注" imageName:nil];
+                    break;
+                case 3:
+                    [self addAttentionButtonWithTitle:@"我的球友" imageName:nil];
+                    break;
+                    
+                default:
+                    break;
+            }
+        }
+        
+    }];
     
 }
 
@@ -476,5 +666,29 @@
     [super touchesBegan:touches withEvent:event];
     [self endEditing:YES];
 }
+
+#pragma mark 融云用户系统
+- (void)setRCUserinfo{
+    [RCIM setUserInfoFetcherWithDelegate:self isCacheUserInfo:YES];
+}
+#pragma mark RCIMUserInfoFetcherDelegagte
+
+- (void)getUserInfoWithUserId:(NSString *)userId completion:(void(^)(RCUserInfo* userInfo))completion{
+    
+    if ([userId isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
+        NSString * headImageUrl = [USER_DEFAULT valueForKey:Baller_UserInfo_HeadImage];
+        if (!headImageUrl) {
+            headImageUrl = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"photo"];
+        }
+        RCUserInfo * myUserInfo = [[RCUserInfo alloc]initWithUserId:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"] name:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"user_name"] portrait:headImageUrl];
+        completion(myUserInfo);
+    }else{
+
+        RCUserInfo * myUserInfo = [[RCUserInfo alloc]initWithUserId:[_personalInfo valueForKey:@"uid"] name:[_personalInfo valueForKey:@"user_name"] portrait:[_personalInfo valueForKey:@"photo"]];
+        completion(myUserInfo);
+    }
+
+}
+
 
 @end

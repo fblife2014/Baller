@@ -11,7 +11,7 @@
 @implementation Baller_BallFriendsTableViewCell
 
 - (void)awakeFromNib {
-    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.imageView.layer.cornerRadius = 4.0;
     self.imageView.layer.borderWidth = 0.5;
     self.imageView.image = [UIImage imageNamed:@"ballPark_default"];

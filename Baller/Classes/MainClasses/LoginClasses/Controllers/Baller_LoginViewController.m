@@ -19,7 +19,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self showBlurBackImageViewWithImage:[UIImage imageNamed:@"ballPark_default"]];
+    UIImage * image = nil;
+    if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]) {
+        image = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];
+    }
+    [self showBlurBackImageViewWithImage:image?image:[UIImage imageNamed:@"ballPark_default"] belowView:nil];
+    
     
     __WEAKOBJ(weakSelf, self);
     Baller_LoginView * baller_loginView = [[Baller_LoginView alloc]initWithFrame:[UIScreen mainScreen].bounds dismissBlock:^(BOOL isLogin){

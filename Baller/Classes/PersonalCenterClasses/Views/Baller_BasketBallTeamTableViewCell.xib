@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -16,14 +16,14 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="homeCourt" translatesAutoresizingMaskIntoConstraints="NO" id="Adl-Tc-Kc3">
-                        <rect key="frame" x="197" y="47" width="15" height="15"/>
+                        <rect key="frame" x="77" y="64" width="15" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="15" id="DkN-FQ-F4Z"/>
                             <constraint firstAttribute="height" constant="15" id="Yxk-Ll-0Ea"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="北大球场" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEn-4f-1uU">
-                        <rect key="frame" x="220" y="47" width="72" height="16"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEn-4f-1uU">
+                        <rect key="frame" x="100" y="64" width="200" height="16"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="16" id="jQ3-ec-fdb"/>
                         </constraints>
@@ -35,10 +35,10 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstItem="KEn-4f-1uU" firstAttribute="leading" secondItem="Adl-Tc-Kc3" secondAttribute="trailing" constant="8" id="6Gl-oW-5FF"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="KEn-4f-1uU" secondAttribute="trailing" constant="20" id="A6T-dy-J4j"/>
-                    <constraint firstAttribute="centerY" secondItem="Adl-Tc-Kc3" secondAttribute="centerY" constant="0.5" id="BfR-5q-WDf"/>
-                    <constraint firstItem="Adl-Tc-Kc3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="39" id="GEA-Mx-rW7"/>
-                    <constraint firstAttribute="centerX" secondItem="Adl-Tc-Kc3" secondAttribute="centerX" constant="-44.5" id="dNY-i7-QUQ"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="KEn-4f-1uU" secondAttribute="trailing" constant="12" id="A6T-dy-J4j"/>
+                    <constraint firstAttribute="centerY" secondItem="Adl-Tc-Kc3" secondAttribute="centerY" constant="-16.5" id="BfR-5q-WDf"/>
+                    <constraint firstItem="Adl-Tc-Kc3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="56" id="GEA-Mx-rW7"/>
+                    <constraint firstAttribute="centerX" secondItem="Adl-Tc-Kc3" secondAttribute="centerX" constant="75.5" id="dNY-i7-QUQ"/>
                     <constraint firstItem="KEn-4f-1uU" firstAttribute="top" secondItem="Adl-Tc-Kc3" secondAttribute="top" id="saR-CC-8yA"/>
                 </constraints>
             </tableViewCellContentView>

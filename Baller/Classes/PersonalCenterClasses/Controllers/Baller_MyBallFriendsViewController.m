@@ -7,6 +7,8 @@
 //
 
 #import "Baller_MyBallFriendsViewController.h"
+#import "Baller_PlayerCardViewController.h"
+
 #import "Baller_BallFriendsTableViewCell.h"
 #import "Baller_BallerFriendListModel.h"
 @interface Baller_MyBallFriendsViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
@@ -156,7 +158,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
  */
 - (void)addBallFriend{
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",@"at_friend",@"action",@"",@"friend_uid",nil];
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_attention parameters:dic responseBlock:^(id result, NSError *error) {
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_my_attention parameters:dic responseBlock:^(id result, NSError *error) {
         if(!error)
         {
             
@@ -194,9 +196,11 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     Baller_BallFriendsTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:SearchFriendsTableViewCellId];
+    
     if(!cell)
        {
            cell = [[Baller_BallFriendsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SearchFriendsTableViewCellId];
+           cell.selectionStyle = UITableViewCellSelectionStyleNone;
        }
     cell.friendListModel = [filterFriends objectAtIndex:indexPath.row];
     return cell;
@@ -210,26 +214,37 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     if (tableView == self.tableView) {
+        Baller_BallerFriendListModel * ballFriendModel = friends[indexPath.row];
         if (self.ballFriendsListType == BallFriendsListTypeChosing) {
             Baller_BallFriendsTableViewCell * cell = (Baller_BallFriendsTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
             cell.chosing = !cell.chosing;
+        }else{
+            Baller_PlayerCardViewController * playCardVC = [[Baller_PlayerCardViewController alloc]init];
+            playCardVC.friendModel = ballFriendModel;
+            playCardVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
+            [self.navigationController pushViewController:playCardVC animated:YES];
         }
         
     }else{
-        
+        Baller_BallerFriendListModel * ballFriendModel = filterFriends[indexPath.row];
+        Baller_PlayerCardViewController * playCardVC = [[Baller_PlayerCardViewController alloc]init];
+        playCardVC.friendModel = ballFriendModel;
+        playCardVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
+        [self.navigationController pushViewController:playCardVC animated:YES];
     }
 }
 
 #pragma mark - UISearchBarDelegate
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+//    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     return YES;
 }
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
-    [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+//    [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     return YES;
 }
 

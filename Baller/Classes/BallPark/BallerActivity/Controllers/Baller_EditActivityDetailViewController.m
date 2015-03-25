@@ -25,7 +25,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"编辑活动详情";
-    [self showBlurBackImageViewWithImage:[UIImage imageNamed:@"ballPark_default"]];
+    UIImage * image = nil;
+    if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]) {
+        image = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];
+    }
+    [self showBlurBackImageViewWithImage:image?image:[UIImage imageNamed:@"ballPark_default"] belowView:nil];
     [self setupSubViews];
     // Do any additional setup after loading the view from its nib.
 }
