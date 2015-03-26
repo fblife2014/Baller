@@ -17,7 +17,23 @@
     self.rightBottomView.hidden = YES;
     self.rightTopView.hidden = YES;
     self.bottomView.hidden = YES;
+    _showEvaluateViews = NO;
 }
+
+- (void)setShowEvaluateViews:(BOOL)showEvaluateViews{
+    if (_showEvaluateViews == showEvaluateViews) {
+        return;
+    }
+    _showEvaluateViews = showEvaluateViews;
+    self.topView.hidden = !showEvaluateViews;
+    self.leftBottomView.hidden = !showEvaluateViews;
+    self.leftTopView.hidden = !showEvaluateViews;
+    self.rightBottomView.hidden = !showEvaluateViews;
+    self.rightTopView.hidden = !showEvaluateViews;
+    self.bottomView.hidden = !showEvaluateViews;
+    
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

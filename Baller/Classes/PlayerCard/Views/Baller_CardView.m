@@ -539,7 +539,7 @@
  *  @brief  评价按钮方法
  */
 - (void)evaluateButtonAction{
-    
+    abilityView.showEvaluateViews = !abilityView.showEvaluateViews;
 }
 
 //关注按钮方法

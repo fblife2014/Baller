@@ -59,7 +59,8 @@
 
 + (void)pushToTheViewController:(NSString *)viewControllerName transferInfo:(id)transferInfo{
     
-    if (viewControllerName && [NSClassFromString(viewControllerName) isSubclassOfClass:[BaseViewController class]]) {
+    if (viewControllerName && [NSClassFromString(viewControllerName) isSubclassOfClass:[BaseViewController class]])
+    {
         BaseViewController * nextvc = [[NSClassFromString(viewControllerName) alloc]init];
         nextvc.pushInfo = transferInfo;
         nextvc.hidesBottomBarWhenPushed = YES;

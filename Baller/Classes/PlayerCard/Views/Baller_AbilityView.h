@@ -16,4 +16,6 @@
 @property (weak, nonatomic) IBOutlet UIView *leftBottomView;
 @property (weak, nonatomic) IBOutlet UIView *leftTopView;
 
+@property (nonatomic)BOOL showEvaluateViews;
+
 @end

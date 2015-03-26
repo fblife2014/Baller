@@ -11,7 +11,7 @@
 
 - (CGFloat)top
 {
-    return self.frame.origin.y;
+    return CGRectGetMinY(self.frame);
 }
 
 - (void)setTop:(CGFloat)y
