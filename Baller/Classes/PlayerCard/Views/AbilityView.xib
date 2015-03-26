@@ -1,22 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Baller_AbilityView">
-            <connections>
-                <outlet property="bottomView" destination="6xY-OR-N2S" id="aIi-4T-02I"/>
-                <outlet property="leftBottomView" destination="bLc-DO-DNB" id="2Tu-rb-76O"/>
-                <outlet property="leftTopView" destination="ndb-6t-8TE" id="c1d-1P-563"/>
-                <outlet property="rightBottomView" destination="Jdo-hh-NnD" id="axn-T2-NfQ"/>
-                <outlet property="rightTopView" destination="e4c-Cu-PxU" id="2Zr-6x-A2Z"/>
-                <outlet property="topView" destination="xtx-LI-5Wl" id="x5R-D0-NMX"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="Baller_AbilityView">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -87,9 +78,9 @@
                     <color key="textColor" red="0.41176470590000003" green="0.41176470590000003" blue="0.41176470590000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view tag="100" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xtx-LI-5Wl" userLabel="topView">
+                <view tag="100" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xtx-LI-5Wl" userLabel="topView" customClass="Baller_AbilityView">
                     <rect key="frame" x="250" y="10" width="100" height="44"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="P1f-AH-egO"/>
                         <constraint firstAttribute="width" constant="100" id="r7q-er-6RX"/>
@@ -97,7 +88,7 @@
                 </view>
                 <view tag="105" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ndb-6t-8TE" userLabel="leftTopView">
                     <rect key="frame" x="127" y="65" width="100" height="44"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="Hkm-DX-SNK"/>
                         <constraint firstAttribute="height" constant="44" id="a85-3a-XZy"/>
@@ -105,7 +96,7 @@
                 </view>
                 <view tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e4c-Cu-PxU" userLabel="rightTopView">
                     <rect key="frame" x="374" y="65" width="100" height="44"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="jU5-ZZ-NaK"/>
                         <constraint firstAttribute="width" constant="100" id="vvU-lw-HgF"/>
@@ -113,7 +104,7 @@
                 </view>
                 <view tag="104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bLc-DO-DNB" userLabel="leftBottomView">
                     <rect key="frame" x="127" y="156" width="100" height="44"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="MKP-nk-umv"/>
                         <constraint firstAttribute="width" constant="100" id="q1X-B0-yZg"/>
@@ -121,7 +112,7 @@
                 </view>
                 <view tag="103" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6xY-OR-N2S" userLabel="bottomView">
                     <rect key="frame" x="250" y="229" width="100" height="44"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="7i3-wI-pjU"/>
                         <constraint firstAttribute="height" constant="44" id="Lpl-qx-yr7"/>
@@ -129,7 +120,7 @@
                 </view>
                 <view tag="102" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jdo-hh-NnD" userLabel="rightBottomView">
                     <rect key="frame" x="372" y="156" width="100" height="44"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="100" id="I8E-X9-rkQ"/>
                         <constraint firstAttribute="height" constant="44" id="ntc-ay-b4M"/>
@@ -166,6 +157,13 @@
                 <constraint firstItem="VNZ-mH-hhY" firstAttribute="leading" secondItem="BhI-Ja-Z62" secondAttribute="trailing" constant="-13" id="vj4-Mn-Zjc"/>
                 <constraint firstItem="VNZ-mH-hhY" firstAttribute="centerX" secondItem="xtx-LI-5Wl" secondAttribute="centerX" constant="-3" id="x3l-6C-sC0"/>
             </constraints>
+            <connections>
+                <outlet property="leftBottomView" destination="bLc-DO-DNB" id="hbu-A8-YT8"/>
+                <outlet property="leftTopView" destination="ndb-6t-8TE" id="jFp-Ev-9bd"/>
+                <outlet property="rightBottomView" destination="Jdo-hh-NnD" id="LMC-bh-AgJ"/>
+                <outlet property="rightTopView" destination="e4c-Cu-PxU" id="pVz-kY-yfm"/>
+                <outlet property="topView" destination="xtx-LI-5Wl" id="hSN-Mn-130"/>
+            </connections>
             <point key="canvasLocation" x="276" y="304"/>
         </view>
     </objects>

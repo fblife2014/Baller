@@ -401,8 +401,8 @@
     [ViewFactory addLayerToView:self.layer frame:CGRectMake(CGRectGetMidX(pathRect)+1, CGRectGetMidY(_ballParkButton.frame)-27.0/2.0, 0.5, 27.0) layerColor:[UIColor whiteColor]];
     
    CALayer * line = [ViewFactory addLayerToView:self.layer frame:CGRectMake(0.0, CGRectGetMaxY(_ballParkButton.frame)-0.5,pathRect.size.width, 0.5) layerColor:UIColorFromRGB(0Xc6cacd)];
-    
-    abilityView = [[[NSBundle mainBundle] loadNibNamed:@"AbilityView" owner:nil options:nil] firstObject];
+    NSArray *a = [[NSBundle mainBundle] loadNibNamed:@"AbilityView" owner:nil options:nil];
+    abilityView = [a firstObject];
     abilityView.frame = CGRectMake(0.0, CGRectGetMaxY(line.frame), self.frame.size.width,288.0);
     [self addSubview:abilityView];
 
