@@ -96,7 +96,7 @@
 
     if (_friendModel) {
         
-        [[[self playCardView] headImageButton]setImageForState:UIControlStateNormal withURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_friendModel.friend_user_photo]] placeholderImage:[UIImage imageNamed:@"ballPark_default"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [[[self playCardView] headImageButton]setImageForState:UIControlStateNormal withURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_friendModel.friend_user_photo]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
             [self showBlurBackImageViewWithImage:image belowView:[self playCardView]];
         } failure:^(NSError *error) {
             [self showBlurBackImageViewWithImage:[UIImage imageNamed:@"ballPark_default"] belowView:[self playCardView]];

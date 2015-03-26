@@ -61,7 +61,7 @@ static char ML_BlurView_blurViewKey;
         //将模糊视图添加到当前视图上
         if (belowView) {
             [self insertSubview:blurEffectView belowSubview:belowView];
-
+            [belowView.superview bringSubviewToFront:belowView];
         }else{
             [self addSubview:blurEffectView];
         }

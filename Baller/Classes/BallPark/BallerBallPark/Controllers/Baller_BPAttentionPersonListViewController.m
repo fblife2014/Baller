@@ -202,7 +202,6 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     Baller_PersonalInfoViewController * personalVC = [[Baller_PersonalInfoViewController alloc]init];
-    personalVC.uid = [_ballers[indexPath.row] valueForKey:@"uid"];
     [self.navigationController pushViewController:personalVC animated:YES];
 
 }

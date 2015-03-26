@@ -10,6 +10,15 @@
 
 @implementation Baller_AbilityView
 
+- (void)awakeFromNib{
+    self.topView.hidden = YES;
+    self.leftBottomView.hidden = YES;
+    self.leftTopView.hidden = YES;
+    self.rightBottomView.hidden = YES;
+    self.rightTopView.hidden = YES;
+    self.bottomView.hidden = YES;
+}
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
