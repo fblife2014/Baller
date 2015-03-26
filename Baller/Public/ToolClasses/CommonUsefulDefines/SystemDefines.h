@@ -37,8 +37,8 @@
 #define QQAPPID @"1104065435" //十六进制:41CEB39B; 生成方法:echo 'ibase=10;obase=16;1104065435'|bc
 #define QQAPPKEY @"UgVWGacRoeo9NtZy"
 
-#define WXAPPID @"wx47f54e431de32846"
-#define WXAPPSECRET @"a71699732e3bef01aefdaf324e2f522c"
+#define WXAPPID @"wx2e98a5a243ad127b"//正式
+#define WXAPPSECRET @"59c7980f44e111a29e2bb91dd694c494"
 
 #define RedirectUrl @"http://sns.whalecloud.com/sina2/callback" //回调地址
 
