@@ -36,7 +36,7 @@ NSString * const Baller_select_my_court = @"&c=user&m=select_my_court";    //14�
 
 NSString * const Baller_change_password = @"&c=user&m=change_password";    //15、修改密码
 
-
+NSString * const Baller_evaluate_activity = @"&c=user&m=appraise_baller&type=activity"; //17、评价球员
 
 
 NSString * const Baller_court_create = @"&c=court&m=create";        //20、创建球场

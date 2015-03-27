@@ -28,6 +28,7 @@ extern NSString * const Baller_select_my_court;     //14、选择我的主场
 
 extern NSString * const Baller_change_password;     //15、修改密码
 
+extern NSString * const Baller_evaluate_activity;   //17、评价球员
 
 extern NSString * const Baller_court_create;        //20、创建球场
 extern NSString * const Baller_get_court_info;      //21、获取球场详情

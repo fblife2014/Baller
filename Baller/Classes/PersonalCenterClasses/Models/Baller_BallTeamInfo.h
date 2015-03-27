@@ -25,6 +25,8 @@
 @property (nonatomic) NSInteger teamLeaderUserID;
 @property (nonatomic) NSString *court_name;
 @property (nonatomic) NSArray *members;
+@property (nonatomic,copy)NSString * group_id;
+@property (nonatomic,copy)NSString * group_name;
 
 + (instancetype)shareWithServerDictionary:(NSDictionary *)dic;
 

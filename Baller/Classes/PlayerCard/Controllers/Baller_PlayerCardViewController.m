@@ -32,6 +32,9 @@
         _uid = _friendModel.friend_uid;
         self.navigationItem.title = _friendModel.friend_user_name;
     }
+    if (_userName) {
+        self.navigationItem.title = _userName;
+    }
     switch (_ballerCardType) {
         case kBallerCardType_FirstBorn:
         case kBallerCardType_MyPlayerCard:
@@ -57,6 +60,7 @@
         playCardView = [[Baller_CardView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, 10.0, ScreenWidth-2*TABLE_SPACE_INSET, self.view.frame.size.height-20.0) playerCardType:self.ballerCardType];
         if (_friendModel) {
             playCardView.uid = _friendModel.friend_uid;
+            
         }else{
             __BLOCKOBJ(blockPlayCard, playCardView);
             [AFNHttpRequestOPManager getWithSubUrl:Baller_get_user_attr parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]?:@""} responseBlock:^(id result, NSError *error) {

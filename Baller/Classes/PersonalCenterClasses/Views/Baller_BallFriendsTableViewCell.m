@@ -52,8 +52,18 @@
 
 - (void)layoutSubviews{
     [super layoutSubviews];
-    self.imageView.frame = CGRectMake(15.0+NUMBER(18.0, 18.0, 18.0, 18.0), 9.5, 41, 41);
-    self.textLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame)+25.0, 23.5, 120, 13.0);
+    
+    if (_invitateStatus) {
+        _circleView.frame = CGRectMake(NUMBER(20.0, 18.0, 15.0, 15.0), 22, 16.0, 16.0);
+        self.imageView.frame = CGRectMake(43.0, 9.5, 41, 41);
+
+    }else{
+        _circleView.frame = CGRectMake(NUMBER(15.0, 13.0, 10.0, 10.0), 22, 16.0, 16.0);
+        self.imageView.frame = CGRectMake(33.0, 9.5, 41, 41);
+
+    }
+    
+    self.textLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame)+20.0, 23.5, 120, 13.0);
 
 }
 
@@ -65,6 +75,14 @@
 
     }
     return _circleView;
+}
+
+- (void)setInvitateStatus:(BOOL)invitateStatus{
+    if (_invitateStatus == invitateStatus) {
+        return;
+    }
+    _invitateStatus = invitateStatus;
+
 }
 
 - (void)setChosing:(BOOL)chosing{

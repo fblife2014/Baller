@@ -97,8 +97,6 @@
     
     [[[self class] sharedManager] GET:totalUrlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[[self class]sharedManager] hideMyprogressHud];
-
-
         
         if (responseObject != nil) {
             DLog(@"responseObject = %@",responseObject);
@@ -221,7 +219,7 @@
                responseBlock:(void (^) (id result, NSError * error))block
 {
     
-    [[[self class] sharedManager] GET:@"http://www.alayy.com/index.php?d=api&c=chat&m=get_token_b" parameters:@{@"user_id":userId,@"name":name,@"portrait_uri":portrait_uri} success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [[[self class] sharedManager] GET:@"http://www.alayy.com/index.php?d=api&c=chat_b&m=get_token" parameters:@{@"user_id":userId,@"name":name,@"portrait_uri":portrait_uri} success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         if (responseObject != nil) {
             DLog(@"responseObject = %@",responseObject);
@@ -257,7 +255,7 @@
 #pragma mark 网络加载等待条
 - (void)showMyProgressHUDWith:(NSString *)text
 {
-    if (_myProgressHUD || ![[MLViewConrollerManager sharedVCMInstance] rootViewController]) {
+    if (![[MLViewConrollerManager sharedVCMInstance] rootViewController]) {
         return;
     }
     if (!_myProgressHUD) {

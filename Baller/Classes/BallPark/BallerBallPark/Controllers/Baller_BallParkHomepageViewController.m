@@ -61,7 +61,8 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     [super viewDidLoad];
     self.navigationItem.title = self.court_name;
     [self getCourtInfo];
- 
+    [[AppDelegate sharedDelegate] connectRC];
+
 
 }
 
@@ -214,12 +215,14 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 }
 
 - (void)ballParkHeadView:(Baller_BallParkHeadView *)ballParkHeadView chatButtonSelected:(UIButton *)chatButton{
-    
     RCChatViewController *temp = [[RCChatViewController alloc]init];
-    temp.currentTarget = _court_id;
-    temp.conversationType = ConversationType_GROUP;
-    temp.currentTargetName = @"马龙群";
+    temp.currentTarget = [courtInfoDic stringForKey:@"chatroom_id"];
+    temp.currentTargetName = [courtInfoDic stringForKey:@"court_name"];
+    temp.conversationType = ConversationType_CHATROOM;
+    temp.enableSettings = NO;
+    temp.portraitStyle = RCUserAvatarCycle;
     [self.navigationController pushViewController:temp animated:YES];
+    
 }
 
 @end

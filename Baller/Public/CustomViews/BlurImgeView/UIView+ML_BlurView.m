@@ -161,7 +161,12 @@ static char ML_BlurView_blurViewKey;
             
         }
         
-        [self addSubview:aBlurImageView];
+        if (belowView) {
+            [self insertSubview:aBlurImageView belowSubview:belowView];
+            [belowView.superview bringSubviewToFront:belowView];
+        }else{
+            [self addSubview:aBlurImageView];
+        }
         
         
         /*!

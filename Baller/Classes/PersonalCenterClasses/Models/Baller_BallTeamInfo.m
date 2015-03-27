@@ -36,6 +36,9 @@
         [temp addObjectOrNil:memberInfo];
     }
     info.members = [NSArray arrayWithArray:temp];
+    info.group_id = [dic stringForKey:@"group_id"];
+    info.group_name = [dic stringForKey:@"group_name"];
+
     return info;
 }
 

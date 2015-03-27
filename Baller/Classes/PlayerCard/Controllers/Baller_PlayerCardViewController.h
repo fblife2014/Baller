@@ -15,5 +15,6 @@
 @property (nonatomic) BallerCardType ballerCardType;
 @property (nonatomic,strong)Baller_BallerFriendListModel * friendModel;
 @property (nonatomic,copy)NSString * uid; //用户id
+@property (nonatomic,copy)NSString * userName; //用户名
 
 @end

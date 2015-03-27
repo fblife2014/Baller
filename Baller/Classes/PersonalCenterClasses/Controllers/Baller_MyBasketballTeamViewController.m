@@ -9,14 +9,20 @@
 #import "Baller_MyBasketballTeamViewController.h"
 #import "Baller_ChoseTeamViewController.h"
 #import "Baller_CreateBallTeamViewController.h"
+#import "Baller_PlayerCardViewController.h"
+
 #import "Baller_MyBasketballTeamTableViewHeaderView.h"
 #import "Baller_MyBasketBallTeamTableViewCell.h"
 #import "UIView+ML_BlurView.h"
 #import "Baller_BallTeamInfo.h"
 #import "Baller_BallTeamMemberInfo.h"
+#import "RCIM.h"
+#import "RCChatViewController.h"
 
-@interface Baller_MyBasketballTeamViewController () <UITableViewDelegate> {
+@interface Baller_MyBasketballTeamViewController () <UITableViewDelegate,RCIMGroupInfoFetcherDelegate>
+{
     NSMutableArray *myTeamNumbers; //我的队友
+    RCGroup *teamGroup;
 }
 @property (nonatomic, strong) Baller_BallTeamInfo *teamInfo;
 @end
@@ -31,6 +37,8 @@
 
     UIBarButtonItem *rightItem = [ViewFactory getABarButtonItemWithImage:@"qunliao" imageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15) target:self selection:@selector(goToGroupChat)];
     self.navigationItem.rightBarButtonItem = rightItem;
+    [[AppDelegate sharedDelegate]connectRC];
+ 
     [self setupTableHeaderViewAndFooterView];
 }
 
@@ -40,6 +48,7 @@
 - (void)setupTableHeaderViewAndFooterView {
     self.tableView.tableHeaderView = nil;
     self.tableView.tableFooterView = nil;
+    
     [self getBasketballTeamInfo:^() {
         
         if (self.teamInfo.teamID) {
@@ -105,6 +114,36 @@
  *  @brief  前往群聊
  */
 - (void)goToGroupChat {
+    if (!self.teamInfo.group_id) {
+        [Baller_HUDView bhud_showWithTitle:@"尚未开通"];
+        return;
+    }
+    if (!teamGroup) {
+        teamGroup = [[RCGroup alloc]init];
+        teamGroup.groupId = self.teamInfo.group_id;
+        teamGroup.groupName = self.teamInfo.teamName;
+        
+        [RCIM setGroupInfoFetcherWithDelegate:self];
+        [[RCIMClient sharedRCIMClient]syncGroups:@[teamGroup] completion:^{
+            NSLog(@"同步成功");
+        } error:^(RCErrorCode status) {
+            DLog(@"同步群数据status%d",(int)status);
+        }];
+        
+        [[RCIMClient sharedRCIMClient]joinGroup:self.teamInfo.group_id groupName:self.teamInfo.group_name completion:^{
+            
+        } error:^(RCErrorCode status) {
+            
+        }];
+        
+    }
+
+
+    RCChatViewController *groupChatVC = [[RCChatViewController alloc]init];
+    groupChatVC.currentTarget = teamGroup.groupId;
+    groupChatVC.conversationType = ConversationType_GROUP;
+    groupChatVC.currentTargetName = teamGroup.groupName;
+    [self.navigationController pushViewController:groupChatVC animated:YES];
     
 }
 
@@ -172,6 +211,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
+   Baller_BallTeamMemberInfo * memberInfo =  self.teamInfo.members[indexPath.row];
+    Baller_PlayerCardViewController * playCardVC = [[Baller_PlayerCardViewController alloc]init];
+    playCardVC.uid = memberInfo.uid;
+    if ([memberInfo.uid isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
+        playCardVC.ballerCardType = kBallerCardType_MyPlayerCard;
+        
+    }else{
+        playCardVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
+        playCardVC.userName = memberInfo.user_name;
+    }
+    [self.navigationController pushViewController:playCardVC animated:YES];
+    
 }
 
 #pragma mark - Private
@@ -192,9 +243,11 @@
     }
 }
 
-- (void)dealloc
+#pragma mark - RCIMGroupInfoFetcherDelegate method
+-(void)getGroupInfoWithGroupId:(NSString*)groupId completion:(void (^)(RCGroup *group))completion
 {
-    NSLog(@"000");
+    
+    return completion(teamGroup);
 }
 
 @end

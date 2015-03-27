@@ -82,7 +82,11 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableViewDataSource = [[TableViewDataSource alloc] initWithItems:friends cellIdentifier:Baller_BallFriendsTableViewCellId tableViewConfigureBlock:^(Baller_BallFriendsTableViewCell * cell, Baller_BallerFriendListModel * item)
     {
-        if (self.ballFriendsListType == BallFriendsListTypeChosing)cell.chosing = NO;
+        if (self.ballFriendsListType == BallFriendsListTypeChosing)
+        {
+            cell.invitateStatus = YES;
+            cell.chosing = NO;
+        }
         cell.friendListModel  = item;
 
     }];

@@ -48,7 +48,9 @@ typedef void(^CardView_BottomButtonClicked) (BallerCardType ballerCardType);
 }
 
 @property (nonatomic) BallerCardType ballerCardType;
-@property (nonatomic,copy)NSString * uid; //用户的用户id
+@property (nonatomic,copy)NSString * uid; //被评价用户的用户id
+@property (nonatomic,copy)NSString * evaluatedType;
+@property (nonatomic,copy)NSString * activity_id;
 @property (nonatomic,strong)NSMutableDictionary * personalInfo; //个人信息
 
 @property (nonatomic, strong)UIButton * headImageButton;
@@ -64,6 +66,9 @@ typedef void(^CardView_BottomButtonClicked) (BallerCardType ballerCardType);
 @property (nonatomic, strong)Baller_CreateBallParkView * createBallParkView;
 @property (nonatomic, strong)Baller_CreateBasketBallTeamView * createTeamView;
 @property (nonatomic,copy)NSArray * abilityDetails; //能力详情
+
+
+@property (nonatomic,strong)NSMutableArray * chatUsers; //聊天双方信息
 
 - (id)initWithFrame:(CGRect)frame
      playerCardType:(BallerCardType)ballerCardType;

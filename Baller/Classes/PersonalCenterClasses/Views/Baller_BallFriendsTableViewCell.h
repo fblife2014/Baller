@@ -17,6 +17,7 @@
 @property (strong, nonatomic) IBOutlet UIView *basketBallPark;
 @property (strong, nonatomic) IBOutlet UILabel *positionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *BallParkName;
+@property (nonatomic)BOOL invitateStatus; //邀请状态
 @property (nonatomic)BOOL chosing;  //选择球友的状态。该状态下，展示左侧圆圈
 @property (nonatomic,strong)Baller_BallerFriendListModel * friendListModel;
 @end

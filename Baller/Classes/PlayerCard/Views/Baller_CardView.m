@@ -122,10 +122,11 @@
 #pragma mark 请求个人信息
 
 - (void)setUid:(NSString *)uid{
-    if (_uid == uid) {
+    if ([_uid isEqualToString:uid]) {
         return;
     }
-    _uid = uid;
+    _uid = [uid copy];
+    abilityView.evaluatedPersonUid = _uid;
     [self getPersonalInfoWithUid];
 }
 
@@ -152,8 +153,17 @@
     [_personalInfo setValuesForKeysWithDictionary:personalInfo];
     [_headImageButton setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[personalInfo valueForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
     
-    if (![[personalInfo valueForKey:@"appraise"] boolForKey:@"can_appraise"]) {
-        [self addEvaluateButton];
+    if ([[personalInfo valueForKey:@"appraise"] boolForKey:@"can_appraise"]) {
+        if ([[personalInfo valueForKey:@"appraise"] boolForKey:@"friend_appraise"]) {
+            abilityView.evaluateType = @"friend";
+            [self addEvaluateButton];
+        }else if ([[personalInfo valueForKey:@"appraise"] boolForKey:@"activity_appraise"]){
+            abilityView.evaluateType = @"activity";
+            if (self.activity_id) {
+                abilityView.activity_id = self.activity_id;
+                [self addEvaluateButton];
+            }
+        }
     }
     _nickNameLabel.text = [personalInfo valueForKey:@"user_name"];
     
@@ -195,11 +205,32 @@
     heightLabel.text = $str(@"%@ cm",[personalInfo valueForKey:@"height"]);
     weightLabel.text = $str(@"%@ kg",[personalInfo valueForKey:@"weight"]);
     positonLabel.text = $str(@"%@",[personalInfo valueForKey:@"position"]);
-
     
     [self setNeedsDisplay];
 
 }
+
+- (void)setActivity_id:(NSString *)activity_id{
+    if ([_activity_id isEqualToString:activity_id]) {
+        return;
+    }
+    _activity_id = activity_id;
+    abilityView.activity_id = _activity_id;
+}
+
+- (void)setAbilityDetails:(NSArray *)abilityDetails{
+    if (_abilityDetails == abilityDetails) {
+        return;
+    }
+    _abilityDetails = abilityDetails;
+    [abilityEditorView removeFromSuperview];
+    abilityEditorView = [[Baller_AbilityEditorView alloc]initWithFrame:CGRectMake(0.0, 0.0, 154.0, 158.0)];
+    abilityEditorView.center = CGPointMake(abilityView.frame.size.width/2.0, abilityView.frame.size.height/2.0-5.0);
+    abilityEditorView.abilities = abilityDetails;
+    [abilityView addSubview:abilityEditorView];
+}
+
+
 
 #pragma mark  添加子视图
 - (UIButton *)headImageButton
@@ -323,10 +354,9 @@
     evaluateButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 15, 0.0, 0.0);
     evaluateButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 15, -1.0, 0.0);
     evaluateButton.layer.cornerRadius = 5.0;
-    
+    abilityView.evaluateButton = evaluateButton;
     [self insertSubview:evaluateButton belowSubview:self.headImageButton];
 
-    
 }
 
 /*!
@@ -404,23 +434,18 @@
     NSArray *a = [[NSBundle mainBundle] loadNibNamed:@"AbilityView" owner:nil options:nil];
     abilityView = [a firstObject];
     abilityView.frame = CGRectMake(0.0, CGRectGetMaxY(line.frame), self.frame.size.width,288.0);
+    
     [self addSubview:abilityView];
 
-    
 }
 
-- (void)setAbilityDetails:(NSArray *)abilityDetails{
-    if (_abilityDetails == abilityDetails) {
+- (void)setEvaluatedType:(NSString *)evaluatedType{
+    if ([_evaluatedType isEqualToString:evaluatedType]) {
         return;
     }
-    _abilityDetails = abilityDetails;
-    [abilityEditorView removeFromSuperview];
-    abilityEditorView = [[Baller_AbilityEditorView alloc]initWithFrame:CGRectMake(0.0, 0.0, 154.0, 158.0)];
-    abilityEditorView.center = CGPointMake(abilityView.frame.size.width/2.0, abilityView.frame.size.height/2.0-5.0);
-    abilityEditorView.abilities = abilityDetails;
-    [abilityView addSubview:abilityEditorView];
+    _evaluatedType = [evaluatedType copy];
+    abilityView.evaluateType = _evaluatedType;
 }
-
 
 
 /*!
@@ -538,8 +563,10 @@
 /*!
  *  @brief  评价按钮方法
  */
-- (void)evaluateButtonAction{
+- (void)evaluateButtonAction
+{
     abilityView.showEvaluateViews = !abilityView.showEvaluateViews;
+    
 }
 
 //关注按钮方法
@@ -671,23 +698,40 @@
 - (void)setRCUserinfo{
     [RCIM setUserInfoFetcherWithDelegate:self isCacheUserInfo:YES];
 }
+
+- (NSMutableArray *)chatUsers
+{
+    if (!_chatUsers) {
+        _chatUsers = [NSMutableArray new];
+        
+        RCUserInfo * myUserInfo = [[RCUserInfo alloc]initWithUserId:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"] name:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"user_name"] portrait:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"photo"]];
+        
+        RCUserInfo * friendUserInfo = [[RCUserInfo alloc]initWithUserId:[_personalInfo valueForKey:@"uid"] name:[_personalInfo valueForKey:@"user_name"] portrait:[_personalInfo valueForKey:@"photo"]];
+        
+        [_chatUsers addObject:myUserInfo];
+        [_chatUsers addObject:friendUserInfo];
+    }
+    
+    return _chatUsers;
+}
+
+
 #pragma mark RCIMUserInfoFetcherDelegagte
 
 - (void)getUserInfoWithUserId:(NSString *)userId completion:(void(^)(RCUserInfo* userInfo))completion{
-    
-    if ([userId isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
-        NSString * headImageUrl = [USER_DEFAULT valueForKey:Baller_UserInfo_HeadImage];
-        if (!headImageUrl) {
-            headImageUrl = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"photo"];
+
+    RCUserInfo *user  = nil;
+    if([userId length] == 0)
+        return completion(nil);
+    for(RCUserInfo *u in self.chatUsers)
+    {
+        if([u.userId isEqualToString:[userId substringFromIndex:7]])
+        {
+            user = u;
+            break;
         }
-        RCUserInfo * myUserInfo = [[RCUserInfo alloc]initWithUserId:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"] name:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"user_name"] portrait:headImageUrl];
-        completion(myUserInfo);
-    }else{
-
-        RCUserInfo * myUserInfo = [[RCUserInfo alloc]initWithUserId:[_personalInfo valueForKey:@"uid"] name:[_personalInfo valueForKey:@"user_name"] portrait:[_personalInfo valueForKey:@"photo"]];
-        completion(myUserInfo);
     }
-
+    return completion(user);
 }
 
 

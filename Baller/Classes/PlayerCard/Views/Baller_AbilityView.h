@@ -15,7 +15,13 @@
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIView *leftBottomView;
 @property (weak, nonatomic) IBOutlet UIView *leftTopView;
-
+@property (nonatomic,copy)NSString * evaluatedPersonUid;
+@property (nonatomic,copy)NSString * evaluateType;
+@property (nonatomic,copy)NSString * activity_id;
+@property (nonatomic,strong)UIButton * evaluateButton;
 @property (nonatomic)BOOL showEvaluateViews;
+@property (nonatomic,strong)NSMutableDictionary * chosedAttributes;
+@property (strong, nonatomic) IBOutlet UIButton *doneButton;
+@property (strong, nonatomic) IBOutlet UIButton *cancel;
 
 @end
