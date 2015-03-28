@@ -9,6 +9,7 @@
 #import "Baller_BallParkHomepageViewController.h"
 #import "Baller_BPAttentionPersonListViewController.h"
 #import "Baller_BallParkMapViewController.h"
+#import "Baller_PlayerCardViewController.h"
 
 #import "Baller_EditActivityDetailViewController.h"
 #import "Baller_ActivityDetailViewController.h"
@@ -21,7 +22,12 @@
 #import "Baller_HUDView.h"
 #import "RCChatViewController.h"
 
-@interface Baller_BallParkHomepageViewController ()<UITableViewDelegate,Baller_BallParkHeadViewDelegate>
+#import "RCIM.h"
+
+#import "PMCalendar.h"
+
+
+@interface Baller_BallParkHomepageViewController ()<UITableViewDelegate,Baller_BallParkHeadViewDelegate,PMCalendarControllerDelegate>
 {
    __block NSMutableDictionary * courtInfoDic; // 球场详情信息
     Baller_BallParkHeadView * ballParkHeadView;
@@ -29,6 +35,8 @@
     NSMutableArray * activities;  //该球场发起的活动
    __block UIButton * attentionButton;
 }
+
+@property (nonatomic, strong) PMCalendarController *pmCC;
 
 @end
 
@@ -43,7 +51,7 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     [super loadView];
 
     if (_ballParkModel) {
-        _court_id = $str(@"%ld",_ballParkModel.court_id);
+        _court_id = $str(@"%ld",(long)_ballParkModel.court_id);
         _court_name = _ballParkModel.court_name;
     }
     self.tableView.delegate = self;
@@ -63,8 +71,31 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     [self getCourtInfo];
     [[AppDelegate sharedDelegate] connectRC];
 
-
+    [self userHeadClicked];
 }
+
+- (void)userHeadClicked
+{
+    [[RCIM sharedRCIM] setUserPortraitClickEvent:^(UIViewController *viewController, RCUserInfo *userInfo) {
+        DLog(@"%@,%@",viewController,userInfo);
+        
+        Baller_PlayerCardViewController *temp = [[Baller_PlayerCardViewController alloc]init];
+        temp.uid = userInfo.userId;
+        temp.userName = userInfo.name;
+        
+        UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:temp];
+        
+        //导航和的配色保持一直
+        UIImage *image= [viewController.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault];
+        
+        [nav.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+   
+        
+        [viewController presentViewController:nav animated:YES completion:NULL];
+        
+    }];
+}
+
 
 #pragma mark 网络请求
 /*!
@@ -214,6 +245,21 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     [self.navigationController pushViewController:editADVC animated:YES];
 }
 
+- (void)ballParkHeadView:(Baller_BallParkHeadView *)ballParkHeadView calendarButtonSelected:(UIButton *)calendarButton{
+    
+    self.pmCC = [[PMCalendarController alloc] init];
+    _pmCC.delegate = self;
+    _pmCC.period = [PMPeriod oneDayPeriodWithDate:((NSDate *)ballParkHeadView.currentDate)];
+    _pmCC.mondayFirstDayOfWeek = YES;
+    [self calendarController:_pmCC didChangePeriod:_pmCC.period];
+    
+    [_pmCC presentCalendarFromRect:[calendarButton frame]
+                            inView:self.view
+          permittedArrowDirections:PMCalendarArrowDirectionAny
+                          animated:YES];
+    
+}
+
 - (void)ballParkHeadView:(Baller_BallParkHeadView *)ballParkHeadView chatButtonSelected:(UIButton *)chatButton{
     RCChatViewController *temp = [[RCChatViewController alloc]init];
     temp.currentTarget = [courtInfoDic stringForKey:@"chatroom_id"];
@@ -225,6 +271,16 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     
 }
 
+
+#pragma mark PMCalendarControllerDelegate methods
+
+- (void)calendarController:(PMCalendarController *)calendarController didChangePeriod:(PMPeriod *)newPeriod
+{
+    if (ballParkHeadView.currentDate != newPeriod.startDate) {
+        ballParkHeadView.currentDate = newPeriod.startDate;
+        [self ballerParkHome_get_activities];
+    }
+}
 @end
 
 

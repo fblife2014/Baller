@@ -16,6 +16,8 @@
 
 #import "Baller_MyBallParkViewController.h"
 #import "Baller_MyBasketballTeamViewController.h"
+#import "Baller_PlayerCardViewController.h"
+
 #import "Baller_AbilityView.h"
 #import "Baller_AbilityEditorView.h"
 
@@ -503,10 +505,13 @@
  */
 - (void)shareButtonAction{
     
-    NSString *share_content = @"baller分享内容";
-    NSString *share_title = @"baller分享的标题";
+    NSString *share_content = @"有兄弟，来Baller！";
+    NSString *share_title = [_personalInfo valueForKey:@"user_name"];
     NSString *share_link_url = @"http://www.baidu.com";
-    UIImage *share_image = [ImageFactory saveImageFromView:self];
+    CGRect superRect = self.superview.bounds;
+    self.superview.bounds = CGRectMake(0.0, 0.0, ScreenWidth, self.bounds.size.height+50);
+    UIImage *share_image = [ImageFactory saveImageFromView:self.superview];
+    self.superview.bounds = superRect;
     
     [[LShareSheetView shareInstance] showShareContent:share_content title:share_title shareUrl:share_link_url shareImage:share_image targetViewController:nil];
     [[LShareSheetView shareInstance]actionBlock:^(NSInteger buttonIndex, Share_Type shareType) {
@@ -696,6 +701,7 @@
 
 #pragma mark 融云用户系统
 - (void)setRCUserinfo{
+    [self userHeadClicked];
     [RCIM setUserInfoFetcherWithDelegate:self isCacheUserInfo:YES];
 }
 
@@ -725,14 +731,46 @@
         return completion(nil);
     for(RCUserInfo *u in self.chatUsers)
     {
-        if([u.userId isEqualToString:[userId substringFromIndex:7]])
-        {
-            user = u;
-            break;
+        if ([userId containsString:@"baller_"]) {
+            if([u.userId isEqualToString:[userId substringFromIndex:7]])
+            {
+                user = u;
+                break;
+            }
+        }else{
+            if([u.userId isEqualToString:userId])
+            {
+                user = u;
+                break;
+            }
         }
+
     }
     return completion(user);
 }
+
+- (void)userHeadClicked
+{
+    [[RCIM sharedRCIM] setUserPortraitClickEvent:^(UIViewController *viewController, RCUserInfo *userInfo) {
+        DLog(@"%@,%@",viewController,userInfo);
+        
+        Baller_PlayerCardViewController *temp = [[Baller_PlayerCardViewController alloc]init];
+        temp.uid = userInfo.userId;
+        temp.userName = userInfo.name;
+        
+        UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:temp];
+        
+        //导航和的配色保持一直
+        UIImage *image= [viewController.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault];
+        
+        [nav.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+        
+        
+        [viewController presentViewController:nav animated:YES completion:NULL];
+        
+    }];
+}
+
 
 
 @end

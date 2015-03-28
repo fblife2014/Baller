@@ -435,9 +435,6 @@ typedef enum{
             break;
     }
     
-    
-    __WEAKOBJ(weakSelf, self);
-    
     int gender_id = gender == Gender_Boy ? 2 : 1;
     
     NSString *genderString = [NSString stringWithFormat:@"%d",gender_id];

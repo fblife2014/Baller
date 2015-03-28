@@ -40,6 +40,29 @@
     [[AppDelegate sharedDelegate]connectRC];
  
     [self setupTableHeaderViewAndFooterView];
+    [self userHeadClicked];
+}
+
+- (void)userHeadClicked
+{
+    [[RCIM sharedRCIM] setUserPortraitClickEvent:^(UIViewController *viewController, RCUserInfo *userInfo) {
+        DLog(@"%@,%@",viewController,userInfo);
+        
+        Baller_PlayerCardViewController *temp = [[Baller_PlayerCardViewController alloc]init];
+        temp.uid = userInfo.userId;
+        temp.userName = userInfo.name;
+        
+        UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:temp];
+        
+        //导航和的配色保持一直
+        UIImage *image= [viewController.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault];
+        
+        [nav.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+        
+        
+        [viewController presentViewController:nav animated:YES completion:NULL];
+        
+    }];
 }
 
 /*!
