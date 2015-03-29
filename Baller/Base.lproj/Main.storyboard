@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="APk-vs-lVv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="APk-vs-lVv">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -157,11 +157,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yqH-pJ-xPx">
-                                            <rect key="frame" x="505" y="16" width="60" height="21"/>
+                                            <rect key="frame" x="449" y="16" width="116" height="21"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20.5" id="3wu-yS-2zw"/>
-                                                <constraint firstAttribute="width" constant="60" id="ff9-Ck-rY8"/>
+                                                <constraint firstAttribute="width" constant="116" id="ff9-Ck-rY8"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.40784313725490196" green="0.40784313725490196" blue="0.40784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -212,7 +212,7 @@
                                         <constraint firstItem="6BP-pc-hiy" firstAttribute="top" secondItem="n6c-uC-zYU" secondAttribute="bottom" constant="8" id="GtB-Ot-ona"/>
                                         <constraint firstItem="g0I-nU-KdF" firstAttribute="top" secondItem="yqH-pJ-xPx" secondAttribute="bottom" constant="9.5" id="Ocl-B0-e7S"/>
                                         <constraint firstItem="6BP-pc-hiy" firstAttribute="trailing" secondItem="n6c-uC-zYU" secondAttribute="trailing" id="Ohn-tM-8tf"/>
-                                        <constraint firstItem="yqH-pJ-xPx" firstAttribute="leading" secondItem="n6c-uC-zYU" secondAttribute="trailing" constant="8" id="kTd-pj-Qc2"/>
+                                        <constraint firstItem="yqH-pJ-xPx" firstAttribute="leading" secondItem="n6c-uC-zYU" secondAttribute="trailing" constant="-48" id="kTd-pj-Qc2"/>
                                         <constraint firstItem="Z0r-rl-poS" firstAttribute="leading" secondItem="NSi-lX-VGE" secondAttribute="leadingMargin" constant="21" id="mtv-D1-ciw"/>
                                         <constraint firstItem="Z0r-rl-poS" firstAttribute="top" secondItem="n6c-uC-zYU" secondAttribute="top" constant="-5" id="pTr-MT-TMB"/>
                                         <constraint firstAttribute="centerY" secondItem="Z0r-rl-poS" secondAttribute="centerY" id="rvz-ra-ct6"/>
@@ -230,6 +230,32 @@
                                     <outlet property="messageTitleLabel" destination="n6c-uC-zYU" id="JK3-oK-40G"/>
                                     <outlet property="timeLabel" destination="yqH-pJ-xPx" id="92m-a4-MGR"/>
                                 </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MessageListCellId" rowHeight="60" id="cMf-GT-b5S" customClass="Baller_MessageTop">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cMf-GT-b5S" id="tfq-QA-eX2">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="查看会话列表" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npM-Os-XfQ">
+                                            <rect key="frame" x="30" y="14" width="178" height="30"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="178" id="AhN-j4-KCl"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <color key="textColor" red="0.41176470588235292" green="0.41176470588235292" blue="0.41176470588235292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="npM-Os-XfQ" secondAttribute="bottom" constant="8" id="2So-us-Yak"/>
+                                        <constraint firstItem="npM-Os-XfQ" firstAttribute="leading" secondItem="tfq-QA-eX2" secondAttribute="leadingMargin" constant="22" id="qOt-tg-ldf"/>
+                                        <constraint firstItem="npM-Os-XfQ" firstAttribute="top" secondItem="tfq-QA-eX2" secondAttribute="topMargin" constant="6" id="rdZ-bB-1hq"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>

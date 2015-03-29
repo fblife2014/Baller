@@ -31,6 +31,7 @@
     if (_friendModel) {
         _uid = _friendModel.friend_uid;
         self.navigationItem.title = _friendModel.friend_user_name;
+        _photoUrl = _friendModel.friend_user_photo;
     }
     if (_userName) {
         self.navigationItem.title = _userName;
@@ -41,7 +42,7 @@
             self.navigationItem.title = @"我的球员卡";
             break;
         case kBallerCardType_OtherBallerPlayerCard:
-            self.navigationItem.title = _friendModel.friend_user_name;
+            self.navigationItem.title = _userName;
             break;
             
         default:
@@ -58,12 +59,12 @@
 {
     if (!_playCardView) {
         playCardView = [[Baller_CardView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, 10.0, ScreenWidth-2*TABLE_SPACE_INSET, self.view.frame.size.height-20.0) playerCardType:self.ballerCardType];
-        if (_friendModel) {
-            playCardView.uid = _friendModel.friend_uid;
+        if (_uid) {
+            playCardView.uid = _uid;
             
         }else{
             __BLOCKOBJ(blockPlayCard, playCardView);
-            [AFNHttpRequestOPManager getWithSubUrl:Baller_get_user_attr parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]?:@""} responseBlock:^(id result, NSError *error) {
+            [AFNHttpRequestOPManager getWithSubUrl:Baller_get_user_attr parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]} responseBlock:^(id result, NSError *error) {
                 
                 if([result isKindOfClass:[NSDictionary class]]){
                     blockPlayCard.abilityDetails =
@@ -98,7 +99,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chooseQiuChang:) name:@"ChooseZhuChang" object:nil];
 
-    if (_friendModel) {
+    if (_photoUrl) {
         
         [[[self playCardView] headImageButton]setImageForState:UIControlStateNormal withURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_friendModel.friend_user_photo]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
             [self showBlurBackImageViewWithImage:image belowView:[self playCardView]];

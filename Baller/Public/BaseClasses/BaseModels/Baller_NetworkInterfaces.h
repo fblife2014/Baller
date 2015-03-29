@@ -27,8 +27,10 @@ extern NSString * const Baller_get_friend_list;     //13、获取我的好友接
 extern NSString * const Baller_select_my_court;     //14、选择我的主场
 
 extern NSString * const Baller_change_password;     //15、修改密码
-
 extern NSString * const Baller_evaluate_activity;   //17、评价球员
+extern NSString * const Baller_get_msg; //18-1、获取我的消息列表
+extern NSString * const Baller_del_msg; //18-2、获取我的消息列表
+extern NSString * const Baller_get_msg_info; //18-3、获取我的消息列表
 
 extern NSString * const Baller_court_create;        //20、创建球场
 extern NSString * const Baller_get_court_info;      //21、获取球场详情

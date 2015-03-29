@@ -28,8 +28,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"活动详情";
+    if (_activityModel) {
+        _activity_CreaterID = _activityModel.uid;
+        _activityID = _activityModel.activity_id;
+        
+    }
     [self getActivityInfo];
-    isCreator = [_activityModel.uid isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]];
+
+    isCreator = [_activityID isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]];
     [self showBlurBackImageViewWithImage:[UIImage imageNamed:@"ballPark_default"] belowView:nil];
     [self setupSubViews];
     // Do any additional setup after loading the view.
@@ -132,7 +138,7 @@
  */
 - (void)getActivityInfo
 {
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_activity_get_info parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"activity_id":_activityModel.activity_id} responseBlock:^(id result, NSError *error) {
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_activity_get_info parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"activity_id":_activityID} responseBlock:^(id result, NSError *error) {
         if (error)return;
         
         if (0 == [[result valueForKey:@"errorcode"] integerValue]) {

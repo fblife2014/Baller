@@ -29,6 +29,7 @@
     if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.contentView.backgroundColor = CLEARCOLOR;
         self.backgroundType = BaseCellBackgroundTypeMiddleWhite;
+        self.backgroundImageView.userInteractionEnabled = NO;
     }
     return self;
 }
@@ -36,6 +37,7 @@
 - (void)awakeFromNib {
     self.contentView.backgroundColor = CLEARCOLOR;
     self.backgroundType = BaseCellBackgroundTypeMiddleWhite;
+    self.backgroundImageView.userInteractionEnabled = NO;
     // Initialization code
 }
 

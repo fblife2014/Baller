@@ -174,7 +174,7 @@
             [self addAttentionButtonWithTitle:@"关注" imageName:@"guangzhu"];
             break;
         case 2:
-            [self addAttentionButtonWithTitle:@"也关注他" imageName:@"guangzhu"];
+            [self addAttentionButtonWithTitle:@"关注他" imageName:@"guangzhu"];
             break;
         case 1:
             [self addAttentionButtonWithTitle:@"已关注" imageName:nil];
@@ -594,7 +594,7 @@
                     [self addAttentionButtonWithTitle:@"关注" imageName:@"guangzhu"];
                     break;
                 case 2:
-                    [self addAttentionButtonWithTitle:@"也关注他" imageName:nil];
+                    [self addAttentionButtonWithTitle:@"关注他" imageName:nil];
                     break;
                 case 1:
                     [self addAttentionButtonWithTitle:@"已关注" imageName:nil];

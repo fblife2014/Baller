@@ -170,6 +170,8 @@
 		FBF50AAB1AC6345A003CBCAD /* PMDimmingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AA21AC6345A003CBCAD /* PMDimmingView.m */; };
 		FBF50AAC1AC6345A003CBCAD /* PMPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AA41AC6345A003CBCAD /* PMPeriod.m */; };
 		FBF50AAD1AC6345A003CBCAD /* PMSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AA61AC6345A003CBCAD /* PMSelectionView.m */; };
+		FBF50AB01AC7973D003CBCAD /* Baller_MessageListInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AAF1AC7973D003CBCAD /* Baller_MessageListInfo.m */; };
+		FBF50AB31AC79C29003CBCAD /* Baller_MessageTop.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AB21AC79C29003CBCAD /* Baller_MessageTop.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -500,6 +502,10 @@
 		FBF50AA41AC6345A003CBCAD /* PMPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPeriod.m; sourceTree = "<group>"; };
 		FBF50AA51AC6345A003CBCAD /* PMSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMSelectionView.h; sourceTree = "<group>"; };
 		FBF50AA61AC6345A003CBCAD /* PMSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMSelectionView.m; sourceTree = "<group>"; };
+		FBF50AAE1AC7973D003CBCAD /* Baller_MessageListInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MessageListInfo.h; sourceTree = SOURCE_ROOT; };
+		FBF50AAF1AC7973D003CBCAD /* Baller_MessageListInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MessageListInfo.m; sourceTree = SOURCE_ROOT; };
+		FBF50AB11AC79C29003CBCAD /* Baller_MessageTop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MessageTop.h; sourceTree = "<group>"; };
+		FBF50AB21AC79C29003CBCAD /* Baller_MessageTop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MessageTop.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -817,6 +823,8 @@
 		FB9EF2901AADF830001D77CB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FBF50AAE1AC7973D003CBCAD /* Baller_MessageListInfo.h */,
+				FBF50AAF1AC7973D003CBCAD /* Baller_MessageListInfo.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -826,6 +834,8 @@
 			children = (
 				FB9EF2921AADF830001D77CB /* Baller_MessageViewCell.h */,
 				FB9EF2931AADF830001D77CB /* Baller_MessageViewCell.m */,
+				FBF50AB11AC79C29003CBCAD /* Baller_MessageTop.h */,
+				FBF50AB21AC79C29003CBCAD /* Baller_MessageTop.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1684,6 +1694,7 @@
 				FB2ABEC41AADF97C007D7E52 /* Baller_BPAttentionPersonListHeader.m in Sources */,
 				13277F6E1ABD368C00E9621C /* UIView+Frame.m in Sources */,
 				FB9EF3231AADF830001D77CB /* Baller_BallParkListModel.m in Sources */,
+				FBF50AB01AC7973D003CBCAD /* Baller_MessageListInfo.m in Sources */,
 				FB9EF3461AADF830001D77CB /* Baller_MyBasketBallTeamTableViewCell.m in Sources */,
 				FB9EF31A1AADF830001D77CB /* Baller_MessageViewController.m in Sources */,
 				FBD9B7721AAD7F7F00CDC1C6 /* TimeManager.m in Sources */,
@@ -1711,6 +1722,7 @@
 				FB9EF3241AADF830001D77CB /* Baller_BallParkCollectionReusableView.m in Sources */,
 				FB9EF34D1AADF830001D77CB /* Baller_AbilityView.m in Sources */,
 				FBF50AAB1AC6345A003CBCAD /* PMDimmingView.m in Sources */,
+				FBF50AB31AC79C29003CBCAD /* Baller_MessageTop.m in Sources */,
 				FBD9B74E1AAD7F7F00CDC1C6 /* MLViewConrollerManager.m in Sources */,
 				FBD9B7761AAD7F7F00CDC1C6 /* OpenUDID.m in Sources */,
 				FB5E8B4E1AB6B73C007F9617 /* LTools.m in Sources */,

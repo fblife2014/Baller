@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "Baller_BaseTableViewCell.h"
-
+@class Baller_MessageListInfo;
 @interface Baller_MessageViewCell : Baller_BaseTableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *messageNumberLable;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *messageTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *messageDetailLabel;
-
+@property (nonatomic,strong)Baller_MessageListInfo * messageInfo;
 
 
 @end
