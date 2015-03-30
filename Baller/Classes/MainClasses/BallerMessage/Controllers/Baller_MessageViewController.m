@@ -196,9 +196,12 @@ static NSString * const MessageListCellId = @"MessageListCellId";
             break;
         case 3:
         {
-//            Baller_ActivityDetailViewController * activityDVC = [[Baller_ActivityDetailViewController alloc]init];
-//            
-//            [self.navigationController pushViewController:activityDVC animated:YES];
+            Baller_ActivityDetailViewController * activityDVC = [[Baller_ActivityDetailViewController alloc]init];
+            activityDVC.activityID = chosedMessageInfo.theme_id;
+            activityDVC.activity_CreaterID = chosedMessageInfo.from_uid;
+
+            activityDVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:activityDVC animated:YES];
         }
             break;
             

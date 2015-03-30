@@ -7,6 +7,8 @@
 //
 
 #import "Baller_EditActivityDetailViewController.h"
+#import "Baller_BallParkHomepageViewController.h"
+
 #import "Baller_InfoItemView.h"
 #import "MGConferenceDatePicker.h"
 #import "MGConferenceDatePickerDelegate.h"
@@ -84,6 +86,12 @@
     
 }
 
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    if (_ballParkVC) {
+        [_ballParkVC ballerParkHome_get_activities];
+    }
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

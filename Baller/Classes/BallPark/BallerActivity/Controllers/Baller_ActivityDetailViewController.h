@@ -14,7 +14,6 @@
 @interface Baller_ActivityDetailViewController : BaseViewController
 
 @property (nonatomic,weak) Baller_BallParkHomepageViewController * ballParkVC;
-@property (nonatomic,strong)Baller_BallParkActivityListModel * activityModel;
 @property (nonatomic,copy)NSString * activityID;
 @property (nonatomic,copy)NSString * activity_CreaterID;
 

@@ -179,7 +179,7 @@
             //添加图片
             [formData appendPartWithFileData:fileData
                                         name:fileName?:@"pic"
-                                    fileName:fileName?:@"headPhoto.jpg"
+                                    fileName:fileName?[NSString stringWithFormat:@"%@.jpg",fileName]:@"photo.jpg"
                                     mimeType:fileType?:@"image/jpg"];
 
         }

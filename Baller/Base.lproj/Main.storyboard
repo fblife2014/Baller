@@ -157,7 +157,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今天" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yqH-pJ-xPx">
-                                            <rect key="frame" x="449" y="16" width="116" height="21"/>
+                                            <rect key="frame" x="464" y="16" width="116" height="21"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20.5" id="3wu-yS-2zw"/>
@@ -168,7 +168,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0I-nU-KdF">
-                                            <rect key="frame" x="545" y="46" width="14" height="15"/>
+                                            <rect key="frame" x="565" y="46" width="14" height="15"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="14.5" id="Q5F-JB-CI6"/>
@@ -179,14 +179,14 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ballPark_default" translatesAutoresizingMaskIntoConstraints="NO" id="Z0r-rl-poS">
-                                            <rect key="frame" x="29" y="15" width="51" height="51"/>
+                                            <rect key="frame" x="19" y="15" width="51" height="51"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="51" id="AGl-Qd-Eqv"/>
                                                 <constraint firstAttribute="width" constant="51" id="Heg-g9-zyi"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="系统消息" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n6c-uC-zYU">
-                                            <rect key="frame" x="90" y="20" width="407" height="17"/>
+                                            <rect key="frame" x="80" y="20" width="407" height="17"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="17" id="EDm-hD-iwO"/>
@@ -196,7 +196,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上次活动有待评价的球员" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6BP-pc-hiy">
-                                            <rect key="frame" x="90" y="45" width="407" height="21"/>
+                                            <rect key="frame" x="80" y="45" width="470" height="21"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="ufX-kV-bcG"/>
@@ -208,15 +208,15 @@
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
-                                        <constraint firstItem="yqH-pJ-xPx" firstAttribute="trailing" secondItem="g0I-nU-KdF" secondAttribute="trailing" constant="6" id="5Nv-hC-qcS"/>
+                                        <constraint firstItem="yqH-pJ-xPx" firstAttribute="trailing" secondItem="g0I-nU-KdF" secondAttribute="trailing" constant="1" id="5Nv-hC-qcS"/>
                                         <constraint firstItem="6BP-pc-hiy" firstAttribute="top" secondItem="n6c-uC-zYU" secondAttribute="bottom" constant="8" id="GtB-Ot-ona"/>
                                         <constraint firstItem="g0I-nU-KdF" firstAttribute="top" secondItem="yqH-pJ-xPx" secondAttribute="bottom" constant="9.5" id="Ocl-B0-e7S"/>
-                                        <constraint firstItem="6BP-pc-hiy" firstAttribute="trailing" secondItem="n6c-uC-zYU" secondAttribute="trailing" id="Ohn-tM-8tf"/>
-                                        <constraint firstItem="yqH-pJ-xPx" firstAttribute="leading" secondItem="n6c-uC-zYU" secondAttribute="trailing" constant="-48" id="kTd-pj-Qc2"/>
-                                        <constraint firstItem="Z0r-rl-poS" firstAttribute="leading" secondItem="NSi-lX-VGE" secondAttribute="leadingMargin" constant="21" id="mtv-D1-ciw"/>
+                                        <constraint firstItem="6BP-pc-hiy" firstAttribute="trailing" secondItem="n6c-uC-zYU" secondAttribute="trailing" constant="63" id="Ohn-tM-8tf"/>
+                                        <constraint firstItem="yqH-pJ-xPx" firstAttribute="leading" secondItem="n6c-uC-zYU" secondAttribute="trailing" constant="-23" id="kTd-pj-Qc2"/>
+                                        <constraint firstItem="Z0r-rl-poS" firstAttribute="leading" secondItem="NSi-lX-VGE" secondAttribute="leadingMargin" constant="11" id="mtv-D1-ciw"/>
                                         <constraint firstItem="Z0r-rl-poS" firstAttribute="top" secondItem="n6c-uC-zYU" secondAttribute="top" constant="-5" id="pTr-MT-TMB"/>
                                         <constraint firstAttribute="centerY" secondItem="Z0r-rl-poS" secondAttribute="centerY" id="rvz-ra-ct6"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="yqH-pJ-xPx" secondAttribute="trailing" constant="27" id="sxH-68-tcY"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="yqH-pJ-xPx" secondAttribute="trailing" constant="12" id="sxH-68-tcY"/>
                                         <constraint firstItem="6BP-pc-hiy" firstAttribute="leading" secondItem="n6c-uC-zYU" secondAttribute="leading" id="v7I-uO-M9X"/>
                                         <constraint firstItem="yqH-pJ-xPx" firstAttribute="top" secondItem="Z0r-rl-poS" secondAttribute="top" constant="1" id="x80-wz-ECW"/>
                                         <constraint firstItem="n6c-uC-zYU" firstAttribute="leading" secondItem="Z0r-rl-poS" secondAttribute="trailing" constant="10" id="zGX-Th-CrY"/>
@@ -238,7 +238,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="查看会话列表" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npM-Os-XfQ">
-                                            <rect key="frame" x="30" y="14" width="178" height="30"/>
+                                            <rect key="frame" x="20" y="14" width="178" height="30"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="178" id="AhN-j4-KCl"/>
@@ -251,7 +251,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="bottomMargin" secondItem="npM-Os-XfQ" secondAttribute="bottom" constant="8" id="2So-us-Yak"/>
-                                        <constraint firstItem="npM-Os-XfQ" firstAttribute="leading" secondItem="tfq-QA-eX2" secondAttribute="leadingMargin" constant="22" id="qOt-tg-ldf"/>
+                                        <constraint firstItem="npM-Os-XfQ" firstAttribute="leading" secondItem="tfq-QA-eX2" secondAttribute="leadingMargin" constant="12" id="qOt-tg-ldf"/>
                                         <constraint firstItem="npM-Os-XfQ" firstAttribute="top" secondItem="tfq-QA-eX2" secondAttribute="topMargin" constant="6" id="rdZ-bB-1hq"/>
                                     </constraints>
                                 </tableViewCellContentView>

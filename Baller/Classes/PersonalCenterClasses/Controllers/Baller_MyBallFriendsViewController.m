@@ -18,10 +18,10 @@
     NSMutableArray * friends; //我的球友信息数组
     NSMutableArray * filterFriends;  //搜索结果数组
     
-    //邀请的球友数组
-     NSMutableArray *  invitedFriends;
     int currentPage;
+    
 }
+@property (nonatomic,strong)NSMutableArray * chosedFriends;//邀请的球友数组
 @end
 
 static NSString * const Baller_BallFriendsTableViewCellId = @"Baller_BallFriendsTableViewCell";
@@ -45,6 +45,13 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     // Dispose of any resources that can be recreated.
 }
 
+- (NSMutableArray *)chosedFriends
+{
+    if (!_chosedFriends) {
+        _chosedFriends = [NSMutableArray new];
+    }
+    return _chosedFriends;
+}
 
 
 
@@ -178,8 +185,8 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
  *  @brief  结束邀请球友
  */
 - (void)choseBallFriendsEnd{
-    
-    self.myBallFriendsEndChoseBallFriendsBlock(invitedFriends);
+    self.myBallFriendsEndChoseBallFriendsBlock([_chosedFriends copy]);
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Table view data source
@@ -224,6 +231,15 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
         if (self.ballFriendsListType == BallFriendsListTypeChosing) {
             Baller_BallFriendsTableViewCell * cell = (Baller_BallFriendsTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
             cell.chosing = !cell.chosing;
+            if (cell.chosing) {
+                if (![self.chosedFriends containsObject:cell.friendListModel]) {
+                    [self.chosedFriends addObject:cell.friendListModel];
+                }
+                
+            }else{
+                [self.chosedFriends removeObject:cell.friendListModel];
+            }
+            
         }else{
             Baller_PlayerCardViewController * playCardVC = [[Baller_PlayerCardViewController alloc]init];
             playCardVC.friendModel = ballFriendModel;

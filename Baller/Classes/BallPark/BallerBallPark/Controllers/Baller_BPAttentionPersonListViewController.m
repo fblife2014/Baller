@@ -8,16 +8,17 @@
 
 #import "Baller_BPAttentionPersonListViewController.h"
 #import "Baller_PersonalInfoViewController.h"
-#import "Baller_BallParkListModel.h"
-#import "Baller_BallParkAttentionTeamListModel.h"
-
-#import "TableViewDataSource.h"
+#import "Baller_MyBasketballTeamViewController.h"
 
 #import "Baller_BPAttentionPersonListHeader.h"
 #import "Baller_BPAttentionPersonCollectionViewCell.h"
 #import "Baller_BPAttentionPersonCellFlowLayout.h"
 #import "Baller_BPAttentionTeamTableViewCell.h"
+
+#import "TableViewDataSource.h"
 #import "Baller_BallParkAttentionBallerListModel.h"
+#import "Baller_BallParkListModel.h"
+#import "Baller_BallParkAttentionTeamListModel.h"
 
 @interface Baller_BPAttentionPersonListViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UITableViewDelegate>
 {
@@ -211,7 +212,11 @@
     return NUMBER(110.0, 100, 90, 90);
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    Baller_BallParkAttentionTeamListModel * teamListModel = self.teams[indexPath.row];
+    Baller_MyBasketballTeamViewController * teamVC = [[Baller_MyBasketballTeamViewController alloc]init];
+    teamVC.isCloseMJRefresh = YES;
+    teamVC.teamListModel = teamListModel;
+    [self.navigationController pushViewController:teamVC animated:YES];
 }
 
 @end

@@ -79,7 +79,7 @@
                 [self addSubview: self.ballParkButton];
                 [self addSubview: self.ballTeamButton];
                 [self addLineAndAbility];
-//                [self addBottomSegments];
+                [self addBottomSegments];
                 
                 break;
             case kBallerCardType_OtherBallerPlayerCard:

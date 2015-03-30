@@ -118,15 +118,16 @@
         CALayer * weizhiLayer = [CALayer layer];
         weizhiLayer.contents = (__bridge id)(weizhiImage.CGImage);
         weizhiLayer.anchorPoint = CGPointZero;
-        weizhiLayer.frame = CGRectMake(33.0, 15.0, 14.0, 20.0);
+        weizhiLayer.frame = CGRectMake(15.0, 15.0, 14.0, 20.0);
         [goRightButton.layer addSublayer:weizhiLayer];
         
-       UILabel * locationLabel = [ViewFactory addAlabelForAView:self withText:[_ballParkInfo valueForKey:@"address"] frame:CGRectMake(CGRectGetMaxX(weizhiLayer.frame)+15.0, 17.5, ScreenWidth-CGRectGetMaxY(weizhiLayer.frame)-50.0, 15.0) font:SYSTEM_FONT_S(15.0) textColor:UIColorFromRGB(0x6a6a6a)];
+       UILabel * locationLabel = [ViewFactory addAlabelForAView:self withText:[_ballParkInfo valueForKey:@"address"] frame:CGRectMake(CGRectGetMaxX(weizhiLayer.frame)+10.0, 10, ScreenWidth-CGRectGetMaxX(weizhiLayer.frame)-45.0, 30.0) font:SYSTEM_FONT_S(15.0) textColor:UIColorFromRGB(0x6a6a6a)];
        [goRightButton addSubview:locationLabel];
+        [locationLabel sizeToFit];
         locationLabel.textAlignment = NSTextAlignmentLeft;
         
        UIImageView *  goRightArrow = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"mycenter_jiantou"]];
-        goRightArrow.frame = CGRectMake(ScreenWidth-32, 14.5, 12, 21);
+        goRightArrow.frame = CGRectMake(ScreenWidth-27, 14.5, 12, 21);
         [goRightButton addSubview:goRightArrow];
         
     }

@@ -16,6 +16,8 @@
 #import "UIView+ML_BlurView.h"
 #import "Baller_BallTeamInfo.h"
 #import "Baller_BallTeamMemberInfo.h"
+#import "Baller_BallParkAttentionTeamListModel.h"
+
 #import "RCIM.h"
 #import "RCChatViewController.h"
 
@@ -31,12 +33,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"我的球队";
+    if (_teamListModel) {
+        self.navigationItem.title = _teamListModel.team_name;
+
+    }else{
+        self.navigationItem.title = @"我的球队";
+
+    }
     [self.tableView registerNib:[UINib nibWithNibName:@"Baller_MyBasketBallTeamTableViewCell" bundle:nil] forCellReuseIdentifier:@"Baller_MyBasketBallTeamTableViewCell"];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
-    UIBarButtonItem *rightItem = [ViewFactory getABarButtonItemWithImage:@"qunliao" imageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15) target:self selection:@selector(goToGroupChat)];
-    self.navigationItem.rightBarButtonItem = rightItem;
+
     [[AppDelegate sharedDelegate]connectRC];
  
     [self setupTableHeaderViewAndFooterView];
@@ -83,12 +90,19 @@
             [headerView.headImageView showBlurWithDuration:0.5 blurStyle:kUIBlurEffectStyleLight belowView:nil];
             self.tableView.tableHeaderView = headerView;
             
-            UIView *footerView = [ViewFactory clearViewWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 107.0)];
-            UIButton *quitTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(ScreenWidth / 2.0 - 125.0, 27.0, 250.0, 50.0) nomalTitle:@"退出球队" hlTitle:@"退出球队" titleColor:[UIColor whiteColor] bgColor:UIColorFromRGB(0X611b1b) nImage:nil hImage:nil action:@selector(quitTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
-            quitTeamButton.titleLabel.font = DEFAULT_BOLDFONT(17.0);
-            quitTeamButton.layer.cornerRadius = 7.5;
-            [footerView addSubview:quitTeamButton];
-            self.tableView.tableFooterView = footerView;
+            if (nil == self.teamListModel) {
+                
+                UIBarButtonItem *rightItem = [ViewFactory getABarButtonItemWithImage:@"qunliao" imageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15) target:self selection:@selector(goToGroupChat)];
+                self.navigationItem.rightBarButtonItem = rightItem;
+                
+                UIView *footerView = [ViewFactory clearViewWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 107.0)];
+                UIButton *quitTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(ScreenWidth / 2.0 - 125.0, 27.0, 250.0, 50.0) nomalTitle:@"退出球队" hlTitle:@"退出球队" titleColor:[UIColor whiteColor] bgColor:UIColorFromRGB(0X611b1b) nImage:nil hImage:nil action:@selector(quitTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+                quitTeamButton.titleLabel.font = DEFAULT_BOLDFONT(17.0);
+                quitTeamButton.layer.cornerRadius = 7.5;
+                [footerView addSubview:quitTeamButton];
+                self.tableView.tableFooterView = footerView;
+            }
+            
             [self.tableView reloadData];
         }else{
             self.navigationItem.rightBarButtonItem.customView.hidden = YES;
@@ -118,7 +132,14 @@
 }
 
 - (void)getBasketballTeamInfo:(void (^)())completion {
-    NSDictionary *paras = @{ @"authcode": [USER_DEFAULT valueForKey:Baller_UserInfo_Authcode] };
+    
+    NSDictionary *paras = nil;
+    if (_teamListModel) {
+        paras = @{ @"authcode": [USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"team_id":_teamListModel.team_id};
+    }else{
+        paras = @{ @"authcode": [USER_DEFAULT valueForKey:Baller_UserInfo_Authcode] };
+    }
+    
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_my_team
                                 parameters:paras
                              responseBlock:^(id result, NSError *error) {
@@ -236,12 +257,12 @@
     
    Baller_BallTeamMemberInfo * memberInfo =  self.teamInfo.members[indexPath.row];
     Baller_PlayerCardViewController * playCardVC = [[Baller_PlayerCardViewController alloc]init];
-    playCardVC.uid = memberInfo.uid;
     if ([memberInfo.uid isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
         playCardVC.ballerCardType = kBallerCardType_MyPlayerCard;
         
     }else{
         playCardVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
+        playCardVC.uid = memberInfo.uid;
         playCardVC.userName = memberInfo.user_name;
     }
     [self.navigationController pushViewController:playCardVC animated:YES];

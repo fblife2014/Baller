@@ -172,6 +172,7 @@
 		FBF50AAD1AC6345A003CBCAD /* PMSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AA61AC6345A003CBCAD /* PMSelectionView.m */; };
 		FBF50AB01AC7973D003CBCAD /* Baller_MessageListInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AAF1AC7973D003CBCAD /* Baller_MessageListInfo.m */; };
 		FBF50AB31AC79C29003CBCAD /* Baller_MessageTop.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AB21AC79C29003CBCAD /* Baller_MessageTop.m */; };
+		FBF50AE81AC92A4C003CBCAD /* Baller_ActivityDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AE71AC92A4B003CBCAD /* Baller_ActivityDetailInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -506,6 +507,8 @@
 		FBF50AAF1AC7973D003CBCAD /* Baller_MessageListInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MessageListInfo.m; sourceTree = SOURCE_ROOT; };
 		FBF50AB11AC79C29003CBCAD /* Baller_MessageTop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MessageTop.h; sourceTree = "<group>"; };
 		FBF50AB21AC79C29003CBCAD /* Baller_MessageTop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MessageTop.m; sourceTree = "<group>"; };
+		FBF50AE61AC92A4B003CBCAD /* Baller_ActivityDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_ActivityDetailInfo.h; sourceTree = SOURCE_ROOT; };
+		FBF50AE71AC92A4B003CBCAD /* Baller_ActivityDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_ActivityDetailInfo.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -736,6 +739,8 @@
 		FB9EF2601AADF830001D77CB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FBF50AE61AC92A4B003CBCAD /* Baller_ActivityDetailInfo.h */,
+				FBF50AE71AC92A4B003CBCAD /* Baller_ActivityDetailInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1784,6 +1789,7 @@
 				FB9EF3281AADF830001D77CB /* Baller_LoginTextField.m in Sources */,
 				FB9EF32F1AADF830001D77CB /* Baller_ChoseTeamViewController.m in Sources */,
 				FB2ABEBB1AADF97C007D7E52 /* Baller_CreateBallParkViewController.m in Sources */,
+				FBF50AE81AC92A4C003CBCAD /* Baller_ActivityDetailInfo.m in Sources */,
 				FBF50AAC1AC6345A003CBCAD /* PMPeriod.m in Sources */,
 				FB9EF3481AADF830001D77CB /* Baller_SystemConfigureTableViewCell.m in Sources */,
 				75565A421ABEAC7000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.m in Sources */,

@@ -7,9 +7,10 @@
 //
 
 #import "BaseViewController.h"
-
+@class Baller_BallParkHomepageViewController;
 @interface Baller_EditActivityDetailViewController : BaseViewController
 
+@property (nonatomic,weak) Baller_BallParkHomepageViewController * ballParkVC;
 @property (nonatomic,copy)NSString * court_id;
 
 @end

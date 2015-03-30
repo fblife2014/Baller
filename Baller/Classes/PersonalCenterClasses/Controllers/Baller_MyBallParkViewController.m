@@ -168,6 +168,7 @@
         Baller_BallParkHomepageViewController * ballParkHomePageVc = [[Baller_BallParkHomepageViewController alloc]init];
         ballParkHomePageVc.court_id = [NSString stringWithFormat:@"%ld",currentModel.court_id];
         ballParkHomePageVc.court_name = currentModel.court_name;
+        ballParkHomePageVc.isCloseMJRefresh = YES;
         [self.navigationController pushViewController:ballParkHomePageVc animated:YES];
         
     }

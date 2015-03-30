@@ -39,14 +39,16 @@
         NSDictionary * createInfo = @{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_name":[weakCardView.createBallParkView.ballParkInfos valueForKey:@"name"],@"address":[chosedPositionInfo valueForKey:@"address"],@"latitude":[chosedPositionInfo valueForKey:@"latitude"],@"longitude":[chosedPositionInfo valueForKey:@"longitude"]};
         NSData * imageData = nil;
         if (weakCardView.createBallParkView.ballParkImageView.image) {
-            imageData = UIImagePNGRepresentation(weakCardView.createBallParkView.ballParkImageView.image);
+            imageData = UIImageJPEGRepresentation(weakCardView.createBallParkView.ballParkImageView.image, 0.5);
         }
         
-        [AFNHttpRequestOPManager postImageWithSubUrl:Baller_court_create parameters:createInfo fileName:@"pic" fileData:imageData?imageData:nil fileType:@"image/png" responseBlock:^(id result, NSError *error) {
+        [AFNHttpRequestOPManager postImageWithSubUrl:Baller_court_create parameters:createInfo fileName:@"pic" fileData:imageData?imageData:nil fileType:@"image/jpg" responseBlock:^(id result, NSError *error) {
             if (error)return ;
             if ([[result valueForKey:@"errorcode"] intValue] == 0) {
                 [Baller_HUDView bhud_showWithTitle:[result valueForKey:@"msg"]];
                 [self PopToLastViewController];
+            }else{
+                [Baller_HUDView bhud_showWithTitle:[error valueForKey:@"msg"]];
             }
         }];
     };

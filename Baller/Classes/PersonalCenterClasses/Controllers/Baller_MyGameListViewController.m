@@ -162,7 +162,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Baller_ActivityDetailViewController * activityDVC = [[Baller_ActivityDetailViewController alloc]init];
-    activityDVC.activityModel = _gameLists[indexPath.row];
+    Baller_BallParkActivityListModel * activityListModel = _gameLists[indexPath.row];
+    activityDVC.activityID = activityListModel.activity_id;
+    activityDVC.activity_CreaterID = activityListModel.uid;
     [self.navigationController pushViewController:activityDVC animated:YES];
 }
 

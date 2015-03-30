@@ -8,6 +8,7 @@
 
 #import "Baller_BallParkActivityListTableViewCell.h"
 #import "Baller_BallParkActivityListModel.h"
+#import "Baller_MyBallFriendsViewController.h"
 
 @implementation Baller_BallParkActivityListTableViewCell
 
@@ -38,28 +39,48 @@
     self.textLabel.text = activitiyModel.user_name;
     self.timeLabel.text = [TimeManager getHourAndMiniteStringOfTimeInterval:activitiyModel.start_time];
     self.menberLabel.text = $str(@"%ld人已加入",activitiyModel.join_num);
-    
-    self.jionButton.userInteractionEnabled = (activitiyModel.status == 2)?NO:YES;
-    if (activitiyModel.status == 2) {
+        
+    if (activitiyModel.status == 1) {
+        if ([TimeManager theSuccessivelyWithCurrentTimeFrom:activitiyModel.start_time]) {
+            if (activitiyModel.join_num == activitiyModel.max_num) {
+                self.jionButton.userInteractionEnabled = NO;
+                [self.jionButton setTitle:@"已满员" forState:UIControlStateNormal];
+                self.jionButton.layer.borderColor = BALLER_CORLOR_NAVIGATIONBAR.CGColor;
+                self.jionButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
+                [self.jionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                
+            }else{
+                self.jionButton.userInteractionEnabled = YES;
+                [self.jionButton setTitle:(activitiyModel.is_join?@"邀请加入":@"+ 加入") forState:UIControlStateNormal];
+                self.jionButton.layer.borderColor = (activitiyModel.is_join)?RGB(253.0, 174.0, 42.0).CGColor:BALLER_CORLOR_696969.CGColor;
+                self.jionButton.backgroundColor = (activitiyModel.is_join)?RGB(253.0, 174.0, 42.0):[UIColor whiteColor];
+                [self.jionButton setTitleColor:(activitiyModel.is_join?[UIColor whiteColor]:BALLER_CORLOR_696969) forState:UIControlStateNormal];
+            }
+            
+        }else if ([TimeManager theSuccessivelyWithCurrentTimeFrom:activitiyModel.end_time]){
+            [self.jionButton setTitle:@"正在进行" forState:UIControlStateNormal];
+            self.jionButton.layer.borderColor = BALLER_CORLOR_NAVIGATIONBAR.CGColor;
+            self.jionButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
+            [self.jionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            self.jionButton.userInteractionEnabled = NO;
+        }else{
+            [self.jionButton setTitle:@"已结束" forState:UIControlStateNormal];
+            self.jionButton.layer.borderColor = BALLER_CORLOR_NAVIGATIONBAR.CGColor;
+            self.jionButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
+            [self.jionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            self.jionButton.userInteractionEnabled = NO;
+
+        }
+        
+    }else if (activitiyModel.status == 2)
+    {
         [self.jionButton setTitle:@"已解散" forState:UIControlStateNormal];
         self.jionButton.layer.borderColor = BALLER_CORLOR_RED.CGColor;
         self.jionButton.backgroundColor = BALLER_CORLOR_RED;
         [self.jionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    }else{
-        if (activitiyModel.join_num == activitiyModel.max_num) {
-            
-            [self.jionButton setTitle:@"已满员" forState:UIControlStateNormal];
-            self.jionButton.layer.borderColor = BALLER_CORLOR_NAVIGATIONBAR.CGColor;
-            self.jionButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
-            [self.jionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            
-        }else{
-            [self.jionButton setTitle:(activitiyModel.is_join?@"邀请加入":@"+ 加入") forState:UIControlStateNormal];
-            self.jionButton.layer.borderColor = (activitiyModel.is_join)?RGB(253.0, 174.0, 42.0).CGColor:BALLER_CORLOR_696969.CGColor;
-            self.jionButton.backgroundColor = (activitiyModel.is_join)?RGB(253.0, 174.0, 42.0):[UIColor whiteColor];
-            [self.jionButton setTitleColor:(activitiyModel.is_join?[UIColor whiteColor]:BALLER_CORLOR_696969) forState:UIControlStateNormal];
-        }
+        self.jionButton.userInteractionEnabled = NO;
     }
+    
     [self setNeedsDisplay];
     
 }
@@ -75,8 +96,32 @@
  *  @brief  点击加入或邀请加入的方法
  */
 - (IBAction)jionButtonAction:(id)sender {
-    
-    
+    UIButton * button = (UIButton *)sender;
+    DLog(@"senderTitle = %@",button.titleLabel.text);
+    if ([button.titleLabel.text isEqualToString:@"邀请加入"]) {
+        Baller_MyBallFriendsViewController * friednVC = [[Baller_MyBallFriendsViewController alloc]init];
+        friednVC.ballFriendsListType = BallFriendsListTypeChosing;
+        friednVC.myBallFriendsEndChoseBallFriendsBlock = ^(NSArray * chosedFriends){
+            
+        };
+        [[[MLViewConrollerManager sharedVCMInstance] navigationController]pushViewController:friednVC animated:YES];
+        
+    }else if ([button.titleLabel.text isEqualToString:@"+ 加入"]) {
+        [AFNHttpRequestOPManager getWithSubUrl:Baller_activities_join parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"activity_id":_activitiyModel.activity_id} responseBlock:^(id result, NSError *error) {
+            if (error) {
+                [Baller_HUDView bhud_showWithTitle:error.domain];
+                return ;
+            }
+            if ([result integerForKey:@"errorcode"] == 0) {
+                [self.jionButton setTitle:@"邀请加入" forState:UIControlStateNormal];
+                self.jionButton.layer.borderColor = RGB(253.0, 174.0, 42.0).CGColor;
+                self.jionButton.backgroundColor = RGB(253.0, 174.0, 42.0);
+                [self.jionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            }
+            [Baller_HUDView bhud_showWithTitle:[result valueForKey:@"msg"]];
+
+        }];
+    }
 }
 
 /*!

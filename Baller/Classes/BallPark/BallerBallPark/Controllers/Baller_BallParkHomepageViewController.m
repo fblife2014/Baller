@@ -30,7 +30,7 @@
 @interface Baller_BallParkHomepageViewController ()<UITableViewDelegate,Baller_BallParkHeadViewDelegate,PMCalendarControllerDelegate>
 {
    __block NSMutableDictionary * courtInfoDic; // 球场详情信息
-    Baller_BallParkHeadView * ballParkHeadView;
+    Baller_BallParkHeadView * homeBallParkHeadView;
     
     NSMutableArray * activities;  //该球场发起的活动
    __block UIButton * attentionButton;
@@ -59,9 +59,9 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     //添加headview图片
-    ballParkHeadView = [[Baller_BallParkHeadView alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 330)];
-    ballParkHeadView.delegate = self;
-     self.tableView.tableHeaderView = ballParkHeadView;
+    homeBallParkHeadView = [[Baller_BallParkHeadView alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 330)];
+    homeBallParkHeadView.delegate = self;
+     self.tableView.tableHeaderView = homeBallParkHeadView;
 
 }
 
@@ -109,15 +109,15 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
             
         }else {
             courtInfoDic = [NSMutableDictionary dictionaryWithDictionary:result];
-            ballParkHeadView.ballParkInfo = courtInfoDic;
+            homeBallParkHeadView.ballParkInfo = courtInfoDic;
             if (0 == [[result valueForKey:@"errorcode"] intValue]){
                 [self addAttentionButton];
-                if (2 == weakSelf.ballParkModel.status) {
-                    [self addAuthedCourtSubViews];
+                if (2 == [courtInfoDic integerForKey:@"status"]) {
+                    [weakSelf addAuthedCourtSubViews];
                     //设置列表
-                    [self ballerParkHome_get_activities];
+                    [weakSelf ballerParkHome_get_activities];
                 }else{
-                    [self addAuthingCourtSubViews];
+                    [weakSelf addAuthingCourtSubViews];
                 }
             }
 
@@ -130,7 +130,7 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
  */
 - (void)ballerParkHome_get_activities{
   
-    NSString * standardString =[TimeManager standardDateStringWithMonthAndDay:ballParkHeadView.currentDate?:[NSDate date]];
+    NSString * standardString =[TimeManager standardDateStringWithMonthAndDay:homeBallParkHeadView.currentDate?:[NSDate date]];
     
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_activities parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":_court_id,@"time":standardString} responseBlock:^(id result, NSError *error) {
         if (error) return;
@@ -218,7 +218,9 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Baller_ActivityDetailViewController * activityDetailVC = [[Baller_ActivityDetailViewController alloc]init];
-    activityDetailVC.activityModel  = activities[indexPath.row];
+    Baller_BallParkActivityListModel * activityListModel = activities[indexPath.row];
+    activityDetailVC.activityID  = activityListModel.activity_id;
+    activityDetailVC.activity_CreaterID = activityListModel.uid;
     activityDetailVC.ballParkVC = self;
     [self.navigationController pushViewController:activityDetailVC animated:YES];
 }
@@ -242,6 +244,7 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 - (void)ballParkHeadView:(Baller_BallParkHeadView *)ballParkHeadView activitieButtonSelected:(UIButton *)activitieButton{
     Baller_EditActivityDetailViewController * editADVC = [[Baller_EditActivityDetailViewController alloc]init];
     editADVC.court_id = _court_id;
+    editADVC.ballParkVC = self;
     [self.navigationController pushViewController:editADVC animated:YES];
 }
 
@@ -276,8 +279,8 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 
 - (void)calendarController:(PMCalendarController *)calendarController didChangePeriod:(PMPeriod *)newPeriod
 {
-    if (ballParkHeadView.currentDate != newPeriod.startDate) {
-        ballParkHeadView.currentDate = newPeriod.startDate;
+    if (homeBallParkHeadView.currentDate != newPeriod.startDate) {
+        homeBallParkHeadView.currentDate = newPeriod.startDate;
         [self ballerParkHome_get_activities];
     }
 }

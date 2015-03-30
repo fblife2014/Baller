@@ -7,7 +7,9 @@
 //
 
 #import "BaseTableViewController.h"
-
+@class Baller_BallParkAttentionTeamListModel;
 @interface Baller_MyBasketballTeamViewController : BaseTableViewController
+
+@property (nonatomic,strong)Baller_BallParkAttentionTeamListModel * teamListModel;
 
 @end

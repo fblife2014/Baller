@@ -11,6 +11,8 @@
 #import "Baller_BallParkActivityListModel.h"
 #import "Baller_InfoItemView.h"
 
+#import "Baller_ActivityDetailInfo.h"
+
 @interface Baller_ActivityDetailViewController ()
 {
     UIView * bottomView;
@@ -18,9 +20,11 @@
     BOOL isCreator; //当前用户是否为活动创建者
     __block BOOL isDataChanged; //数据是否已有变化
     
-    NSMutableDictionary * activityInfo; //活动信息
     UIButton * collectButton; //收藏按钮
 }
+
+@property (nonatomic,strong)Baller_ActivityDetailInfo * activityDetailInfo;
+
 @end
 
 @implementation Baller_ActivityDetailViewController
@@ -28,16 +32,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"活动详情";
-    if (_activityModel) {
-        _activity_CreaterID = _activityModel.uid;
-        _activityID = _activityModel.activity_id;
-        
+
+    isCreator = [_activity_CreaterID isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]];
+    
+    UIImage * image = nil;
+    if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]) {
+        image = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];
     }
+    [self showBlurBackImageViewWithImage:image?image:[UIImage imageNamed:@"ballPark_default"] belowView:nil];
+    
     [self getActivityInfo];
 
-    isCreator = [_activityID isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]];
-    [self showBlurBackImageViewWithImage:[UIImage imageNamed:@"ballPark_default"] belowView:nil];
-    [self setupSubViews];
     // Do any additional setup after loading the view.
 }
 
@@ -65,9 +70,9 @@
     
     NSArray * colors = @[BALLER_CORLOR_CELL,[UIColor whiteColor],BALLER_CORLOR_CELL,[UIColor whiteColor],BALLER_CORLOR_NAVIGATIONBAR];
     
-    NSArray * titles = @[@"主题",@"备注",@"时间",@"已参加用户",[self activityBottomButtonTitle:_activityModel.is_join]];
+    NSArray * titles = @[@"主题",@"备注",@"时间",@"已参加用户",[self activityBottomButtonTitle:_activityDetailInfo.my_join]];
     
-    NSArray * details = @[_activityModel.activity_title,_activityModel.activity_info.length?_activityModel.activity_info:@"无",[TimeManager getDateStringOfTimeInterval:_activityModel.start_time],$str(@"%ld/%ld",_activityModel.join_num,_activityModel.max_num)];
+    NSArray * details = @[_activityDetailInfo.title,_activityDetailInfo.info.length?_activityDetailInfo.info:@"无",[[TimeManager getDateStringOfTimeInterval:_activityDetailInfo.start_time] substringToIndex:10],$str(@"%@/%@",_activityDetailInfo.join_num,_activityDetailInfo.max_num)];
     
     for (int i = 0; i < colors.count; i++) {
         
@@ -81,31 +86,31 @@
             
         }else{
             
-            bottomButton = [ViewFactory getAButtonWithFrame:CGRectMake(0.0, 4*PersonInfoCell_Height, ScreenWidth-2*space, PersonInfoCell_Height) nomalTitle:titles[4] hlTitle:titles[4] titleColor:[UIColor whiteColor] bgColor:(_activityModel.is_join || _activityModel.status == 2)?BALLER_CORLOR_RED:BALLER_CORLOR_NAVIGATIONBAR nImage:nil hImage:nil action:@selector(bottomButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+            bottomButton = [ViewFactory getAButtonWithFrame:CGRectMake(0.0, 4*PersonInfoCell_Height, ScreenWidth-2*space, PersonInfoCell_Height) nomalTitle:titles[4] hlTitle:titles[4] titleColor:[UIColor whiteColor] bgColor:(_activityDetailInfo.my_join || _activityDetailInfo.status == 2)?BALLER_CORLOR_RED:BALLER_CORLOR_NAVIGATIONBAR nImage:nil hImage:nil action:@selector(bottomButtonAction) target:self buttonTpye:UIButtonTypeCustom];
             [bottomView addSubview:bottomButton];
-            if (_activityModel.status == 2) {
-                bottomButton.enabled = NO;
-            }
+   
         }
     }
-    
+    bottomButton.enabled = [TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.start_time];
+
+    [self setCollectButtonWithActivityInfo];
 }
 
 //设置底部按钮状态
 - (void)setBottomButtonStatus:(BOOL)isJoind
 {
-    NSString * buttonTitle = [self activityBottomButtonTitle:_activityModel.is_join];
+    NSString * buttonTitle = [self activityBottomButtonTitle:_activityDetailInfo.my_join];
     [bottomButton setTitle:buttonTitle forState:UIControlStateNormal];
     [bottomButton setTitle:buttonTitle forState:UIControlStateHighlighted];
     
     if (isJoind) {
-        if (_activityModel.status == 1) {
+        if (_activityDetailInfo.status == 1) {
             self.navigationItem.rightBarButtonItem.customView.hidden = YES;
         }
         bottomButton.backgroundColor = BALLER_CORLOR_RED;
 
     }else{
-        if (_activityModel.status == 1) {
+        if (_activityDetailInfo.status == 1) {
             self.navigationItem.rightBarButtonItem.customView.hidden = NO;
         }
         bottomButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
@@ -115,7 +120,7 @@
 /*!
  *  @brief  根据返回的活动详情信息，重置视图
  */
-- (void)resetSubviewsWithActivityInfo
+- (void)setCollectButtonWithActivityInfo
 {
     if (!collectButton) {
         collectButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -129,7 +134,7 @@
         self.navigationItem.rightBarButtonItem = barItem;
     }
 
-    [collectButton setTitle:[[activityInfo valueForKey:@"my_favo"] boolValue]?@"已收藏":@"收藏" forState:UIControlStateNormal];
+    [collectButton setTitle:_activityDetailInfo.my_favo?@"已收藏":@"收藏" forState:UIControlStateNormal];
 }
 
 #pragma mark 网络请求
@@ -142,8 +147,8 @@
         if (error)return;
         
         if (0 == [[result valueForKey:@"errorcode"] integerValue]) {
-            activityInfo = [NSMutableDictionary dictionaryWithDictionary:result];
-            [self resetSubviewsWithActivityInfo];
+            _activityDetailInfo = [Baller_ActivityDetailInfo shareWithServerDictionary:result];
+            [self setupSubViews];
         }
         
     }];
@@ -155,7 +160,7 @@
 - (void)joinOrOutActivity
 {
     __WEAKOBJ(weakSelf, self);
-    [AFNHttpRequestOPManager getWithSubUrl:_activityModel.is_join?Baller_activity_out:Baller_activities_join parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"activity_id":[_activityModel.activity_id copy]} responseBlock:^(id result, NSError *error) {
+    [AFNHttpRequestOPManager getWithSubUrl:_activityDetailInfo.my_join?Baller_activity_out:Baller_activities_join parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"activity_id":[_activityDetailInfo.activity_id copy]} responseBlock:^(id result, NSError *error) {
         
         if (error) return ;
         
@@ -166,9 +171,9 @@
             if (isCreator) {
                 [strongSelf PopToLastViewController];
             }else{
-                strongSelf.activityModel.is_join = !strongSelf.activityModel.is_join;
-                strongSelf.activityModel.status = 2;
-                [strongSelf setBottomButtonStatus:_activityModel.is_join];
+                strongSelf.activityDetailInfo.my_join = !strongSelf.activityDetailInfo.my_join;
+                strongSelf.activityDetailInfo.status = 2;
+                [strongSelf setBottomButtonStatus:_activityDetailInfo.my_join];
             }
         }
     }];
@@ -179,13 +184,11 @@
  */
 - (void)favoOrCancelFavo
 {
-    BOOL is_my_favo = [[activityInfo valueForKey:@"my_favo"] boolValue];
-    __BLOCKOBJ(blockSelf, self);
-    [AFNHttpRequestOPManager getWithSubUrl:is_my_favo?Baller_activity_cancel_favo:Baller_activity_favo parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"activity_id":_activityModel.activity_id} responseBlock:^(id result, NSError *error){
+    [AFNHttpRequestOPManager getWithSubUrl:_activityDetailInfo.my_favo?Baller_activity_cancel_favo:Baller_activity_favo parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"activity_id":_activityDetailInfo.activity_id} responseBlock:^(id result, NSError *error){
         if(error) return;
         if ([[result valueForKey:@"errorcode"] integerValue] == 0) {
-            [blockSelf -> activityInfo setValue:$str(@"%d",!is_my_favo) forKey:@"my_favo"];
-            [self resetSubviewsWithActivityInfo];
+            _activityDetailInfo.my_favo = !_activityDetailInfo.my_favo;
+            [self setCollectButtonWithActivityInfo];
         }
     }];
 }
@@ -194,15 +197,32 @@
 
 //底部按钮标题
 - (NSString *)activityBottomButtonTitle:(BOOL)isJoind{
+    
+    
     if (isCreator) {
-        if (_activityModel.status == 1) {
-            return @"解散活动";
-        }else if (_activityModel.status == 2){
+        if (_activityDetailInfo.status == 1) {
+            if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.start_time]) {
+                return @"解散活动";
+            }else if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.end_time]){
+                return @"正在进行";
+            }else{
+                return @"已结束";
+            }
+            
+        }else if (_activityDetailInfo.status == 2){
             return @"活动已解散";
         }
         return @"";
     }else{
-        return _activityModel.is_join?@"退出活动":@"加入活动";
+        
+        if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.start_time]) {
+            return _activityDetailInfo.my_join?@"退出活动":@"加入活动";
+        }else if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.end_time]){
+            return @"正在进行";
+        }else{
+            return @"已结束";
+        }
+        
     }
 }
 
