@@ -139,7 +139,7 @@
     switch (indexPath.row) {
         case 0:
         {
-            Baller_UpdatePasswordViewController * updateVC = [[Baller_UpdatePasswordViewController alloc]init];
+            Baller_UpdatePasswordViewController * updateVC = [[Baller_UpdatePasswordViewController alloc]initWithNibName:@"Baller_UpdatePasswordViewController" bundle:nil];
             [self.navigationController pushViewController:updateVC animated:YES];
             break;
         }

@@ -26,14 +26,14 @@
     [super viewDidLoad];
     self.navigationItem.title = @"密码修改";
     UIImage * image = nil;
-    if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]) {
+    if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData])
+    {
         image = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];
     }
-    [self showBlurBackImageViewWithImage:image?image:[UIImage imageNamed:@"ballPark_default"] belowView:nil];
+    [self showBlurBackImageViewWithImage:image?image:[UIImage imageNamed:@"ballPark_default"] belowView:self.bottomView];
     
     self.bottomView.layer.cornerRadius = TABLE_CORNERRADIUS;
     self.bottomView.clipsToBounds = YES;
-    [self.view bringSubviewToFront:self.bottomView];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -41,7 +41,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)makeSureUpdate:(id)sender {
+- (IBAction)makeSureUpdate:(id)sender
+{
     NSString *origionPassword = _originPasswordTF.text;
     if (!origionPassword.length) {
         [Baller_HUDView bhud_showWithTitle:@"请输入原密码"];
@@ -79,6 +80,7 @@
                                  }
                                  if (0 == [[result valueForKey:@"errorcode"] integerValue]) {
                                      [Baller_HUDView bhud_showWithTitle:@"修改成功"];
+                                     [self.navigationController popViewControllerAnimated:YES];
                                  }else{
                                      [Baller_HUDView bhud_showWithTitle:[result valueForKey:@"msg"]];
                                  }
