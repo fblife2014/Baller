@@ -9,6 +9,7 @@
 #import "Baller_BallParkActivityListTableViewCell.h"
 #import "Baller_BallParkActivityListModel.h"
 #import "Baller_MyBallFriendsViewController.h"
+#import "Baller_BallerFriendListModel.h"
 
 @implementation Baller_BallParkActivityListTableViewCell
 
@@ -101,8 +102,26 @@
     if ([button.titleLabel.text isEqualToString:@"邀请加入"]) {
         Baller_MyBallFriendsViewController * friednVC = [[Baller_MyBallFriendsViewController alloc]init];
         friednVC.ballFriendsListType = BallFriendsListTypeChosing;
-        friednVC.myBallFriendsEndChoseBallFriendsBlock = ^(NSArray * chosedFriends){
-            
+        friednVC.myBallFriendsEndChoseBallFriendsBlock = ^(NSArray * chosedFriends)
+        {
+            NSString * uids = nil;
+            for (Baller_BallerFriendListModel * friendModel in chosedFriends)
+            {
+                if (nil == uids) {
+                    uids = friendModel.friend_uid;
+                }else{
+                    uids = $str(@"%@,%@",uids,friendModel.friend_uid);
+
+                }
+            }
+            if (uids) {
+                [AFNHttpRequestOPManager getWithSubUrl:Baller_invite_join_activity parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode ],@"activity_id":_activitiyModel.activity_id,@"uid":uids} responseBlock:^(id result, NSError *error)
+                 {
+                     if (error) return ;
+                     [Baller_HUDView bhud_showWithTitle:[result valueForKey:@"msg"]];
+                     
+                 }];
+            }
         };
         [[[MLViewConrollerManager sharedVCMInstance] navigationController]pushViewController:friednVC animated:YES];
         
