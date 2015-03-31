@@ -16,12 +16,13 @@
 
 @interface Baller_MyBallFriendsViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 {
-    UISearchDisplayController * searchDisplayCtl;
-    
     NSMutableArray * friends; //我的球友信息数组
     NSMutableArray * filterFriends;  //搜索结果数组
     NSString * searchKeyWord;
 }
+
+@property (nonatomic)BOOL searchBarSearching;
+@property (nonatomic,strong)TableViewDataSource * searchBarTableViewDataSource;
 
 @property (nonatomic,strong)NSMutableArray * chosedFriends;//邀请的球友数组
 @property (nonatomic,strong)NSMutableArray * searchResultFriends; //搜索到的球员数组
@@ -49,6 +50,16 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     // Dispose of any resources that can be recreated.
 }
 
+- (void)setSearchBarSearching:(BOOL)searchBarSearching{
+    _searchBarSearching = searchBarSearching;
+    if (_searchBarSearching) {
+
+        self.tableView.dataSource = self.searchBarTableViewDataSource;
+    }else{
+        self.tableView.dataSource = self.tableViewDataSource;
+    }
+}
+
 - (NSMutableArray *)chosedFriends
 {
     if (!_chosedFriends) {
@@ -64,6 +75,17 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     }
     return _searchResultFriends;
 }
+
+- (TableViewDataSource *)searchBarTableViewDataSource
+{
+    if (!_searchBarTableViewDataSource) {
+        _searchBarTableViewDataSource = [[TableViewDataSource alloc]initWithItems:filterFriends cellIdentifier:Baller_BallFriendsTableViewCellId tableViewConfigureBlock:^(Baller_BallFriendsTableViewCell * cell, Baller_BallerFriendListModel * item) {
+            cell.friendListModel  = item;
+        }];
+    }
+    return _searchBarTableViewDataSource;
+}
+
 
 - (TableViewDataSource *)resultTableDataSource
 {
@@ -143,13 +165,9 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     
     self.tableView.dataSource = self.tableViewDataSource;
   
-    BallFriendsSearchBar * searchBar = [[BallFriendsSearchBar alloc]initWithFrame:CGRectMake(8.0, 7.0, ScreenWidth, 41)];
-    searchBar.delegate = self;
-    self.tableView.tableHeaderView = searchBar;
-    
-    searchDisplayCtl = [[UISearchDisplayController alloc]initWithSearchBar:searchBar contentsController:self];
-    searchDisplayCtl.searchResultsDelegate = self;
-    searchDisplayCtl.searchResultsDataSource = self;
+    BallFriendsSearchBar* theSearchBar = [[BallFriendsSearchBar alloc]initWithFrame:CGRectMake(8.0, 7.0, ScreenWidth, 41)];
+    theSearchBar.delegate = self;
+    self.tableView.tableHeaderView = theSearchBar;
 
 }
 
@@ -271,45 +289,19 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     self.ballFriendsListType = BallFriendsListTypeTable;
 }
 
-#pragma mark - Table view data source
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //NSPredicate * predicate = [NSPredicate predicateWithFormat:@"self contains [cd] %@", searchDisplayCtl.searchBar.text];
-    [filterFriends removeAllObjects];
-    for(Baller_BallerFriendListModel * model in friends)
-    {
-        if([model.friend_user_name containsString:searchDisplayCtl.searchBar.text])
-        {
-            [filterFriends addObject:model];
-        }
-    }
-    return filterFriends.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    Baller_BallFriendsTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:SearchFriendsTableViewCellId];
-    
-    if(!cell)
-       {
-           cell = [[Baller_BallFriendsTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:SearchFriendsTableViewCellId];
-           cell.selectionStyle = UITableViewCellSelectionStyleNone;
-       }
-    cell.friendListModel = [filterFriends objectAtIndex:indexPath.row];
-    return cell;
-}
 
 #pragma mark - Table view data delegate
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     return 60.0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (tableView == self.tableView) {
+    if (!_searchBarSearching) {
 
         Baller_BallerFriendListModel * ballFriendModel = friends[indexPath.row];
         if (self.ballFriendsListType == BallFriendsListTypeChosing) {
@@ -333,7 +325,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
         }
         
     }else{
-
+        
         Baller_BallerFriendListModel * ballFriendModel = filterFriends[indexPath.row];
         Baller_PlayerCardViewController * playCardVC = [[Baller_PlayerCardViewController alloc]init];
         playCardVC.friendModel = ballFriendModel;
@@ -343,21 +335,28 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 }
 
 #pragma mark - UISearchBarDelegate
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    self.searchBarSearching = YES;
+    [filterFriends removeAllObjects];
+    for(Baller_BallerFriendListModel * model in friends)
+    {
+        if([model.friend_user_name containsString:searchText])
+        {
+            [filterFriends addObject:model];
+        }
+    }
+    [self.tableView reloadData];
+}
 
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 20)];
-    view.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
-    view.tag = 1000;
-    [MAINWINDOW addSubview:view];
-    return YES;
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    [searchBar resignFirstResponder];
 }
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
+    self.searchBarSearching = NO;
+    [self.tableView reloadData];
     return YES;
-}
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    [[MAINWINDOW viewWithTag:1000] removeFromSuperview];
 }
 
 @end
