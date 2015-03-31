@@ -167,6 +167,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
   
     BallFriendsSearchBar* theSearchBar = [[BallFriendsSearchBar alloc]initWithFrame:CGRectMake(8.0, 7.0, ScreenWidth, 41)];
     theSearchBar.delegate = self;
+    theSearchBar.returnKeyType = UIReturnKeyDone;
     self.tableView.tableHeaderView = theSearchBar;
 
 }
@@ -300,9 +301,11 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if (!_searchBarSearching) {
 
+    if (!_searchBarSearching) {
+        if (_ballFriendsListType == BallFriendsListTypeTable) {
+            
+        }
         Baller_BallerFriendListModel * ballFriendModel = friends[indexPath.row];
         if (self.ballFriendsListType == BallFriendsListTypeChosing) {
             Baller_BallFriendsTableViewCell * cell = (Baller_BallFriendsTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
@@ -351,10 +354,12 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [searchBar resignFirstResponder];
+    searchBar.text = nil;
 }
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
     self.searchBarSearching = NO;
+    searchBar.text = nil;
     [self.tableView reloadData];
     return YES;
 }

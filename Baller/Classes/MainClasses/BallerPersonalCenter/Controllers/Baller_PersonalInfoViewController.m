@@ -49,7 +49,8 @@
         if([[result valueForKey:@"errorcode"] integerValue] == 0){
             
             NSDictionary * userinfo = [result valueForKey:@"user_info"];
-            
+            [USER_DEFAULT setValue:userinfo forKey:Baller_UserInfo];
+            [USER_DEFAULT synchronize];
             NSArray * titles = @[NSLocalizedString(@"Height", nil),NSLocalizedString(@"Weight", nil),NSLocalizedString(@"ParkPosition", nil),NSLocalizedString(@"Sex", nil)];
             NSArray * placeHolders = @[@"cm",@"kg",NSLocalizedString(@"Position", nil),NSLocalizedString(@"M/F", nil)];
             
@@ -78,7 +79,7 @@
                     
                 }else{
                     if (0 == [[result valueForKey:@"errorcode"] intValue]) {
-                        
+                        [self getUserInfo];
                     }
                 }
             }];
