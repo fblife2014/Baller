@@ -131,6 +131,10 @@
                 Baller_BallParkAttentionBallerListModel * ballerModel = [[Baller_BallParkAttentionBallerListModel alloc]initWithAttributes:ballerDic];
                 [strongSelf.ballers addObject:ballerModel];
             }
+            if(strongSelf.ballers.count == 0 || strongSelf.ballers.count%10)
+            {
+                [ballerCollectionView.footer noticeNoMoreData];
+            }
             [ballerCollectionView reloadData];
         }
     }];

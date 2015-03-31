@@ -17,9 +17,7 @@
 
     NSMutableArray * friends; //我的球友信息数组
     NSMutableArray * filterFriends;  //搜索结果数组
-    
-    int currentPage;
-    
+        
 }
 @property (nonatomic,strong)NSMutableArray * chosedFriends;//邀请的球友数组
 @end
@@ -35,7 +33,6 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     friends = [NSMutableArray arrayWithCapacity:1];
     filterFriends = [NSMutableArray arrayWithCapacity:1];
     [self setupSubViews];
-    currentPage = 1;
     [self getNetData];
     // Do any additional setup after loading the view.
 }
@@ -113,40 +110,22 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 
 - (void)getNetData
 {
-    currentPage = 1;
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",@"get_friends",@"action",@"1",@"page",@"10",@"per_page", nil];
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_friend_list parameters:dic responseBlock:^(id result, NSError *error) {
-        [self.tableView.header endRefreshing];
-        [self.tableView.footer noticeNoMoreData];
-        [friends removeAllObjects];
         if(!error)
         {
+            if (self.page == 1) {
+                [friends removeAllObjects];
+            }
+            
            for(NSDictionary *dic in [result objectForKey:@"list"])
            {
                Baller_BallerFriendListModel *ballerFriendListModel = [[Baller_BallerFriendListModel alloc] initWithAttributes:dic];
                [friends addObject:ballerFriendListModel];
            }
-            [self.tableView reloadData];
-        }
-    }];
-}
-- (void)getAddNetData
-{
-    currentPage++;
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",@"get_friends",@"action",[NSString stringWithFormat:@"%d",currentPage],@"page",@"10",@"per_page", nil];
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_friend_list parameters:dic responseBlock:^(id result, NSError *error) {
-        [self.tableView.header endRefreshing];
-        if(!error)
-        {
-            NSArray *array = [result objectForKey:@"list"];
-            if(array.count != 10)
+            if(friends.count == 0 || friends.count%10)
             {
                 [self.tableView.footer noticeNoMoreData];
-            }
-            for(NSDictionary *dic in [result objectForKey:@"list"])
-            {
-                Baller_BallerFriendListModel *ballerFriendListModel = [[Baller_BallerFriendListModel alloc] initWithAttributes:dic];
-                [friends addObject:ballerFriendListModel];
             }
             [self.tableView reloadData];
         }
@@ -155,12 +134,18 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 #pragma mark 下拉上拉
 - (void)headerRereshing
 {
+    [super headerRereshing];
+    self.page = 1;
     [self getNetData];
 }
 
 - (void)footerRereshing
 {
-    [self getAddNetData];
+    [super footerRereshing];
+    if (friends.count%10 == 0) {
+        self.page = friends.count/10+1;
+        [self getNetData];
+    }
 }
 
 #pragma mark 按钮方法

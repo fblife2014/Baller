@@ -200,6 +200,7 @@
         if (error) return ;
         
         if ([result longForKey:@"errorcode"] == 0) {
+            self.teamInfo = nil;
             [self setupTableHeaderViewAndFooterView];
         }
     }];
@@ -214,8 +215,10 @@
 
     Baller_ChoseTeamViewController *choseTeamVC = [[Baller_ChoseTeamViewController alloc] init];
     __WEAKOBJ(weakSelf, self)
-    choseTeamVC.choseTeamBlock = ^(NSString * chosenTeamId) {
-        if (chosenTeamId) {
+    choseTeamVC.choseTeamBlock = ^(Baller_BallParkAttentionTeamListModel * chosenTeam) {
+        if (chosenTeam) {
+            __STRONGOBJ(strongSelf,weakSelf);
+            strongSelf.teamListModel = chosenTeam;
             [weakSelf setupTableHeaderViewAndFooterView];
         }
     };

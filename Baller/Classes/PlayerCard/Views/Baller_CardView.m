@@ -16,6 +16,8 @@
 
 #import "Baller_MyBallParkViewController.h"
 #import "Baller_MyBasketballTeamViewController.h"
+#import "Baller_ChoseTeamViewController.h"
+
 #import "Baller_PlayerCardViewController.h"
 
 #import "Baller_AbilityView.h"
@@ -409,10 +411,7 @@
 {
     if (!_ballTeamButton) {
         
-        NSString * team_nameString = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_name"];
-
-        NSString * ballTeamString = team_nameString.length?team_nameString:@"未加入球队";
-        UIButton * ballTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(pathRect.size.width/2.0, CGRectGetMaxY(_nickNameLabel.frame), pathRect.size.width/2.0, pathRect.size.width*PCV_SegmentHeightRatio) nomalTitle:ballTeamString hlTitle:ballTeamString titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:@"ballTeam" hImage:@"ballTeam" action:@selector(ballTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+        UIButton * ballTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(pathRect.size.width/2.0, CGRectGetMaxY(_nickNameLabel.frame), pathRect.size.width/2.0, pathRect.size.width*PCV_SegmentHeightRatio) nomalTitle:nil hlTitle:nil titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:@"ballTeam" hImage:@"ballTeam" action:@selector(ballTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
         ballTeamButton.titleLabel.font = SYSTEM_FONT_S(15.0);
         ballTeamButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 10.0, -1.0, -10.0);
         ballTeamButton.userInteractionEnabled = !(_ballerCardType==kBallerCardType_OtherBallerPlayerCard);
@@ -420,6 +419,11 @@
         _ballTeamButton = ballTeamButton;
         
     }
+    NSString * team_nameString = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_name"];
+    
+    NSString * ballTeamString = team_nameString.length?team_nameString:@"未加入球队";
+    [_ballTeamButton setTitle:ballTeamString forState:UIControlStateNormal];
+    
     return _ballTeamButton;
 }
 
@@ -626,9 +630,26 @@
  */
 - (void)ballTeamButtonAction
 {
-    Baller_MyBasketballTeamViewController * ballTeamVC = [[Baller_MyBasketballTeamViewController alloc]init];
-    ballTeamVC.isCloseMJRefresh = YES;
-    [[[MLViewConrollerManager sharedVCMInstance]rootViewController].navigationController pushViewController:ballTeamVC animated:YES];
+    NSString * team_nameString = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_name"];
+    
+    if (team_nameString.length) {
+        Baller_MyBasketballTeamViewController * ballTeamVC = [[Baller_MyBasketballTeamViewController alloc]init];
+        ballTeamVC.isCloseMJRefresh = YES;
+        [[[MLViewConrollerManager sharedVCMInstance]rootViewController].navigationController pushViewController:ballTeamVC animated:YES];
+    }else{
+        Baller_ChoseTeamViewController *choseTeamVC = [[Baller_ChoseTeamViewController alloc] init];
+        __WEAKOBJ(weakSelf, self)
+        choseTeamVC.choseTeamBlock = ^(Baller_BallParkAttentionTeamListModel * chosenTeam) {
+            if (chosenTeam) {
+                
+            }
+        };
+        [[[MLViewConrollerManager sharedVCMInstance]rootViewController].navigationController pushViewController:choseTeamVC animated:YES];
+
+    }
+    
+
+
 
 }
 

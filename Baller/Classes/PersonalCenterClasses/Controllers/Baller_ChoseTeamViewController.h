@@ -9,9 +9,12 @@
 /*!
  *  @brief  选择球队控制器
  */
-typedef void (^ChoseTeamBlock)(NSString * chosenTeamId);  //选中的球队信息回调
 
 #import "BaseTableViewController.h"
+#import "Baller_BallParkAttentionTeamListModel.h"
+
+typedef void (^ChoseTeamBlock)(Baller_BallParkAttentionTeamListModel * chosenTeam);  //选中的球队信息回调
+
 
 @interface Baller_ChoseTeamViewController : BaseTableViewController
 

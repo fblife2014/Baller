@@ -17,8 +17,6 @@
 @interface Baller_MyBallParkViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSMutableArray *dataSourceArray;
-    UITableView *myTableView;
-    NSInteger   currentPage;
 }
 @property (nonatomic,strong) UITableView * ballParkTableView;
 
@@ -28,21 +26,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.view.backgroundColor = UIColorFromRGB(0xe7e7e7);
+    [self ballParkTableView];
+    dataSourceArray = [NSMutableArray arrayWithCapacity:1];
     if([soureVC intValue] == 1)
     {
-    self.navigationItem.title = @"我的球场";
+        self.navigationItem.title = @"我的球场";
+        [self getNewNetData];
+
     }
     if([soureVC intValue] == 2)
     {
         self.navigationItem.title = @"选择球场";
+        [self getNearbyCourts];
     }
-    self.view.backgroundColor = UIColorFromRGB(0xe7e7e7);
-  
-    self.bottomScrollView.contentSize = CGSizeMake(ScreenWidth, self.ballParkTableView.frame.size.height+30.0+NavigationBarHeight+StatusBarHeight);
-    [self ballParkTableView];
-    dataSourceArray = [NSMutableArray arrayWithCapacity:1];
-    currentPage = 1;
-    [self getNewNetData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,71 +51,102 @@
 - (UITableView *)ballParkTableView
 {
     if (!_ballParkTableView) {
-        myTableView = [[UITableView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, TABLE_SPACE_INSET, ScreenWidth-2*TABLE_SPACE_INSET, 1270.0) style:UITableViewStylePlain];
-        myTableView.delegate = self;
-        myTableView.dataSource = self;
-        [myTableView registerNib:[UINib nibWithNibName:@"Baller_MineBallParkTableViewCell" bundle:nil] forCellReuseIdentifier:@"Baller_MineBallParkTableViewCell"];
-        myTableView.backgroundColor = CLEARCOLOR;
-        myTableView.layer.cornerRadius = TABLE_CORNERRADIUS;
-        myTableView.layer.borderColor = UIColorFromRGB(0xb2b2b2).CGColor;
-        myTableView.layer.borderWidth = 0.5;
-        myTableView.scrollEnabled = YES;
-        myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [self.view addSubview: _ballParkTableView = myTableView];
+        _ballParkTableView = [[UITableView alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, ScreenHeight-NavigationBarHeight) style:UITableViewStylePlain];
+        _ballParkTableView.delegate = self;
+        _ballParkTableView.dataSource = self;
+        [_ballParkTableView registerNib:[UINib nibWithNibName:@"Baller_MineBallParkTableViewCell" bundle:nil] forCellReuseIdentifier:@"Baller_MineBallParkTableViewCell"];
+        _ballParkTableView.backgroundColor = CLEARCOLOR;
+        _ballParkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [self.view addSubview: _ballParkTableView];
         [self setupMJRefreshTableView];
     }
     return _ballParkTableView;
 }
 - (void)setupMJRefreshTableView{
-    [myTableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(getNewNetData)];
+    [self setupMJRefreshScrollView:_ballParkTableView];
+    
 }
+
+- (void)headerRereshing{
+    [super headerRereshing];
+    self.page = 1;
+    if ([soureVC integerValue] == 1) {
+        [self getNewNetData];
+
+    }else if ([soureVC integerValue] == 2){
+        [self getNearbyCourts];
+    }
+}
+
+- (void)footerRereshing{
+    [super footerRereshing];
+    if (0 == dataSourceArray.count%10) {
+        self.page = dataSourceArray.count/10+1;
+        if ([soureVC integerValue] == 1) {
+            [self getNewNetData];
+            
+        }else if ([soureVC integerValue] == 2){
+            [self getNearbyCourts];
+        }
+    }
+}
+
+#pragma mark 网络请求
+/*!
+ *  @brief  获取我关注的球场
+ */
 -(void)getNewNetData
 {
-    currentPage = 1;
-    [dataSourceArray removeAllObjects];
-    NSDictionary *dicParmter = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",@"1",@"page",@"10",@"per_page",nil];
+    NSDictionary *dicParmter = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",$str(@"%ld",self.page),@"page",@"10",@"per_page",nil];
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_attend_courts parameters:dicParmter responseBlock:^(id result, NSError *error) {
-        [myTableView.header endRefreshing];
-        [myTableView.footer noticeNoMoreData];
-        NSArray *array = [result objectForKey:@"list"];
-        if(array.count == 10)
-        {
-            [myTableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(getAddNetData)];
-        }
 
         if(!error)
         {
+            if (self.page == 1) {
+                [dataSourceArray removeAllObjects];
+            }
             for(NSDictionary *dic in [result objectForKey:@"list"])
             {
                 Baller_MyAttentionBallPark *myAttentionBallPark = [[Baller_MyAttentionBallPark alloc] initWithAttributes:dic];
                 [dataSourceArray addObject:myAttentionBallPark];
-                [myTableView reloadData];
+                [_ballParkTableView reloadData];
+            }
+            if(dataSourceArray.count == 0 || dataSourceArray.count%10)
+            {
+                [_ballParkTableView.footer noticeNoMoreData];
             }
         }
     }];
 }
--(void)getAddNetData
+
+/*!
+ *  @brief  获取附近认证了的球场
+ */
+- (void)getNearbyCourts
 {
-    currentPage ++;
-    NSDictionary *dicParmter = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",[NSString stringWithFormat:@"%ld",currentPage],@"page",@"10",@"per_page",nil];
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_attend_courts parameters:dicParmter responseBlock:^(id result, NSError *error) {
-        [myTableView.header endRefreshing];
+    CLLocationCoordinate2D currentLocation = [[AppDelegate sharedDelegate] currentLocation];
+    
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_nearby_courts parameters:@{@"page":$str(@"%ld",self.page),@"per_page":@"10",@"type":@"authed",@"latitude":$str(@"%lf",currentLocation.latitude),@"longitude":$str(@"%lf",currentLocation.longitude)} responseBlock:^(id result, NSError *error) {
+        
         if(!error)
         {
-            NSArray *array = [result objectForKey:@"list"];
-            if(array.count < 10)
-            {
-                [myTableView.footer noticeNoMoreData];
+            if (self.page == 1) {
+                [dataSourceArray removeAllObjects];
             }
             for(NSDictionary *dic in [result objectForKey:@"list"])
             {
                 Baller_MyAttentionBallPark *myAttentionBallPark = [[Baller_MyAttentionBallPark alloc] initWithAttributes:dic];
                 [dataSourceArray addObject:myAttentionBallPark];
-                [myTableView reloadData];
+                [_ballParkTableView reloadData];
+            }
+            if(dataSourceArray.count == 0 || dataSourceArray.count%10)
+            {
+                [_ballParkTableView.footer noticeNoMoreData];
             }
         }
     }];
 }
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

@@ -8,7 +8,6 @@
 
 #import "Baller_ChoseTeamViewController.h"
 #import "Baller_BasketBallTeamTableViewCell.h"
-#import "Baller_BallParkAttentionTeamListModel.h"
 
 @interface Baller_ChoseTeamViewController ()<UITableViewDelegate>
 
@@ -57,9 +56,14 @@
                                      
                                      for (NSDictionary * teamInfo in [result arrayForKey:@"list"]) {
                                          [strongSelf.items addObject:[Baller_BallParkAttentionTeamListModel shareWithServerDictionary:teamInfo]];
-
                                      }
+                                     
+                                     if (strongSelf.items.count == 0 || strongSelf.items.count%10) {
+                                         [strongSelf.tableView.footer noticeNoMoreData];
+                                     }
+                                     
                                      [strongSelf.tableView reloadData];
+                                     
                                  }else if ([result longForKey:@"errorcode"] == 1) {
                                      [Baller_HUDView bhud_showWithTitle:[result stringForKey:@"msg"]];
                                  }else if (error) {
@@ -87,7 +91,7 @@
         __STRONGOBJ(strongSelf, weakSelf);
         if ([result longForKey:@"errorcode"] == 0) {
             [Baller_HUDView bhud_showWithTitle:@"请求已发送！"];
-            strongSelf.choseTeamBlock(chosedTeam.team_id);
+            strongSelf.choseTeamBlock(chosedTeam);
             [strongSelf PopToLastViewController];
         }
     }];
@@ -105,9 +109,10 @@
 - (void)footerRereshing
 {
     [super footerRereshing];
-    self.page = self.items.count/10+1;
-    [self reloadTableView];
-    
+    if (self.items.count%10 == 0) {
+        self.page = self.items.count/10+1;
+        [self reloadTableView];
+    }
 }
 
 @end

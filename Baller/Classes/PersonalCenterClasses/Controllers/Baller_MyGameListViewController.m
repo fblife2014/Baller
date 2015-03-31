@@ -110,8 +110,10 @@
 - (void)footerRereshing{
     
     [super footerRereshing];
-    self.page = 1+self.gameLists.count/10;
-    [self getGameLists];
+    if (self.gameLists.count%10 == 0) {
+        self.page = 1+self.gameLists.count/10;
+        [self getGameLists];
+    }
 }
 
 
@@ -130,6 +132,10 @@
             for (NSDictionary * activityDic in [result valueForKey:@"list"]) {
                 Baller_BallParkActivityListModel * activityModel = [[Baller_BallParkActivityListModel alloc]initWithAttributes:activityDic];
                 [strongSelf.gameLists addObject:activityModel];
+            }
+            if(strongSelf.gameLists.count == 0 || strongSelf.gameLists.count%10)
+            {
+                [strongSelf.gameListTableView.footer noticeNoMoreData];
             }
             [strongSelf.gameListTableView reloadData];
         }

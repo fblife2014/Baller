@@ -81,7 +81,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 
 - (void)footerRereshing{
     [super footerRereshing];
-    if (self.messageLists.count/10) {
+    if (0 == self.messageLists.count%10) {
         self.page = self.messageLists.count/10+1;
         [self getMessageLists];
     }
@@ -90,16 +90,22 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 #pragma mark 网络请求
 - (void)getMessageLists
 {
+    __WEAKOBJ(weakSelf, self);
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_msg parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"page":@(self.page),@"per_page":@"10"} responseBlock:^(id result, NSError *error)
     {
+        __STRONGOBJ(strongSelf, weakSelf);
         if (error) return ;
         
         if ([result integerForKey:@"errorcode"] == 0) {
-            if (self.page == 1) {
-                [self.messageLists removeAllObjects];
+            if (strongSelf.page == 1) {
+                [strongSelf.messageLists removeAllObjects];
             }
             for (NSDictionary * messageInfoDic in [result valueForKey:@"data"]) {
-                [self.messageLists addObject:[Baller_MessageListInfo shareWithServerDictionary:messageInfoDic]];
+                [strongSelf.messageLists addObject:[Baller_MessageListInfo shareWithServerDictionary:messageInfoDic]];
+            }
+            if(strongSelf.messageLists.count == 0 || strongSelf.messageLists.count%10)
+            {
+                [strongSelf.tableView.footer noticeNoMoreData];
             }
             [self.tableView reloadData];
         }

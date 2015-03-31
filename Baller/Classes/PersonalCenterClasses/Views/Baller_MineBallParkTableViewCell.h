@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Baller_BaseTableViewCell.h"
 
-@interface Baller_MineBallParkTableViewCell : UITableViewCell
+@interface Baller_MineBallParkTableViewCell : Baller_BaseTableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *ballParkImageView;
 @property (weak, nonatomic) IBOutlet UILabel *ballParkNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *homeCourtImageView;
