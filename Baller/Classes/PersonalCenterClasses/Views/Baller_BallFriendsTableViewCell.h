@@ -10,6 +10,8 @@
 #import "Baller_BaseTableViewCell.h"
 @class CircleView;
 @class Baller_BallerFriendListModel;
+@class Baller_BallTeamMemberInfo;
+
 @interface Baller_BallFriendsTableViewCell : Baller_BaseTableViewCell
 {
     CircleView * _circleView;
@@ -20,6 +22,7 @@
 @property (nonatomic)BOOL invitateStatus; //邀请状态
 @property (nonatomic)BOOL chosing;  //选择球友的状态。该状态下，展示左侧圆圈
 @property (nonatomic,strong)Baller_BallerFriendListModel * friendListModel;
+@property (nonatomic,strong)Baller_BallTeamMemberInfo * userInfoModel;
 @end
 
 @interface CircleView : UIView

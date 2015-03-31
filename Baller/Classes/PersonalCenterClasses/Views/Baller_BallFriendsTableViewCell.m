@@ -8,6 +8,8 @@
 
 #import "Baller_BallFriendsTableViewCell.h"
 #import "Baller_BallerFriendListModel.h"
+#import "Baller_BallTeamMemberInfo.h"
+
 @implementation Baller_BallFriendsTableViewCell
 
 - (void)awakeFromNib {
@@ -49,6 +51,24 @@
     self.positionLabel.text = friendListModel.position;
     [self setNeedsDisplay];
 }
+
+- (void)setUserInfoModel:(Baller_BallTeamMemberInfo *)userInfoModel{
+    if (_userInfoModel == userInfoModel) {
+        return;
+    }
+    _userInfoModel = userInfoModel;
+    
+    //球场图片
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:userInfoModel.photo] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+    //球场名字
+    self.BallParkName.text = nil;
+    //好友名字
+    self.textLabel.text = userInfoModel.user_name;
+    //位置
+    self.positionLabel.text = userInfoModel.position;
+    [self setNeedsDisplay];
+}
+
 
 - (void)layoutSubviews{
     [super layoutSubviews];

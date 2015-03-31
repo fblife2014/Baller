@@ -27,7 +27,7 @@
         self.contentView.backgroundColor = CLEARCOLOR;
         
         _ballParkImageView = [[UIImageView alloc]init];
-        _ballParkImageView.contentMode = UIViewContentModeCenter;
+        _ballParkImageView.contentMode = UIViewContentModeScaleToFill;
         [self.contentView addSubview:self.ballParkImageView];
         
         _ballParkNameLabel = [ViewFactory addAlabelForAView:self.contentView withText:nil frame:CGRectZero font:SYSTEM_FONT_S(13.0) textColor:BALLER_CORLOR_767676];

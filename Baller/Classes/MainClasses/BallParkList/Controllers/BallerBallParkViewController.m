@@ -29,6 +29,7 @@
 @property (nonatomic,strong)NSMutableArray * ballParks; //认证通过了的球场
 @property (nonatomic,strong)NSMutableArray * identifyingParks; //认证中的球场
 @property (nonatomic) BallParkType ballParkType;
+@property (nonatomic) NSInteger identifyingPage; //认证中的列表状态页码
 @end
 
 static NSString * const Baller_BallparkCollectionViewCellId = @"Baller_BallparkCollectionViewCell";
@@ -44,6 +45,7 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    self.identifyingPage = 1;
     
     UIBarButtonItem * createBallParkItem = [ViewFactory getABarButtonItemWithTitle:@"创建球场" titleEdgeInsets:UIEdgeInsetsZero target:self selection:@selector(createBallPark)];
     createBallParkItem.customView.hidden = YES;
@@ -55,6 +57,7 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     [self initMapView];
 
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadData) name:BallerLogoutThenLoginNotification object:nil];
+
 
 }
 
@@ -83,7 +86,7 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
 #pragma mark 网络请求获取球场
 - (void)getNearbyCourts{
 #warning ____
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_nearby_courts parameters:@{@"latitude":@(currentLocation.latitude?:39.91549069),@"longitude":@(currentLocation.longitude?:116.38086026),@"type":self.ballParkType?@"authing":@"authed"} responseBlock:^(id result, NSError *error) {
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_nearby_courts parameters:@{@"latitude":@(currentLocation.latitude?:39.91549069),@"longitude":@(currentLocation.longitude?:116.38086026),@"type":self.ballParkType?@"authing":@"authed",@"per_page":@"10",@"page":self.ballParkType?@(self.identifyingPage):@(self.page)} responseBlock:^(id result, NSError *error) {
         
         if (error) {
             
@@ -99,7 +102,7 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
 
             }else if (self.ballParkType == BallParkTypeIdentifing){
     
-                if (1 == self.page)[self.identifyingParks removeAllObjects];
+                if (1 == self.identifyingPage)[self.identifyingParks removeAllObjects];
                 courtsArray = self.identifyingParks;
             }
             
@@ -119,6 +122,31 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     }];
 }
 
+#pragma mark 上拉下拉
+- (void)headerRereshing{
+    [super headerRereshing];
+    if (0 == self.ballParkType) {
+        self.page = 1;
+    }else{
+        self.identifyingPage = 1;
+    }
+    [self getNearbyCourts];
+}
+
+- (void)footerRereshing{
+    [super footerRereshing];
+    
+    if (0 == self.ballParkType) {
+        if (0 == self.ballParks.count%10) {
+            self.page = self.ballParks.count/10+1;
+        }
+    }else{
+        if (0 == self.identifyingParks.count%10) {
+            self.identifyingPage = self.identifyingParks.count/10+1;
+        }
+    }
+    [self getNearbyCourts];
+}
 
 #pragma mark - Initialization
 
@@ -149,6 +177,7 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     
     self.collectionView.delegate = self;
     self.collectionView.dataSource = self;
+    [self setupMJRefreshScrollView:self.collectionView];
     [self.view addSubview:self.collectionView];
 }
 
@@ -199,12 +228,20 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
             MAIN_BLOCK(^{
                 if (ballParkType == BallParkTypeIdentifing) {
                     blockSelf.navigationItem.rightBarButtonItem.customView.hidden = NO;
+                    [self.collectionView reloadData];
+                    if (self.identifyingParks.count == 0) {
+                        [self getNearbyCourts];
+                    }
                 }else{
                     blockSelf.navigationItem.rightBarButtonItem.customView.hidden = YES;
+                    [self.collectionView reloadData];
+
+                    if (self.ballParks.count == 0) {
+                        [self getNearbyCourts];
+                        
+                    }
                 }
-                [self.collectionView reloadData];
             });
-            [self getNearbyCourts];
   
         };
         

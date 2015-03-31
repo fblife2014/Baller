@@ -10,9 +10,11 @@
  *  @brief  球友列表状态
  */
 typedef NS_ENUM(NSInteger, BallFriendsListType){
-    BallFriendsListTypeTable,           //列表状态
+    BallFriendsListTypeTable = 1,           //列表状态
     BallFriendsListTypeCollection,      //网格状态
     BallFriendsListTypeChosing,         //正在选择的状态
+    BallFriendsListTypeSearching        //正在搜索的状态
+    
 };
 
 typedef void (^MyBallFriendsEndChoseBallFriendsBlock)(NSArray * ballFriends);
@@ -24,6 +26,7 @@ typedef void (^MyBallFriendsEndChoseBallFriendsBlock)(NSArray * ballFriends);
 @property (nonatomic)BallFriendsListType ballFriendsListType;
 @property (nonatomic, copy)MyBallFriendsEndChoseBallFriendsBlock myBallFriendsEndChoseBallFriendsBlock;
 
+- (void)searchWithKeyWord:(NSString *)keyWord;
 @end
 
 

@@ -175,6 +175,7 @@ static NSString * const Baller_MyCenterTopTableViewCellId = @"Baller_MyCenterTop
         case 4:
         {
             Baller_MyBallFriendsViewController * ballFriendsVC = [[Baller_MyBallFriendsViewController alloc]init];
+            ballFriendsVC.ballFriendsListType = BallFriendsListTypeTable;
             ballFriendsVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:ballFriendsVC animated:YES];
         }

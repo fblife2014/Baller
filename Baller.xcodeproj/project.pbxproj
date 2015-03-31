@@ -163,6 +163,8 @@
 		FBDEA38F1A22042B0084FEBD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FBDEA38E1A22042B0084FEBD /* Images.xcassets */; };
 		FBDEA39E1A22042B0084FEBD /* BallerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FBDEA39D1A22042B0084FEBD /* BallerTests.m */; };
 		FBDEA43D1A2212500084FEBD /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FBDEA43C1A2212500084FEBD /* libsqlite3.0.dylib */; };
+		FBE0F5111ACA9CA8000FA8C0 /* Baller_SearchUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE0F50F1ACA9CA8000FA8C0 /* Baller_SearchUserViewController.m */; };
+		FBE0F5121ACA9CA8000FA8C0 /* Baller_SearchUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBE0F5101ACA9CA8000FA8C0 /* Baller_SearchUserViewController.xib */; };
 		FBF50AA71AC6345A003CBCAD /* NSDate+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50A981AC6345A003CBCAD /* NSDate+Helpers.m */; };
 		FBF50AA81AC6345A003CBCAD /* PMCalendarBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50A9A1AC6345A003CBCAD /* PMCalendarBackgroundView.m */; };
 		FBF50AA91AC6345A003CBCAD /* PMCalendarController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50A9D1AC6345A003CBCAD /* PMCalendarController.m */; };
@@ -486,6 +488,9 @@
 		FBDEA39D1A22042B0084FEBD /* BallerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BallerTests.m; sourceTree = "<group>"; };
 		FBDEA43B1A2210F20084FEBD /* BallerPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BallerPrefixHeader.pch; sourceTree = "<group>"; };
 		FBDEA43C1A2212500084FEBD /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		FBE0F50E1ACA9CA8000FA8C0 /* Baller_SearchUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_SearchUserViewController.h; sourceTree = "<group>"; };
+		FBE0F50F1ACA9CA8000FA8C0 /* Baller_SearchUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_SearchUserViewController.m; sourceTree = "<group>"; };
+		FBE0F5101ACA9CA8000FA8C0 /* Baller_SearchUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Baller_SearchUserViewController.xib; sourceTree = "<group>"; };
 		FBF50A951AC6345A003CBCAD /* PMCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendar.h; sourceTree = "<group>"; };
 		FBF50A971AC6345A003CBCAD /* NSDate+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helpers.h"; sourceTree = "<group>"; };
 		FBF50A981AC6345A003CBCAD /* NSDate+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helpers.m"; sourceTree = "<group>"; };
@@ -1008,6 +1013,9 @@
 				FB9EF2CA1AADF830001D77CB /* Baller_CreateBallTeamViewController.m */,
 				FB9EF2CD1AADF830001D77CB /* Baller_MyBallFriendsViewController.h */,
 				FB9EF2CE1AADF830001D77CB /* Baller_MyBallFriendsViewController.m */,
+				FBE0F50E1ACA9CA8000FA8C0 /* Baller_SearchUserViewController.h */,
+				FBE0F50F1ACA9CA8000FA8C0 /* Baller_SearchUserViewController.m */,
+				FBE0F5101ACA9CA8000FA8C0 /* Baller_SearchUserViewController.xib */,
 				FB9EF2CF1AADF830001D77CB /* Baller_MyBallParkViewController.h */,
 				FB9EF2D01AADF830001D77CB /* Baller_MyBallParkViewController.m */,
 				FB9EF2D11AADF830001D77CB /* Baller_MyBasketballTeamViewController.h */,
@@ -1644,6 +1652,7 @@
 				FBDD31801A5FE7F900EBA059 /* login_back@2x.jpg in Resources */,
 				FB9EF3401AADF830001D77CB /* Baller_CreateBasketBallTeamView.xib in Resources */,
 				FBDEA38F1A22042B0084FEBD /* Images.xcassets in Resources */,
+				FBE0F5121ACA9CA8000FA8C0 /* Baller_SearchUserViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1714,6 +1723,7 @@
 				FB9EF32B1AADF830001D77CB /* Baller_WhitePlaceholder.m in Sources */,
 				FB9EF3191AADF830001D77CB /* ReGeocodeAnnotation.m in Sources */,
 				DF6A1CDC1ABD614D00A2B793 /* Baller_MyAttentionBallPark.m in Sources */,
+				FBE0F5111ACA9CA8000FA8C0 /* Baller_SearchUserViewController.m in Sources */,
 				FB9EF3061AADF830001D77CB /* Baller_ActivityDetailViewController.m in Sources */,
 				FBD9B75C1AAD7F7F00CDC1C6 /* Baller_HUDView.m in Sources */,
 				FB9EF3331AADF830001D77CB /* Baller_MyBallParkViewController.m in Sources */,

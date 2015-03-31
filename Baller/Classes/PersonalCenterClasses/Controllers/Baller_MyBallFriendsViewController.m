@@ -8,18 +8,26 @@
 
 #import "Baller_MyBallFriendsViewController.h"
 #import "Baller_PlayerCardViewController.h"
+#import "Baller_SearchUserViewController.h"
 
 #import "Baller_BallFriendsTableViewCell.h"
 #import "Baller_BallerFriendListModel.h"
+#import "Baller_BallTeamMemberInfo.h"
+
 @interface Baller_MyBallFriendsViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 {
     UISearchDisplayController * searchDisplayCtl;
-
+    
     NSMutableArray * friends; //我的球友信息数组
     NSMutableArray * filterFriends;  //搜索结果数组
-        
+    NSString * searchKeyWord;
 }
+
 @property (nonatomic,strong)NSMutableArray * chosedFriends;//邀请的球友数组
+@property (nonatomic,strong)NSMutableArray * searchResultFriends; //搜索到的球员数组
+@property (nonatomic,strong)TableViewDataSource * resultTableDataSource; // 搜索返回结果的数据元
+@property (nonatomic)NSInteger searchPage; //搜索状态页码
+
 @end
 
 static NSString * const Baller_BallFriendsTableViewCellId = @"Baller_BallFriendsTableViewCell";
@@ -32,7 +40,6 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     [super viewDidLoad];
     friends = [NSMutableArray arrayWithCapacity:1];
     filterFriends = [NSMutableArray arrayWithCapacity:1];
-    [self setupSubViews];
     [self getNetData];
     // Do any additional setup after loading the view.
 }
@@ -50,21 +57,41 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     return _chosedFriends;
 }
 
+- (NSMutableArray *)searchResultFriends
+{
+    if (!_searchResultFriends) {
+        _searchResultFriends = [NSMutableArray new];
+    }
+    return _searchResultFriends;
+}
+
+- (TableViewDataSource *)resultTableDataSource
+{
+    if (!_resultTableDataSource) {
+        _resultTableDataSource = [[TableViewDataSource alloc]initWithItems:self.searchResultFriends cellIdentifier:Baller_BallFriendsTableViewCellId tableViewConfigureBlock:^(Baller_BallFriendsTableViewCell * cell, Baller_BallTeamMemberInfo * item) {
+            cell.userInfoModel  = item;
+        }];
+    }
+    return _resultTableDataSource;
+}
 
 
-/*!
- *  @brief  设置子视图
- */
-- (void)setupSubViews{
-    
-    self.navigationItem.rightBarButtonItem.customView = nil;
-    
+- (void)setBallFriendsListType:(BallFriendsListType)ballFriendsListType{
+    if (_ballFriendsListType == ballFriendsListType) {
+        return;
+    }
+    _ballFriendsListType = ballFriendsListType;
+    [self setupSubViews];
+
+    self.navigationItem.rightBarButtonItem = nil;
+
     switch (_ballFriendsListType) {
         case BallFriendsListTypeTable:
         {
             self.navigationItem.title = @"球友列表";
             UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithImage:@"tianjia" imageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15) target:self selection:@selector(addBallFriend)];
             self.navigationItem.rightBarButtonItem = rightItem;
+            self.tableView.dataSource = self.tableViewDataSource;
         }
             break;
         case BallFriendsListTypeCollection:
@@ -72,16 +99,35 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
             break;
         case BallFriendsListTypeChosing:
         {
-            {
-                self.navigationItem.title = @"邀请球友";
-                UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithTitle:@"完成" titleEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15.0) target:self selection:@selector(choseBallFriendsEnd)];
-                self.navigationItem.rightBarButtonItem = rightItem;
-            }
+            self.navigationItem.title = @"邀请球友";
+            UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithTitle:@"完成" titleEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15.0) target:self selection:@selector(choseBallFriendsEnd)];
+            self.navigationItem.rightBarButtonItem = rightItem;
         }
             break;
+        case BallFriendsListTypeSearching:
+        {
+            self.navigationItem.title = @"搜索结果";
+            UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithTitle:@"列表" titleEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15.0) target:self selection:@selector(changeToTabel)];
+            self.navigationItem.rightBarButtonItem = rightItem;
+            self.tableView.dataSource = self.resultTableDataSource;
+            
+        }
+            break;
+            
+        default:
+            break;
     }
+    [self.tableView reloadData];
+}
 
+/*!
+ *  @brief  设置子视图
+ */
+- (void)setupSubViews{
     
+    if (self.tableViewDataSource) {
+        return;
+    }
     [self.tableView registerNib:[UINib nibWithNibName:@"Baller_BallFriendsTableViewCell" bundle:nil] forCellReuseIdentifier:Baller_BallFriendsTableViewCellId];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableViewDataSource = [[TableViewDataSource alloc] initWithItems:friends cellIdentifier:Baller_BallFriendsTableViewCellId tableViewConfigureBlock:^(Baller_BallFriendsTableViewCell * cell, Baller_BallerFriendListModel * item)
@@ -97,7 +143,6 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     
     self.tableView.dataSource = self.tableViewDataSource;
   
-    
     BallFriendsSearchBar * searchBar = [[BallFriendsSearchBar alloc]initWithFrame:CGRectMake(8.0, 7.0, ScreenWidth, 41)];
     searchBar.delegate = self;
     self.tableView.tableHeaderView = searchBar;
@@ -108,6 +153,10 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 
 }
 
+#pragma mark 网络请求
+/*!
+ *  @brief  获取好友列表
+ */
 - (void)getNetData
 {
     NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",@"get_friends",@"action",@"1",@"page",@"10",@"per_page", nil];
@@ -123,47 +172,88 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
                Baller_BallerFriendListModel *ballerFriendListModel = [[Baller_BallerFriendListModel alloc] initWithAttributes:dic];
                [friends addObject:ballerFriendListModel];
            }
-            if(friends.count == 0 || friends.count%10)
-            {
-                [self.tableView.footer noticeNoMoreData];
-            }
             [self.tableView reloadData];
         }
     }];
 }
+
+/*!
+ *  @brief  搜索用户
+ */
+- (void)searchUsers
+{
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_search_user parameters:@{@"keywords":searchKeyWord,@"page":@(self.page),@"per_page":@(10)} responseBlock:^(id result, NSError *error) {
+        if (!error) {
+            if ([result intForKey:@"errorcode"] == 0) {
+                if (self.searchPage == 1) {
+                    [self.searchResultFriends removeAllObjects];
+                }
+                for (NSDictionary * memberDic in [result valueForKey:@"list"]) {
+                    [self.searchResultFriends addObject:[Baller_BallTeamMemberInfo shareWithServerDictionary:memberDic]];
+                }
+                [self.tableView reloadData];
+
+            }
+        }
+    }];
+}
+
+
 #pragma mark 下拉上拉
 - (void)headerRereshing
 {
     [super headerRereshing];
-    self.page = 1;
-    [self getNetData];
+    if (_ballFriendsListType == BallFriendsListTypeTable) {
+        self.page = 1;
+        [self getNetData];
+    }else if (_ballFriendsListType == BallFriendsListTypeSearching){
+        self.searchPage = 1;
+        [self searchUsers];
+    }
+
 }
 
 - (void)footerRereshing
 {
     [super footerRereshing];
-    if (friends.count%10 == 0) {
-        self.page = friends.count/10+1;
-        [self getNetData];
+    if (_ballFriendsListType == BallFriendsListTypeTable) {
+        if (friends.count%10 == 0) {
+            self.page = friends.count/10+1;
+            [self getNetData];
+        }
+    }else if (_ballFriendsListType == BallFriendsListTypeSearching){
+        if (_searchResultFriends.count%10 == 0) {
+            self.searchPage = friends.count/10+1;
+            [self searchResultFriends];
+        }
     }
+
 }
 
+#pragma mark 搜索回调方法
+/*!
+ *  @brief  搜索好友
+ *
+ *  @param keyWord 搜素关键词
+ */
+- (void)searchWithKeyWord:(NSString *)keyWord
+{
+    searchKeyWord = keyWord;
+    [self.searchResultFriends removeAllObjects];
+    self.ballFriendsListType = BallFriendsListTypeSearching;
+    [self searchUsers];
+}
 #pragma mark 按钮方法
 /*!
  *  @brief  添加球友方法
  */
 - (void)addBallFriend{
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",@"at_friend",@"action",@"",@"friend_uid",nil];
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_my_attention parameters:dic responseBlock:^(id result, NSError *error) {
-        if(!error)
-        {
-            
-        }
-        else
-        {
-            
-        }
-    }];
+    Baller_SearchUserViewController * searchUserVC = [[Baller_SearchUserViewController alloc]initWithNibName:@"Baller_SearchUserViewController" bundle:nil];
+    searchUserVC.ballFriendVC = self;
+    searchUserVC.view.backgroundColor = RGBAColor(50, 50, 50, 0.5);
+    searchUserVC.view.frame = CGRectMake(0.0, -NavigationBarHeight, ScreenWidth, ScreenHeight);
+    [self addChildViewController:searchUserVC];
+    [self.view addSubview:searchUserVC.view];
 }
 
 /*!
@@ -172,6 +262,13 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 - (void)choseBallFriendsEnd{
     self.myBallFriendsEndChoseBallFriendsBlock([_chosedFriends copy]);
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+/*!
+ *  @brief  便会列表状态
+ */
+- (void)changeToTabel{
+    self.ballFriendsListType = BallFriendsListTypeTable;
 }
 
 #pragma mark - Table view data source
@@ -206,6 +303,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
     return 60.0;
 }
 

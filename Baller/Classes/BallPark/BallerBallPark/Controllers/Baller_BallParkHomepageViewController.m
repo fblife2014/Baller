@@ -374,6 +374,8 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
         if (0 == [[result valueForKey:@"errorcode"] intValue]) {
             self.hasIdentified = YES;
             self.auth_num++;
+        }else{
+            [Baller_HUDView bhud_showWithTitle:[result valueForKey:@"msg"]];
         }
     }];
 }
