@@ -38,7 +38,6 @@
 
     }else{
         self.navigationItem.title = @"我的球队";
-
     }
     [self.tableView registerNib:[UINib nibWithNibName:@"Baller_MyBasketBallTeamTableViewCell" bundle:nil] forCellReuseIdentifier:@"Baller_MyBasketBallTeamTableViewCell"];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -137,7 +136,7 @@
     if (_teamListModel) {
         paras = @{ @"authcode": [USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"team_id":_teamListModel.team_id};
     }else{
-        paras = @{ @"authcode": [USER_DEFAULT valueForKey:Baller_UserInfo_Authcode] };
+        paras = @{ @"authcode": [USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]};
     }
     
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_my_team
@@ -146,6 +145,7 @@
                                  if (error) {
                                      return;
                                  }
+                                 self.teamInfo = nil;
                                  self.teamInfo = [Baller_BallTeamInfo shareWithServerDictionary:result];
                                  if (completion) {
                                      completion();
@@ -200,7 +200,17 @@
         if (error) return ;
         
         if ([result longForKey:@"errorcode"] == 0) {
+            self.teamInfo.members = nil;
             self.teamInfo = nil;
+            [self.tableView reloadData];
+            
+            BACKGROUND_BLOCK(^{
+                NSMutableDictionary * userInfo = [NSMutableDictionary dictionaryWithDictionary:[USER_DEFAULT valueForKey:Baller_UserInfo]];
+                [userInfo setValue:@"0" forKey:@"team_id"];
+                [userInfo setValue:@"" forKey:@"court_name"];
+                [USER_DEFAULT setValue:userInfo forKey:Baller_UserInfo];
+                [USER_DEFAULT synchronize];
+            });
             [self setupTableHeaderViewAndFooterView];
         }
     }];

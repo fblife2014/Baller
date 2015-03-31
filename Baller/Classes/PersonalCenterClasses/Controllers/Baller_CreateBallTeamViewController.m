@@ -8,6 +8,8 @@
 
 #import "Baller_CreateBallTeamViewController.h"
 
+#import "Baller_BallerFriendListModel.h"
+
 @interface Baller_CreateBallTeamViewController ()
 
 @end
@@ -61,8 +63,17 @@
         return;
     }
     
+    NSString * uids = @"";
+    for (Baller_BallerFriendListModel * friendModel in [[[self createTeamCardView] createTeamView] invitedFriends]) {
+        if (uids.length) {
+            uids = $str(@"%@,%@",uids,friendModel.friend_uid);
+        }else{
+            uids = friendModel.friend_uid;
+        }
+    };
     
-    [AFNHttpRequestOPManager postImageWithSubUrl:Baller_team_create parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"team_name":teamName,@"court_id":@"4"} fileName:@"logo" fileData:self.createTeamCardView.createTeamView.teamLogoData fileType:nil responseBlock:^(id result, NSError *error)
+    
+    [AFNHttpRequestOPManager postImageWithSubUrl:Baller_team_create parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"team_name":teamName,@"uids":uids,@"court_id":@"4"} fileName:@"logo" fileData:self.createTeamCardView.createTeamView.teamLogoData fileType:nil responseBlock:^(id result, NSError *error)
     {
         if (error) return ;
         if ([[result valueForKey:@"errorcode"] integerValue] == 0) {

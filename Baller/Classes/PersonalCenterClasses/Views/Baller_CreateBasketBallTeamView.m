@@ -10,6 +10,9 @@
 #import "Baller_MyBallFriendsViewController.h"
 
 #import "Baller_ImagePicker.h"
+
+#import "Baller_BallerFriendListModel.h"
+
 @implementation Baller_CreateBasketBallTeamView
 
 - (void)awakeFromNib{
@@ -36,15 +39,15 @@
     ballFriendVC.ballFriendsListType = BallFriendsListTypeChosing;
     __WEAKOBJ(weakSelf, self);
     ballFriendVC.myBallFriendsEndChoseBallFriendsBlock = ^(NSArray * invitedFriends){
-        for (NSString * friendsId in invitedFriends) {
-            if (![weakSelf.invitedFriends containsObject:friendsId]) {
-                [weakSelf.invitedFriends addObject:friendsId];
+        __STRONGOBJ(strongSelf, self);
+        for (Baller_BallerFriendListModel * friendModel in invitedFriends) {
+            if (![strongSelf.invitedFriends containsObject:friendModel]) {
+                [strongSelf.invitedFriends addObject:friendModel];
             }
             
         };
-        weakSelf.partnerNumberLabel.text = [NSString stringWithFormat:@"已邀请%lu位",(unsigned long)weakSelf.invitedFriends.count];
-        [weakSelf.inviteFriendsButton setTitle:@"继续邀请" forState:UIControlStateNormal];
-        [MLViewConrollerManager popToLastViewController];
+        strongSelf.partnerNumberLabel.text = [NSString stringWithFormat:@"已邀请%lu位",(unsigned long)weakSelf.invitedFriends.count];
+        [strongSelf.inviteFriendsButton setTitle:@"继续邀请" forState:UIControlStateNormal];
     };
     [[[MLViewConrollerManager sharedVCMInstance]rootViewController].navigationController pushViewController:ballFriendVC animated:YES];
 }
