@@ -16,6 +16,7 @@
 
 @interface Baller_MyBallFriendsViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 {
+    BallFriendsSearchBar* theSearchBar;
     NSMutableArray * friends; //我的球友信息数组
     NSMutableArray * filterFriends;  //搜索结果数组
     NSString * searchKeyWord;
@@ -165,7 +166,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     
     self.tableView.dataSource = self.tableViewDataSource;
   
-    BallFriendsSearchBar* theSearchBar = [[BallFriendsSearchBar alloc]initWithFrame:CGRectMake(8.0, 7.0, ScreenWidth, 41)];
+    theSearchBar = [[BallFriendsSearchBar alloc]initWithFrame:CGRectMake(8.0, 7.0, ScreenWidth, 41)];
     theSearchBar.delegate = self;
     theSearchBar.returnKeyType = UIReturnKeyDone;
     self.tableView.tableHeaderView = theSearchBar;
@@ -267,6 +268,9 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
  *  @brief  添加球友方法
  */
 - (void)addBallFriend{
+    
+    [theSearchBar resignFirstResponder];
+    
     Baller_SearchUserViewController * searchUserVC = [[Baller_SearchUserViewController alloc]initWithNibName:@"Baller_SearchUserViewController" bundle:nil];
     searchUserVC.ballFriendVC = self;
     searchUserVC.view.backgroundColor = RGBAColor(50, 50, 50, 0.5);
