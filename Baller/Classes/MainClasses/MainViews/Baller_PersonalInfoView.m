@@ -258,7 +258,7 @@
         }
         
         positions = [NSMutableArray arrayWithObjects:@"C",@"PG",@"PF",@"SF",@"SG", nil];
-        sexs = [NSMutableArray arrayWithObjects:@"F",@"M", nil];
+        sexs = [NSMutableArray arrayWithObjects:@"男",@"女", nil];
       
     }
     return _ballerPickerView;
@@ -314,7 +314,7 @@
                 break;
             case 1003:
                 [USER_DEFAULT setValue:info forKey:Baller_UserInfo_Sex];
-                [personInfoDic setValue:info forKey:@"gender"];
+                [personInfoDic setValue:[info isEqualToString:@"男"]?@"1":@"2" forKey:@"gender"];
 
                 break;
             default:
