@@ -73,6 +73,7 @@
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <color key="tintColor" red="0.17254901960784313" green="0.23921568627450981" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Whd-fy-ifa" secondAttribute="trailing" constant="20" id="2ln-we-tZV"/>
                 <constraint firstItem="Whd-fy-ifa" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="100" id="GPT-q8-lSK"/>
