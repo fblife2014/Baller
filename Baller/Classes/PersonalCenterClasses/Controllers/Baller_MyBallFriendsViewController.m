@@ -310,6 +310,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     if (tableView == self.tableView) {
+
         Baller_BallerFriendListModel * ballFriendModel = friends[indexPath.row];
         if (self.ballFriendsListType == BallFriendsListTypeChosing) {
             Baller_BallFriendsTableViewCell * cell = (Baller_BallFriendsTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
@@ -324,6 +325,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
             }
             
         }else{
+
             Baller_PlayerCardViewController * playCardVC = [[Baller_PlayerCardViewController alloc]init];
             playCardVC.friendModel = ballFriendModel;
             playCardVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
@@ -331,6 +333,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
         }
         
     }else{
+
         Baller_BallerFriendListModel * ballFriendModel = filterFriends[indexPath.row];
         Baller_PlayerCardViewController * playCardVC = [[Baller_PlayerCardViewController alloc]init];
         playCardVC.friendModel = ballFriendModel;
@@ -342,13 +345,19 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 #pragma mark - UISearchBarDelegate
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-//    [[UIApplication sharedApplication]setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 20)];
+    view.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
+    view.tag = 1000;
+    [MAINWINDOW addSubview:view];
     return YES;
 }
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
-//    [[UIApplication sharedApplication]setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     return YES;
+}
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [[MAINWINDOW viewWithTag:1000] removeFromSuperview];
 }
 
 @end

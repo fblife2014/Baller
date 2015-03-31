@@ -1920,7 +1920,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "57c60bc0-8730-40fb-bda6-43bc1869717c";
+				PROVISIONING_PROFILE = "fee810f9-83cb-402c-800f-ce75bc0c7ff6";
 				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(CACHE_ROOT)/SharedPrecompiledHeaders";
 				SYMROOT = build;
@@ -1961,7 +1961,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "57c60bc0-8730-40fb-bda6-43bc1869717c";
+				PROVISIONING_PROFILE = "fee810f9-83cb-402c-800f-ce75bc0c7ff6";
 				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(CACHE_ROOT)/SharedPrecompiledHeaders";
 				SYMROOT = build;
@@ -1991,7 +1991,7 @@
 					"$(PROJECT_DIR)/Baller/Umeng/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "57c60bc0-8730-40fb-bda6-43bc1869717c";
+				PROVISIONING_PROFILE = "fee810f9-83cb-402c-800f-ce75bc0c7ff6";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Debug;
@@ -2018,7 +2018,7 @@
 					"$(PROJECT_DIR)/Baller/Umeng/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "57c60bc0-8730-40fb-bda6-43bc1869717c";
+				PROVISIONING_PROFILE = "fee810f9-83cb-402c-800f-ce75bc0c7ff6";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Release;

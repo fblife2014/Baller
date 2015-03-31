@@ -559,6 +559,9 @@
 /*!
  *  @brief  私聊按钮方法
  */
+
+
+
 - (void)chatButtonAction
 {
     [[AppDelegate sharedDelegate] connectRC];
@@ -637,6 +640,8 @@
         ballTeamVC.isCloseMJRefresh = YES;
         [[[MLViewConrollerManager sharedVCMInstance]rootViewController].navigationController pushViewController:ballTeamVC animated:YES];
     }else{
+        UINavigationController * currentNav = [[MLViewConrollerManager sharedVCMInstance] navigationController];
+        
         Baller_ChoseTeamViewController *choseTeamVC = [[Baller_ChoseTeamViewController alloc] init];
         __WEAKOBJ(weakSelf, self)
         choseTeamVC.choseTeamBlock = ^(Baller_BallParkAttentionTeamListModel * chosenTeam) {
@@ -644,12 +649,10 @@
                 
             }
         };
-        [[[MLViewConrollerManager sharedVCMInstance]rootViewController].navigationController pushViewController:choseTeamVC animated:YES];
+        [currentNav pushViewController:choseTeamVC animated:YES];
 
     }
     
-
-
 
 }
 

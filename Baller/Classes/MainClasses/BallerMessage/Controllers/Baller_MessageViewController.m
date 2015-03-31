@@ -71,6 +71,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 {
     [[AppDelegate sharedDelegate] getTokenFromRC];
     [[AppDelegate sharedDelegate]connectRC];
+    [self getMessageLists];
 }
 
 - (void)headerRereshing{

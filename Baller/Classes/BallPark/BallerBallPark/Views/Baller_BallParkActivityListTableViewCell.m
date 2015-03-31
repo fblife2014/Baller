@@ -100,6 +100,7 @@
     UIButton * button = (UIButton *)sender;
     DLog(@"senderTitle = %@",button.titleLabel.text);
     if ([button.titleLabel.text isEqualToString:@"邀请加入"]) {
+        UINavigationController * currentNav = [[MLViewConrollerManager sharedVCMInstance] navigationController];
         Baller_MyBallFriendsViewController * friednVC = [[Baller_MyBallFriendsViewController alloc]init];
         friednVC.ballFriendsListType = BallFriendsListTypeChosing;
         friednVC.myBallFriendsEndChoseBallFriendsBlock = ^(NSArray * chosedFriends)
@@ -123,7 +124,7 @@
                  }];
             }
         };
-        [[[MLViewConrollerManager sharedVCMInstance] navigationController]pushViewController:friednVC animated:YES];
+        [currentNav pushViewController:friednVC animated:YES];
         
     }else if ([button.titleLabel.text isEqualToString:@"+ 加入"]) {
         [AFNHttpRequestOPManager getWithSubUrl:Baller_activities_join parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"activity_id":_activitiyModel.activity_id} responseBlock:^(id result, NSError *error) {

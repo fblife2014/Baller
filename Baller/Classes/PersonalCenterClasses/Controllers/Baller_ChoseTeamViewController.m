@@ -92,8 +92,10 @@
         if ([result longForKey:@"errorcode"] == 0) {
             [Baller_HUDView bhud_showWithTitle:@"请求已发送！"];
             strongSelf.choseTeamBlock(chosedTeam);
-            [strongSelf PopToLastViewController];
         }
+        [strongSelf PopToLastViewController];
+        [Baller_HUDView bhud_showWithTitle:[result valueForKey:@"msg"]];
+
     }];
 }
 

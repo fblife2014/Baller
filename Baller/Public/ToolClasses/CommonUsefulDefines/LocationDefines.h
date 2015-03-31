@@ -31,7 +31,7 @@
 #define StatusBarHeight     20.0
 #define TabBarHeight     49.0
 
-#define PersonInfoCell_Height     (NUMBER(80.0,72.0,65.0,65.0))
+#define PersonInfoCell_Height     (NUMBER(80.0,72.0,70.0,70.0))
 
 //个人球员卡、个人信息界面地图圆角参数
 #define TextFontSize (NUMBER(17.0, 16.0, 14.5, 14.5)) 

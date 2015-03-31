@@ -213,6 +213,7 @@
             });
             [self setupTableHeaderViewAndFooterView];
         }
+        [Baller_HUDView bhud_showWithTitle:[result valueForKey:@"msg"]];
     }];
     
 

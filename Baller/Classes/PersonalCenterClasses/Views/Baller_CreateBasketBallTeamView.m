@@ -35,6 +35,8 @@
 }
 
 - (IBAction)inviteFriends:(id)sender {
+    
+    UINavigationController * currentNav = [[MLViewConrollerManager sharedVCMInstance] navigationController];
     Baller_MyBallFriendsViewController * ballFriendVC = [[Baller_MyBallFriendsViewController alloc]init];
     ballFriendVC.ballFriendsListType = BallFriendsListTypeChosing;
     __WEAKOBJ(weakSelf, self);
@@ -49,7 +51,7 @@
         strongSelf.partnerNumberLabel.text = [NSString stringWithFormat:@"已邀请%lu位",(unsigned long)weakSelf.invitedFriends.count];
         [strongSelf.inviteFriendsButton setTitle:@"继续邀请" forState:UIControlStateNormal];
     };
-    [[[MLViewConrollerManager sharedVCMInstance]rootViewController].navigationController pushViewController:ballFriendVC animated:YES];
+    [currentNav pushViewController:ballFriendVC animated:YES];
 }
 
 

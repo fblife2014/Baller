@@ -79,6 +79,8 @@
         if ([[result valueForKey:@"errorcode"] integerValue] == 0) {
             self.basketBallTeamCreatedBlock(result);
         }
+        [Baller_HUDView bhud_showWithTitle:[result valueForKey:@"msg"]];
+
     }];
     
 }

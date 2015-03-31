@@ -15,18 +15,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="homeCourt" translatesAutoresizingMaskIntoConstraints="NO" id="Adl-Tc-Kc3">
-                        <rect key="frame" x="77" y="64" width="15" height="15"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="15" id="DkN-FQ-F4Z"/>
-                            <constraint firstAttribute="height" constant="15" id="Yxk-Ll-0Ea"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KEn-4f-1uU">
-                        <rect key="frame" x="100" y="64" width="200" height="16"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="16" id="jQ3-ec-fdb"/>
-                        </constraints>
+                        <rect key="frame" x="106" y="64" width="200" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.41176470588235292" green="0.41176470588235292" blue="0.41176470588235292" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -34,12 +24,10 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
-                    <constraint firstItem="KEn-4f-1uU" firstAttribute="leading" secondItem="Adl-Tc-Kc3" secondAttribute="trailing" constant="8" id="6Gl-oW-5FF"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="KEn-4f-1uU" secondAttribute="trailing" constant="12" id="A6T-dy-J4j"/>
-                    <constraint firstAttribute="centerY" secondItem="Adl-Tc-Kc3" secondAttribute="centerY" constant="-16.5" id="BfR-5q-WDf"/>
-                    <constraint firstItem="Adl-Tc-Kc3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="56" id="GEA-Mx-rW7"/>
-                    <constraint firstAttribute="centerX" secondItem="Adl-Tc-Kc3" secondAttribute="centerX" constant="75.5" id="dNY-i7-QUQ"/>
-                    <constraint firstItem="KEn-4f-1uU" firstAttribute="top" secondItem="Adl-Tc-Kc3" secondAttribute="top" id="saR-CC-8yA"/>
+                    <constraint firstItem="KEn-4f-1uU" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="56" id="FG9-1N-AAy"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="KEn-4f-1uU" secondAttribute="bottom" constant="21.5" id="IC8-fK-ncw"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="KEn-4f-1uU" secondAttribute="trailing" constant="6" id="Y8s-ry-VR3"/>
+                    <constraint firstItem="KEn-4f-1uU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="98" id="cxi-CC-JF4"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -49,7 +37,4 @@
             <point key="canvasLocation" x="388" y="341"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="homeCourt" width="15" height="15"/>
-    </resources>
 </document>

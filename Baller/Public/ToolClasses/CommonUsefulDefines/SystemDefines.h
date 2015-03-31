@@ -34,8 +34,8 @@
 #define SinaAppKey @"2208620241"
 #define SinaAppSecret @"fe596bc4ac8c92316ad5f255fbc49432"
 
-#define QQAPPID @"1104065435" //十六进制:41CEB39B; 生成方法:echo 'ibase=10;obase=16;1104065435'|bc
-#define QQAPPKEY @"UgVWGacRoeo9NtZy"
+#define QQAPPID @"1104467876" //十六进制:41CEB39B; 生成方法:echo 'ibase=10;obase=16;1104065435'|bc
+#define QQAPPKEY @"jPVa4UMOobYnZiV6"
 
 #define WXAPPID @"wx2e98a5a243ad127b"//正式
 #define WXAPPSECRET @"59c7980f44e111a29e2bb91dd694c494"
