@@ -63,6 +63,12 @@
         return;
     }
     
+    if (![[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"court_id"] intValue]) {
+        [Baller_HUDView bhud_showWithTitle:@"请先选择主场，再创建球队"];
+
+        return;
+    }
+    
     NSString * uids = @"";
     for (Baller_BallerFriendListModel * friendModel in [[[self createTeamCardView] createTeamView] invitedFriends]) {
         if (uids.length) {
@@ -73,7 +79,7 @@
     };
     
     
-    [AFNHttpRequestOPManager postImageWithSubUrl:Baller_team_create parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"team_name":teamName,@"uids":uids,@"court_id":@"4"} fileName:@"logo" fileData:self.createTeamCardView.createTeamView.teamLogoData fileType:nil responseBlock:^(id result, NSError *error)
+    [AFNHttpRequestOPManager postImageWithSubUrl:Baller_team_create parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"team_name":teamName,@"uids":uids,@"court_id":[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"court_id"]?:@""} fileName:@"logo" fileData:self.createTeamCardView.createTeamView.teamLogoData fileType:nil responseBlock:^(id result, NSError *error)
     {
         if (error) return ;
         if ([[result valueForKey:@"errorcode"] integerValue] == 0) {

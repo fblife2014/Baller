@@ -46,7 +46,6 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     
     [super viewDidLoad];
     self.identifyingPage = 1;
-    
     UIBarButtonItem * createBallParkItem = [ViewFactory getABarButtonItemWithTitle:@"创建球场" titleEdgeInsets:UIEdgeInsetsZero target:self selection:@selector(createBallPark)];
     createBallParkItem.customView.hidden = YES;
     self.navigationItem.rightBarButtonItem = createBallParkItem;

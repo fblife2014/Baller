@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "Baller_BaseTableViewCell.h"
+@class Baller_MyAttentionBallPark;
 
 @interface Baller_MineBallParkTableViewCell : Baller_BaseTableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *ballParkImageView;
 @property (weak, nonatomic) IBOutlet UILabel *ballParkNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *homeCourtImageView;
 @property (weak, nonatomic) IBOutlet UILabel *homeCourtLabel;
-
+@property (nonatomic,strong)Baller_MyAttentionBallPark * ballParkModel;
 @property (nonatomic)BOOL isHomeCourt; 
 
 @end

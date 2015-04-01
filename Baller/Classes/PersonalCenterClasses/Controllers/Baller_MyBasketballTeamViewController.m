@@ -31,6 +31,11 @@
 
 @implementation Baller_MyBasketballTeamViewController
 
+- (void)dealloc
+{
+    [[RCIMClient sharedRCIMClient] quitGroup:self.teamInfo.group_id completion:NULL error:NULL];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (_teamListModel) {
@@ -240,13 +245,21 @@
  *  @brief  创建球队
  */
 - (void)createTeamButtonAction {
-    Baller_CreateBallTeamViewController *createTeamVC = [[Baller_CreateBallTeamViewController alloc] init];
-    __WEAKOBJ(weakSelf, self);
-    createTeamVC.basketBallTeamCreatedBlock = ^(NSDictionary *resultDic) {
-        [MLViewConrollerManager popToLastViewController];
-        [weakSelf setupTableHeaderViewAndFooterView];
-    };
-    [self.navigationController pushViewController:createTeamVC animated:YES];
+    
+    if ([[USER_DEFAULT valueForKey:Baller_UserInfo] intForKey:@"team_status"] == 0) {
+        [Baller_HUDView bhud_showWithTitle:@"您已申请加入其他球队！"];
+    }else if ([[USER_DEFAULT valueForKey:Baller_UserInfo] intForKey:@"team_status"] == 2)
+    {
+        Baller_CreateBallTeamViewController *createTeamVC = [[Baller_CreateBallTeamViewController alloc] init];
+        __WEAKOBJ(weakSelf, self);
+        createTeamVC.basketBallTeamCreatedBlock = ^(NSDictionary *resultDic) {
+            [MLViewConrollerManager popToLastViewController];
+            [weakSelf setupTableHeaderViewAndFooterView];
+        };
+        [self.navigationController pushViewController:createTeamVC animated:YES];
+    }
+    
+
 }
 
 #pragma mark - Table view data source

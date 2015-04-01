@@ -26,7 +26,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     self.view.backgroundColor = UIColorFromRGB(0xe7e7e7);
     [self ballParkTableView];
     dataSourceArray = [NSMutableArray arrayWithCapacity:1];
@@ -58,14 +57,11 @@
         _ballParkTableView.backgroundColor = CLEARCOLOR;
         _ballParkTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.view addSubview: _ballParkTableView];
-        [self setupMJRefreshTableView];
+        [self setupMJRefreshScrollView:_ballParkTableView];
     }
     return _ballParkTableView;
 }
-- (void)setupMJRefreshTableView{
-    [self setupMJRefreshScrollView:_ballParkTableView];
-    
-}
+
 
 - (void)headerRereshing{
     [super headerRereshing];
@@ -166,12 +162,7 @@
     
     Baller_MineBallParkTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"Baller_MineBallParkTableViewCell" forIndexPath:indexPath];
     Baller_MyAttentionBallPark *currentModel = (Baller_MyAttentionBallPark *)[dataSourceArray objectAtIndex:indexPath.row];
-    if ([currentModel.my_home_court intValue] == 1) {
-        cell.isHomeCourt = YES;
-    }else{
-        cell.isHomeCourt = NO;
-    }
-    cell.ballParkNameLabel.text = currentModel.court_name;
+    cell.ballParkModel = currentModel;
     return cell;
     
 }

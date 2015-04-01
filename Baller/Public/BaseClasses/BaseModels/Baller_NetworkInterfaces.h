@@ -43,6 +43,7 @@ extern NSString * const Baller_get_nearby_courts;   //24、获取附近球场
 extern NSString * const Baller_update_court_img;    //25、更新球场图片
 extern NSString * const Baller_get_ballers_by_court_id; //26、获取某球场球员列表
 extern NSString * const Baller_get_attend_courts; //27、获取我关注的球场列表
+extern NSString * const Baller_get_attend_user_by_court; //28、关注球场的球员列表
 
 
 extern NSString * const Baller_activity_create;     //36、发布活动
@@ -54,6 +55,8 @@ extern NSString * const Baller_activity_favo;       //41、收藏活动
 extern NSString * const Baller_activity_cancel_favo;//42、取消收藏活动
 extern NSString * const Baller_get_special_activities;//43、获取某些活动列表 我发起的、收藏的、参加过的、评价过、待评价的
 extern NSString * const Baller_invite_join_activity;//44、邀请好友加入某活动
+extern NSString * const Baller_get_no_appraised_by_activity;//46、根据活动id获取待评价人员列表
+
 extern NSString * const Baller_team_create;         //50、创建球队
 extern NSString * const Baller_team_join_team;      //51、申请加入球队
 extern NSString * const Baller_team_check_join;     //52、队长审核加入申请

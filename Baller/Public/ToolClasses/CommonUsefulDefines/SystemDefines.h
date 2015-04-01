@@ -20,9 +20,9 @@
 
 #define SYSTEM_LANGUAGE ([[NSLocale preferredLanguages] objectAtIndex:0])
 
-//#define UMKEY @"55050828fd98c5518e000c31"//
+#define UMKEY @"551be5b9fd98c50cb20012ab"//baller，友盟账号15600257760@163.com
 
-#define UMKEY @"548bae91fd98c50d0c000b8b"//衣+衣
+//#define UMKEY @"548bae91fd98c50d0c000b8b"//衣+衣
 
 #define Baller_AMAP_Key @"8a1575d24fe2d11e7ee537c50550029e" //高德地图key
 #define Baller_RongCloudAppKey @"kj7swf8o7zrx2" //容云appkey
@@ -31,8 +31,8 @@
 
 //第三方appkey和appSecret
 
-#define SinaAppKey @"2208620241"
-#define SinaAppSecret @"fe596bc4ac8c92316ad5f255fbc49432"
+#define SinaAppKey @"1270257351"
+#define SinaAppSecret @"e620de093a9acc3618aca003cf0d32d7"
 
 #define QQAPPID @"1104467876" //十六进制:41CEB39B; 生成方法:echo 'ibase=10;obase=16;1104065435'|bc
 #define QQAPPKEY @"jPVa4UMOobYnZiV6"

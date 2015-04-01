@@ -58,6 +58,8 @@ NSString * const Baller_update_court_img = @"&c=court&m=update_court_img";    //
 NSString * const Baller_get_ballers_by_court_id = @"&c=court&m=get_ballers_by_court_id"; //26、获取某球场球员列表
 
 NSString * const Baller_get_attend_courts = @"&c=court&m=get_attend_courts"; //27、获取我关注的球场列表
+NSString * const Baller_get_attend_user_by_court = @"&c=court&m=get_attend_user_by_court"; //28、关注球场的球员列表
+
 
 
 
@@ -66,7 +68,7 @@ NSString * const Baller_activity_create = @"&c=activity&m=create";    //36、发
 
 NSString * const Baller_get_activities = @"&c=activity&m=get_activities";  //37、获取活动列表
 
-NSString * const Baller_activities_join = @"&c=activity&m=join_activities";  //38、加入活动
+NSString * const Baller_activities_join = @"&c=activity&m=join_activity";  //38、加入活动
 
 NSString * const Baller_activity_out =
 @"&c=activity&m=out_activity";  //39、 退出、解散活动
@@ -76,6 +78,8 @@ NSString * const Baller_activity_favo = @"&c=activity&m=favo_activity";       //
 NSString * const Baller_activity_cancel_favo = @"&c=activity&m=cancel_favo_activity";//42、取消收藏活动
 NSString * const Baller_get_special_activities = @"&c=activity&m=get_special_activities";//43、获取某些活动列表 我发起的、收藏的、参加过的、评价过、待评价的
 NSString * const Baller_invite_join_activity = @"&c=activity&m=invite_join_activity";//44、邀请好友加入某活动
+
+NSString * const Baller_get_no_appraised_by_activity = @"&c=activity&m=get_no_appraised_by_activity";//46、根据活动id获取待评价人员列表
 
 
 

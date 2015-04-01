@@ -13,15 +13,14 @@
 #import "PresentingAnimator.h"
 #import "DismissingAnimator.h"
 
-@interface BallerTabBarController ()<UIViewControllerTransitioningDelegate>
-
+@interface BallerTabBarController ()<UIViewControllerTransitioningDelegate,UITabBarDelegate>
+@property(nonatomic,strong)UITabBarItem * lastTabBarItem;
 @end
 
 @implementation BallerTabBarController
 
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
     self.navigationController.navigationBarHidden = YES;
     self.navigationController.navigationBar.translucent = NO;
@@ -90,6 +89,43 @@
     self.tabBar.tintColor = [UIColor whiteColor];
     [self setSelectedIndex:1];
     
+}
+#pragma mark UITabBarDelegate
+
+- (void)setLastTabBarItem:(UITabBarItem *)lastTabBarItem{
+    if (_lastTabBarItem == lastTabBarItem) {
+        return;
+    }
+    if (_lastTabBarItem) {
+        _lastTabBarItem.imageInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+        
+    }
+    _lastTabBarItem = lastTabBarItem;
+    _lastTabBarItem.imageInsets = UIEdgeInsetsMake(28, 28, 28, 28);
+    
+}
+
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    self.lastTabBarItem = item;
+}
+
+/**
+ *  设置 tabBarItem中图片的大小
+ */
+- (void)setTabBarItemImageSmallSize
+{
+    for (UIView *child in self.tabBar.subviews) {
+        if (![child isKindOfClass:NSClassFromString(@"UITabBarButton")]) continue;
+        for (UIView *childChild in child.subviews) {
+            if ([childChild isKindOfClass:[UIImageView class]] || [childChild isKindOfClass:NSClassFromString(@"UITabBarSelectionIndicatorView")]) {
+                UIImageView * image = (UIImageView *)childChild;
+                image.width = 25;
+                image.height = 25;
+                
+            }
+        }
+    }
 }
 
 #pragma mark - UIViewControllerTransitioningDelegate

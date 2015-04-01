@@ -7,7 +7,7 @@
 //
 
 #import "Baller_BPAttentionPersonListViewController.h"
-#import "Baller_PersonalInfoViewController.h"
+#import "Baller_PlayerCardViewController.h"
 #import "Baller_MyBasketballTeamViewController.h"
 
 #import "Baller_BPAttentionPersonListHeader.h"
@@ -122,7 +122,7 @@
 - (void)getBallerballers_by_court_id
 {
     __WEAKOBJ(weakSelf, self);
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_ballers_by_court_id parameters:@{@"court_id":_court_id,@"page":@(self.page),@"per_page":@(10)} responseBlock:^(id result, NSError *error) {
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_attend_user_by_court parameters:@{@"court_id":_court_id,@"page":@(self.page),@"per_page":@(10)} responseBlock:^(id result, NSError *error) {
         if (error)return ;
         __STRONGOBJ(strongSelf, weakSelf);
         if ([[result valueForKey:@"errorcode"] integerValue] == 0) {
@@ -206,7 +206,18 @@
 #pragma mark UICollectionViewDelegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    Baller_PersonalInfoViewController * personalVC = [[Baller_PersonalInfoViewController alloc]init];
+    
+    Baller_PlayerCardViewController * personalVC = [[Baller_PlayerCardViewController alloc]init];
+    Baller_BallParkAttentionBallerListModel * userModel = _ballers[indexPath.row];
+    personalVC.userName = userModel.user_name;
+    personalVC.photoUrl = userModel.photo;
+    personalVC.uid = userModel.uid;
+    if ([userModel.uid isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
+        personalVC.ballerCardType = kBallerCardType_MyPlayerCard;
+    }else{
+        personalVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
+
+    }
     [self.navigationController pushViewController:personalVC animated:YES];
 
 }

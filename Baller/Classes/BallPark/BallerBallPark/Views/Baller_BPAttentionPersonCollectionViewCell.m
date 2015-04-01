@@ -14,8 +14,7 @@
 @implementation Baller_BPAttentionPersonCollectionViewCell
 
 - (void)awakeFromNib {
-    
-    self.contentView.backgroundColor = [Baller_PositionRelated  baller_PositionColorWithType:PositionType_SF];
+
     // Initialization code
 }
 
@@ -25,6 +24,22 @@
     }
     _ballerModel = ballerModel;
     _positionLabel.text = ballerModel.position;
+    if ([ballerModel.position isEqualToString:@"C"]) {
+        self.contentView.backgroundColor = [Baller_PositionRelated  baller_PositionColorWithType:PositionType_C];
+
+    }else if ([ballerModel.position isEqualToString:@"SF"]) {
+        self.contentView.backgroundColor = [Baller_PositionRelated  baller_PositionColorWithType:PositionType_SF];
+
+    }else if ([ballerModel.position isEqualToString:@"SG"]) {
+        self.contentView.backgroundColor = [Baller_PositionRelated  baller_PositionColorWithType:PositionType_SG];
+
+    }else if ([ballerModel.position isEqualToString:@"PF"]) {
+        self.contentView.backgroundColor = [Baller_PositionRelated  baller_PositionColorWithType:PositionType_PF];
+
+    }else if ([ballerModel.position isEqualToString:@"PG"]) {
+        self.contentView.backgroundColor = [Baller_PositionRelated  baller_PositionColorWithType:PositionType_PG];
+    }
+    
     [_headImageView sd_setImageWithURL:[NSURL URLWithString:ballerModel.photo] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
     _userNameLabel.text = ballerModel.user_name;
     [self setNeedsDisplay];

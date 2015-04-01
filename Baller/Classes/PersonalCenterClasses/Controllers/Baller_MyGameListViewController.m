@@ -10,6 +10,7 @@
 #import "Baller_GameListTableViewCell.h"
 #import "Baller_BallParkActivityListModel.h"
 #import "Baller_ActivityDetailViewController.h"
+#import "Baller_EvaluateBallersViewController.h"
 
 @interface Baller_MyGameListViewController ()<UITableViewDelegate>
 {
@@ -167,11 +168,19 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    Baller_ActivityDetailViewController * activityDVC = [[Baller_ActivityDetailViewController alloc]init];
     Baller_BallParkActivityListModel * activityListModel = _gameLists[indexPath.row];
-    activityDVC.activityID = activityListModel.activity_id;
-    activityDVC.activity_CreaterID = activityListModel.uid;
-    [self.navigationController pushViewController:activityDVC animated:YES];
+    if (_gameListType == GameListType_WaitEvaluated) {
+        Baller_EvaluateBallersViewController * evaluateBallersVC = [[Baller_EvaluateBallersViewController alloc]init];
+        evaluateBallersVC.isCloseMJRefresh = YES;
+        evaluateBallersVC.activityID = activityListModel.activity_id;
+        [self.navigationController pushViewController:evaluateBallersVC animated:YES];
+    }else{
+        Baller_ActivityDetailViewController * activityDVC = [[Baller_ActivityDetailViewController alloc]init];
+        activityDVC.activityID = activityListModel.activity_id;
+        activityDVC.activity_CreaterID = activityListModel.uid;
+        [self.navigationController pushViewController:activityDVC animated:YES];
+    }
+    
 }
 
 /*

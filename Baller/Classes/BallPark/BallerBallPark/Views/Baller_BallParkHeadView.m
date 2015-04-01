@@ -63,6 +63,7 @@
         if (!([[_ballParkInfo valueForKey:@"court_img"] length]>10)) {
             [self addUpdateImageButton];
         }
+        
     }
     return _ballParkImageView;
 }
@@ -168,7 +169,7 @@
     updateImageButton = [ViewFactory getAButtonWithFrame:CGRectMake(ScreenWidth/4.0, self.frame.size.height-50-ScreenWidth/4.0, ScreenWidth/2.0, ScreenWidth/4.0) nomalTitle:@"点击上传" hlTitle:@"点击上传" titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:nil hImage:nil action:@selector(updateImageButtonAction) target:self buttonTpye:UIButtonTypeCustom];
     [self addSubview:updateImageButton];
     
-//    self.ballParkImageView.contentMode = UIViewContentModeCenter;
+    self.ballParkImageView.contentMode = UIViewContentModeCenter;
     updateImageButton.titleLabel.font = SYSTEM_FONT_S(NUMBER(35.0, 30.0, 25.0, 25.0));
     [self bringSubviewToFront:updateImageButton];
     updateImageButton.hidden = NO;

@@ -54,8 +54,8 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 - (void)setSearchBarSearching:(BOOL)searchBarSearching{
     _searchBarSearching = searchBarSearching;
     if (_searchBarSearching) {
-
         self.tableView.dataSource = self.searchBarTableViewDataSource;
+        
     }else{
         self.tableView.dataSource = self.tableViewDataSource;
     }
@@ -111,6 +111,8 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     switch (_ballFriendsListType) {
         case BallFriendsListTypeTable:
         {
+            self.tableView.tableHeaderView = theSearchBar;
+
             self.navigationItem.title = @"球友列表";
             UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithImage:@"tianjia" imageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15) target:self selection:@selector(addBallFriend)];
             self.navigationItem.rightBarButtonItem = rightItem;
@@ -122,6 +124,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
             break;
         case BallFriendsListTypeChosing:
         {
+            self.tableView.tableHeaderView = theSearchBar;
             self.navigationItem.title = @"邀请球友";
             UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithTitle:@"完成" titleEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15.0) target:self selection:@selector(choseBallFriendsEnd)];
             self.navigationItem.rightBarButtonItem = rightItem;
@@ -129,6 +132,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
             break;
         case BallFriendsListTypeSearching:
         {
+            self.tableView.tableHeaderView = nil;
             self.navigationItem.title = @"搜索结果";
             UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithTitle:@"列表" titleEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15.0) target:self selection:@selector(changeToTabel)];
             self.navigationItem.rightBarButtonItem = rightItem;
@@ -305,13 +309,11 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-
-    if (!_searchBarSearching) {
-        if (_ballFriendsListType == BallFriendsListTypeTable) {
-            
-        }
-        Baller_BallerFriendListModel * ballFriendModel = friends[indexPath.row];
-        if (self.ballFriendsListType == BallFriendsListTypeChosing) {
+    [theSearchBar resignFirstResponder];
+    
+    switch (_ballFriendsListType) {
+        case BallFriendsListTypeChosing:
+        {
             Baller_BallFriendsTableViewCell * cell = (Baller_BallFriendsTableViewCell *)[tableView cellForRowAtIndexPath:indexPath];
             cell.chosing = !cell.chosing;
             if (cell.chosing) {
@@ -322,23 +324,51 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
             }else{
                 [self.chosedFriends removeObject:cell.friendListModel];
             }
+        }
+            break;
+        case BallFriendsListTypeTable:
+            if (!_searchBarSearching) {
+                
+                Baller_BallerFriendListModel * ballFriendModel = friends[indexPath.row];
+                Baller_PlayerCardViewController * playCardVC = [[Baller_PlayerCardViewController alloc]init];
+                playCardVC.friendModel = ballFriendModel;
+                playCardVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
+                [self.navigationController pushViewController:playCardVC animated:YES];
+                
+            }else{
+                Baller_BallerFriendListModel * ballFriendModel = filterFriends[indexPath.row];
+                Baller_PlayerCardViewController * playCardVC = [[Baller_PlayerCardViewController alloc]init];
+                playCardVC.friendModel = ballFriendModel;
+                playCardVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
+                [self.navigationController pushViewController:playCardVC animated:YES];
+            }
+            break;
+        case BallFriendsListTypeCollection:
             
-        }else{
+            break;
+        case BallFriendsListTypeSearching:
+        {
 
+            Baller_BallTeamMemberInfo * userModel = _searchResultFriends[indexPath.row];
             Baller_PlayerCardViewController * playCardVC = [[Baller_PlayerCardViewController alloc]init];
-            playCardVC.friendModel = ballFriendModel;
-            playCardVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
+            playCardVC.uid = userModel.uid;
+            playCardVC.userName = userModel.user_name;
+            playCardVC.photoUrl = userModel.photo;
+            if ([userModel.uid isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
+                playCardVC.ballerCardType = kBallerCardType_MyPlayerCard;
+
+            }else{
+                playCardVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
+
+            }
             [self.navigationController pushViewController:playCardVC animated:YES];
         }
-        
-    }else{
-        
-        Baller_BallerFriendListModel * ballFriendModel = filterFriends[indexPath.row];
-        Baller_PlayerCardViewController * playCardVC = [[Baller_PlayerCardViewController alloc]init];
-        playCardVC.friendModel = ballFriendModel;
-        playCardVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
-        [self.navigationController pushViewController:playCardVC animated:YES];
+            break;
+            
+        default:
+            break;
     }
+
 }
 
 #pragma mark - UISearchBarDelegate
@@ -348,7 +378,8 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     [filterFriends removeAllObjects];
     for(Baller_BallerFriendListModel * model in friends)
     {
-        if([model.friend_user_name containsString:searchText])
+        DLog(@"model.friend_user_name = %@",model.friend_user_name);
+        if([model.friend_user_name rangeOfString:searchText].length || [model.friend_uid rangeOfString:searchText].length)
         {
             [filterFriends addObject:model];
         }

@@ -165,6 +165,7 @@
 		FBDEA43D1A2212500084FEBD /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FBDEA43C1A2212500084FEBD /* libsqlite3.0.dylib */; };
 		FBE0F5111ACA9CA8000FA8C0 /* Baller_SearchUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE0F50F1ACA9CA8000FA8C0 /* Baller_SearchUserViewController.m */; };
 		FBE0F5121ACA9CA8000FA8C0 /* Baller_SearchUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBE0F5101ACA9CA8000FA8C0 /* Baller_SearchUserViewController.xib */; };
+		FBE0F5181ACBE1EE000FA8C0 /* Baller_EvaluateBallersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE0F5171ACBE1EE000FA8C0 /* Baller_EvaluateBallersViewController.m */; };
 		FBF50AA71AC6345A003CBCAD /* NSDate+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50A981AC6345A003CBCAD /* NSDate+Helpers.m */; };
 		FBF50AA81AC6345A003CBCAD /* PMCalendarBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50A9A1AC6345A003CBCAD /* PMCalendarBackgroundView.m */; };
 		FBF50AA91AC6345A003CBCAD /* PMCalendarController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50A9D1AC6345A003CBCAD /* PMCalendarController.m */; };
@@ -491,6 +492,8 @@
 		FBE0F50E1ACA9CA8000FA8C0 /* Baller_SearchUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_SearchUserViewController.h; sourceTree = "<group>"; };
 		FBE0F50F1ACA9CA8000FA8C0 /* Baller_SearchUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_SearchUserViewController.m; sourceTree = "<group>"; };
 		FBE0F5101ACA9CA8000FA8C0 /* Baller_SearchUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Baller_SearchUserViewController.xib; sourceTree = "<group>"; };
+		FBE0F5161ACBE1EE000FA8C0 /* Baller_EvaluateBallersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_EvaluateBallersViewController.h; sourceTree = "<group>"; };
+		FBE0F5171ACBE1EE000FA8C0 /* Baller_EvaluateBallersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_EvaluateBallersViewController.m; sourceTree = "<group>"; };
 		FBF50A951AC6345A003CBCAD /* PMCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendar.h; sourceTree = "<group>"; };
 		FBF50A971AC6345A003CBCAD /* NSDate+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helpers.h"; sourceTree = "<group>"; };
 		FBF50A981AC6345A003CBCAD /* NSDate+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helpers.m"; sourceTree = "<group>"; };
@@ -737,6 +740,8 @@
 				FB9EF25D1AADF830001D77CB /* Baller_ActivityDetailViewController.m */,
 				FB9EF25E1AADF830001D77CB /* Baller_EditActivityDetailViewController.h */,
 				FB9EF25F1AADF830001D77CB /* Baller_EditActivityDetailViewController.m */,
+				FBE0F5161ACBE1EE000FA8C0 /* Baller_EvaluateBallersViewController.h */,
+				FBE0F5171ACBE1EE000FA8C0 /* Baller_EvaluateBallersViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1579,7 +1584,6 @@
 				TargetAttributes = {
 					FBDEA37D1A22042B0084FEBD = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = 3SPFDP9HQL;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1750,6 +1754,7 @@
 				FB9EF3371AADF830001D77CB /* Baller_SystemConfigureViewController.m in Sources */,
 				FBD9B7601AAD7F7F00CDC1C6 /* UIImage+APLBlurEffect.m in Sources */,
 				FBD9B74B1AAD7F7F00CDC1C6 /* DismissingAnimator.m in Sources */,
+				FBE0F5181ACBE1EE000FA8C0 /* Baller_EvaluateBallersViewController.m in Sources */,
 				FBD9B7631AAD7F7F00CDC1C6 /* JSONKit.m in Sources */,
 				FB9EF33B1AADF830001D77CB /* Baller_BallFriendsTableViewCell.m in Sources */,
 				FB9EF3361AADF830001D77CB /* Baller_MyGameViewController.m in Sources */,
@@ -1974,7 +1979,7 @@
 			baseConfigurationReference = 495D5AA4BA95A7054E4EC211 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2001,7 +2006,7 @@
 			baseConfigurationReference = 23BDDA1FD93E8A2B37A70E54 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

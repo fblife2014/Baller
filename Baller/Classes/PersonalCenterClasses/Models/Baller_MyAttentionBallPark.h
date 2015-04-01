@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface Baller_MyAttentionBallPark : NSObject
-{
-    
-}
+
 @property (nonatomic,copy)NSString * attend_time;
 @property (nonatomic,assign)NSInteger court_id;
 @property (nonatomic,copy)NSString * court_img;

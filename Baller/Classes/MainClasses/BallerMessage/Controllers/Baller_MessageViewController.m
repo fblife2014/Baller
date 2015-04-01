@@ -223,10 +223,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     if (indexPath.row == 0) {
         return UITableViewCellEditingStyleNone;
     }
-    UITableViewCellEditingStyle result = UITableViewCellEditingStyleNone;//默认没有编辑风格
-    result = UITableViewCellEditingStyleDelete;//设置编辑风格为删除风格
-
-    return result;
+    return UITableViewCellEditingStyleDelete;
 }
 
 -(void)setEditing:(BOOL)editing animated:(BOOL)animated{//设置是否显示一个可编辑视图的视图控制器。

@@ -90,8 +90,7 @@
     
     //设置分享到QQ空间的应用Id，和分享url 链接
     [UMSocialQQHandler setQQWithAppId:QQAPPID appKey:QQAPPKEY url:@"http://www.umeng.com/social"];
-    
-    //设置支持没有客户端情况下使用SSO授权
+        //设置支持没有客户端情况下使用SSO授权
     [UMSocialQQHandler setSupportWebView:YES];
     
     //设置微信AppId，设置分享url，默认使用友盟的网址
@@ -138,6 +137,7 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     [self getTokenFromRC];
+    application.applicationIconBadgeNumber = 0;
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 

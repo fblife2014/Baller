@@ -139,6 +139,8 @@
             [Baller_HUDView bhud_showWithTitle:@"成功发起活动！"];
             [self.navigationController popViewControllerAnimated:YES];
         }
+        [Baller_HUDView bhud_showWithTitle:[result valueForKey:@"msg"]];
+
     }];
     
 }

@@ -109,7 +109,6 @@ static char ML_BlurView_blurViewKey;
         /*!
          根据当前视图内容，创建一个模糊视图，并添加到当前当前视图上。注意，当需要某些界面隐藏时，要先隐藏这些界面
          */
-        
         UIImageView * aBlurImageView = [[UIImageView alloc]initWithFrame:self.bounds];
         self.blurView = aBlurImageView;
         
@@ -187,7 +186,6 @@ static char ML_BlurView_blurViewKey;
 }
 
 - (void)removeOldBlurEffectView{
-    
     if (self.blurView) {
         [self.blurView removeFromSuperview];
     }

@@ -55,11 +55,10 @@
             [self pcv_SetupBackLayerWith:CGRectMake(0.0, 0.0, frame.size.width,  NUMBER(610, 580, 540,540))];
         }else if(ballerCardType == kBallerCardType_CreateBallPark){
             self.contentSize =CGSizeMake(frame.size.width, NUMBER(750.0, 680.0, 610, 610));
-            [self pcv_SetupBackLayerWith:CGRectMake(0.0, 0.0, frame.size.width,  NUMBER(615, 550, 510,510))];
+            [self pcv_SetupBackLayerWith:CGRectMake(0.0, 0.0, frame.size.width,  NUMBER(615, 565, 545,545))];
         }else if (ballerCardType == kBallerCardType_CreateBasketBallTeam){
             self.contentSize =CGSizeMake(frame.size.width, NUMBER(750.0, 680.0, 620, 620));
             [self pcv_SetupBackLayerWith:CGRectMake(0.0, 0.0, frame.size.width,  NUMBER(550, 525, 500,500))];
-
         }
 
         
@@ -158,7 +157,7 @@
     [_headImageButton setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[personalInfo valueForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
     
     if ([[personalInfo valueForKey:@"appraise"] boolForKey:@"can_appraise"]) {
-        if ([[personalInfo valueForKey:@"appraise"] boolForKey:@"friend_appraise"]) {
+        if ([[personalInfo valueForKey:@"appraise"] boolForKey:@"friend_appraise"] && [personalInfo intForKey:@"attend_status"] == 3) {
             abilityView.evaluateType = @"friend";
             [self addEvaluateButton];
         }else if ([[personalInfo valueForKey:@"appraise"] boolForKey:@"activity_appraise"]){
