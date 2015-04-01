@@ -154,12 +154,14 @@
     UINavigationController * currentNav = [[MLViewConrollerManager sharedVCMInstance] navigationController];
     
     Baller_PlayerCardViewController * playCardVC = [[Baller_PlayerCardViewController alloc]init];
-    playCardVC.uid = _activitiyModel.uid;
-    playCardVC.userName = _activitiyModel.user_name;
-    playCardVC.photoUrl = _activitiyModel.user_photo;
+    
     if ([_activitiyModel.uid isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
+
         playCardVC.ballerCardType = kBallerCardType_MyPlayerCard;
     }else{
+        playCardVC.uid = _activitiyModel.uid;
+        playCardVC.userName = _activitiyModel.user_name;
+        playCardVC.photoUrl = _activitiyModel.user_photo;
         playCardVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
     }
     [currentNav pushViewController:playCardVC animated:YES];

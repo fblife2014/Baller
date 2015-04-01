@@ -351,13 +351,14 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 
             Baller_BallTeamMemberInfo * userModel = _searchResultFriends[indexPath.row];
             Baller_PlayerCardViewController * playCardVC = [[Baller_PlayerCardViewController alloc]init];
-            playCardVC.uid = userModel.uid;
-            playCardVC.userName = userModel.user_name;
-            playCardVC.photoUrl = userModel.photo;
+
             if ([userModel.uid isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
                 playCardVC.ballerCardType = kBallerCardType_MyPlayerCard;
 
             }else{
+                playCardVC.uid = userModel.uid;
+                playCardVC.userName = userModel.user_name;
+                playCardVC.photoUrl = userModel.photo;
                 playCardVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
 
             }

@@ -209,12 +209,14 @@
     
     Baller_PlayerCardViewController * personalVC = [[Baller_PlayerCardViewController alloc]init];
     Baller_BallParkAttentionBallerListModel * userModel = _ballers[indexPath.row];
-    personalVC.userName = userModel.user_name;
-    personalVC.photoUrl = userModel.photo;
-    personalVC.uid = userModel.uid;
+ 
     if ([userModel.uid isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
         personalVC.ballerCardType = kBallerCardType_MyPlayerCard;
     }else{
+        personalVC.userName = userModel.user_name;
+        personalVC.photoUrl = userModel.photo;
+        personalVC.uid = userModel.uid;
+        
         personalVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
 
     }

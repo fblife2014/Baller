@@ -138,13 +138,15 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     if (0 == self.ballParkType) {
         if (0 == self.ballParks.count%10) {
             self.page = self.ballParks.count/10+1;
+            [self getNearbyCourts];
         }
     }else{
         if (0 == self.identifyingParks.count%10) {
             self.identifyingPage = self.identifyingParks.count/10+1;
+            [self getNearbyCourts];
+
         }
     }
-    [self getNearbyCourts];
 }
 
 #pragma mark - Initialization
