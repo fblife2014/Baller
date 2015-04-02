@@ -251,6 +251,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     if (!_chatUsers) {
         _chatUsers = [NSMutableArray new];
         
+
         RCUserInfo * myUserInfo = [[RCUserInfo alloc]initWithUserId:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"] name:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"user_name"] portrait:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"photo"]];
         
         RCUserInfo * friendUserInfo = [[RCUserInfo alloc]initWithUserId:chosedMessageInfo.from_uid name:chosedMessageInfo.from_username portrait:chosedMessageInfo.photo];
@@ -272,20 +273,11 @@ static NSString * const MessageListCellId = @"MessageListCellId";
         return completion(nil);
     for(RCUserInfo *u in self.chatUsers)
     {
-        if ([userId containsString:@"baller_"]) {
-            if([u.userId isEqualToString:[userId substringFromIndex:7]])
-            {
-                user = u;
-                break;
-            }
-        }else{
-            if([u.userId isEqualToString:userId])
-            {
-                user = u;
-                break;
-            }
+        if([u.userId isEqualToString:userId])
+        {
+            user = u;
+            break;
         }
-        
     }
     return completion(user);
 }

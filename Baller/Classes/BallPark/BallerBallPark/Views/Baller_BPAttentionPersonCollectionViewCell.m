@@ -14,7 +14,8 @@
 @implementation Baller_BPAttentionPersonCollectionViewCell
 
 - (void)awakeFromNib {
-
+    self.headImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.headImageView.clipsToBounds = YES;
     // Initialization code
 }
 

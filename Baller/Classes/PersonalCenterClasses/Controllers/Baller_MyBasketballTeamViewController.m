@@ -60,8 +60,14 @@
         DLog(@"%@,%@",viewController,userInfo);
         
         Baller_PlayerCardViewController *temp = [[Baller_PlayerCardViewController alloc]init];
-        temp.uid = userInfo.userId;
-        temp.userName = userInfo.name;
+        if ([temp.uid isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
+            temp.uid = temp.uid;
+            temp.userName = userInfo.name;
+            temp.photoUrl = userInfo.portraitUri;
+            temp.ballerCardType = kBallerCardType_MyPlayerCard;
+        }else{
+            temp.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
+        }
         
         UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:temp];
         

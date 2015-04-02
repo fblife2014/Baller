@@ -124,6 +124,8 @@
     
     if (self.ballerCardType == kBallerCardType_FirstBorn) {
         self.navigationItem.rightBarButtonItem = [ViewFactory getABarButtonItemWithTitle:@"进入主页" titleEdgeInsets:UIEdgeInsetsZero target:self selection:@selector(goToMainView)];
+    }else if(self.presentingViewController){
+                self.navigationItem.leftBarButtonItem = [ViewFactory getABarButtonItemWithTitle:@"返回" titleEdgeInsets:UIEdgeInsetsZero target:self selection:@selector(goToMainView)];
     }
     
 }

@@ -59,4 +59,8 @@
  */
 +(NSMutableAttributedString *)getAcolorfulStringWithText1:(NSString *)text1 Color1:(UIColor *)color1 Font1:(UIFont *)font1 Text2:(NSString *)text2 Color2:(UIColor *)color2 Font2:(UIFont *)font2 AllText:(NSString *)allText;
 
+//将本平台id转换成融云纪录的用户id“baller_xx”格式
+//+ (NSString *)rcloudUserId:(NSString *)ballerUserid;
+
+
 @end

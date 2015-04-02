@@ -564,7 +564,7 @@
 - (void)chatButtonAction
 {
     [[AppDelegate sharedDelegate] connectRC];
-    RCChatViewController * rcChatVC = [[RCIM sharedRCIM]createPrivateChat:[_personalInfo stringForKey:@"uid"] title:[_personalInfo stringForKey:@"user_name"] completion:^{
+    RCChatViewController * rcChatVC = [[RCIM sharedRCIM]createPrivateChat:[_personalInfo valueForKey:@"uid"] title:[_personalInfo stringForKey:@"user_name"] completion:^{
         [self setRCUserinfo];
     }];
     
@@ -754,20 +754,11 @@
         return completion(nil);
     for(RCUserInfo *u in self.chatUsers)
     {
-        if ([userId containsString:@"baller_"]) {
-            if([u.userId isEqualToString:[userId substringFromIndex:7]])
-            {
-                user = u;
-                break;
-            }
-        }else{
-            if([u.userId isEqualToString:userId])
-            {
-                user = u;
-                break;
-            }
+        if([u.userId isEqualToString:userId])
+        {
+            user = u;
+            break;
         }
-
     }
     return completion(user);
 }
@@ -778,8 +769,14 @@
         DLog(@"%@,%@",viewController,userInfo);
         
         Baller_PlayerCardViewController *temp = [[Baller_PlayerCardViewController alloc]init];
-        temp.uid = userInfo.userId;
-        temp.userName = userInfo.name;
+        if ([temp.uid isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
+            temp.uid = temp.uid;
+            temp.userName = userInfo.name;
+            temp.photoUrl = userInfo.portraitUri;
+            temp.ballerCardType = kBallerCardType_MyPlayerCard;
+        }else{
+            temp.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
+        }
         
         UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:temp];
         

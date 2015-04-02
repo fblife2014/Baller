@@ -105,5 +105,8 @@
     return str;
 }
 
+//+ (NSString *)rcloudUserId:(NSString *)ballerUserid{
+//    return [NSString stringWithFormat:@"baller_%@",ballerUserid];
+//}
 
 @end
