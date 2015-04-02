@@ -13,8 +13,8 @@
 #import "PresentingAnimator.h"
 #import "DismissingAnimator.h"
 
-@interface BallerTabBarController ()<UIViewControllerTransitioningDelegate,UITabBarDelegate>
-@property(nonatomic,strong)UITabBarItem * lastTabBarItem;
+@interface BallerTabBarController ()<UIViewControllerTransitioningDelegate>
+//@property(nonatomic,strong)UITabBarItem * lastTabBarItem;
 @end
 
 @implementation BallerTabBarController
@@ -92,41 +92,41 @@
 }
 #pragma mark UITabBarDelegate
 
-- (void)setLastTabBarItem:(UITabBarItem *)lastTabBarItem{
-    if (_lastTabBarItem == lastTabBarItem) {
-        return;
-    }
-    if (_lastTabBarItem) {
-        _lastTabBarItem.imageInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-        
-    }
-    _lastTabBarItem = lastTabBarItem;
-    _lastTabBarItem.imageInsets = UIEdgeInsetsMake(28, 28, 28, 28);
-    
-}
+//- (void)setLastTabBarItem:(UITabBarItem *)lastTabBarItem{
+//    if (_lastTabBarItem == lastTabBarItem) {
+//        return;
+//    }
+//    if (_lastTabBarItem) {
+//        _lastTabBarItem.imageInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+//        
+//    }
+//    _lastTabBarItem = lastTabBarItem;
+//    _lastTabBarItem.imageInsets = UIEdgeInsetsMake(28, 28, 28, 28);
+//    
+//}
 
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
-{
-    self.lastTabBarItem = item;
-}
+//- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+//{
+//    self.lastTabBarItem = item;
+//}
 
 /**
  *  设置 tabBarItem中图片的大小
  */
-- (void)setTabBarItemImageSmallSize
-{
-    for (UIView *child in self.tabBar.subviews) {
-        if (![child isKindOfClass:NSClassFromString(@"UITabBarButton")]) continue;
-        for (UIView *childChild in child.subviews) {
-            if ([childChild isKindOfClass:[UIImageView class]] || [childChild isKindOfClass:NSClassFromString(@"UITabBarSelectionIndicatorView")]) {
-                UIImageView * image = (UIImageView *)childChild;
-                image.width = 25;
-                image.height = 25;
-                
-            }
-        }
-    }
-}
+//- (void)setTabBarItemImageSmallSize
+//{
+//    for (UIView *child in self.tabBar.subviews) {
+//        if (![child isKindOfClass:NSClassFromString(@"UITabBarButton")]) continue;
+//        for (UIView *childChild in child.subviews) {
+//            if ([childChild isKindOfClass:[UIImageView class]] || [childChild isKindOfClass:NSClassFromString(@"UITabBarSelectionIndicatorView")]) {
+//                UIImageView * image = (UIImageView *)childChild;
+//                image.width = 25;
+//                image.height = 25;
+//                
+//            }
+//        }
+//    }
+//}
 
 #pragma mark - UIViewControllerTransitioningDelegate
 
