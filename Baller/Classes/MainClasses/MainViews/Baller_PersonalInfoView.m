@@ -222,7 +222,7 @@
         __BLOCKOBJ(blockHeadImageButton, _headImageButton);
 
         _baller_ImagePicker.baller_ImagePicker_ImageChosenBlock = (^(UIImage * headImage){
-            [blockHeadImageButton setImage:headImage forState:UIControlStateNormal];
+            [blockHeadImageButton setBackgroundImage:headImage forState:UIControlStateNormal];
             [(BaseViewController *)[[MLViewConrollerManager sharedVCMInstance] rootViewController] showBlurBackImageViewWithImage:headImage belowView:nil];
 
             [AFNHttpRequestOPManager postImageWithSubUrl:Baller_update_user_photo parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]} fileName:nil fileData:UIImageJPEGRepresentation(headImage, 0.5) fileType:nil responseBlock:^(id result, NSError *error) {

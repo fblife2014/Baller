@@ -57,10 +57,10 @@
         UIImage * headImage = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];
         
         [self showBlurBackImageViewWithImage:headImage belowView:nil];
-        [[createCardView headImageButton]setImage:headImage forState:UIControlStateNormal];
+        [[createCardView headImageButton]setBackgroundImage:headImage forState:UIControlStateNormal];
         
     }else{
-        [[createCardView headImageButton] setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImage]] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+        [[createCardView headImageButton] setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImage]] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
         
     }
 

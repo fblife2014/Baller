@@ -26,10 +26,10 @@
         UIImage * headImage = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];
         
         [self showBlurBackImageViewWithImage:headImage belowView:nil];
-        [[self.createTeamCardView headImageButton]setImage:headImage forState:UIControlStateNormal];
+        [[self.createTeamCardView headImageButton]setBackgroundImage:headImage forState:UIControlStateNormal];
         
     }else{
-        [[self.createTeamCardView headImageButton] setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImage]] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+        [[self.createTeamCardView headImageButton] setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImage]] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
         
     }
     __WEAKOBJ(weakSelf, self);

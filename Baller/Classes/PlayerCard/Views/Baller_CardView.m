@@ -154,7 +154,7 @@
     }
     if(!_personalInfo) _personalInfo = [NSMutableDictionary dictionary];
     [_personalInfo setValuesForKeysWithDictionary:personalInfo];
-    [_headImageButton setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[personalInfo valueForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+    [_headImageButton setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[personalInfo valueForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
     
     if ([[personalInfo valueForKey:@"appraise"] boolForKey:@"can_appraise"]) {
         if ([[personalInfo valueForKey:@"appraise"] boolForKey:@"friend_appraise"] && [personalInfo intForKey:@"attend_status"] == 3) {
