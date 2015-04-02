@@ -70,6 +70,11 @@
 + (NSString *)getDateStringOfTimeInterval:(unsigned long long)timeInterval;
 
 /*!
+ *  @brief  获取消息列表标准时间15/3/29
+ */
++ (NSString *)getMessageDateStringOfTimeInterval:(unsigned long long)timeInterval;
+
+/*!
  *  @brief  点格式时间
  */
 + (NSString *)getPointStringOfTimeInterval:(unsigned long long)timeInterval;

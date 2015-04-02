@@ -13,7 +13,6 @@
 #import "Baller_ActivityDetailViewController.h"
 
 #import "Baller_MessageViewCell.h"
-#import "Baller_MessageTop.h"
 
 #import "RCIM.h"
 #import "Baller_MessageListInfo.h"
@@ -137,34 +136,28 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    Baller_MessageViewCell * cell = [tableView dequeueReusableCellWithIdentifier:Baller_MessageViewCellId forIndexPath:indexPath];
+    cell.backgroundColor = indexPath.row%2?BALLER_CORLOR_CELL:[UIColor whiteColor];
     if (indexPath.row) {
-        Baller_MessageViewCell * cell = [tableView dequeueReusableCellWithIdentifier:Baller_MessageViewCellId forIndexPath:indexPath];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+
         cell.messageInfo = self.messageLists[indexPath.row-1];
-        
-        if (indexPath.row == 0) {
-            cell.backgroundType = BaseCellBackgroundTypeUpWhite;
-        }else if (indexPath.row == (self.messageLists.count)){
-            cell.backgroundType = (indexPath.row%2)?BaseCellBackgroundTypeDownGrey:BaseCellBackgroundTypeDownWhite;
-            
-        }else{
-            cell.backgroundType = indexPath.row%2?BaseCellBackgroundTypeMiddleGrey:BaseCellBackgroundTypeMiddleWhite;
-            
-        }
-        
-        return cell;
     }else{
-        Baller_MessageTop * cell = [tableView dequeueReusableCellWithIdentifier:MessageListCellId forIndexPath:indexPath];
-    
-        cell.backgroundType = BaseCellBackgroundTypeUpWhite;
-        return cell;
+        cell.messageTitleLabel.text = @"聊天列表";
+        cell.messageDetailLabel.text = @"快去跟你的球友聊聊吧";
+        cell.timeLabel.text = nil;
+        cell.messageNumberLable.hidden = YES;
+        cell.headImageView.image = [UIImage imageNamed:@"ballericon.jpg"];
+
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    return nil;
+    return cell;
 }
 
 #pragma mark UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath.row?PersonInfoCell_Height:60;
+    return PersonInfoCell_Height;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

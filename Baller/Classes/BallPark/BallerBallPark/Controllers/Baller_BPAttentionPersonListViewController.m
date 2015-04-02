@@ -231,8 +231,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Baller_BallParkAttentionTeamListModel * teamListModel = self.teams[indexPath.row];
     Baller_MyBasketballTeamViewController * teamVC = [[Baller_MyBasketballTeamViewController alloc]init];
+    teamVC.teamType = Baller_TeamOtherTeamType;
     teamVC.isCloseMJRefresh = YES;
-    teamVC.teamListModel = teamListModel;
+    teamVC.teamId = teamListModel.team_id;
     [self.navigationController pushViewController:teamVC animated:YES];
 }
 

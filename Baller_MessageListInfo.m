@@ -21,7 +21,8 @@
     info.msg_id = [dic stringForKey:@"msg_id"];
     info.photo = [dic stringForKey:@"photo"];
     info.pic = [dic stringForKey:@"pic"];
-    info.send_time = [[TimeManager getDateStringOfTimeInterval:(unsigned long long)[[dic valueForKey:@"send_time"] integerValue]] substringToIndex:10];
+    info.send_time = [TimeManager getMessageDateStringOfTimeInterval:(unsigned long long)[[dic valueForKey:@"send_time"] integerValue]];
+    
     info.status = [dic stringForKey:@"status"];
     info.theme_id = [dic stringForKey:@"theme_id"];
     info.title = [dic stringForKey:@"title"];

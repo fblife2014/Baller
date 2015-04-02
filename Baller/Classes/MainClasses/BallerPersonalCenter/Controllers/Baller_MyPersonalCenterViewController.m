@@ -39,7 +39,13 @@ static NSString * const Baller_MyCenterTopTableViewCellId = @"Baller_MyCenterTop
         if (error) {
             return ;
         }
-        
+        if ([result intForKey:@"errorcode"] == 0) {
+            BACKGROUND_BLOCK(^{
+                [USER_DEFAULT setValue:[result valueForKey:@"user_info"] forKey:Baller_UserInfo];
+                [USER_DEFAULT synchronize];
+            });
+
+        }
         
     }];
 }
@@ -184,6 +190,9 @@ static NSString * const Baller_MyCenterTopTableViewCellId = @"Baller_MyCenterTop
         {
             Baller_MyBasketballTeamViewController * myteamVC = [[Baller_MyBasketballTeamViewController alloc]init];
             myteamVC.isCloseMJRefresh = YES;
+
+            myteamVC.teamType = [[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_status"] integerValue];
+            
             myteamVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:myteamVC animated:YES];
             

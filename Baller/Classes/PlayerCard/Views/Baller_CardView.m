@@ -637,6 +637,7 @@
     if (team_nameString.length) {
         Baller_MyBasketballTeamViewController * ballTeamVC = [[Baller_MyBasketballTeamViewController alloc]init];
         ballTeamVC.isCloseMJRefresh = YES;
+        ballTeamVC.teamType = Baller_TeamJoinedType;
         [[[MLViewConrollerManager sharedVCMInstance]rootViewController].navigationController pushViewController:ballTeamVC animated:YES];
     }else{
         UINavigationController * currentNav = [[MLViewConrollerManager sharedVCMInstance] navigationController];
@@ -770,11 +771,11 @@
         
         Baller_PlayerCardViewController *temp = [[Baller_PlayerCardViewController alloc]init];
         if ([temp.uid isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
+            temp.ballerCardType = kBallerCardType_MyPlayerCard;
+        }else{
             temp.uid = temp.uid;
             temp.userName = userInfo.name;
             temp.photoUrl = userInfo.portraitUri;
-            temp.ballerCardType = kBallerCardType_MyPlayerCard;
-        }else{
             temp.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
         }
         

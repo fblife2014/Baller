@@ -174,8 +174,8 @@
 		FBF50AAC1AC6345A003CBCAD /* PMPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AA41AC6345A003CBCAD /* PMPeriod.m */; };
 		FBF50AAD1AC6345A003CBCAD /* PMSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AA61AC6345A003CBCAD /* PMSelectionView.m */; };
 		FBF50AB01AC7973D003CBCAD /* Baller_MessageListInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AAF1AC7973D003CBCAD /* Baller_MessageListInfo.m */; };
-		FBF50AB31AC79C29003CBCAD /* Baller_MessageTop.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AB21AC79C29003CBCAD /* Baller_MessageTop.m */; };
 		FBF50AE81AC92A4C003CBCAD /* Baller_ActivityDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AE71AC92A4B003CBCAD /* Baller_ActivityDetailInfo.m */; };
+		FBF6971E1ACD59F600C34C8B /* ballericon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FBF6971D1ACD59F600C34C8B /* ballericon.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -513,10 +513,9 @@
 		FBF50AA61AC6345A003CBCAD /* PMSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMSelectionView.m; sourceTree = "<group>"; };
 		FBF50AAE1AC7973D003CBCAD /* Baller_MessageListInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MessageListInfo.h; sourceTree = SOURCE_ROOT; };
 		FBF50AAF1AC7973D003CBCAD /* Baller_MessageListInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MessageListInfo.m; sourceTree = SOURCE_ROOT; };
-		FBF50AB11AC79C29003CBCAD /* Baller_MessageTop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MessageTop.h; sourceTree = "<group>"; };
-		FBF50AB21AC79C29003CBCAD /* Baller_MessageTop.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MessageTop.m; sourceTree = "<group>"; };
 		FBF50AE61AC92A4B003CBCAD /* Baller_ActivityDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_ActivityDetailInfo.h; sourceTree = SOURCE_ROOT; };
 		FBF50AE71AC92A4B003CBCAD /* Baller_ActivityDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_ActivityDetailInfo.m; sourceTree = SOURCE_ROOT; };
+		FBF6971D1ACD59F600C34C8B /* ballericon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ballericon.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -849,8 +848,6 @@
 			children = (
 				FB9EF2921AADF830001D77CB /* Baller_MessageViewCell.h */,
 				FB9EF2931AADF830001D77CB /* Baller_MessageViewCell.m */,
-				FBF50AB11AC79C29003CBCAD /* Baller_MessageTop.h */,
-				FBF50AB21AC79C29003CBCAD /* Baller_MessageTop.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1492,6 +1489,7 @@
 		FBDEA4461A2214ED0084FEBD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FBF6971D1ACD59F600C34C8B /* ballericon.jpg */,
 				13277F6F1ABD39B700E9621C /* UM_share */,
 				FBD64B671A7E69230070E003 /* Default-568h@2x.png */,
 				FBDD31811A5FE82200EBA059 /* login_back@3x.jpg */,
@@ -1623,6 +1621,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FBF6971E1ACD59F600C34C8B /* ballericon.jpg in Resources */,
 				FBDD315B1A5FC18700EBA059 /* Main.storyboard in Resources */,
 				FB9EF3451AADF830001D77CB /* Baller_MineBallParkTableViewCell.xib in Resources */,
 				FBDD315C1A5FC18700EBA059 /* LaunchScreen.xib in Resources */,
@@ -1741,7 +1740,6 @@
 				FB9EF3241AADF830001D77CB /* Baller_BallParkCollectionReusableView.m in Sources */,
 				FB9EF34D1AADF830001D77CB /* Baller_AbilityView.m in Sources */,
 				FBF50AAB1AC6345A003CBCAD /* PMDimmingView.m in Sources */,
-				FBF50AB31AC79C29003CBCAD /* Baller_MessageTop.m in Sources */,
 				FBD9B74E1AAD7F7F00CDC1C6 /* MLViewConrollerManager.m in Sources */,
 				FBD9B7761AAD7F7F00CDC1C6 /* OpenUDID.m in Sources */,
 				FB5E8B4E1AB6B73C007F9617 /* LTools.m in Sources */,

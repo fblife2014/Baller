@@ -265,6 +265,29 @@
     return [dataFormater stringFromDate:targerDate];
 }
 
+/*!
+ *  @brief  获取消息列表标准时间15/3/29
+ */
++ (NSString *)getMessageDateStringOfTimeInterval:(unsigned long long)timeInterval
+{
+    NSDate * targerDate = [NSDate dateWithTimeIntervalSince1970:timeInterval];
+    NSDateFormatter * dataFormater = [[NSDateFormatter alloc]init];
+    [dataFormater setDateFormat:@"MM/dd HH:mm"];
+    
+    NSString * dateString = [dataFormater stringFromDate:targerDate];
+
+    
+    NSDate * currentDate = [NSDate date];
+    NSString * currentDateString = [dataFormater stringFromDate:currentDate];
+    
+    if ([[dateString substringToIndex:5]isEqualToString:[currentDateString substringToIndex:5]]) {
+        return [NSString stringWithFormat:@"今天%@",[dateString substringFromIndex:5]];
+    }
+    
+    
+    return [dataFormater stringFromDate:targerDate];
+}
+
 + (NSString *)getPointStringOfTimeInterval:(unsigned long long)timeInterval
 {
     return [[[[self class] getDateStringOfTimeInterval:timeInterval] substringToIndex:10] stringByReplacingOccurrencesOfString:@"-" withString:@"."];
