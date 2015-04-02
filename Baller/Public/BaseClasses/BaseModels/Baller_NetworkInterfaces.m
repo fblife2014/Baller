@@ -38,7 +38,7 @@ NSString * const Baller_change_password = @"&c=user&m=change_password";    //15�
 
 NSString * const Baller_search_user = @"&c=user&m=search_user";    //16、搜索用户
 
-NSString * const Baller_evaluate_activity = @"&c=user&m=appraise_baller&type=activity"; //17、评价球员
+NSString * const Baller_evaluate_activity = @"&c=user&m=appraise_baller"; //17、评价球员
 NSString * const Baller_get_msg = @"&c=msg&m=get_msg"; //18-1、获取我的消息列表
 NSString * const Baller_del_msg = @"&c=msg&m=del_msg"; //18-2、获取我的消息列表
 NSString * const Baller_get_msg_info = @"&c=msg&m=get_msg_info"; //18-3、获取我的消息列表
