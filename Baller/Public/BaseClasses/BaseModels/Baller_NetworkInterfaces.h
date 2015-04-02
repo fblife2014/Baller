@@ -67,6 +67,7 @@ extern NSString * const Baller_get_team_info;       //55、根据team_id获取�
 extern NSString * const Baller_get_my_team;         //56、获取我的球队详情接口
 extern NSString * const Baller_team_out;            //57、退出、解散球队
 extern NSString * const Baller_team_change_leader;  //58、更换队长
+extern NSString * const Baller_team_check_invite_join;  //59、处理加入球队的邀请接口
 
 #import <Foundation/Foundation.h>
 

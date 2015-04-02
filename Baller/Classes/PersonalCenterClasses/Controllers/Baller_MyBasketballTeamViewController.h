@@ -19,6 +19,8 @@ typedef NS_ENUM(NSInteger, Baller_TeamType) {
 @interface Baller_MyBasketballTeamViewController : BaseTableViewController
 
 @property (nonatomic,copy)NSString * teamId; //球队id
+@property (nonatomic,copy)NSString * ti_id;  //邀请记录id（type=5的时候消息里的theme_id的值）
+
 @property (nonatomic,copy)NSString * teamName; //球队名
 @property (nonatomic)Baller_TeamType teamType; //球队详情页状态
 

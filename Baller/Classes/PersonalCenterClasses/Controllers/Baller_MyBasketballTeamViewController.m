@@ -47,6 +47,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
  
     if (_teamType!= Baller_TeamNotJoinedType) {
+        [self getBasketballTeamInfo:nil];
     }
 
 }
@@ -120,9 +121,21 @@
             }else{
                 self.navigationItem.title = @"球队详情";
             }
-            UIBarButtonItem *rightItem = [ViewFactory getABarButtonItemWithTitle:@"同意加入" titleEdgeInsets:UIEdgeInsetsMake(0.0, 15, 0.0, 15) target:self selection:@selector(agreeJoinTheTeam)];
-            self.navigationItem.rightBarButtonItem = rightItem;
+
+            UIView *footerView = [ViewFactory clearViewWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 150.0)];
+            UIButton *joinButton = [ViewFactory getAButtonWithFrame:CGRectMake(ScreenWidth / 2.0 - 125.0, 27.0, 250.0, 50.0) nomalTitle:@"同意加入" hlTitle:@"同意" titleColor:[UIColor whiteColor] bgColor:BALLER_CORLOR_NAVIGATIONBAR nImage:nil hImage:nil action:@selector(agreeJoinTheTeam) target:self buttonTpye:UIButtonTypeCustom];
+            joinButton.titleLabel.font = DEFAULT_BOLDFONT(17.0);
+            joinButton.layer.cornerRadius = 7.5;
+            [footerView addSubview:joinButton];
             
+            UIButton *rejectButton = [ViewFactory getAButtonWithFrame:CGRectMake(ScreenWidth / 2.0 - 125.0, 100.0, 250.0, 50.0) nomalTitle:@"拒绝加入" hlTitle:@"拒绝加入" titleColor:[UIColor whiteColor] bgColor:UIColorFromRGB(0X611b1b) nImage:nil hImage:nil action:@selector(rejectJoinTheTeam) target:self buttonTpye:UIButtonTypeCustom];
+            rejectButton.titleLabel.font = DEFAULT_BOLDFONT(17.0);
+            rejectButton.layer.cornerRadius = 7.5;
+            [footerView addSubview:rejectButton];
+        
+            self.tableView.tableFooterView = footerView;
+            
+
         }
 
             break;
@@ -131,7 +144,6 @@
             self.navigationItem.title = @"我的球队(申请中)";
             DLog(@"teamid = %@",[USER_DEFAULT valueForKey:Baller_UserInfo]);
             _teamId = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_id"];
-            [self getBasketballTeamInfo:nil];
 
         }
             break;
@@ -178,6 +190,7 @@
             break;
         case Baller_TeamWaitingCheckType:
             subUrl = Baller_get_team_info;
+            _teamId = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_id"];
             paras = @{ @"authcode": [USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"team_id":_teamId};
 
             break;
@@ -227,6 +240,7 @@
                 NSMutableDictionary * userInfo = [NSMutableDictionary dictionaryWithDictionary:[USER_DEFAULT valueForKey:Baller_UserInfo]];
                 [userInfo setValue:@"0" forKey:@"team_id"];
                 [userInfo setValue:@"" forKey:@"court_name"];
+                [userInfo setValue:@"2" forKey:@"team_status"];
                 [USER_DEFAULT setValue:userInfo forKey:Baller_UserInfo];
                 [USER_DEFAULT synchronize];
             });
@@ -241,7 +255,45 @@
 //同意加入球队
 - (void)agreeJoinTheTeam
 {
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_team_check_invite_join parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"ti_id":_ti_id,@"action":@"agree"} responseBlock:^(id result, NSError *error) {
+        if (error) {
+            return ;
+        }
+        if ([result intForKey:@"errorcode"] == 0) {
+            self.teamType = Baller_TeamJoinedType;
+            [self getBasketballTeamInfo:nil];
+            BACKGROUND_BLOCK(^{
+                NSMutableDictionary * userinfo = [NSMutableDictionary dictionaryWithDictionary:[USER_DEFAULT valueForKey:Baller_UserInfo]];
+                [userinfo setValue:@"1" forKey:@"team_status"];
+                [userinfo setValue:self.teamInfo.teamName forKey:@"court_name"];
+                
+                [USER_DEFAULT synchronize];
+            });
+        }
+        
+    }];
     
+}
+
+//拒绝加入球队
+- (void)rejectJoinTheTeam
+{
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_team_check_invite_join parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"ti_id":_ti_id,@"action":@"reject"} responseBlock:^(id result, NSError *error) {
+        if (error) {
+            return ;
+        }
+        if ([result intForKey:@"errorcode"] == 0) {
+            self.teamType = Baller_TeamNotJoinedType;
+            BACKGROUND_BLOCK(^{
+                NSMutableDictionary * userinfo = [NSMutableDictionary dictionaryWithDictionary:[USER_DEFAULT valueForKey:Baller_UserInfo]];
+                [userinfo setValue:@"2" forKey:@"team_status"];
+                [userinfo setValue:@"" forKey:@"court_name"];
+                [USER_DEFAULT synchronize];
+            });
+            
+        }
+        
+    }];
 }
 
 #pragma mark 其他按钮方法

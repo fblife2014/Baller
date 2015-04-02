@@ -11,6 +11,7 @@
 #import "RCChatViewController.h"
 #import "Baller_PlayerCardViewController.h"
 #import "Baller_ActivityDetailViewController.h"
+#import "Baller_MyBasketballTeamViewController.h"
 
 #import "Baller_MessageViewCell.h"
 
@@ -20,6 +21,7 @@
 @interface Baller_MessageViewController ()<RCIMUserInfoFetcherDelegagte,UITableViewDataSource,RCIMUserInfoFetcherDelegagte>
 {
     Baller_MessageListInfo * chosedMessageInfo;
+    BOOL deleted; //删除过消息
 }
 @property (nonatomic,strong)NSMutableArray * messageLists;
 @property (nonatomic,strong)NSMutableArray * chatUsers;
@@ -81,7 +83,8 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 
 - (void)footerRereshing{
     [super footerRereshing];
-    if (0 == self.messageLists.count%10) {
+    if (0 == self.messageLists.count%10 && !deleted) {
+        deleted = NO;
         self.page = self.messageLists.count/10+1;
         [self getMessageLists];
     }
@@ -103,7 +106,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
             for (NSDictionary * messageInfoDic in [result valueForKey:@"data"]) {
                 [strongSelf.messageLists addObject:[Baller_MessageListInfo shareWithServerDictionary:messageInfoDic]];
             }
-            if(strongSelf.messageLists.count == 0 || strongSelf.messageLists.count%10)
+            if(strongSelf.messageLists.count != 0 && strongSelf.messageLists.count%10)
             {
                 [strongSelf.tableView.footer noticeNoMoreData];
             }
@@ -120,9 +123,13 @@ static NSString * const MessageListCellId = @"MessageListCellId";
         if (error) return ;
         if ([result integerForKey:@"errorcode"] == 0)
         {
+            deleted = YES;
             NSIndexPath * deleteID = [NSIndexPath indexPathForRow:[self.messageLists indexOfObject:messageInfo]+1 inSection:0];
             [self.messageLists removeObject:messageInfo];
             [self.tableView deleteRowsAtIndexPaths:@[deleteID]withRowAnimation:UITableViewRowAnimationFade];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+            });
             
         }
     }];
@@ -140,15 +147,14 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     cell.backgroundColor = indexPath.row%2?BALLER_CORLOR_CELL:[UIColor whiteColor];
     if (indexPath.row) {
         cell.accessoryType = UITableViewCellAccessoryNone;
-
         cell.messageInfo = self.messageLists[indexPath.row-1];
+        
     }else{
         cell.messageTitleLabel.text = @"聊天列表";
         cell.messageDetailLabel.text = @"快去跟你的球友聊聊吧";
         cell.timeLabel.text = nil;
         cell.messageNumberLable.hidden = YES;
         cell.headImageView.image = [UIImage imageNamed:@"ballericon.jpg"];
-
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     return cell;
@@ -195,6 +201,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
         }
             break;
         case 3:
+        case 4:
         {
             Baller_ActivityDetailViewController * activityDVC = [[Baller_ActivityDetailViewController alloc]init];
             activityDVC.activityID = chosedMessageInfo.theme_id;
@@ -204,7 +211,28 @@ static NSString * const MessageListCellId = @"MessageListCellId";
             [self.navigationController pushViewController:activityDVC animated:YES];
         }
             break;
+        case 5:
+        {
+            Baller_MyBasketballTeamViewController * teamInfoVC = [[Baller_MyBasketballTeamViewController alloc]init];
+            teamInfoVC.isCloseMJRefresh = YES;
+            teamInfoVC.teamId = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_status"];
+            teamInfoVC.ti_id = chosedMessageInfo.theme_id;
+            teamInfoVC.teamType = Baller_TeamInvitingType;
+            teamInfoVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:teamInfoVC animated:YES];
+        }
+            break;
+        case 6:
+        case 7:
+        {
+            Baller_MyBasketballTeamViewController * teamInfoVC = [[Baller_MyBasketballTeamViewController alloc]init];
+            teamInfoVC.isCloseMJRefresh = YES;
+            teamInfoVC.teamType = Baller_TeamJoinedType;
+            teamInfoVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:teamInfoVC animated:YES];
+        }
             
+            break;
         default:
             break;
     }
