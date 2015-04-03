@@ -30,6 +30,7 @@
 @property (nonatomic,strong)NSMutableArray * identifyingParks; //认证中的球场
 @property (nonatomic) BallParkType ballParkType;
 @property (nonatomic) NSInteger identifyingPage; //认证中的列表状态页码
+@property (nonatomic) NSInteger identifingTotalnum; //认证中的总条数
 @end
 
 static NSString * const Baller_BallparkCollectionViewCellId = @"Baller_BallparkCollectionViewCell";
@@ -93,14 +94,15 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
             
             NSArray * courtList = (NSArray *)[result valueForKey:@"list"];
             NSMutableArray * courtsArray = nil;
-            
+            NSInteger totalnum = [result integerForKey:@"total_num"];
             if (self.ballParkType == BallParkTypeIdentifyed) {
-                
+                self.total_num = totalnum;
+
                 if (1 == self.page)[self.ballParks removeAllObjects];
                 courtsArray = self.ballParks;
 
             }else if (self.ballParkType == BallParkTypeIdentifing){
-    
+                self.identifingTotalnum = totalnum;
                 if (1 == self.identifyingPage)[self.identifyingParks removeAllObjects];
                 courtsArray = self.identifyingParks;
             }
@@ -109,6 +111,23 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
                 @autoreleasepool {
                     Baller_BallParkListModel * ballParkModel = [[Baller_BallParkListModel alloc]initWithAttributes:courtDic];
                     [courtsArray addObject:ballParkModel];
+                }
+            }
+            
+            if (self.ballParkType == BallParkTypeIdentifyed) {
+                if (self.ballParks.count<self.total_num) {
+                    [self.collectionView.footer setState:MJRefreshFooterStateIdle];
+                }else{
+                    [self.collectionView.footer noticeNoMoreData];
+
+                }
+            }else{
+
+                if (self.identifyingParks.count<self.identifingTotalnum) {
+                    [self.collectionView.footer setState:MJRefreshFooterStateIdle];
+                }else{
+                    [self.collectionView.footer noticeNoMoreData];
+                    
                 }
             }
             
@@ -136,12 +155,12 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     [super footerRereshing];
     
     if (0 == self.ballParkType) {
-        if (0 == self.ballParks.count%10) {
+        if (self.ballParks.count<self.total_num) {
             self.page = self.ballParks.count/10+1;
             [self getNearbyCourts];
         }
     }else{
-        if (0 == self.identifyingParks.count%10) {
+        if (self.identifyingParks.count<self.identifingTotalnum) {
             self.identifyingPage = self.identifyingParks.count/10+1;
             [self getNearbyCourts];
 

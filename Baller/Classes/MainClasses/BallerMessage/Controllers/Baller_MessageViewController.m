@@ -21,11 +21,11 @@
 @interface Baller_MessageViewController ()<RCIMUserInfoFetcherDelegagte,UITableViewDataSource,RCIMUserInfoFetcherDelegagte>
 {
     Baller_MessageListInfo * chosedMessageInfo;
-    BOOL deleted; //删除过消息
 }
 @property (nonatomic,strong)NSMutableArray * messageLists;
 @property (nonatomic,strong)NSMutableArray * chatUsers;
 @property (nonatomic)NSInteger page;
+@property (nonatomic)NSInteger total_num;
 @end
 
 static NSString * const Baller_MessageViewCellId = @"Baller_MessageViewCellId";
@@ -93,8 +93,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
         [self.tableView.footer endRefreshing];
     });
     
-    if (0 == self.messageLists.count%10 && !deleted) {
-        deleted = NO;
+    if (self.messageLists.count<self.total_num) {
         self.page = self.messageLists.count/10+1;
         [self getMessageLists];
     }
@@ -113,12 +112,19 @@ static NSString * const MessageListCellId = @"MessageListCellId";
             if (strongSelf.page == 1) {
                 [strongSelf.messageLists removeAllObjects];
             }
+            self.total_num = [result integerForKey:@"total_num"];
             for (NSDictionary * messageInfoDic in [result valueForKey:@"data"]) {
-                [strongSelf.messageLists addObject:[Baller_MessageListInfo shareWithServerDictionary:messageInfoDic]];
+                Baller_MessageListInfo * messageInfoModel = [Baller_MessageListInfo shareWithServerDictionary:messageInfoDic];
+                if (![strongSelf.messageLists containsObject:messageInfoModel]) {
+                    [strongSelf.messageLists addObject:messageInfoModel];
+
+                }
             }
-            if(strongSelf.messageLists.count != 0 && strongSelf.messageLists.count%10)
+            if(strongSelf.messageLists.count == self.total_num)
             {
                 [strongSelf.tableView.footer noticeNoMoreData];
+            }else{
+                [strongSelf.tableView.footer setState:MJRefreshFooterStateIdle];
             }
             [self.tableView reloadData];
         }
@@ -133,7 +139,6 @@ static NSString * const MessageListCellId = @"MessageListCellId";
         if (error) return ;
         if ([result integerForKey:@"errorcode"] == 0)
         {
-            deleted = YES;
             NSIndexPath * deleteID = [NSIndexPath indexPathForRow:[self.messageLists indexOfObject:messageInfo]+1 inSection:0];
             [self.messageLists removeObject:messageInfo];
             [self.tableView deleteRowsAtIndexPaths:@[deleteID]withRowAnimation:UITableViewRowAnimationFade];

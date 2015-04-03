@@ -13,6 +13,8 @@
 
 @property (nonatomic,strong) id pushInfo;    //推到下级界面时携带的数据
 @property (nonatomic)NSInteger page;         //页码
+@property (nonatomic)NSInteger total_num;    //总条数
+
 @property (nonatomic, weak) UIImageView * blurBackImageView;
 @property (nonatomic, weak) UIScrollView * bottomScrollView; //底部可滑动视图
 
