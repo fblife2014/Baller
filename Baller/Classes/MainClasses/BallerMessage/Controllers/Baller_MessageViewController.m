@@ -25,6 +25,7 @@
 }
 @property (nonatomic,strong)NSMutableArray * messageLists;
 @property (nonatomic,strong)NSMutableArray * chatUsers;
+@property (nonatomic)NSInteger page;
 @end
 
 static NSString * const Baller_MessageViewCellId = @"Baller_MessageViewCellId";
@@ -44,6 +45,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     self.tableView.dataSource = self;
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadMessageData) name:BallerLogoutThenLoginNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadMessageData) name:BallerUpdateHeadImageNotification object:nil];
+    self.page = 1;
     [self getMessageLists];
     // Do any additional setup after loading the view.
 }
@@ -76,13 +78,19 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 }
 
 - (void)headerRereshing{
-    [super headerRereshing];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView.header endRefreshing];
+    });
+    
     self.page = 1;
     [self getMessageLists];
 }
 
 - (void)footerRereshing{
-    [super footerRereshing];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView.footer endRefreshing];
+    });
+    
     if (0 == self.messageLists.count%10 && !deleted) {
         deleted = NO;
         self.page = self.messageLists.count/10+1;
@@ -145,7 +153,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 {
     Baller_MessageViewCell * cell = [tableView dequeueReusableCellWithIdentifier:Baller_MessageViewCellId forIndexPath:indexPath];
     cell.backgroundColor = indexPath.row%2?BALLER_CORLOR_CELL:[UIColor whiteColor];
-    if (indexPath.row) {
+    if (indexPath.row>0) {
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.messageInfo = self.messageLists[indexPath.row-1];
         
@@ -164,6 +172,10 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return PersonInfoCell_Height;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.1;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

@@ -26,9 +26,7 @@
 }
 
 - (void)setMessageInfo:(Baller_MessageListInfo *)messageInfo{
-    if (_messageInfo == messageInfo) {
-        return;
-    }
+
     _messageInfo = messageInfo;
     
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_messageInfo.photo] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];

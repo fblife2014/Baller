@@ -44,7 +44,7 @@
         
         
         UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
-        [self.navigationController.view addGestureRecognizer:panRecognizer];
+        [self.rootViewController.view addGestureRecognizer:panRecognizer];
         self.navigationController.delegate = self;
     
         self.popAnimator = [PopingAnimator new];

@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 malong. All rights reserved.
 //
 
-#import "BaseTableViewController.h"
+#import <UIKit/UIKit.h>
 
-@interface Baller_MessageViewController : BaseTableViewController
+@interface Baller_MessageViewController : UITableViewController
 
 @end
