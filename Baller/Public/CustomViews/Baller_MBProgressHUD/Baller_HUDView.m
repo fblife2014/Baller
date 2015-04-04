@@ -22,7 +22,8 @@
 
 - (id)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
+        self.layer.cornerRadius = 5;
     }
     return self;
 }
@@ -41,7 +42,7 @@
     if (!_titleLabel) {
         UILabel* label = [[UILabel alloc]init];
         label.backgroundColor = [UIColor clearColor];
-        label.textColor = [UIColor blackColor];
+        label.textColor = [UIColor whiteColor];
         label.font = [UIFont systemFontOfSize:14.0f];
         label.textAlignment = NSTextAlignmentCenter;
         _titleLabel = label;

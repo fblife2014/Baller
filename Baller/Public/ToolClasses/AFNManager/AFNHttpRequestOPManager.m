@@ -134,8 +134,6 @@
     [[[self class] sharedManager] POST:totalUrlString parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         [[[self class]sharedManager] hideMyprogressHud];
 
-
-        
         if (responseObject != nil) {
             block(responseObject,nil);
             DLog(@"responseObject = %@",responseObject);
@@ -154,6 +152,8 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[[self class]sharedManager] hideMyprogressHud];
         DLog(@"error = %@",error);
+        DLog(@"operation.responseString = %@",operation.responseString);
+
         [Baller_HUDView bhud_showWithTitle:@"出错了，正在解决中，请耐心等候"];
 
         //failure 方法里面的operation.responseData 有可能含有我们想要的正确的数据

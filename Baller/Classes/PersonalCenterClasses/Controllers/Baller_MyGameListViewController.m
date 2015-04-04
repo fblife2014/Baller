@@ -172,6 +172,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Baller_BallParkActivityListModel * activityListModel = _gameLists[indexPath.row];
+    if (activityListModel.status == 2) {
+        [Baller_HUDView bhud_showWithTitle:@"该活动已解散，看看其它的吧"];
+        return;
+    }
     if (_gameListType == GameListType_WaitEvaluated) {
         Baller_WaitingEvaluateBallersViewController * evaluateBallersVC = [[Baller_WaitingEvaluateBallersViewController alloc]init];
         evaluateBallersVC.activityID = activityListModel.activity_id;

@@ -221,7 +221,11 @@
             }else{
                 self.activityStatus = BallerActivityStatusDissolved;
             }
+            
             [self setupSubViews];
+        }else{
+            [Baller_HUDView bhud_showWithTitle:[result stringForKey:@"msg"]];
+            [self PopToLastViewController];
         }
     }];
 }
@@ -237,14 +241,14 @@
         if (error) return ;
         
         __STRONGOBJ(strongSelf, weakSelf);
-        
+        __BLOCKOBJ(blockInfo, self.activityDetailInfo);
         if (0 == [[result valueForKey:@"errorcode"] integerValue]) {
             isDataChanged = YES;
             if (isCreator) {
                 self.activityStatus = BallerActivityStatusDissolved;
             }else{
                 strongSelf.activityDetailInfo.my_join = !strongSelf.activityDetailInfo.my_join;
-                
+                blockInfo.status = 2;
                 if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.start_time]) {
                     self.activityStatus = BallerActivityStatusWaitingStart;
                     
