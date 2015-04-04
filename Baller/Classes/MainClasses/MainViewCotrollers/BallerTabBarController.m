@@ -22,6 +22,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[AppDelegate sharedDelegate]setTabBarContoller:self];
     self.navigationController.navigationBarHidden = YES;
     self.navigationController.navigationBar.translucent = NO;
     [self createTabBarItemImage];

@@ -17,6 +17,7 @@
 #import "Baller_MyBallParkViewController.h"
 #import "Baller_MyBasketballTeamViewController.h"
 #import "Baller_ChoseTeamViewController.h"
+#import "Baller_BallParkHomepageViewController.h"
 
 #import "Baller_PlayerCardViewController.h"
 
@@ -24,6 +25,7 @@
 #import "Baller_AbilityEditorView.h"
 
 #import "LShareSheetView.h"
+#import "Baller_MyAttentionBallPark.h"
 
 #import "RCIM.h"
 @interface Baller_CardView ()<RCIMUserInfoFetcherDelegagte>
@@ -46,6 +48,11 @@
     }
     return self;
 }
+
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
+
 - (id)initWithFrame:(CGRect)frame
      playerCardType:(BallerCardType)ballerCardType{
     self = [self initWithFrame:frame];
@@ -74,6 +81,12 @@
             case kBallerCardType_MyPlayerCard:
 
                 [self addShareButton];
+                
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chooseQiuChang:) name:@"ChooseZhuChang" object:nil];
+
+                [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chooseQiuDui:) name:@"ChooseTeamNotifacation" object:nil];
+
+                
                 whiteBottomlayer.frame = CGRectMake(0.0, CGRectGetMaxY(_nickNameLabel.frame), pathRect.size.width, CGRectGetMaxY(backLayer.frame)-pathRect.size.width*PCV_BottomSegHeightRatio-CGRectGetMaxY(_nickNameLabel.frame));
 
                 whiteBottomlayer.backgroundColor = BALLER_CORLOR_CELL.CGColor;
@@ -188,14 +201,15 @@
             break;
     }
     
+
     if ([personalInfo intForKey:@"court_id"]) {
-        [ballParkButton setTitle:[personalInfo valueForKey:@"court_name"] forState:UIControlStateNormal];
-        [ballParkButton setTitle:[personalInfo valueForKey:@"court_name"] forState:UIControlStateNormal];
+        self.court_name = [personalInfo valueForKey:@"court_name"];
+        self.court_id = [personalInfo stringForKey:@"court_id"];
     }
     
     if ([personalInfo intForKey:@"team_id"]) {
-        [ballParkButton setTitle:[personalInfo valueForKey:@"team_name"] forState:UIControlStateNormal];
-        [ballParkButton setTitle:[personalInfo valueForKey:@"team_name"] forState:UIControlStateNormal];
+        self.team_name = [personalInfo valueForKey:@"team_name"];
+        self.team_id = [personalInfo stringForKey:@"team_id"];
     }
     
     self.abilityDetails =  @[@(MAX([[personalInfo valueForKey:@"shoot"] floatValue]/1000.0, 0.4)),
@@ -233,6 +247,52 @@
     [abilityView addSubview:abilityEditorView];
 }
 
+#pragma mark 设置球场名或球队名
+
+- (void)setCourt_name:(NSString *)court_name{
+    if ([_court_name isEqualToString:court_name]) {
+        return;
+    }
+    _court_name = court_name;
+    NSString * title = _court_name;
+    if (_court_name.length>6) {
+        title = [_court_name substringToIndex:6];
+        title = $str(@"%@...",title);
+    }
+    [ballParkButton setTitle:title forState:UIControlStateNormal];
+}
+
+- (void)setTeam_name:(NSString *)team_name{
+    if ([_team_name isEqualToString:team_name]) {
+        return;
+    }
+    _team_name = team_name;
+    [_ballTeamButton setTitle:team_name forState:UIControlStateNormal];
+    [_ballTeamButton setTitle:team_name forState:UIControlStateNormal];
+    
+}
+
+#pragma mark 球场名或球队名变化通知
+
+-(void)chooseQiuChang:(NSNotification *) sender
+{
+    if (nil == sender.object) {
+        return;
+    }
+    Baller_MyAttentionBallPark *currentBallPark = sender.object;
+    self.court_name = currentBallPark.court_name;
+    self.court_id = $str(@"%ld",currentBallPark.court_id);
+    
+}
+
+- (void)chooseQiuDui:(NSNotification *) sender
+{
+    if (nil == sender.userInfo) {
+        return;
+    }
+    
+    
+}
 
 
 #pragma mark  添加子视图
@@ -390,14 +450,24 @@
 - (UIButton *)ballParkButton
 {
     if (!_ballParkButton) {
-        NSString * court_nameString = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"court_name"];
-        NSString * ballParkString = court_nameString.length?court_nameString:@"未加入球场";
-        ballParkButton = [ViewFactory getAButtonWithFrame:CGRectMake(0.0, CGRectGetMaxY(_nickNameLabel.frame), pathRect.size.width/2.0, pathRect.size.width*PCV_SegmentHeightRatio) nomalTitle:ballParkString hlTitle:ballParkString titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:@"homeCourt" hImage:@"homeCourt" action:@selector(ballParkButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+        
+        ballParkButton = [ViewFactory getAButtonWithFrame:CGRectMake(0.0, CGRectGetMaxY(_nickNameLabel.frame), pathRect.size.width/2.0, pathRect.size.width*PCV_SegmentHeightRatio) nomalTitle:nil hlTitle:nil titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:@"homeCourt" hImage:@"homeCourt" action:@selector(ballParkButtonAction) target:self buttonTpye:UIButtonTypeCustom];
         ballParkButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, -10, 0.0, 10.0);
         ballParkButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 0.0, -1.0, 0.0);
-        ballParkButton.userInteractionEnabled = !(_ballerCardType==kBallerCardType_OtherBallerPlayerCard);
         ballParkButton.titleLabel.font = SYSTEM_FONT_S(15.0);
         _ballParkButton = ballParkButton;
+        
+        if (_ballerCardType == kBallerCardType_MyPlayerCard || _ballerCardType==kBallerCardType_FirstBorn)
+        {
+            NSString * court_nameString = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"court_name"];
+            
+            NSString * courtname = court_nameString.length?court_nameString:@"未加入球场";
+            self.court_name = courtname;
+            
+            NSString * courtId = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"court_id"];
+            self.court_id = [courtId integerValue]?courtId:nil;
+            
+        }
     }
     return _ballParkButton;
 }
@@ -413,16 +483,21 @@
         UIButton * ballTeamButton = [ViewFactory getAButtonWithFrame:CGRectMake(pathRect.size.width/2.0, CGRectGetMaxY(_nickNameLabel.frame), pathRect.size.width/2.0, pathRect.size.width*PCV_SegmentHeightRatio) nomalTitle:nil hlTitle:nil titleColor:BALLER_CORLOR_696969 bgColor:nil nImage:@"ballTeam" hImage:@"ballTeam" action:@selector(ballTeamButtonAction) target:self buttonTpye:UIButtonTypeCustom];
         ballTeamButton.titleLabel.font = SYSTEM_FONT_S(15.0);
         ballTeamButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 10.0, -1.0, -10.0);
-        ballTeamButton.userInteractionEnabled = !(_ballerCardType==kBallerCardType_OtherBallerPlayerCard);
-
         _ballTeamButton = ballTeamButton;
         
     }
-    NSString * team_nameString = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_name"];
-    
-    NSString * ballTeamString = team_nameString.length?team_nameString:@"未加入球队";
-    [_ballTeamButton setTitle:ballTeamString forState:UIControlStateNormal];
-    
+    if (_ballerCardType == kBallerCardType_MyPlayerCard || _ballerCardType==kBallerCardType_FirstBorn)
+    {
+        NSString * team_nameString = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_name"];
+        
+        NSString * ballTeamString = team_nameString.length?team_nameString:@"未加入球队";
+        self.team_name = ballTeamString;
+        
+        NSString * teamid = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_id"];
+        
+        self.team_id = [teamid integerValue]?teamid:nil;
+        
+    }
     return _ballTeamButton;
 }
 
@@ -622,9 +697,34 @@
  *  @brief  我的球场按钮方法
  */
 - (void)ballParkButtonAction{
-    Baller_MyBallParkViewController * ballParkVC = [[Baller_MyBallParkViewController alloc]init];
-    ballParkVC ->soureVC = @"2";
-    [[[MLViewConrollerManager sharedVCMInstance]rootViewController].navigationController pushViewController:ballParkVC animated:YES];
+    
+    UINavigationController * currentNav = [[MLViewConrollerManager sharedVCMInstance] navigationController];
+    
+    if (_court_id && _ballerCardType == kBallerCardType_OtherBallerPlayerCard)
+    {
+        Baller_BallParkHomepageViewController * ballParkHomeVC = [[Baller_BallParkHomepageViewController alloc]init];
+        ballParkHomeVC.court_name = _court_name;
+        ballParkHomeVC.court_id = _court_id;
+        [currentNav pushViewController:ballParkHomeVC animated:YES];
+        
+    }else{
+        switch (_ballerCardType) {
+            case kBallerCardType_FirstBorn:
+            case kBallerCardType_MyPlayerCard:
+            {
+                Baller_MyBallParkViewController * ballParkVC = [[Baller_MyBallParkViewController alloc]init];
+                ballParkVC ->soureVC = @"2";
+                [currentNav pushViewController:ballParkVC animated:YES];
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+    }
+
+
 }
 
 /*!
@@ -632,28 +732,42 @@
  */
 - (void)ballTeamButtonAction
 {
-    NSString * team_nameString = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_name"];
+    UINavigationController * currentNav = [[MLViewConrollerManager sharedVCMInstance] navigationController];
     
-    if (team_nameString.length) {
+    if (_team_id) {
         Baller_MyBasketballTeamViewController * ballTeamVC = [[Baller_MyBasketballTeamViewController alloc]init];
         ballTeamVC.isCloseMJRefresh = YES;
-        ballTeamVC.teamType = Baller_TeamJoinedType;
-        [[[MLViewConrollerManager sharedVCMInstance]rootViewController].navigationController pushViewController:ballTeamVC animated:YES];
-    }else{
-        UINavigationController * currentNav = [[MLViewConrollerManager sharedVCMInstance] navigationController];
+        ballTeamVC.teamId = self.team_id;
+        ballTeamVC.teamName = self.team_name;
+        ballTeamVC.teamType = _ballerCardType == kBallerCardType_OtherBallerPlayerCard?Baller_TeamOtherTeamType:([[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_status"] integerValue]);
+        [currentNav pushViewController:ballTeamVC animated:YES];
         
-        Baller_ChoseTeamViewController *choseTeamVC = [[Baller_ChoseTeamViewController alloc] init];
-        __WEAKOBJ(weakSelf, self)
-        choseTeamVC.choseTeamBlock = ^(Baller_BallParkAttentionTeamListModel * chosenTeam) {
-            if (chosenTeam) {
+    }else{
+        switch (_ballerCardType) {
+            case kBallerCardType_FirstBorn:
+            case kBallerCardType_MyPlayerCard:
+            {
+                Baller_ChoseTeamViewController *choseTeamVC = [[Baller_ChoseTeamViewController alloc] init];
+                __WEAKOBJ(weakSelf, self)
+                choseTeamVC.choseTeamBlock = ^(Baller_BallParkAttentionTeamListModel * chosenTeam) {
+                    if (chosenTeam) {
+                        __STRONGOBJ(strongSelf, weakSelf);
+                        strongSelf.team_id = chosenTeam.team_id;
+                        strongSelf.team_name = chosenTeam.team_name;
+                    }
+                };
+                [currentNav pushViewController:choseTeamVC animated:YES];
                 
             }
-        };
-        [currentNav pushViewController:choseTeamVC animated:YES];
+                
+                break;
+                
+            default:
+                break;
+        }
 
     }
     
-
 }
 
 /*!
@@ -770,10 +884,10 @@
         DLog(@"%@,%@",viewController,userInfo);
         
         Baller_PlayerCardViewController *temp = [[Baller_PlayerCardViewController alloc]init];
-        if ([temp.uid isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
+        if ([userInfo.userId isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
             temp.ballerCardType = kBallerCardType_MyPlayerCard;
         }else{
-            temp.uid = temp.uid;
+            temp.uid = userInfo.userId;
             temp.userName = userInfo.name;
             temp.photoUrl = userInfo.portraitUri;
             temp.ballerCardType = kBallerCardType_OtherBallerPlayerCard;

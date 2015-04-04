@@ -16,7 +16,8 @@
 
 @interface Baller_MyBallParkViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
-    NSMutableArray *dataSourceArray;
+    __block NSMutableArray *dataSourceArray;
+    Baller_MyAttentionBallPark * opretionBallPark; //正在操作的模型
 }
 @property (nonatomic,strong) UITableView * ballParkTableView;
 
@@ -76,7 +77,7 @@
 
 - (void)footerRereshing{
     [super footerRereshing];
-    if (0 == dataSourceArray.count%10) {
+    if (self.total_num > dataSourceArray.count) {
         self.page = dataSourceArray.count/10+1;
         if ([soureVC integerValue] == 1) {
             [self getNewNetData];
@@ -129,15 +130,19 @@
             if (self.page == 1) {
                 [dataSourceArray removeAllObjects];
             }
+            self.total_num = [result integerForKey:@"total_num"];
+            
             for(NSDictionary *dic in [result objectForKey:@"list"])
             {
                 Baller_MyAttentionBallPark *myAttentionBallPark = [[Baller_MyAttentionBallPark alloc] initWithAttributes:dic];
                 [dataSourceArray addObject:myAttentionBallPark];
                 [_ballParkTableView reloadData];
             }
-            if(dataSourceArray.count == 0 || dataSourceArray.count%10)
+            if(dataSourceArray.count>=self.total_num)
             {
                 [_ballParkTableView.footer noticeNoMoreData];
+            }else{
+                [_ballParkTableView.footer setState:MJRefreshFooterStateIdle];
             }
         }
     }];
@@ -169,25 +174,37 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    Baller_MyAttentionBallPark *currentModel = (Baller_MyAttentionBallPark *)[dataSourceArray objectAtIndex:indexPath.row];
+    opretionBallPark = (Baller_MyAttentionBallPark *)[dataSourceArray objectAtIndex:indexPath.row];
     if( [soureVC integerValue] == 2)
     {
-        [AFNHttpRequestOPManager getWithSubUrl:Baller_select_my_court parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":@(currentModel.court_id)} responseBlock:^(id result, NSError *error) {
+        [AFNHttpRequestOPManager getWithSubUrl:Baller_select_my_court parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":@(opretionBallPark.court_id)} responseBlock:^(id result, NSError *error) {
             if (error) return ;
             if ([[result valueForKey:@"errorcode"] integerValue] == 0) {
                 
                 NSMutableDictionary * userinfo = [NSMutableDictionary dictionaryWithDictionary:[USER_DEFAULT valueForKey:Baller_UserInfo]];
-                [userinfo setValue:$str(@"%ld",currentModel.court_id) forKey:@"court_id"];
+                [userinfo setValue:$str(@"%ld",opretionBallPark.court_id) forKey:@"court_id"];
+                [userinfo setValue:opretionBallPark.court_name forKey:@"court_name"];
+
                 [USER_DEFAULT setValue:userinfo forKey:Baller_UserInfo];
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"ChooseZhuChang" object:currentModel];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ChooseZhuChang" object:opretionBallPark];
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }];
     }else{
         Baller_BallParkHomepageViewController * ballParkHomePageVc = [[Baller_BallParkHomepageViewController alloc]init];
-        ballParkHomePageVc.court_id = [NSString stringWithFormat:@"%ld",currentModel.court_id];
-        ballParkHomePageVc.court_name = currentModel.court_name;
+        ballParkHomePageVc.court_id = [NSString stringWithFormat:@"%ld",opretionBallPark.court_id];
+        ballParkHomePageVc.court_name = opretionBallPark.court_name;
+        ballParkHomePageVc.cancelAttentionBlock = ^(NSString * courtId,BOOL isCanceledAttention){
+
+            if (isCanceledAttention) {
+                [dataSourceArray removeObject:opretionBallPark];
+            }else{
+                [dataSourceArray addObject:opretionBallPark];
+            }
+            [_ballParkTableView reloadData];
+            
+        };
         ballParkHomePageVc.isCloseMJRefresh = YES;
         [self.navigationController pushViewController:ballParkHomePageVc animated:YES];
         

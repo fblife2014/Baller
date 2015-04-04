@@ -17,8 +17,11 @@
     Baller_ActivityDetailInfo *info = [[Baller_ActivityDetailInfo alloc] init];
     info.activity_id = [dic stringForKey:@"activity_id"];
     info.court_id = [dic stringForKey:@"court_id"];
+    info.chatroom_id = [dic stringForKey:@"chatroom_id"];
+    info.chatroom_name = [dic stringForKey:@"chatroom_name"];
     info.create_user_name = [dic stringForKey:@"create_user_name"];
     info.my_favo = [dic boolForKey:@"my_favo"];
+    info.my_join = [dic boolForKey:@"my_join"];
     info.create_user_photo = [dic stringForKey:@"create_user_photo"];
     info.info = [dic stringForKey:@"info"];
     info.join_num = [dic stringForKey:@"join_num"];

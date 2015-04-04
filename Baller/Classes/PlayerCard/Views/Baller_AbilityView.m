@@ -87,6 +87,7 @@
         
         if ([result intForKey:@"errorcode"] == 0) {
             self.showEvaluateViews = NO;
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"EvaluateDone" object:self];
             [Baller_HUDView bhud_showWithTitle:@"评价成功！"];
             if (_evaluateButton)[_evaluateButton removeFromSuperview];
             

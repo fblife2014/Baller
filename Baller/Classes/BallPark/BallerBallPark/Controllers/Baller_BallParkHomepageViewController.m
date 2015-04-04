@@ -85,8 +85,8 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
         temp.userName = userInfo.name;
         
 
-        if ([temp.uid isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
-            temp.uid = temp.uid;
+        if ([userInfo.userId isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
+            temp.uid = userInfo.userId;
             temp.userName = userInfo.name;
             temp.photoUrl = userInfo.portraitUri;
             temp.ballerCardType = kBallerCardType_MyPlayerCard;
@@ -100,8 +100,6 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
         UIImage *image= [viewController.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault];
         
         [nav.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
-   
-        
         [viewController presentViewController:nav animated:YES completion:NULL];
         
     }];
@@ -198,11 +196,17 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 */
 - (void)attentionButtonAction:(UIBarButtonItem *)item{
     
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_attend_court parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":_court_id} responseBlock:^(id result, NSError *error) {
+    __BLOCKOBJ(blockCourtInfo, courtInfoDic);
+    __BLOCKOBJ(strongSelf, self);
+    [AFNHttpRequestOPManager getWithSubUrl:[[courtInfoDic valueForKey:@"my_attend"] integerValue]?Baller_cancel_attend_court:Baller_attend_court parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":_court_id} responseBlock:^(id result, NSError *error) {
         if (0 == [[result valueForKey:@"errorcode"] intValue]) {
-            BOOL attentioned = [[courtInfoDic valueForKey:@"my_attend"] boolValue];
-            [courtInfoDic setValue:attentioned?@"0":@"1" forKey:@"my_attend"];
+            BOOL attentioned = [[blockCourtInfo valueForKey:@"my_attend"] boolValue];
+            [blockCourtInfo setValue:attentioned?@"0":@"1" forKey:@"my_attend"];
             
+            if (strongSelf.cancelAttentionBlock)
+            {
+                strongSelf.cancelAttentionBlock(_court_id,attentioned);
+            }
             [attentionButton setTitle:attentioned?@"  关注":@"已关注" forState:UIControlStateNormal];
             
             [Baller_HUDView bhud_showWithTitle:attentioned?@"已取消关注!":@"关注成功！"];

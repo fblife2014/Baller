@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <MAMapKit/MAMapKit.h>
+#import "BallerTabBarController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic)CLLocationCoordinate2D currentLocation;
+@property (nonatomic,strong)BallerTabBarController * tabBarContoller;
 
 + (instancetype)sharedDelegate;
 

@@ -50,16 +50,20 @@
                              responseBlock:^(id result, NSError *error) {
                                  __STRONGOBJ(strongSelf, weakSelf);
                                  if ([result longForKey:@"errorcode"] == 0){
+                                     
                                      if (strongSelf.page == 1) {
                                          [strongSelf.items removeAllObjects];
                                      }
+                                     self.total_num = [result integerForKey:@"total_num"];
                                      
                                      for (NSDictionary * teamInfo in [result arrayForKey:@"list"]) {
                                          [strongSelf.items addObject:[Baller_BallParkAttentionTeamListModel shareWithServerDictionary:teamInfo]];
                                      }
                                      
-                                     if (strongSelf.items.count == 0 || strongSelf.items.count%10) {
+                                     if (strongSelf.items.count >= self.total_num) {
                                          [strongSelf.tableView.footer noticeNoMoreData];
+                                     }else{
+                                         [strongSelf.tableView.footer setState:MJRefreshFooterStateIdle];
                                      }
                                      
                                      [strongSelf.tableView reloadData];
@@ -111,7 +115,7 @@
 - (void)footerRereshing
 {
     [super footerRereshing];
-    if (self.items.count%10 == 0) {
+    if (self.items.count<self.total_num) {
         self.page = self.items.count/10+1;
         [self reloadTableView];
     }

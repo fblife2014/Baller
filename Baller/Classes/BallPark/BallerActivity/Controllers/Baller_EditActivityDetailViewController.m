@@ -130,9 +130,12 @@
                 break;
         }
     }
+    UITextField * titletf = (UITextField *)bottomViewTextFields[0];
+    UITextField * beizhutf = (UITextField *)bottomViewTextFields[1];
     UITextField * timetf = (UITextField *)bottomViewTextFields[2];
+    UITextField * numbertf = (UITextField *)bottomViewTextFields[3];
 
-    [AFNHttpRequestOPManager postWithSubUrl:Baller_activity_create parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":_court_id,@"title":@"测试活动接口",@"info":@"",@"start_time":timetf.text,@"max_num":@"15"} responseBlock:^(id result, NSError *error) {
+    [AFNHttpRequestOPManager postWithSubUrl:Baller_activity_create parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":_court_id,@"title":titletf.text,@"info":beizhutf.text,@"start_time":timetf.text,@"max_num":numbertf.text} responseBlock:^(id result, NSError *error) {
         if (error)return ;
         
         if (0 == [[result valueForKey:@"errorcode"] integerValue]) {

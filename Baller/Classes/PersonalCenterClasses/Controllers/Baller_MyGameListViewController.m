@@ -10,7 +10,7 @@
 #import "Baller_GameListTableViewCell.h"
 #import "Baller_BallParkActivityListModel.h"
 #import "Baller_ActivityDetailViewController.h"
-#import "Baller_EvaluateBallersViewController.h"
+#import "Baller_WaitingEvaluateBallersViewController.h"
 
 @interface Baller_MyGameListViewController ()<UITableViewDelegate>
 {
@@ -111,7 +111,7 @@
 - (void)footerRereshing{
     
     [super footerRereshing];
-    if (self.gameLists.count%10 == 0) {
+    if (self.gameLists.count < self.total_num) {
         self.page = 1+self.gameLists.count/10;
         [self getGameLists];
     }
@@ -125,7 +125,7 @@
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_special_activities parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"action":actionString,@"page":$str(@"%ld",(long)self.page),@"per_page":@"10"} responseBlock:^(id result, NSError *error) {
         
         if (error)return;
-        
+        self.total_num = [result integerForKey:@"total_num"];
         if ([[result valueForKey:@"errorcode"] integerValue] == 0)
         {
             __STRONGOBJ(strongSelf, weakSelf);
@@ -134,9 +134,12 @@
                 Baller_BallParkActivityListModel * activityModel = [[Baller_BallParkActivityListModel alloc]initWithAttributes:activityDic];
                 [strongSelf.gameLists addObject:activityModel];
             }
-            if(strongSelf.gameLists.count == 0 || strongSelf.gameLists.count%10)
+            if(strongSelf.gameLists.count >= self.total_num)
             {
                 [strongSelf.gameListTableView.footer noticeNoMoreData];
+            }else{
+                [strongSelf.gameListTableView.footer setState:MJRefreshFooterStateIdle];
+
             }
             [strongSelf.gameListTableView reloadData];
         }
@@ -170,8 +173,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Baller_BallParkActivityListModel * activityListModel = _gameLists[indexPath.row];
     if (_gameListType == GameListType_WaitEvaluated) {
-        Baller_EvaluateBallersViewController * evaluateBallersVC = [[Baller_EvaluateBallersViewController alloc]init];
-        evaluateBallersVC.isCloseMJRefresh = YES;
+        Baller_WaitingEvaluateBallersViewController * evaluateBallersVC = [[Baller_WaitingEvaluateBallersViewController alloc]init];
         evaluateBallersVC.activityID = activityListModel.activity_id;
         [self.navigationController pushViewController:evaluateBallersVC animated:YES];
     }else{

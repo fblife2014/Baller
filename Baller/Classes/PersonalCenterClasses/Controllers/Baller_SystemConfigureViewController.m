@@ -43,9 +43,6 @@
         UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, TABLE_SPACE_INSET, ScreenWidth-2*TABLE_SPACE_INSET, 300.0) style:UITableViewStylePlain];
         tableView.delegate = self;
         tableView.dataSource = self;
-//        [tableView registerNib:[UINib nibWithNibName:@"Baller_SystemConfigureTableViewCell" bundle:nil] forCellReuseIdentifier:@"Baller_SystemConfigureTableViewCell"];
-//        [tableView registerNib:[UINib nibWithNibName:@"Baller_SystemConfigureTableViewCell_Message" bundle:nil] forCellReuseIdentifier:@"Baller_SystemConfigureTableViewCell_Message"];
-//        [tableView registerNib:[UINib nibWithNibName:@"Baller_SystemConfigureTableViewCell_ClearCache" bundle:nil] forCellReuseIdentifier:@"Baller_SystemConfigureTableViewCell_ClearCache"];
         tableView.backgroundColor = CLEARCOLOR;
         tableView.layer.cornerRadius = TABLE_CORNERRADIUS;
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -62,12 +59,14 @@
     return _systemConfigureTableView;
 }
 
-- (void)logoutButtonAction{
+- (void)logoutButtonAction
+{
     [AFNHttpRequestOPManager getWithSubUrl:Baller_logout parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]} responseBlock:^(id result, NSError *error) {
         if ([[result valueForKey:@"errorcode"] integerValue] == 0) {
-            
+            [self.navigationController popViewControllerAnimated:NO];
             Baller_LoginViewController * loginVC = [[Baller_LoginViewController alloc]init];
-            [self presentViewController:loginVC animated:YES completion:^{
+            [[[AppDelegate sharedDelegate] tabBarContoller] presentViewController:loginVC animated:YES completion:^{
+                [[[AppDelegate sharedDelegate] tabBarContoller] setSelectedIndex:1];
                 [USER_DEFAULT removeObjectForKey:Baller_UserInfo];
                 [USER_DEFAULT removeObjectForKey:Baller_UserInfo_Authcode];
                 [USER_DEFAULT removeObjectForKey:Baller_UserInfo_Username];

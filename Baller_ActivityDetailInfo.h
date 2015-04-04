@@ -12,6 +12,8 @@
 
 @property (nonatomic, copy) NSString * activity_id;
 @property (nonatomic, copy) NSString * court_id;
+@property (nonatomic, copy) NSString * chatroom_id;
+@property (nonatomic, copy) NSString * chatroom_name;
 @property (nonatomic, copy) NSString * create_user_name;
 @property (nonatomic, copy) NSString * create_user_photo;
 @property (nonatomic, copy) NSString * info;

@@ -44,7 +44,7 @@ typedef void(^CardView_BottomButtonClicked) (BallerCardType ballerCardType);
     UILabel * heightLabel;
     
     @public
-    UIButton * ballParkButton ;
+    UIButton * ballParkButton;
 }
 
 @property (nonatomic) BallerCardType ballerCardType;
@@ -55,7 +55,12 @@ typedef void(^CardView_BottomButtonClicked) (BallerCardType ballerCardType);
 
 @property (nonatomic, strong)UIButton * headImageButton;
 @property (nonatomic, strong)UIButton * ballParkButton;
+@property (nonatomic,copy)NSString * court_id;
+@property (nonatomic,copy)NSString * court_name;
+
 @property (nonatomic, strong)UIButton * ballTeamButton;
+@property (nonatomic,copy)NSString * team_id;
+@property (nonatomic,copy)NSString * team_name;
 
 @property (nonatomic, assign)UIViewController *tagetViewController;//分享目标
 

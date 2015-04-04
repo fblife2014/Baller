@@ -48,13 +48,13 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadMessageData) name:BallerLogoutThenLoginNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadMessageData) name:BallerUpdateHeadImageNotification object:nil];
     self.page = 1;
-    [self getMessageLists];
+    [self reloadMessageData];
     // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self reloadMessageData];
+    if(_messageLists.count == 0)[self reloadMessageData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -75,7 +75,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 - (void)reloadMessageData
 {
     [[AppDelegate sharedDelegate] getTokenFromRC];
-    [[AppDelegate sharedDelegate]connectRC];
+       [[AppDelegate sharedDelegate]connectRC];
     [self getMessageLists];
 }
 

@@ -165,7 +165,8 @@
 		FBDEA43D1A2212500084FEBD /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FBDEA43C1A2212500084FEBD /* libsqlite3.0.dylib */; };
 		FBE0F5111ACA9CA8000FA8C0 /* Baller_SearchUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE0F50F1ACA9CA8000FA8C0 /* Baller_SearchUserViewController.m */; };
 		FBE0F5121ACA9CA8000FA8C0 /* Baller_SearchUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBE0F5101ACA9CA8000FA8C0 /* Baller_SearchUserViewController.xib */; };
-		FBE0F5181ACBE1EE000FA8C0 /* Baller_EvaluateBallersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE0F5171ACBE1EE000FA8C0 /* Baller_EvaluateBallersViewController.m */; };
+		FBE4F8DC1ACF953D0058978F /* Baller_WaitingEvaluateBallersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE4F8DB1ACF953D0058978F /* Baller_WaitingEvaluateBallersViewController.m */; };
+		FBE4F8DF1ACF95D30058978F /* Baller_WaitingEvaluateBallerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE4F8DE1ACF95D30058978F /* Baller_WaitingEvaluateBallerInfo.m */; };
 		FBF50AA71AC6345A003CBCAD /* NSDate+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50A981AC6345A003CBCAD /* NSDate+Helpers.m */; };
 		FBF50AA81AC6345A003CBCAD /* PMCalendarBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50A9A1AC6345A003CBCAD /* PMCalendarBackgroundView.m */; };
 		FBF50AA91AC6345A003CBCAD /* PMCalendarController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50A9D1AC6345A003CBCAD /* PMCalendarController.m */; };
@@ -492,8 +493,10 @@
 		FBE0F50E1ACA9CA8000FA8C0 /* Baller_SearchUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_SearchUserViewController.h; sourceTree = "<group>"; };
 		FBE0F50F1ACA9CA8000FA8C0 /* Baller_SearchUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_SearchUserViewController.m; sourceTree = "<group>"; };
 		FBE0F5101ACA9CA8000FA8C0 /* Baller_SearchUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Baller_SearchUserViewController.xib; sourceTree = "<group>"; };
-		FBE0F5161ACBE1EE000FA8C0 /* Baller_EvaluateBallersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_EvaluateBallersViewController.h; sourceTree = "<group>"; };
-		FBE0F5171ACBE1EE000FA8C0 /* Baller_EvaluateBallersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_EvaluateBallersViewController.m; sourceTree = "<group>"; };
+		FBE4F8DA1ACF953D0058978F /* Baller_WaitingEvaluateBallersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_WaitingEvaluateBallersViewController.h; sourceTree = "<group>"; };
+		FBE4F8DB1ACF953D0058978F /* Baller_WaitingEvaluateBallersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_WaitingEvaluateBallersViewController.m; sourceTree = "<group>"; };
+		FBE4F8DD1ACF95D30058978F /* Baller_WaitingEvaluateBallerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_WaitingEvaluateBallerInfo.h; sourceTree = SOURCE_ROOT; };
+		FBE4F8DE1ACF95D30058978F /* Baller_WaitingEvaluateBallerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_WaitingEvaluateBallerInfo.m; sourceTree = SOURCE_ROOT; };
 		FBF50A951AC6345A003CBCAD /* PMCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendar.h; sourceTree = "<group>"; };
 		FBF50A971AC6345A003CBCAD /* NSDate+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helpers.h"; sourceTree = "<group>"; };
 		FBF50A981AC6345A003CBCAD /* NSDate+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helpers.m"; sourceTree = "<group>"; };
@@ -739,8 +742,8 @@
 				FB9EF25D1AADF830001D77CB /* Baller_ActivityDetailViewController.m */,
 				FB9EF25E1AADF830001D77CB /* Baller_EditActivityDetailViewController.h */,
 				FB9EF25F1AADF830001D77CB /* Baller_EditActivityDetailViewController.m */,
-				FBE0F5161ACBE1EE000FA8C0 /* Baller_EvaluateBallersViewController.h */,
-				FBE0F5171ACBE1EE000FA8C0 /* Baller_EvaluateBallersViewController.m */,
+				FBE4F8DA1ACF953D0058978F /* Baller_WaitingEvaluateBallersViewController.h */,
+				FBE4F8DB1ACF953D0058978F /* Baller_WaitingEvaluateBallersViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -750,6 +753,8 @@
 			children = (
 				FBF50AE61AC92A4B003CBCAD /* Baller_ActivityDetailInfo.h */,
 				FBF50AE71AC92A4B003CBCAD /* Baller_ActivityDetailInfo.m */,
+				FBE4F8DD1ACF95D30058978F /* Baller_WaitingEvaluateBallerInfo.h */,
+				FBE4F8DE1ACF95D30058978F /* Baller_WaitingEvaluateBallerInfo.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1751,8 +1756,8 @@
 				FBD9B7551AAD7F7F00CDC1C6 /* Baller_AlertLabel.m in Sources */,
 				FB9EF3371AADF830001D77CB /* Baller_SystemConfigureViewController.m in Sources */,
 				FBD9B7601AAD7F7F00CDC1C6 /* UIImage+APLBlurEffect.m in Sources */,
+				FBE4F8DF1ACF95D30058978F /* Baller_WaitingEvaluateBallerInfo.m in Sources */,
 				FBD9B74B1AAD7F7F00CDC1C6 /* DismissingAnimator.m in Sources */,
-				FBE0F5181ACBE1EE000FA8C0 /* Baller_EvaluateBallersViewController.m in Sources */,
 				FBD9B7631AAD7F7F00CDC1C6 /* JSONKit.m in Sources */,
 				FB9EF33B1AADF830001D77CB /* Baller_BallFriendsTableViewCell.m in Sources */,
 				FB9EF3361AADF830001D77CB /* Baller_MyGameViewController.m in Sources */,
@@ -1803,6 +1808,7 @@
 				FB9EF32F1AADF830001D77CB /* Baller_ChoseTeamViewController.m in Sources */,
 				FB2ABEBB1AADF97C007D7E52 /* Baller_CreateBallParkViewController.m in Sources */,
 				FBF50AE81AC92A4C003CBCAD /* Baller_ActivityDetailInfo.m in Sources */,
+				FBE4F8DC1ACF953D0058978F /* Baller_WaitingEvaluateBallersViewController.m in Sources */,
 				FBF50AAC1AC6345A003CBCAD /* PMPeriod.m in Sources */,
 				FB9EF3481AADF830001D77CB /* Baller_SystemConfigureTableViewCell.m in Sources */,
 				75565A421ABEAC7000B4C2BC /* Baller_MyBasketballTeamTableViewHeaderView.m in Sources */,

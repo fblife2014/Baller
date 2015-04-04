@@ -8,9 +8,12 @@
 
 #import "Baller_ActivityDetailViewController.h"
 #import "Baller_BallParkHomepageViewController.h"
+#import "Baller_PlayerCardViewController.h"
+#import "RCChatViewController.h"
+
 #import "Baller_BallParkActivityListModel.h"
 #import "Baller_InfoItemView.h"
-
+#import "RCIM.h"
 #import "Baller_ActivityDetailInfo.h"
 
 @interface Baller_ActivityDetailViewController ()
@@ -20,8 +23,11 @@
     BOOL isCreator; //当前用户是否为活动创建者
     __block BOOL isDataChanged; //数据是否已有变化
     
-    UIButton * collectButton; //收藏按钮
+    
 }
+
+@property (nonatomic,strong)UIButton * collectButton; //收藏按钮
+@property (nonatomic,strong)UIButton * chatButton;    //聊天按钮
 
 @property (nonatomic,strong)Baller_ActivityDetailInfo * activityDetailInfo;
 
@@ -32,8 +38,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"活动详情";
-
-    isCreator = [_activity_CreaterID isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]];
+    
+    NSString * userId = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"];
+    
+    isCreator = ([_activity_CreaterID integerValue] == [userId integerValue]);
     
     UIImage * image = nil;
     if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]) {
@@ -52,6 +60,7 @@
         [_ballParkVC ballerParkHome_get_activities];
     }
 }
+
 
 /*!
  *  @brief  设置子视图
@@ -72,8 +81,8 @@
     
     NSArray * details = @[_activityDetailInfo.title,_activityDetailInfo.info.length?_activityDetailInfo.info:@"无",[[TimeManager getDateStringOfTimeInterval:_activityDetailInfo.start_time] substringToIndex:10],$str(@"%@/%@",_activityDetailInfo.join_num,_activityDetailInfo.max_num)];
     
-    for (int i = 0; i < colors.count; i++) {
-        
+    for (int i = 0; i < colors.count; i++)
+    {
         if (i<4) {
             Baller_InfoItemView * itemView = [[Baller_InfoItemView alloc]initWithFrame:CGRectMake(0.0, i*PersonInfoCell_Height, ScreenWidth-2*space, PersonInfoCell_Height) title:titles[i] placeHolder:nil];
             itemView.infoTextField.text = details[i];
@@ -89,51 +98,103 @@
    
         }
     }
-    bottomButton.enabled = [TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.start_time];
 
-    [self setCollectButtonWithActivityInfo];
 }
 
-//设置底部按钮状态
-- (void)setBottomButtonStatus:(BOOL)isJoind
-{
+//设置活动状态
+- (void)setActivityStatus:(BallerActivityStatus)activityStatus{
+    _activityStatus = activityStatus;
+    
     NSString * buttonTitle = [self activityBottomButtonTitle:_activityDetailInfo.my_join];
     [bottomButton setTitle:buttonTitle forState:UIControlStateNormal];
     [bottomButton setTitle:buttonTitle forState:UIControlStateHighlighted];
-    
-    if (isJoind) {
-        if (_activityDetailInfo.status == 1) {
-            self.navigationItem.rightBarButtonItem.customView.hidden = YES;
-        }
-        bottomButton.backgroundColor = BALLER_CORLOR_RED;
+    bottomButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
 
-    }else{
-        if (_activityDetailInfo.status == 1) {
-            self.navigationItem.rightBarButtonItem.customView.hidden = NO;
+    switch (_activityStatus) {
+        case BallerActivityStatusWaitingStart:
+        {
+            bottomButton.enabled = YES;
+            if (_activityDetailInfo.my_join) {
+                [self chatButton];
+                if (isCreator) {
+                    bottomButton.backgroundColor = BALLER_CORLOR_RED;
+
+                }else{
+                }
+
+            }else{
+                [self collectButton];
+
+            }
         }
-        bottomButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
+            break;
+        case BallerActivityStatusUnderway:
+            bottomButton.enabled = NO;
+            if (_activityDetailInfo.my_join) {
+                [self chatButton];
+            }
+            break;
+        case BallerActivityStatusFinished:
+            bottomButton.enabled = NO;
+            if (_activityDetailInfo.my_join) {
+                [self chatButton];
+            }
+            break;
+        case BallerActivityStatusDissolved:
+            if (_activityDetailInfo.my_join) {
+                [self chatButton];
+            }
+            bottomButton.enabled = NO;
+            bottomButton.backgroundColor = BALLER_CORLOR_RED;
+            self.navigationItem.rightBarButtonItem = nil;
+            break;
+        default:
+            break;
     }
 }
 
-/*!
- *  @brief  根据返回的活动详情信息，重置视图
- */
-- (void)setCollectButtonWithActivityInfo
+#pragma makr 右上角按钮
+- (UIButton *)collectButton
 {
-    if (!collectButton) {
-        collectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [collectButton setImage:[UIImage imageNamed:@"shoucang"] forState:UIControlStateNormal];
-        collectButton.frame = CGRectMake(0.0, 0.0, 60.0, NavigationBarHeight);
-        [collectButton addTarget:self action:@selector(collectButtonAction) forControlEvents:UIControlEventTouchUpInside];
-        collectButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
-        collectButton.titleEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, -15.0);
+    if (!_collectButton) {
+        UIButton *button = [[UIButton alloc]init];
+        [button addTarget:self action:@selector(collectButtonAction) forControlEvents:UIControlEventTouchUpInside];
+        [button setImage:[UIImage imageNamed:@"shoucang"] forState:UIControlStateNormal];
+        button.frame = CGRectMake(0.0, 0.0, 60.0, NavigationBarHeight);
+        button.titleLabel.font = [UIFont systemFontOfSize:15.0];
+        button.titleEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, -15.0);
         
-        UIBarButtonItem * barItem = [[UIBarButtonItem alloc]initWithCustomView:collectButton];
+        _collectButton = button;
+    }
+    if (![self.navigationItem.rightBarButtonItem.customView isEqual:_collectButton]) {
+        self.navigationItem.rightBarButtonItem = nil;
+        UIBarButtonItem * barItem = [[UIBarButtonItem alloc]initWithCustomView:_collectButton];
         self.navigationItem.rightBarButtonItem = barItem;
+        [_collectButton setTitle:_activityDetailInfo.my_favo?@"已收藏":@"收藏" forState:UIControlStateNormal];
+    }
+    return _collectButton;
+}
+
+- (UIButton *)chatButton
+{
+    if (!_chatButton) {
+        UIButton *button = [[UIButton alloc]init];
+        [button addTarget:self action:@selector(chatButtonAction) forControlEvents:UIControlEventTouchUpInside];
+        [button setImage:[UIImage imageNamed:@"qunliao"] forState:UIControlStateNormal];
+        button.frame = CGRectMake(0.0, 0.0, NavigationBarHeight, NavigationBarHeight);
+        button.imageEdgeInsets = UIEdgeInsetsMake(0.0, 15, 0.0, -15);
+        _chatButton = button;
+    }
+    if (![self.navigationItem.rightBarButtonItem.customView isEqual:_chatButton]) {
+        self.navigationItem.rightBarButtonItem = nil;
+        UIBarButtonItem * barItem = [[UIBarButtonItem alloc]initWithCustomView:_chatButton];
+        self.navigationItem.rightBarButtonItem = barItem;
+        
     }
 
-    [collectButton setTitle:_activityDetailInfo.my_favo?@"已收藏":@"收藏" forState:UIControlStateNormal];
+    return _chatButton;
 }
+
 
 #pragma mark 网络请求
 /*!
@@ -143,12 +204,25 @@
 {
     [AFNHttpRequestOPManager getWithSubUrl:Baller_activity_get_info parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"activity_id":_activityID} responseBlock:^(id result, NSError *error) {
         if (error)return;
-        
+        [self userHeadClicked];
+        [[AppDelegate sharedDelegate] connectRC];
         if (0 == [[result valueForKey:@"errorcode"] integerValue]) {
             _activityDetailInfo = [Baller_ActivityDetailInfo shareWithServerDictionary:result];
+            if (_activityDetailInfo.status == 1) {
+                if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.start_time]) {
+                    self.activityStatus = BallerActivityStatusWaitingStart;
+
+                }else if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.end_time]){
+                    self.activityStatus = BallerActivityStatusUnderway;
+                }else{
+                    self.activityStatus = BallerActivityStatusFinished;
+                }
+                
+            }else{
+                self.activityStatus = BallerActivityStatusDissolved;
+            }
             [self setupSubViews];
         }
-        
     }];
 }
 
@@ -167,13 +241,21 @@
         if (0 == [[result valueForKey:@"errorcode"] integerValue]) {
             isDataChanged = YES;
             if (isCreator) {
-                [strongSelf PopToLastViewController];
+                self.activityStatus = BallerActivityStatusDissolved;
             }else{
                 strongSelf.activityDetailInfo.my_join = !strongSelf.activityDetailInfo.my_join;
-                strongSelf.activityDetailInfo.status = 2;
-                [strongSelf setBottomButtonStatus:_activityDetailInfo.my_join];
+                
+                if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.start_time]) {
+                    self.activityStatus = BallerActivityStatusWaitingStart;
+                    
+                }else if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.end_time]){
+                    self.activityStatus = BallerActivityStatusUnderway;
+                }else{
+                    self.activityStatus = BallerActivityStatusFinished;
+                }
             }
         }
+        [Baller_HUDView bhud_showWithTitle:[result stringForKey:@"msg"]];
     }];
 }
 
@@ -186,7 +268,6 @@
         if(error) return;
         if ([[result valueForKey:@"errorcode"] integerValue] == 0) {
             _activityDetailInfo.my_favo = !_activityDetailInfo.my_favo;
-            [self setCollectButtonWithActivityInfo];
         }
     }];
 }
@@ -215,7 +296,8 @@
         
         if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.start_time]) {
             return _activityDetailInfo.my_join?@"退出活动":@"加入活动";
-        }else if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.end_time]){
+        }else if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.end_time])
+        {
             return @"正在进行";
         }else{
             return @"已结束";
@@ -232,6 +314,22 @@
     [self favoOrCancelFavo];
 }
 
+- (void)chatButtonAction
+{
+    if (_activityDetailInfo.chatroom_id.length<5) {
+        [Baller_HUDView bhud_showWithTitle:@"少年莫慌，这个活动是老活动，没给他分配聊天室"];
+        return;
+    }
+    RCChatViewController *temp = [[RCChatViewController alloc]init];
+    temp.currentTarget = _activityDetailInfo.chatroom_id;
+    temp.currentTargetName = _activityDetailInfo.chatroom_name;
+    temp.conversationType = ConversationType_CHATROOM;
+    temp.enableSettings = NO;
+    temp.portraitStyle = RCUserAvatarCycle;
+    [self.navigationController pushViewController:temp animated:YES];
+    
+}
+
 - (void)bottomButtonAction{
     [self joinOrOutActivity];
 }
@@ -241,6 +339,39 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)userHeadClicked
+{
+    [[RCIM sharedRCIM] setUserPortraitClickEvent:^(UIViewController *viewController, RCUserInfo *userInfo) {
+        DLog(@"%@,%@",viewController,userInfo);
+        
+        
+        Baller_PlayerCardViewController *temp = [[Baller_PlayerCardViewController alloc]init];
+        temp.uid = userInfo.userId;
+        temp.userName = userInfo.name;
+        
+        
+        if ([userInfo.userId isEqualToString:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"]]) {
+            temp.uid = userInfo.userId;
+            temp.userName = userInfo.name;
+            temp.photoUrl = userInfo.portraitUri;
+            temp.ballerCardType = kBallerCardType_MyPlayerCard;
+        }else{
+            temp.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
+        }
+        
+        UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:temp];
+        
+        //导航和的配色保持一直
+        UIImage *image= [viewController.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault];
+        
+        [nav.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
+        [viewController presentViewController:nav animated:YES completion:NULL];
+        
+    }];
+}
+
+
 
 /*
 #pragma mark - Navigation

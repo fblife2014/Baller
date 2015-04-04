@@ -181,13 +181,14 @@ static char ML_BlurView_blurViewKey;
         
 
     }
-    
+
 
 }
 
 - (void)removeOldBlurEffectView{
     if (self.blurView) {
         [self.blurView removeFromSuperview];
+        self.blurView = nil;
     }
 }
 

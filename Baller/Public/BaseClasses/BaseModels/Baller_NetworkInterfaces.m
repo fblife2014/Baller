@@ -48,6 +48,7 @@ NSString * const Baller_court_create = @"&c=court&m=create";        //20、创�
 NSString * const Baller_get_court_info = @"&c=court&m=get_court_info";      //21、获取球场详情
 
 NSString * const Baller_attend_court = @"&c=court&m=attend_court";          //22、关注球场
+NSString * const Baller_cancel_attend_court = @"&c=court&m=cancel_attend_court";          //22-2、取消关注球场
 
 NSString * const Baller_auth_court = @"&c=court&m=auth_court";          //23、认证球场
 
@@ -66,7 +67,7 @@ NSString * const Baller_get_attend_user_by_court = @"&c=court&m=get_attend_user_
 
 NSString * const Baller_activity_create = @"&c=activity&m=create";    //36、发布活动
 
-NSString * const Baller_get_activities = @"&c=activity&m=get_activities";  //37、获取活动列表
+NSString * const Baller_get_activities = @"&c=activity&m=get_activities";  //37、获取球场活动列表
 
 NSString * const Baller_activities_join = @"&c=activity&m=join_activity";  //38、加入活动
 

@@ -59,6 +59,7 @@
 {
     if (!_playCardView) {
         playCardView = [[Baller_CardView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, 10.0, ScreenWidth-2*TABLE_SPACE_INSET, self.view.frame.size.height-20.0) playerCardType:self.ballerCardType];
+        if (_activity_id)playCardView.activity_id = _activity_id;
         if (_uid) {
             playCardView.uid = _uid;
             
@@ -96,9 +97,6 @@
 #pragma mark 我的球员卡界面情况
 
 - (void)setMyPlayerCardSubviews{
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chooseQiuChang:) name:@"ChooseZhuChang" object:nil];
-
     if (_photoUrl) {
         
         [[[self playCardView] headImageButton]setImageForState:UIControlStateNormal withURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_photoUrl]] placeholderImage:nil success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
@@ -129,16 +127,13 @@
     }
     
 }
--(void)chooseQiuChang:(NSNotification *) sender
-{
-    Baller_MyAttentionBallPark *currentBallPark = sender.object;
-    [playCardView ->ballParkButton setTitle:currentBallPark.court_name forState:UIControlStateNormal];
-}
+
 #pragma mark 按钮方法
 /*!
  *  @brief  进入主页方法
  */
-- (void)goToMainView{
+- (void)goToMainView
+{
     [(UIViewController *)self.navigationController.viewControllers[0] dismissViewControllerAnimated:YES completion:NULL];
 }
 

@@ -10,6 +10,8 @@
 
 #import <UIKit/UIKit.h>
 @class Baller_BallParkAttentionBallerListModel;
+@class Baller_WaitingEvaluateBallerInfo;
+
 @interface Baller_BPAttentionPersonCollectionViewCell : UICollectionViewCell
 @property (weak, nonatomic) IBOutlet UILabel *positionLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
@@ -17,5 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
 
 @property (nonatomic,strong)Baller_BallParkAttentionBallerListModel * ballerModel;
+
+@property (nonatomic,strong)Baller_WaitingEvaluateBallerInfo * waitingEvaluateBallerInfo;
 
 @end

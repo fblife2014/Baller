@@ -6,12 +6,16 @@
 //  Copyright (c) 2015年 malong. All rights reserved.
 //
 
+
+
 #import "BaseViewController.h"
 
 @class Baller_BallParkActivityListModel;
 @class Baller_BallParkHomepageViewController;
 
 @interface Baller_ActivityDetailViewController : BaseViewController
+
+@property (nonatomic)BallerActivityStatus activityStatus;
 
 @property (nonatomic,weak) Baller_BallParkHomepageViewController * ballParkVC;
 @property (nonatomic,copy)NSString * activityID;

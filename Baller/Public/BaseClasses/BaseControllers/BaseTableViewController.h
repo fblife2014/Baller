@@ -14,7 +14,7 @@
 
 @property (nonatomic, weak) UIImageView * blurBackImageView;
 @property (nonatomic)NSInteger page; //列表页码
-
+@property (nonatomic)NSInteger total_num;
 @property (nonatomic, strong)TableViewDataSource * tableViewDataSource; //当前tableview的data source
 @property (nonatomic, strong)NSMutableArray * items; //列表信息数据源
 

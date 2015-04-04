@@ -33,3 +33,12 @@
 #else
 #define DLog(...) {}
 #endif
+
+
+typedef NS_ENUM(NSInteger, BallerActivityStatus) //活动状态
+{
+    BallerActivityStatusWaitingStart,   //活动等待开始
+    BallerActivityStatusUnderway,       //活动进行中
+    BallerActivityStatusFinished,       //活动已结束
+    BallerActivityStatusDissolved,      //活动已解散
+};

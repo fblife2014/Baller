@@ -154,6 +154,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[[self class]sharedManager] hideMyprogressHud];
         DLog(@"error = %@",error);
+        [Baller_HUDView bhud_showWithTitle:@"出错了，正在解决中，请耐心等候"];
 
         //failure 方法里面的operation.responseData 有可能含有我们想要的正确的数据
         block(nil,error);

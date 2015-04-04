@@ -9,6 +9,7 @@
 #import "Baller_BPAttentionPersonCollectionViewCell.h"
 #import "Baller_PositionRelated.h"
 #import "Baller_BallParkAttentionBallerListModel.h"
+#import "Baller_WaitingEvaluateBallerInfo.h"
 
 
 @implementation Baller_BPAttentionPersonCollectionViewCell
@@ -43,6 +44,33 @@
     
     [_headImageView sd_setImageWithURL:[NSURL URLWithString:ballerModel.photo] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
     _userNameLabel.text = ballerModel.user_name;
+    [self setNeedsDisplay];
+}
+
+- (void)setWaitingEvaluateBallerInfo:(Baller_WaitingEvaluateBallerInfo *)waitingEvaluateBallerInfo{
+    if (_waitingEvaluateBallerInfo == waitingEvaluateBallerInfo) {
+        return;
+    }
+    _waitingEvaluateBallerInfo = waitingEvaluateBallerInfo;
+    _positionLabel.text = waitingEvaluateBallerInfo.position;
+    if ([waitingEvaluateBallerInfo.position isEqualToString:@"C"]) {
+        self.contentView.backgroundColor = [Baller_PositionRelated  baller_PositionColorWithType:PositionType_C];
+        
+    }else if ([waitingEvaluateBallerInfo.position isEqualToString:@"SF"]) {
+        self.contentView.backgroundColor = [Baller_PositionRelated  baller_PositionColorWithType:PositionType_SF];
+        
+    }else if ([waitingEvaluateBallerInfo.position isEqualToString:@"SG"]) {
+        self.contentView.backgroundColor = [Baller_PositionRelated  baller_PositionColorWithType:PositionType_SG];
+        
+    }else if ([waitingEvaluateBallerInfo.position isEqualToString:@"PF"]) {
+        self.contentView.backgroundColor = [Baller_PositionRelated  baller_PositionColorWithType:PositionType_PF];
+        
+    }else if ([waitingEvaluateBallerInfo.position isEqualToString:@"PG"]) {
+        self.contentView.backgroundColor = [Baller_PositionRelated  baller_PositionColorWithType:PositionType_PG];
+    }
+    
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:waitingEvaluateBallerInfo.photo] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+    _userNameLabel.text = waitingEvaluateBallerInfo.user_name;
     [self setNeedsDisplay];
 }
 

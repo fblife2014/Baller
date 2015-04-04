@@ -6,13 +6,18 @@
 //  Copyright (c) 2015年 malong. All rights reserved.
 //
 
+typedef void (^BallerCancelAttentionBallParkCallBack)(NSString * courtId, BOOL isCanceled); //取消关注球场的回调
+
 #import "BaseTableViewController.h"
+
 @class Baller_BallParkListModel;
 @interface Baller_BallParkHomepageViewController : BaseTableViewController
 
 @property (nonatomic,strong)Baller_BallParkListModel * ballParkModel;
 @property (nonatomic,copy)NSString * court_id;
 @property (nonatomic,copy)NSString * court_name;
+@property (nonatomic,copy)BallerCancelAttentionBallParkCallBack cancelAttentionBlock;
+
 - (void)ballerParkHome_get_activities;
 
 @end

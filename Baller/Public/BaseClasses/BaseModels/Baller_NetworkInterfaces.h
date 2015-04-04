@@ -38,6 +38,8 @@ extern NSString * const Baller_get_msg_info; //18-3、获取我的消息列表
 extern NSString * const Baller_court_create;        //20、创建球场
 extern NSString * const Baller_get_court_info;      //21、获取球场详情
 extern NSString * const Baller_attend_court;        //22、关注球场
+extern NSString * const Baller_cancel_attend_court; //22-2、取消关注球场
+
 extern NSString * const Baller_auth_court;          //23、认证球场
 extern NSString * const Baller_get_nearby_courts;   //24、获取附近球场
 extern NSString * const Baller_update_court_img;    //25、更新球场图片

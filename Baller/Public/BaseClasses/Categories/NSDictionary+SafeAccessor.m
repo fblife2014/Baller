@@ -143,7 +143,7 @@
         return nil;
     } else {
         NSAssert( ([self objectForKey:key] == nil) || [[self objectForKey:key] isKindOfClass:[NSString class]], @"ERROR");
-        return [self objectForKey:key];
+        return [self valueForKey:key];
     }
 }
 

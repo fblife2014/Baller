@@ -190,12 +190,17 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
             if (self.page == 1) {
                 [friends removeAllObjects];
             }
-            
+            self.total_num = [result integerForKey:@"total_num"];
            for(NSDictionary *dic in [result objectForKey:@"list"])
            {
                Baller_BallerFriendListModel *ballerFriendListModel = [[Baller_BallerFriendListModel alloc] initWithAttributes:dic];
                [friends addObject:ballerFriendListModel];
            }
+            if (friends.count >= self.total_num) {
+                [self.tableView.footer noticeNoMoreData];
+            }else{
+                [self.tableView.footer setState:MJRefreshFooterStateIdle];
+            }
             [self.tableView reloadData];
         }
     }];
@@ -214,6 +219,10 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
                 }
                 for (NSDictionary * memberDic in [result valueForKey:@"list"]) {
                     [self.searchResultFriends addObject:[Baller_BallTeamMemberInfo shareWithServerDictionary:memberDic]];
+                }
+
+                if (self.searchPage == 1 && self.searchResultFriends.count == 0) {
+                    [Baller_HUDView bhud_showWithTitle:@"没有找到对应用户，换个关键字试试"];
                 }
                 [self.tableView reloadData];
 
@@ -241,7 +250,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 {
     [super footerRereshing];
     if (_ballFriendsListType == BallFriendsListTypeTable) {
-        if (friends.count%10 == 0) {
+        if (friends.count<self.total_num) {
             self.page = friends.count/10+1;
             [self getNetData];
         }
