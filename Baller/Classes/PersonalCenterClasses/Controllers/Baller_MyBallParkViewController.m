@@ -10,14 +10,15 @@
 #import "Baller_BallParkHomepageViewController.h"
 #import "Baller_MineBallParkTableViewCell.h"
 #import "Baller_MyAttentionBallPark.h"
-
-#import "MJRefresh.h"
+#import "Baller_MyCourtInfo.h"
 
 
 @interface Baller_MyBallParkViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     __block NSMutableArray *dataSourceArray;
     Baller_MyAttentionBallPark * opretionBallPark; //正在操作的模型
+    Baller_MyCourtInfo * opretionMyCourt;  //正在操作的我的球场
+    
 }
 @property (nonatomic,strong) UITableView * ballParkTableView;
 
@@ -33,7 +34,7 @@
     if([soureVC intValue] == 1)
     {
         self.navigationItem.title = @"我的球场";
-        [self getNewNetData];
+        [self getMyCourts];
 
     }
     if([soureVC intValue] == 2)
@@ -68,7 +69,7 @@
     [super headerRereshing];
     self.page = 1;
     if ([soureVC integerValue] == 1) {
-        [self getNewNetData];
+        [self getMyCourts];
 
     }else if ([soureVC integerValue] == 2){
         [self getNearbyCourts];
@@ -80,7 +81,7 @@
     if (self.total_num > dataSourceArray.count) {
         self.page = dataSourceArray.count/10+1;
         if ([soureVC integerValue] == 1) {
-            [self getNewNetData];
+            [self getMyCourts];
             
         }else if ([soureVC integerValue] == 2){
             [self getNearbyCourts];
@@ -89,6 +90,38 @@
 }
 
 #pragma mark 网络请求
+
+- (void)getMyCourts
+{
+http://123.57.35.119:84/index.php?d=api&c=court&m=get_my_courts&authcode=UGcHNgJrUGRRcVYvVB4NF1JBUn5W4VKUVtMDsgTCDc8DewVkVWRXNFU/WT8OOAtiBWYAMwVgCXJXYw==
+
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_my_courts parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"page":@(self.page),@"per_page":@(PER_PAGE)} responseBlock:^(id result, NSError *error)
+    {
+        if (!error)
+        {
+            if ([result intForKey:@"errorcode"] == 0)
+            {
+                if (self.page) {
+                    [dataSourceArray removeAllObjects];
+                }
+                self.total_num = [result integerForKey:@"total_num"];
+                for (NSDictionary * courtInfo in [result valueForKey:@"list"]) {
+                    [dataSourceArray addObject:[Baller_MyCourtInfo shareWithServerDictionary:courtInfo]];
+                }
+                
+                if (dataSourceArray.count>=self.total_num) {
+                    [_ballParkTableView.footer noticeNoMoreData];
+                }else{
+                    [_ballParkTableView.footer setState:MJRefreshFooterStateIdle];
+                }
+                
+                [_ballParkTableView reloadData];
+                
+            }
+        }
+    }];
+}
+
 /*!
  *  @brief  获取我关注的球场
  */
@@ -166,17 +199,27 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     Baller_MineBallParkTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"Baller_MineBallParkTableViewCell" forIndexPath:indexPath];
-    Baller_MyAttentionBallPark *currentModel = (Baller_MyAttentionBallPark *)[dataSourceArray objectAtIndex:indexPath.row];
-    cell.ballParkModel = currentModel;
+    if ([soureVC integerValue] == 2)
+    {
+        Baller_MyAttentionBallPark *currentModel = (Baller_MyAttentionBallPark *)[dataSourceArray objectAtIndex:indexPath.row];
+        cell.ballParkModel = currentModel;
+        
+    }else if([soureVC integerValue]==1)
+    {
+        Baller_MyCourtInfo *currentModel = (Baller_MyCourtInfo *)[dataSourceArray objectAtIndex:indexPath.row];
+        cell.myCourtInfo = currentModel;
+    }
+
     return cell;
     
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    opretionBallPark = (Baller_MyAttentionBallPark *)[dataSourceArray objectAtIndex:indexPath.row];
     if( [soureVC integerValue] == 2)
     {
+        opretionBallPark = (Baller_MyAttentionBallPark *)[dataSourceArray objectAtIndex:indexPath.row];
+
         [AFNHttpRequestOPManager getWithSubUrl:Baller_select_my_court parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":@(opretionBallPark.court_id)} responseBlock:^(id result, NSError *error) {
             if (error) return ;
             if ([[result valueForKey:@"errorcode"] integerValue] == 0) {
@@ -192,19 +235,24 @@
             }
         }];
     }else{
-        Baller_BallParkHomepageViewController * ballParkHomePageVc = [[Baller_BallParkHomepageViewController alloc]init];
-        ballParkHomePageVc.court_id = [NSString stringWithFormat:@"%ld",opretionBallPark.court_id];
-        ballParkHomePageVc.court_name = opretionBallPark.court_name;
-        ballParkHomePageVc.cancelAttentionBlock = ^(NSString * courtId,BOOL isCanceledAttention){
+        
+        opretionMyCourt = (Baller_MyCourtInfo *)[dataSourceArray objectAtIndex:indexPath.row];
 
-            if (isCanceledAttention) {
-                [dataSourceArray removeObject:opretionBallPark];
-            }else{
-                [dataSourceArray addObject:opretionBallPark];
-            }
-            [_ballParkTableView reloadData];
-            
-        };
+        Baller_BallParkHomepageViewController * ballParkHomePageVc = [[Baller_BallParkHomepageViewController alloc]init];
+        ballParkHomePageVc.court_id = opretionMyCourt.court_id;
+        ballParkHomePageVc.court_name = opretionMyCourt.court_name;
+        if (opretionMyCourt.attend_court && !opretionMyCourt.home_court && !opretionMyCourt.create_court) {
+            ballParkHomePageVc.cancelAttentionBlock = ^(NSString * courtId,BOOL isCanceledAttention){
+                
+                if (isCanceledAttention) {
+                    [dataSourceArray removeObject:opretionMyCourt];
+                }else{
+                    [dataSourceArray addObject:opretionMyCourt];
+                }
+                [_ballParkTableView reloadData];
+                
+            };
+        }
         ballParkHomePageVc.isCloseMJRefresh = YES;
         [self.navigationController pushViewController:ballParkHomePageVc animated:YES];
         

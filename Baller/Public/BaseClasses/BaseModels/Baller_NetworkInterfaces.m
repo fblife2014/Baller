@@ -61,6 +61,8 @@ NSString * const Baller_get_ballers_by_court_id = @"&c=court&m=get_ballers_by_co
 NSString * const Baller_get_attend_courts = @"&c=court&m=get_attend_courts"; //27、获取我关注的球场列表
 NSString * const Baller_get_attend_user_by_court = @"&c=court&m=get_attend_user_by_court"; //28、关注球场的球员列表
 
+NSString * const Baller_get_my_courts = @"&c=court&m=get_my_courts"; //29、关注球场的球员列表
+
 
 
 

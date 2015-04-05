@@ -8,6 +8,8 @@
 
 #import "Baller_MineBallParkTableViewCell.h"
 #import "Baller_MyAttentionBallPark.h"
+#import "Baller_MyCourtInfo.h"
+
 #import "UIView+ML_BlurView.h"
 @implementation Baller_MineBallParkTableViewCell
 
@@ -40,6 +42,20 @@
     }];
     self.ballParkNameLabel.text = ballParkModel.court_name;
     self.isHomeCourt = (ballParkModel.court_id == [[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"court_id"] intValue]);
+}
+
+- (void)setMyCourtInfo:(Baller_MyCourtInfo *)myCourtInfo{
+    if (_myCourtInfo == myCourtInfo) {
+        return;
+    }
+    _myCourtInfo = myCourtInfo;
+    [self.ballParkImageView sd_setImageWithURL:[NSURL URLWithString:myCourtInfo.court_img] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [self.ballParkImageView showBlurWithDuration:0.1 blurStyle:kUIBlurEffectStyleLight belowView:nil];
+        
+    }];
+    self.ballParkNameLabel.text = myCourtInfo.court_name;
+    self.isHomeCourt = myCourtInfo.home_court;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

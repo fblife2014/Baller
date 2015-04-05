@@ -231,9 +231,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     Baller_BallParkAttentionTeamListModel * teamListModel = self.teams[indexPath.row];
     Baller_MyBasketballTeamViewController * teamVC = [[Baller_MyBasketballTeamViewController alloc]init];
-    teamVC.teamType = Baller_TeamOtherTeamType;
     teamVC.isCloseMJRefresh = YES;
-    teamVC.teamId = teamListModel.team_id;
+    if ([teamListModel.team_id isEqualToString:[USER_DEFAULT valueForKey:@"team_id"]])
+    {
+        if ([[USER_DEFAULT valueForKey:@"team_status"] intValue] == 1) {
+            teamVC.teamType = Baller_TeamJoinedType;
+        }else{
+            teamVC.teamType = Baller_TeamWaitingCheckType;
+        }
+        
+    }else{
+        teamVC.teamId = teamListModel.team_id;
+        teamVC.teamName = teamListModel.team_name;
+        teamVC.teamType = Baller_TeamOtherTeamType;
+    }
+
     [self.navigationController pushViewController:teamVC animated:YES];
 }
 
