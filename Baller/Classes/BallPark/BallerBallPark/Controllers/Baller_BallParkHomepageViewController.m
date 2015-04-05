@@ -209,7 +209,7 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
             }
             [attentionButton setTitle:attentioned?@"  关注":@"已关注" forState:UIControlStateNormal];
             
-            [Baller_HUDView bhud_showWithTitle:attentioned?@"已取消关注!":@"关注成功！"];
+            [Baller_HUDView bhud_showWithTitle:attentioned?@"已取消关注😤":@"关注成功😘￼"];
         }
     }];
 }
@@ -232,8 +232,12 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    Baller_ActivityDetailViewController * activityDetailVC = [[Baller_ActivityDetailViewController alloc]init];
     Baller_BallParkActivityListModel * activityListModel = activities[indexPath.row];
+    if (activityListModel.status == 2) {
+        [Baller_HUDView bhud_showWithTitle:@"该活动已解散，看看其它的吧👀"];
+        return;
+    }
+    Baller_ActivityDetailViewController * activityDetailVC = [[Baller_ActivityDetailViewController alloc]init];
     activityDetailVC.activityID  = activityListModel.activity_id;
     activityDetailVC.activity_CreaterID = activityListModel.uid;
     activityDetailVC.ballParkVC = self;

@@ -44,11 +44,13 @@
         
         
         UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
-        if ([rootViewController isKindOfClass:[BaseTableViewController class]] || [rootViewController isKindOfClass:[BaseTableViewController class]]) {
+        if ([rootViewController.navigationController.viewControllers[0] isKindOfClass:[BaseTableViewController class]] || [rootViewController.navigationController.viewControllers[0] isKindOfClass:[BaseViewController class]]) {
             [self.navigationController.view addGestureRecognizer:panRecognizer];
 
         }else{
-            [self.rootViewController.view addGestureRecognizer:panRecognizer];
+            if (![self.rootViewController.view isKindOfClass:[UITableView class]]) {
+                [self.rootViewController.view addGestureRecognizer:panRecognizer];
+            }
 
         }
         self.navigationController.delegate = self;

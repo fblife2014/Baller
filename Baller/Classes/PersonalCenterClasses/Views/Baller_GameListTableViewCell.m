@@ -79,43 +79,6 @@
     
 }
 
-//- (void)setGameStadus:(GameStadus)gameStadus{
-//    if (_gameStadus == gameStadus) {
-//        return;
-//    }
-//    
-//    _gameStadus = gameStadus;
-//    switch (gameStadus) {
-//        case GameStadusDone:
-//            [self.gameStadusButton setTitle:@"已结束" forState:UIControlStateNormal];
-//            self.line.hidden = YES;
-//            self.gameStadusButton.userInteractionEnabled = NO;
-//            self.gameStadusButton.layer.borderColor = CLEARCOLOR.CGColor;
-//            self.gameStadusButton.layer.cornerRadius = 0.0;
-//            self.gameStadusButton.layer.borderWidth = 0.0;
-//            break;
-//        case GameStadusProgressing:
-//            [self.gameStadusButton setTitle:@"进行中" forState:UIControlStateNormal];
-//            self.line.hidden = NO;
-//            self.gameStadusButton.userInteractionEnabled = NO;
-//            self.gameStadusButton.layer.borderColor = CLEARCOLOR.CGColor;
-//            self.gameStadusButton.layer.cornerRadius = 0.0;
-//            self.gameStadusButton.layer.borderWidth = 0.0;
-//            break;
-//        case GameStadusCanJoin:
-//            [self.gameStadusButton setTitle:@"＋加入" forState:UIControlStateNormal];
-//            self.line.hidden = YES;
-//            self.gameStadusButton.userInteractionEnabled = YES;
-//            self.gameStadusButton.layer.borderColor = BALLER_CORLOR_b2b2b2.CGColor;
-//            self.gameStadusButton.layer.cornerRadius = 5.0;
-//            self.gameStadusButton.layer.borderWidth = 0.5;
-//            break;
-//        default:
-//            break;
-//    }
-//    [self setNeedsDisplay];
-//}
-
 - (IBAction)gameStadusButtonAction:(id)sender {
     
     

@@ -54,7 +54,6 @@
         logoutButton.titleEdgeInsets = UIEdgeInsetsMake(0.0, 15, 0.0, 0.0);
         logoutButton.titleLabel.font= DEFAULT_BOLDFONT(17.0);
         tableView.tableFooterView = logoutButton;
-        
     }
     return _systemConfigureTableView;
 }

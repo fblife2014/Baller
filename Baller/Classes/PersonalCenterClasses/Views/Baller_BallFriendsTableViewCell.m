@@ -20,6 +20,7 @@
     self.imageView.clipsToBounds = YES;
     self.imageView.layer.borderColor = BALLER_CORLOR_b2b2b2.CGColor;
     self.textLabel.backgroundColor = CLEARCOLOR;
+    self.textLabel.textColor = BALLER_CORLOR_5c5c5c;
     self.textLabel.font = SYSTEM_FONT_S(13.0);
     self.textLabel.text = @"Brad Pitt";
     
@@ -83,8 +84,8 @@
 
     }
     
-    self.textLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame)+20.0, 23.5, 120, 13.0);
-
+    self.textLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame)+10.0, CGRectGetMinY(self.imageView.frame)+3, 120, 13.0);
+    self.BallParkName.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame)+10.0, CGRectGetMaxY(self.imageView.frame)-16, ScreenWidth-60-CGRectGetMaxX(self.imageView.frame), 13.0);
 }
 
 - (CircleView *)circleView

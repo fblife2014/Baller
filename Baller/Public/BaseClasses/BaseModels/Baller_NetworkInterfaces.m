@@ -95,6 +95,8 @@ NSString * const Baller_get_my_team = @"&c=team&m=get_my_team";         //56、�
 NSString * const Baller_team_out = @"&c=team&m=out_team";            //57、退出、解散球队
 NSString * const Baller_team_change_leader = @"&c=team&m=change_leader";  //58、更换队长
 NSString * const Baller_team_check_invite_join = @"&c=team&m=check_invite_join";  //59、处理加入球队的邀请接口
+NSString * const Baller_get_team_info_by_ti_id = @"&c=team&m=get_team_info&by=ti_id";  //60、根据邀请加入球队的id，获取球场详情
+
 
 
 @implementation Baller_NetworkInterfaces

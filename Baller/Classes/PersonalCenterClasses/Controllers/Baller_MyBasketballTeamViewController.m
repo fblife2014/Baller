@@ -36,20 +36,30 @@
 - (void)dealloc
 {
     [[RCIMClient sharedRCIMClient] quitGroup:self.teamInfo.group_id completion:NULL error:NULL];
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[AppDelegate sharedDelegate]connectRC];
     [self userHeadClicked];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(createTeamSuccessNotificationAction) name:@"CreateTeamSuccessNotification" object:nil];
 
     [self.tableView registerNib:[UINib nibWithNibName:@"Baller_MyBasketBallTeamTableViewCell" bundle:nil] forCellReuseIdentifier:@"Baller_MyBasketBallTeamTableViewCell"];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
  
-    if (_teamType!= Baller_TeamNotJoinedType) {
+    if (_ti_id) {
+        [self getTeaminfoByInviteId];
+    }else if (_teamType!= Baller_TeamNotJoinedType) {
         [self getBasketballTeamInfo:nil];
     }
 
+}
+
+- (void)createTeamSuccessNotificationAction
+{
+    self.teamType = Baller_TeamNotJoinedType;
+    [self getBasketballTeamInfo:nil];
 }
 
 #pragma mark 系统设置方法
@@ -163,6 +173,9 @@
         headerView.memberCount.text = [NSString stringWithFormat:@"%ld", (long)self.teamInfo.memberNumber];
         headerView.courtName.text = self.teamInfo.teamName;
         headerView.captainName.text = self.teamInfo.teamLeaderUserName;
+        [headerView.headImageView sd_setImageWithURL:[NSURL URLWithString:_teamInfo.logoImageUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+        }];
         [headerView.headImageView showBlurWithDuration:0.5 blurStyle:kUIBlurEffectStyleLight belowView:nil];
         self.tableView.tableHeaderView = headerView;
     }
@@ -221,7 +234,25 @@
   
                              }];
 }
-
+/*!
+ *  @brief  根据邀请id获取球队详情
+ */
+- (void)getTeaminfoByInviteId
+{
+    __WEAKOBJ(weakSelf, self);
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_team_info_by_ti_id parameters:@{@"ti_id":_ti_id} responseBlock:^(id result, NSError *error) {
+        if (!error) {
+            if ([result intForKey:@"errorcode"] == 0) {
+                __STRONGOBJ(strongSelf, weakSelf);
+                strongSelf.teamInfo = [Baller_BallTeamInfo shareWithServerDictionary:(_teamType == Baller_TeamJoinedType)?result:[result valueForKey:@"info"]];
+                [strongSelf.tableView reloadData];
+            }else{
+                [Baller_HUDView bhud_showWithTitle:[result stringForKey:@"msg"]];
+            }
+        }
+    }];
+    
+}
 
 /*!
  *  @brief  退出球队
@@ -266,6 +297,7 @@
                 NSMutableDictionary * userinfo = [NSMutableDictionary dictionaryWithDictionary:[USER_DEFAULT valueForKey:Baller_UserInfo]];
                 [userinfo setValue:@"1" forKey:@"team_status"];
                 [userinfo setValue:self.teamInfo.teamName forKey:@"court_name"];
+                [USER_DEFAULT setValue:userinfo forKey:Baller_UserInfo];
                 
                 [USER_DEFAULT synchronize];
             });
@@ -321,7 +353,11 @@
 - (void)createTeamButtonAction {
     
     if ([[USER_DEFAULT valueForKey:Baller_UserInfo] intForKey:@"team_status"] == 0) {
-        [Baller_HUDView bhud_showWithTitle:@"您已申请加入其他球队！"];
+        [Baller_HUDView bhud_showWithTitle:@"您已申请加入其他球队，请耐心等待⌛️"];
+    }else if (0 == [[USER_DEFAULT valueForKey:Baller_UserInfo] intForKey:@"court_id"])
+    {
+        [Baller_HUDView bhud_showWithTitle:@"创建球队前，请先设置您的主场😄"];
+
     }else if ([[USER_DEFAULT valueForKey:Baller_UserInfo] intForKey:@"team_status"] == 2)
     {
         Baller_CreateBallTeamViewController *createTeamVC = [[Baller_CreateBallTeamViewController alloc] init];
@@ -376,8 +412,13 @@
     Baller_BallTeamMemberInfo *teamMemberInfo = [self.teamInfo.members objectAtIndex:indexPath.row];
     [cell.memberImage sd_setImageWithURL:[NSURL URLWithString:teamMemberInfo.photo]];
     cell.memberName.text = teamMemberInfo.user_name;
-    
-    cell.partnerType = [teamMemberInfo.state integerValue];
+    if ([teamMemberInfo.uid integerValue] == _teamInfo.teamLeaderUserID) {
+        cell.partnerType = PartnerType_Captain;
+
+    }else{
+        cell.partnerType = PartnerType_Online;
+
+    }
     if (indexPath.row == 0) {
         cell.backgroundType = BaseCellBackgroundTypeUpWhite;
     } else if (indexPath.row == 9) {

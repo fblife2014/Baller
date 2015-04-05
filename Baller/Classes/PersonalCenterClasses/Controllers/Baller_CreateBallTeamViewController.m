@@ -14,6 +14,9 @@
 
 @end
 
+static NSString * const CreateTeamSuccessNotification = @"CreateTeamSuccessNotification";
+
+
 @implementation Baller_CreateBallTeamViewController
 
 - (void)viewDidLoad {
@@ -86,7 +89,7 @@
             self.basketBallTeamCreatedBlock(result);
         }
         [Baller_HUDView bhud_showWithTitle:[result valueForKey:@"msg"]];
-
+        [[NSNotificationCenter defaultCenter]postNotificationName:CreateTeamSuccessNotification object:nil];
     }];
     
 }

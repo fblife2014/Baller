@@ -12,7 +12,7 @@
 #import "Baller_PlayerCardViewController.h"
 #import "Baller_ActivityDetailViewController.h"
 #import "Baller_MyBasketballTeamViewController.h"
-
+#import "Baller_ManageTeamRequestViewController.h"
 #import "Baller_MessageViewCell.h"
 
 #import "RCIM.h"
@@ -43,12 +43,19 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     [super viewDidLoad];
     [self setRCUserinfo];
     self.tableView.dataSource = self;
+    if(![DataBaseManager isTableExist:@"Baller_MessageListInfo"])[DataBaseManager  createDataBaseWithDBModelName:@"Baller_MessageListInfo"];
+
     [self.tableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
     [self.tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadMessageData) name:BallerLogoutThenLoginNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadMessageData) name:BallerUpdateHeadImageNotification object:nil];
     self.page = 1;
-    [self reloadMessageData];
+    if ([[AFNetworkReachabilityManager sharedManager] isReachable]) {
+        [self reloadMessageData];
+    }else{
+        [self getMessageFromSQLTable];
+
+    }
     // Do any additional setup after loading the view.
 }
 
@@ -77,6 +84,18 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     [[AppDelegate sharedDelegate] getTokenFromRC];
        [[AppDelegate sharedDelegate]connectRC];
     [self getMessageLists];
+}
+
+/*!
+ *  @brief  从数据库读取数据
+ */
+- (void)getMessageFromSQLTable{
+    if (self.messageLists.count < [DataBaseManager findTheTableItemNumberWithModelName:@"Baller_MessageListInfo" keyName:nil keyValue:nil]) {
+        [self.messageLists addObjectsFromArray: [DataBaseManager findTheTableItemWithModelName:@"Baller_MessageListInfo" sql:$str(@"SELECT * FROM Baller_MessageListInfo limit %d,%d",(self.page-1)*PER_PAGE,PER_PAGE)]];
+        
+    }
+    [self.tableView reloadData];
+
 }
 
 - (void)headerRereshing{
@@ -127,6 +146,16 @@ static NSString * const MessageListCellId = @"MessageListCellId";
                 [strongSelf.tableView.footer setState:MJRefreshFooterStateIdle];
             }
             [self.tableView reloadData];
+            
+//            BACKGROUND_BLOCK(^{
+//                for (Baller_MessageListInfo * messageListInfo in self.messageLists) {
+//                    
+//                    if (![DataBaseManager isModelExist:@"Baller_MessageListInfo" keyName:@"msg_id" keyValue:@([messageListInfo.msg_id integerValue])]) {
+//                        [DataBaseManager insertDataWithMDBModel:messageListInfo];
+//                    }
+//                }
+//            });
+  
         }
     }];
 }
@@ -141,6 +170,11 @@ static NSString * const MessageListCellId = @"MessageListCellId";
         {
             NSIndexPath * deleteID = [NSIndexPath indexPathForRow:[self.messageLists indexOfObject:messageInfo]+1 inSection:0];
             [self.messageLists removeObject:messageInfo];
+            
+            if (![DataBaseManager isModelExist:@"Baller_MessageListInfo" keyName:@"msg_id" keyValue:messageInfo.msg_id]) {
+                [DataBaseManager deleteDataModelWithModelName:@"Baller_MessageListInfo" keyName:@"msg_id" keyValue:messageInfo.msg_id];
+            }
+            
             [self.tableView deleteRowsAtIndexPaths:@[deleteID]withRowAnimation:UITableViewRowAnimationFade];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
@@ -234,9 +268,13 @@ static NSString * const MessageListCellId = @"MessageListCellId";
         {
             Baller_MyBasketballTeamViewController * teamInfoVC = [[Baller_MyBasketballTeamViewController alloc]init];
             teamInfoVC.isCloseMJRefresh = YES;
-            teamInfoVC.teamId = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_status"];
-            teamInfoVC.ti_id = chosedMessageInfo.theme_id;
-            teamInfoVC.teamType = Baller_TeamInvitingType;
+            NSDictionary * userinfo = [USER_DEFAULT valueForKey:Baller_UserInfo];
+            if ([userinfo intForKey:@"team_id"] && [userinfo intForKey:@"team_status"]==1) {
+                teamInfoVC.teamType = Baller_TeamJoinedType;
+            }else{
+                teamInfoVC.ti_id = chosedMessageInfo.theme_id;
+                teamInfoVC.teamType = Baller_TeamInvitingType;
+            }
             teamInfoVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:teamInfoVC animated:YES];
         }
@@ -251,6 +289,17 @@ static NSString * const MessageListCellId = @"MessageListCellId";
             [self.navigationController pushViewController:teamInfoVC animated:YES];
         }
             
+            break;
+        case 8:
+        {
+            Baller_ManageTeamRequestViewController * manageTeamRequestVC = [[Baller_ManageTeamRequestViewController alloc]init];
+            manageTeamRequestVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
+            manageTeamRequestVC.photoUrl = chosedMessageInfo.photo;
+            manageTeamRequestVC.uid = chosedMessageInfo.from_uid;
+            manageTeamRequestVC.tm_id = chosedMessageInfo.theme_id;
+            manageTeamRequestVC.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:manageTeamRequestVC animated:YES];
+        }
             break;
         default:
             break;

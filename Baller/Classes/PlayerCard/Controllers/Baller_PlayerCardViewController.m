@@ -13,11 +13,6 @@
 
 @interface Baller_PlayerCardViewController ()
 
-{
-    __weak Baller_CardView * _playCardView;
-    Baller_CardView * playCardView;
-}
-
 @end
 
 @implementation Baller_PlayerCardViewController
@@ -58,13 +53,13 @@
 - (Baller_CardView *)playCardView
 {
     if (!_playCardView) {
-        playCardView = [[Baller_CardView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, 10.0, ScreenWidth-2*TABLE_SPACE_INSET, self.view.frame.size.height-20.0) playerCardType:self.ballerCardType];
-        if (_activity_id)playCardView.activity_id = _activity_id;
+        _playCardView = [[Baller_CardView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, 10.0, ScreenWidth-2*TABLE_SPACE_INSET, self.view.frame.size.height-20.0) playerCardType:self.ballerCardType];
+        if (_activity_id)_playCardView.activity_id = _activity_id;
         if (_uid) {
-            playCardView.uid = _uid;
+            _playCardView.uid = _uid;
             
         }else{
-            __BLOCKOBJ(blockPlayCard, playCardView);
+            __BLOCKOBJ(blockPlayCard, _playCardView);
             [AFNHttpRequestOPManager getWithSubUrl:Baller_get_user_attr parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]} responseBlock:^(id result, NSError *error) {
                 
                 if([result isKindOfClass:[NSDictionary class]]){
@@ -81,7 +76,7 @@
 
         }
         
-        [self.view addSubview:_playCardView = playCardView];
+        [self.view addSubview:_playCardView];
         [self.view bringSubviewToFront:_playCardView];
         
     }

@@ -245,10 +245,10 @@
         if (0 == [[result valueForKey:@"errorcode"] integerValue]) {
             isDataChanged = YES;
             if (isCreator) {
+                blockInfo.status = 2;
                 self.activityStatus = BallerActivityStatusDissolved;
             }else{
                 strongSelf.activityDetailInfo.my_join = !strongSelf.activityDetailInfo.my_join;
-                blockInfo.status = 2;
                 if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.start_time]) {
                     self.activityStatus = BallerActivityStatusWaitingStart;
                     

@@ -24,6 +24,8 @@
 #import "UIView+Frame.h"
 #import "NSDictionary+SafeAccessor.h"
 #import "NSMutableArray+SafeAccessor.h"
+#import "DataBaseManager.h"
+
 #endif
 
 
@@ -33,6 +35,8 @@
 #else
 #define DLog(...) {}
 #endif
+
+#define PER_PAGE 10
 
 
 typedef NS_ENUM(NSInteger, BallerActivityStatus) //活动状态

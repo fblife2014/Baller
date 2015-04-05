@@ -15,7 +15,7 @@
 @interface AFNHttpRequestOPManager : AFHTTPRequestOperationManager
 
 @property (nonatomic,strong)MBProgressHUD * myProgressHUD;
-
+@property (nonatomic)BOOL Lanuched; //刚刚启动
 
 + (instancetype)sharedManager;
 

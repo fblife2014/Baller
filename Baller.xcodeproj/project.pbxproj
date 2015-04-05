@@ -30,6 +30,7 @@
 		75E80A3A1AC0583900784D1C /* NSMutableArray+SafeAccessor.m in Sources */ = {isa = PBXBuildFile; fileRef = 75E80A391AC0583900784D1C /* NSMutableArray+SafeAccessor.m */; };
 		DF6A1CDC1ABD614D00A2B793 /* Baller_MyAttentionBallPark.m in Sources */ = {isa = PBXBuildFile; fileRef = DF6A1CDB1ABD614D00A2B793 /* Baller_MyAttentionBallPark.m */; };
 		EFCC59A01ABD7241007F2D9C /* Baller_ChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCC599F1ABD7241007F2D9C /* Baller_ChatListViewController.m */; };
+		FB0443721AD11DD100AAD432 /* Baller_ManageTeamRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0443711AD11DD100AAD432 /* Baller_ManageTeamRequestViewController.m */; };
 		FB2ABEB91AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABE9D1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m */; };
 		FB2ABEBA1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABE9F1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.m */; };
 		FB2ABEBB1AADF97C007D7E52 /* Baller_CreateBallParkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABEA11AADF97C007D7E52 /* Baller_CreateBallParkViewController.m */; };
@@ -229,6 +230,8 @@
 		DF6A1CDB1ABD614D00A2B793 /* Baller_MyAttentionBallPark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MyAttentionBallPark.m; sourceTree = "<group>"; };
 		EFCC599E1ABD7241007F2D9C /* Baller_ChatListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_ChatListViewController.h; sourceTree = "<group>"; };
 		EFCC599F1ABD7241007F2D9C /* Baller_ChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_ChatListViewController.m; sourceTree = "<group>"; };
+		FB0443701AD11DD100AAD432 /* Baller_ManageTeamRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_ManageTeamRequestViewController.h; sourceTree = "<group>"; };
+		FB0443711AD11DD100AAD432 /* Baller_ManageTeamRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_ManageTeamRequestViewController.m; sourceTree = "<group>"; };
 		FB2ABE9C1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_BallParkHomepageViewController.h; sourceTree = "<group>"; };
 		FB2ABE9D1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_BallParkHomepageViewController.m; sourceTree = "<group>"; };
 		FB2ABE9E1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_BPAttentionPersonListViewController.h; sourceTree = "<group>"; };
@@ -835,6 +838,8 @@
 				FB9EF28F1AADF830001D77CB /* Baller_MessageViewController.m */,
 				EFCC599E1ABD7241007F2D9C /* Baller_ChatListViewController.h */,
 				EFCC599F1ABD7241007F2D9C /* Baller_ChatListViewController.m */,
+				FB0443701AD11DD100AAD432 /* Baller_ManageTeamRequestViewController.h */,
+				FB0443711AD11DD100AAD432 /* Baller_ManageTeamRequestViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1816,6 +1821,7 @@
 				FBD9B7521AAD7F7F00CDC1C6 /* Baller_NetworkInterfaces.m in Sources */,
 				FBD9B76E1AAD7F7F00CDC1C6 /* AFNHttpRequestOPManager.m in Sources */,
 				FBF50AA71AC6345A003CBCAD /* NSDate+Helpers.m in Sources */,
+				FB0443721AD11DD100AAD432 /* Baller_ManageTeamRequestViewController.m in Sources */,
 				FBD9B7791AAD7F7F00CDC1C6 /* DataBaseManager.m in Sources */,
 				FBD9B7741AAD7F7F00CDC1C6 /* DeviceIdentifierTool.m in Sources */,
 				FB2ABEC21AADF97C007D7E52 /* Baller_BPAttentionPersonCollectionViewCell.m in Sources */,

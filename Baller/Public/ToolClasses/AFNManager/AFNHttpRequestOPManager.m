@@ -58,15 +58,17 @@
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         if(status == AFNetworkReachabilityStatusNotReachable){
             
-            if(status == AFNetworkReachabilityStatusNotReachable){
-                
-                [Baller_HUDView bhud_showWithTitle:@"网络连接已断开!"];
-                
-            }else if(AFNetworkReachabilityStatusReachableViaWiFi == status){
-                DLog(@"网络链接！");
-                
+            [Baller_HUDView bhud_showWithTitle:@"网络连接已断开!"];
+            
+        }else if(AFNetworkReachabilityStatusReachableViaWiFi == status){
+            DLog(@"");
+            if ([[AFNHttpRequestOPManager sharedManager] Lanuched]) {
+                [Baller_HUDView bhud_showWithTitle:@"网络已链接"];
+
+            }else{
+                [[AFNHttpRequestOPManager sharedManager] setLanuched:YES];
             }
-            return ;
+            
         }
     }];
     
@@ -116,6 +118,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[[self class]sharedManager] hideMyprogressHud];
         DLog(@"error = %@",error);
+        [Baller_HUDView bhud_showWithTitle:@"出错了😱"];
 
         //failure 方法里面的operation.responseData 有可能含有我们想要的正确的数据
         block(nil,error);
@@ -154,7 +157,7 @@
         DLog(@"error = %@",error);
         DLog(@"operation.responseString = %@",operation.responseString);
 
-        [Baller_HUDView bhud_showWithTitle:@"出错了，正在解决中，请耐心等候"];
+        [Baller_HUDView bhud_showWithTitle:@"出错了😱"];
 
         //failure 方法里面的operation.responseData 有可能含有我们想要的正确的数据
         block(nil,error);
@@ -205,6 +208,8 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [[[self class]sharedManager] hideMyprogressHud];
+        [Baller_HUDView bhud_showWithTitle:@"出错了😱"];
+
         DLog(@"error = %@",error);
         block(nil,error);
         
