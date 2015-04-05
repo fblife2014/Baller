@@ -127,7 +127,7 @@ http://123.57.35.119:84/index.php?d=api&c=court&m=get_my_courts&authcode=UGcHNgJ
  */
 -(void)getNewNetData
 {
-    NSDictionary *dicParmter = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",$str(@"%ld",self.page),@"page",@"10",@"per_page",nil];
+    NSDictionary *dicParmter = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",$str(@"%ld",(long)self.page),@"page",@"10",@"per_page",nil];
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_attend_courts parameters:dicParmter responseBlock:^(id result, NSError *error) {
 
         if(!error)
@@ -156,7 +156,7 @@ http://123.57.35.119:84/index.php?d=api&c=court&m=get_my_courts&authcode=UGcHNgJ
 {
     CLLocationCoordinate2D currentLocation = [[AppDelegate sharedDelegate] currentLocation];
     
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_nearby_courts parameters:@{@"page":$str(@"%ld",self.page),@"per_page":@"10",@"type":@"authed",@"latitude":$str(@"%lf",currentLocation.latitude),@"longitude":$str(@"%lf",currentLocation.longitude)} responseBlock:^(id result, NSError *error) {
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_nearby_courts parameters:@{@"page":$str(@"%ld",(long)self.page),@"per_page":@"10",@"type":@"authed",@"latitude":$str(@"%lf",currentLocation.latitude),@"longitude":$str(@"%lf",currentLocation.longitude)} responseBlock:^(id result, NSError *error) {
         
         if(!error)
         {
@@ -225,7 +225,7 @@ http://123.57.35.119:84/index.php?d=api&c=court&m=get_my_courts&authcode=UGcHNgJ
             if ([[result valueForKey:@"errorcode"] integerValue] == 0) {
                 
                 NSMutableDictionary * userinfo = [NSMutableDictionary dictionaryWithDictionary:[USER_DEFAULT valueForKey:Baller_UserInfo]];
-                [userinfo setValue:$str(@"%ld",opretionBallPark.court_id) forKey:@"court_id"];
+                [userinfo setValue:$str(@"%ld",(long)opretionBallPark.court_id) forKey:@"court_id"];
                 [userinfo setValue:opretionBallPark.court_name forKey:@"court_name"];
 
                 [USER_DEFAULT setValue:userinfo forKey:Baller_UserInfo];
