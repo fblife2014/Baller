@@ -370,6 +370,7 @@ static dispatch_once_t once = 0;
     if (keyName && keyValue) {
         sql = $str(@"%@ where %@ = %@",sql,keyName,keyValue);
     }
+    DLog(@"sql = %@",sql);
     [[[[self class] defaultDataBaseManager] dataBase]open];
     FMResultSet *set = [[[[self class] defaultDataBaseManager] dataBase] executeQuery:sql];
     int number = 0;
