@@ -138,8 +138,8 @@ static dispatch_once_t once = 0;
     //根据查询结果，生成对象，放入数组并返回
     while ([set next]) {
         DLog(@"TableExist %ld", (long)[set columnCount]);
-        [[[[self class] defaultDataBaseManager] dataBase]close];
         return (BOOL)[set columnCount];
+        
     }
     [[[[self class] defaultDataBaseManager] dataBase]close];
     
