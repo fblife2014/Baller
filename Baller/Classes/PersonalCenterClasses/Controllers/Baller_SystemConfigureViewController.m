@@ -66,6 +66,7 @@
             Baller_LoginViewController * loginVC = [[Baller_LoginViewController alloc]init];
             [[[AppDelegate sharedDelegate] tabBarContoller] presentViewController:loginVC animated:YES completion:^{
                 [[[AppDelegate sharedDelegate] tabBarContoller] setSelectedIndex:1];
+                [DataBaseManager deleteDataBase];
                 [USER_DEFAULT removeObjectForKey:Baller_UserInfo];
                 [USER_DEFAULT removeObjectForKey:Baller_UserInfo_Authcode];
                 [USER_DEFAULT removeObjectForKey:Baller_UserInfo_Username];

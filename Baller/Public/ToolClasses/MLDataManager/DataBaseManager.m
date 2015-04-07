@@ -10,7 +10,7 @@
 #import "NSObject+DateBaseModel.h"
 #import "FMDatabase.h"
 
-#define kDefaultDataBaseName @"LightApp.sqlite"
+#define kDefaultDataBaseName @"Baller.sqlite"
 
 @implementation DataBaseManager
 

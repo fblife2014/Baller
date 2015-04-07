@@ -20,7 +20,8 @@
 
 @implementation Baller_MyBasketBallTeamTableViewCell
 
-- (void)awakeFromNib {
+- (void)awakeFromNib
+{
     self.memberImage.layer.borderColor = BALLER_CORLOR_b2b2b2.CGColor;
     self.sfRightMarge.constant = NUMBER(45, 35, 30, 30);
     self.heightRightMarge.constant = NUMBER(71, 50, 30, 30);

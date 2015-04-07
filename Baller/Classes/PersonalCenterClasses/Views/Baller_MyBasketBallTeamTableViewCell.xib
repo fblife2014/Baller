@@ -22,12 +22,18 @@
                             <constraint firstAttribute="height" constant="24" id="lSe-lg-dNa"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yCi-g2-Kwt">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ballPark_default" translatesAutoresizingMaskIntoConstraints="NO" id="yCi-g2-Kwt">
                         <rect key="frame" x="44" y="11.5" width="41" height="41"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="41" id="doe-4k-PgI"/>
                             <constraint firstAttribute="height" constant="41" id="jvy-Qc-ylf"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="王宝强" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lg6-rN-6uY">
                         <rect key="frame" x="113" y="23" width="45" height="18"/>
@@ -87,6 +93,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="ballPark_default" width="187" height="145"/>
         <image name="duizhang" width="21" height="24"/>
     </resources>
 </document>

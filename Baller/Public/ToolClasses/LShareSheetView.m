@@ -304,7 +304,7 @@
     }else if ([type isEqualToString:UMShareToWechatSession]){
         
         [UMSocialData defaultData].extConfig.wechatSessionData.title = title;
-        [UMSocialData defaultData].extConfig.wechatSessionData.url = url; //设置你自己的url地址;
+//        [UMSocialData defaultData].extConfig.wechatSessionData.url = url; //设置你自己的url地址;
         
         [[UMSocialControllerService defaultControllerService] setShareText:content shareImage:shareImage socialUIDelegate:self];
         UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatSession];
@@ -313,7 +313,7 @@
     }else if ([type isEqualToString:UMShareToWechatTimeline]){ //朋友圈
         
         [UMSocialData defaultData].extConfig.wechatTimelineData.title = title;
-        [UMSocialData defaultData].extConfig.wechatTimelineData.url = url; //设置你自己的url地址;
+//        [UMSocialData defaultData].extConfig.wechatTimelineData.url = url; //设置你自己的url地址;
         
         [[UMSocialControllerService defaultControllerService] setShareText:content shareImage:shareImage socialUIDelegate:self];
         [UMSocialSnsPlatformManager getSocialPlatformWithName:UMShareToWechatTimeline].snsClickHandler(root,[UMSocialControllerService defaultControllerService],YES);

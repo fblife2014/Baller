@@ -93,7 +93,6 @@
 
 - (void)getMyCourts
 {
-http://123.57.35.119:84/index.php?d=api&c=court&m=get_my_courts&authcode=UGcHNgJrUGRRcVYvVB4NF1JBUn5W4VKUVtMDsgTCDc8DewVkVWRXNFU/WT8OOAtiBWYAMwVgCXJXYw==
 
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_my_courts parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"page":@(self.page),@"per_page":@(PER_PAGE)} responseBlock:^(id result, NSError *error)
     {
@@ -101,7 +100,7 @@ http://123.57.35.119:84/index.php?d=api&c=court&m=get_my_courts&authcode=UGcHNgJ
         {
             if ([result intForKey:@"errorcode"] == 0)
             {
-                if (self.page) {
+                if (self.page==1) {
                     [dataSourceArray removeAllObjects];
                 }
                 self.total_num = [result integerForKey:@"total_num"];

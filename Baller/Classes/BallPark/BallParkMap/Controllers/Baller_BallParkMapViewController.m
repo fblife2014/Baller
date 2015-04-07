@@ -58,7 +58,7 @@
     _mapView = [[MAMapView alloc]initWithFrame:CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.bounds), CGRectGetMaxY(self.view.bounds)-NUMBER(80.0, 70.0, 60.0, 60.0))];
     _mapView.showsCompass = NO;
     _mapView.showsScale = NO;
-//    _mapView.showsUserLocation = YES;
+    _mapView.showsUserLocation = YES;
     _mapView.delegate = self;
 
     if (_ballParkModel)

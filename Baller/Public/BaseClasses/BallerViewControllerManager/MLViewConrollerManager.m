@@ -40,16 +40,16 @@
     
     if (IOS7) {
         //获取navigationController
-        self.navigationController = self.rootViewController.navigationController;
+        self.navigationController = _rootViewController.navigationController;
         
-        
+    
         UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
         if ([rootViewController.navigationController.viewControllers[0] isKindOfClass:[BaseTableViewController class]] || [rootViewController.navigationController.viewControllers[0] isKindOfClass:[BaseViewController class]]) {
             [self.navigationController.view addGestureRecognizer:panRecognizer];
 
         }else{
-            if (![self.rootViewController.view isKindOfClass:[UITableView class]]) {
-                [self.rootViewController.view addGestureRecognizer:panRecognizer];
+            if (![_rootViewController.view isKindOfClass:[UITableView class]]) {
+                [_rootViewController.view addGestureRecognizer:panRecognizer];
             }
 
         }

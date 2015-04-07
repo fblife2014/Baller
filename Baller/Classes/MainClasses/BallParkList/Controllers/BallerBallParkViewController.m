@@ -219,8 +219,8 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
 
 
 #pragma mark UICollectionViewDataSource
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
     return 1;
 }
 

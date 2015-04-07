@@ -176,8 +176,10 @@
         [headerView.headImageView sd_setImageWithURL:[NSURL URLWithString:_teamInfo.logoImageUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
         }];
+
         [headerView.headImageView showBlurWithDuration:0.5 blurStyle:kUIBlurEffectStyleLight belowView:nil];
         self.tableView.tableHeaderView = headerView;
+
     }
 }
 
@@ -218,7 +220,6 @@
     }
 
     __WEAKOBJ(weakSelf, self);
-    
     [AFNHttpRequestOPManager getWithSubUrl:subUrl
                                 parameters:paras
                              responseBlock:^(id result, NSError *error) {
@@ -231,7 +232,16 @@
                                  }
                                  strongSelf.teamInfo = [Baller_BallTeamInfo shareWithServerDictionary:(_teamType == Baller_TeamJoinedType)?result:[result valueForKey:@"info"]];
                                  [strongSelf.tableView reloadData];
-  
+                                 
+                                 if (strongSelf.teamType == Baller_TeamWaitingCheckType) {
+                                     NSMutableDictionary * userinfo = [USER_DEFAULT valueForKey:Baller_UserInfo];
+                                     for (Baller_BallTeamMemberInfo * teamMemberInfo in strongSelf.teamInfo.members) {
+                                         if ([teamMemberInfo.uid isEqualToString:[userinfo valueForKey:@"uid"]]) {
+                                             strongSelf.navigationItem.title = @"我的球队";
+                                         }
+                                     }
+                                 }
+
                              }];
 }
 /*!
@@ -419,6 +429,8 @@
         cell.partnerType = PartnerType_Online;
 
     }
+    cell.positionLabel.text = teamMemberInfo.position.length==2?teamMemberInfo.position:$str(@"  %@",teamMemberInfo.position);
+    cell.heightLabel.text = $str(@"%@ cm",teamMemberInfo.height);
     if (indexPath.row == 0) {
         cell.backgroundType = BaseCellBackgroundTypeUpWhite;
     } else if (indexPath.row == 9) {

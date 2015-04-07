@@ -52,8 +52,11 @@
         [MAMapServices sharedServices].apiKey = Baller_AMAP_Key;
         _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
         _mapView.showsCompass = NO;
+        _mapView.showsUserLocation = YES;
         _mapView.showsScale = NO;
         _mapView.delegate = self;
+        [_mapView setZoomLevel:16.1 animated:YES];
+
         [self.view addSubview:_mapView];
         
         if (_autoAnnotion) {

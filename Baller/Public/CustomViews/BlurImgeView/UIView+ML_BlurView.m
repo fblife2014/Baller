@@ -96,12 +96,12 @@ static char ML_BlurView_blurViewKey;
         /*!
          *  @brief  当duration不为零时，可让模糊视图在duration的时间内消失
          */
-        if (duration > 0.000000) {
-            blurEffectView.alpha = 0.0;
-            [UIView animateWithDuration:duration animations:^{
-                blurEffectView.alpha = 1.0;
-            }completion:NULL];
-        }
+//        if (duration > 0.000000) {
+//            blurEffectView.alpha = 0.0;
+//            [UIView animateWithDuration:duration animations:^{
+//                blurEffectView.alpha = 1.0;
+//            }completion:NULL];
+//        }
 
     }else if (IOS7){
         //如果系统为iOS8以下，使用UIImageBlurEffectCategory
