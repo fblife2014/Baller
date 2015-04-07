@@ -150,7 +150,8 @@ static NSString * const MessageListCellId = @"MessageListCellId";
             BACKGROUND_BLOCK(^{
                 for (Baller_MessageListInfo * messageListInfo in self.messageLists) {
                     
-                    if (![DataBaseManager isModelExist:@"Baller_MessageListInfo" keyName:@"msg_id" keyValue:messageListInfo.msg_id]) {
+                    if (![DataBaseManager isModelExist:@"Baller_MessageListInfo" keyName:@"msg_id" keyValue:messageListInfo.msg_id])
+                    {
                         [DataBaseManager insertDataWithMDBModel:messageListInfo];
                     }
                 }
