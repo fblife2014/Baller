@@ -89,9 +89,12 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 /*!
  *  @brief  从数据库读取数据
  */
-- (void)getMessageFromSQLTable{
-    if (self.messageLists.count < [DataBaseManager findTheTableItemNumberWithModelName:@"Baller_MessageListInfo" keyName:nil keyValue:nil]) {
-        [self.messageLists addObjectsFromArray: [DataBaseManager findTheTableItemWithModelName:@"Baller_MessageListInfo" sql:$str(@"SELECT * FROM Baller_MessageListInfo limit %d,%d",(self.page-1)*PER_PAGE,PER_PAGE)]];
+- (void)getMessageFromSQLTable
+{
+    self.total_num = [DataBaseManager findTheTableItemNumberWithModelName:@"Baller_MessageListInfo" keyName:nil keyValue:nil];
+    if (self.messageLists.count < self.total_num)
+    {
+        [self.messageLists addObjectsFromArray: [DataBaseManager findTheTableItemWithModelName:@"Baller_MessageListInfo" sql:$str(@"SELECT * FROM Baller_MessageListInfo limit %d,%d",self.messageLists.count,MIN(10, self.total_num-self.messageLists.count))]];
         
     }
     [self.tableView reloadData];
@@ -104,7 +107,13 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     });
     
     self.page = 1;
-    [self getMessageLists];
+    if ([[AFNetworkReachabilityManager sharedManager] isReachable]) {
+        [self getMessageLists];
+    }else{
+        [self.messageLists removeAllObjects];
+        [self getMessageFromSQLTable];
+        
+    }
 }
 
 - (void)footerRereshing{
@@ -114,7 +123,13 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     
     if (self.messageLists.count<self.total_num) {
         self.page = self.messageLists.count/10+1;
-        [self getMessageLists];
+        if ([[AFNetworkReachabilityManager sharedManager] isReachable]) {
+            [self getMessageLists];
+        }else{
+            [self getMessageFromSQLTable];
+            
+        }
+
     }
 }
 
@@ -149,7 +164,6 @@ static NSString * const MessageListCellId = @"MessageListCellId";
             
             BACKGROUND_BLOCK(^{
                 for (Baller_MessageListInfo * messageListInfo in self.messageLists) {
-                    
                     if (![DataBaseManager isModelExist:@"Baller_MessageListInfo" keyName:@"msg_id" keyValue:messageListInfo.msg_id])
                     {
                         [DataBaseManager insertDataWithMDBModel:messageListInfo];
@@ -172,7 +186,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
             NSIndexPath * deleteID = [NSIndexPath indexPathForRow:[self.messageLists indexOfObject:messageInfo]+1 inSection:0];
             [self.messageLists removeObject:messageInfo];
             
-            if (![DataBaseManager isModelExist:@"Baller_MessageListInfo" keyName:@"msg_id" keyValue:messageInfo.msg_id]) {
+            if ([DataBaseManager isModelExist:@"Baller_MessageListInfo" keyName:@"msg_id" keyValue:messageInfo.msg_id]) {
                 [DataBaseManager deleteDataModelWithModelName:@"Baller_MessageListInfo" keyName:@"msg_id" keyValue:messageInfo.msg_id];
             }
             

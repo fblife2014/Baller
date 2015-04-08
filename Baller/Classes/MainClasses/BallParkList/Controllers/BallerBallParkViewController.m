@@ -51,6 +51,9 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     createBallParkItem.customView.hidden = YES;
     self.navigationItem.rightBarButtonItem = createBallParkItem;
     
+    if(![DataBaseManager isTableExist:@"Baller_BallParkListModel"])[DataBaseManager  createDataBaseWithDBModelName:@"Baller_BallParkListModel"];
+
+    
     self.ballParks = [NSMutableArray array];
     self.identifyingParks = [NSMutableArray array];
     [self setupCollectionView];
@@ -86,8 +89,10 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
 #pragma mark 网络请求获取球场
 - (void)getNearbyCourts{
 #warning ____
+    
+    __WEAKOBJ(weakSelf, self);
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_nearby_courts parameters:@{@"latitude":@(currentLocation.latitude?:39.91549069),@"longitude":@(currentLocation.longitude?:116.38086026),@"type":self.ballParkType?@"authing":@"authed",@"per_page":@"10",@"page":self.ballParkType?@(self.identifyingPage):@(self.page)} responseBlock:^(id result, NSError *error) {
-        
+        __STRONGOBJ(strongSelf, weakSelf);
         if (error) {
             
         }else if (0 == [[result valueForKey:@"errorcode"] intValue]){
@@ -95,16 +100,16 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
             NSArray * courtList = (NSArray *)[result valueForKey:@"list"];
             NSMutableArray * courtsArray = nil;
             NSInteger totalnum = [result integerForKey:@"total_num"];
-            if (self.ballParkType == BallParkTypeIdentifyed) {
-                self.total_num = totalnum;
+            if (strongSelf.ballParkType == BallParkTypeIdentifyed) {
+                strongSelf.total_num = totalnum;
 
-                if (1 == self.page)[self.ballParks removeAllObjects];
-                courtsArray = self.ballParks;
+                if (1 == strongSelf.page)[strongSelf.ballParks removeAllObjects];
+                courtsArray = strongSelf.ballParks;
 
-            }else if (self.ballParkType == BallParkTypeIdentifing){
-                self.identifingTotalnum = totalnum;
-                if (1 == self.identifyingPage)[self.identifyingParks removeAllObjects];
-                courtsArray = self.identifyingParks;
+            }else if (strongSelf.ballParkType == BallParkTypeIdentifing){
+                strongSelf.identifingTotalnum = totalnum;
+                if (1 == strongSelf.identifyingPage)[strongSelf.identifyingParks removeAllObjects];
+                courtsArray = strongSelf.identifyingParks;
             }
             
             for (NSDictionary * courtDic in courtList) {
@@ -115,29 +120,54 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
             }
             
             if (self.ballParkType == BallParkTypeIdentifyed) {
-                if (self.ballParks.count<self.total_num) {
-                    [self.collectionView.footer setState:MJRefreshFooterStateIdle];
+                if (strongSelf.ballParks.count<strongSelf.total_num) {
+                    [strongSelf.collectionView.footer setState:MJRefreshFooterStateIdle];
                 }else{
-                    [self.collectionView.footer noticeNoMoreData];
+                    [strongSelf.collectionView.footer noticeNoMoreData];
 
                 }
             }else{
 
-                if (self.identifyingParks.count<self.identifingTotalnum) {
-                    [self.collectionView.footer setState:MJRefreshFooterStateIdle];
+                if (strongSelf.identifyingParks.count<strongSelf.identifingTotalnum) {
+                    [strongSelf.collectionView.footer setState:MJRefreshFooterStateIdle];
                 }else{
-                    [self.collectionView.footer noticeNoMoreData];
+                    [strongSelf.collectionView.footer noticeNoMoreData];
                     
                 }
             }
+            [self.collectionView reloadData];
             
-            MAIN_BLOCK(^{
-                DLog(@"self.ballParks = %@",self.ballParks);
-                DLog(@"self.identifyingParks = %@",self.identifyingParks);
-                [self.collectionView reloadData];
+            BACKGROUND_BLOCK(^{
+                if (strongSelf.ballParkType == BallParkTypeIdentifyed)
+                {
+                    for (Baller_BallParkListModel * ballParkModel in strongSelf.ballParks) {
+                        if (![DataBaseManager isModelExist:@"Baller_BallParkListModel" keyName:@"court_id" keyValue:@(ballParkModel.court_id)])
+                        {
+                            [DataBaseManager insertDataWithMDBModel:ballParkModel];
+                        }
+                    }
+                }
             });
+            
         }
     }];
+}
+
+/*!
+ *  @brief  从数据库读取数据
+ */
+- (void)getIdentifyedBallParkFromSQLTable
+{
+    self.total_num = [DataBaseManager findTheTableItemNumberWithModelName:@"Baller_BallParkListModel" keyName:nil keyValue:nil];
+    if (self.ballParks.count < self.total_num)
+    {
+        [self.ballParks addObjectsFromArray: [DataBaseManager findTheTableItemWithModelName:@"Baller_BallParkListModel" sql:$str(@"SELECT * FROM Baller_BallParkListModel limit %d,%d",self.ballParks.count,MIN(10, self.total_num-self.ballParks.count))]];
+        
+    }
+    [self.collectionView reloadData];
+    if (self.ballParks.count == self.total_num) {
+        [self.collectionView.footer noticeNoMoreData];
+    }
 }
 
 #pragma mark 上拉下拉
@@ -145,10 +175,18 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     [super headerRereshing];
     if (0 == self.ballParkType) {
         self.page = 1;
+        if ([[AFNetworkReachabilityManager sharedManager] isReachable]) {
+            [self getNearbyCourts];
+        }else{
+            [self.ballParks removeAllObjects];
+            [self getIdentifyedBallParkFromSQLTable];
+        }
     }else{
         self.identifyingPage = 1;
+        [self getNearbyCourts];
+
     }
-    [self getNearbyCourts];
+
 }
 
 - (void)footerRereshing{
@@ -157,11 +195,16 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     if (0 == self.ballParkType) {
         if (self.ballParks.count<self.total_num) {
             self.page = self.ballParks.count/10+1;
-            [self getNearbyCourts];
+            if ([[AFNetworkReachabilityManager sharedManager] isReachable]) {
+                [self getNearbyCourts];
+            }else{
+                [self getIdentifyedBallParkFromSQLTable];
+            }
         }
     }else{
         if (self.identifyingParks.count<self.identifingTotalnum) {
             self.identifyingPage = self.identifyingParks.count/10+1;
+            
             [self getNearbyCourts];
 
         }
@@ -213,7 +256,13 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     }
     if (currentLocation.latitude && !hasLocationed) {
         hasLocationed = YES;
-        [self getNearbyCourts];
+        if (self.ballParkType == BallParkTypeIdentifyed) {
+            if ([[AFNetworkReachabilityManager sharedManager] isReachable]) {
+                [self getNearbyCourts];
+            }else{
+                [self getIdentifyedBallParkFromSQLTable];
+            }
+        }
     }
 }
 

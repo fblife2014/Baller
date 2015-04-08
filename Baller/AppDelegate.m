@@ -167,7 +167,8 @@
 {
     // 设置 deviceToken。
     [[RCIM sharedRCIM] setDeviceToken:deviceToken];
-
+    
+    NSLog(@"deviceTokenStr = %@",[deviceToken description]);
     BACKGROUND_BLOCK(^{
         NSString* deviceTokenString = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
         DLog(@"deviceTokenString = %@",deviceTokenString);
@@ -181,6 +182,10 @@
     
 }
 
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+    application.applicationIconBadgeNumber = 0;
+    NSLog(@"userInfo = %@",userInfo);
+}
 
 #pragma mark 处理推送通知
 - (void)registerAPNS{
