@@ -120,16 +120,24 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
             }
             
             if (self.ballParkType == BallParkTypeIdentifyed) {
-                if (strongSelf.ballParks.count<strongSelf.total_num) {
-                    [strongSelf.collectionView.footer setState:MJRefreshFooterStateIdle];
+                if (strongSelf.ballParks.count<strongSelf.total_num)
+                {
+                    if (strongSelf.collectionView.footer.state == MJRefreshFooterStateNoMoreData) {
+                        [strongSelf.collectionView.footer setState:MJRefreshFooterStateIdle];
+                    }
+                
                 }else{
                     [strongSelf.collectionView.footer noticeNoMoreData];
 
                 }
             }else{
 
-                if (strongSelf.identifyingParks.count<strongSelf.identifingTotalnum) {
-                    [strongSelf.collectionView.footer setState:MJRefreshFooterStateIdle];
+                if (strongSelf.identifyingParks.count<strongSelf.identifingTotalnum)
+                {
+                    if (strongSelf.collectionView.footer.state == MJRefreshFooterStateNoMoreData) {
+                        [strongSelf.collectionView.footer setState:MJRefreshFooterStateIdle];
+                    }
+                
                 }else{
                     [strongSelf.collectionView.footer noticeNoMoreData];
                     
@@ -137,10 +145,13 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
             }
             [self.collectionView reloadData];
             
+            
             BACKGROUND_BLOCK(^{
                 if (strongSelf.ballParkType == BallParkTypeIdentifyed)
                 {
-                    for (Baller_BallParkListModel * ballParkModel in strongSelf.ballParks) {
+                    for (int i = MAX(0, strongSelf.ballParks.count-10); i<self.ballParks.count; i++)
+                    {
+                        Baller_BallParkListModel * ballParkModel = self.ballParks[i];
                         if (![DataBaseManager isModelExist:@"Baller_BallParkListModel" keyName:@"court_id" keyValue:@(ballParkModel.court_id)])
                         {
                             [DataBaseManager insertDataWithMDBModel:ballParkModel];
@@ -161,7 +172,7 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     self.total_num = [DataBaseManager findTheTableItemNumberWithModelName:@"Baller_BallParkListModel" keyName:nil keyValue:nil];
     if (self.ballParks.count < self.total_num)
     {
-        [self.ballParks addObjectsFromArray: [DataBaseManager findTheTableItemWithModelName:@"Baller_BallParkListModel" sql:$str(@"SELECT * FROM Baller_BallParkListModel limit %d,%d",self.ballParks.count,MIN(10, self.total_num-self.ballParks.count))]];
+        [self.ballParks addObjectsFromArray: [DataBaseManager findTheTableItemWithModelName:@"Baller_BallParkListModel" sql:$str(@"SELECT * FROM Baller_BallParkListModel limit %lu,%lu",(unsigned long)self.ballParks.count,MIN(10, self.total_num-self.ballParks.count))]];
         
     }
     [self.collectionView reloadData];

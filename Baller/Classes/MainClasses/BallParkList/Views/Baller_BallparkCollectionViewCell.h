@@ -10,7 +10,9 @@
 @class Baller_BallParkListModel;
 
 @interface Baller_BallparkCollectionViewCell : UICollectionViewCell
-
+{
+    UIView * whiteView;
+}
 @property (nonatomic,strong)UIImageView * ballParkImageView;
 
 @property (nonatomic,strong)UILabel * ballParkNameLabel;

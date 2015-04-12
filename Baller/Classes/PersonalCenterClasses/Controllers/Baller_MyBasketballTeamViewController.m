@@ -171,7 +171,7 @@
         self.tableView.tableHeaderView = nil;
         Baller_MyBasketballTeamTableViewHeaderView *headerView = [[[NSBundle mainBundle] loadNibNamed:@"Baller_MyBasketballTeamTableViewHeaderView" owner:nil options:nil] firstObject];
         headerView.memberCount.text = [NSString stringWithFormat:@"%ld", (long)self.teamInfo.memberNumber];
-        headerView.courtName.text = self.teamInfo.teamName;
+        headerView.courtName.text = self.teamInfo.court_name;
         headerView.captainName.text = self.teamInfo.teamLeaderUserName;
         [headerView.headImageView sd_setImageWithURL:[NSURL URLWithString:_teamInfo.logoImageUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             

@@ -24,14 +24,18 @@
         self.backgroundColor = CLEARCOLOR;
         self.contentView.clipsToBounds = YES;
         self.contentView.layer.cornerRadius = 4.0;
+        self.contentView.layer.masksToBounds = YES;
         self.contentView.backgroundColor = CLEARCOLOR;
         
         _ballParkImageView = [[UIImageView alloc]init];
         _ballParkImageView.contentMode = UIViewContentModeScaleToFill;
         [self.contentView addSubview:self.ballParkImageView];
         
-        _ballParkNameLabel = [ViewFactory addAlabelForAView:self.contentView withText:nil frame:CGRectZero font:SYSTEM_FONT_S(13.0) textColor:BALLER_CORLOR_767676];
-        _ballParkNameLabel.backgroundColor = [UIColor whiteColor];
+        whiteView = [[UIView alloc]init];
+        whiteView.backgroundColor = [UIColor whiteColor];
+        whiteView.layer.masksToBounds = YES;
+        [self.contentView addSubview:whiteView];
+        _ballParkNameLabel = [ViewFactory addAlabelForAView:whiteView withText:nil frame:CGRectZero font:SYSTEM_FONT_S(13.0) textColor:BALLER_CORLOR_767676];
     }
     return self;
 }
@@ -59,7 +63,9 @@
     
     self.contentView.frame = CGRectMake(0.0, BallPark_ItemSpacing/2.0, self.contentView.frame.size.width, self.contentView.frame.size.width);
     self.ballParkImageView.frame = CGRectMake(0.0, 0.0, self.contentView.frame.size.width, 435.0/561.0*self.contentView.frame.size.width);
-    self.ballParkNameLabel.frame = CGRectMake(0.0, 435.0/561.0*self.contentView.frame.size.width, self.contentView.frame.size.width, 129.0/561.0*self.contentView.frame.size.width);
+    whiteView.frame = CGRectMake(0.0, 435.0/561.0*self.contentView.frame.size.width-15, self.contentView.frame.size.width, 129.0/561.0*self.contentView.frame.size.width+5);
+
+    self.ballParkNameLabel.frame = CGRectMake(7.5, 2.5, whiteView.frame.size.width-15, whiteView.frame.size.height-5);
     
 }
 

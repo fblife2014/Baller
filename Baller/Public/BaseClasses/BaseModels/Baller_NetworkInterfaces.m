@@ -63,6 +63,8 @@ NSString * const Baller_get_attend_user_by_court = @"&c=court&m=get_attend_user_
 
 NSString * const Baller_get_my_courts = @"&c=court&m=get_my_courts"; //29、关注球场的球员列表
 
+NSString * const Baller_upload_share_pic = @"&c=upload&m=upload_pic"; //30、上传分享球员卡
+
 
 
 

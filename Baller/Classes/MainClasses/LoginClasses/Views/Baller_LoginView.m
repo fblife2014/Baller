@@ -170,11 +170,6 @@ typedef enum{
         
         [self thirdLoginButton];
         
-        
-//        UIButton *btn = [LTools createButtonWithType:UIButtonTypeCustom frame:CGRectMake(10, 300, 200, 50) normalTitle:@"hahha" image:nil backgroudImage:nil superView:self target:self action:@selector(setBufferIndex:)];
-//        
-//        [self addSubview:btn];
-        
     }
     return self;
 }
@@ -278,7 +273,7 @@ typedef enum{
     
     [self addSubview:_tencentLoginButton];
        
-    _wechatLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0+thirdLoginWidth, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) normalTitle:nil image:[UIImage imageNamed:@"login_weibo"] backgroudImage:nil superView:self target:self action:@selector(weiboLogin)];
+    _weiboLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0+thirdLoginWidth, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) normalTitle:nil image:[UIImage imageNamed:@"login_weibo"] backgroudImage:nil superView:self target:self action:@selector(weiboLogin)];
     [self addSubview:_weiboLoginButton];
 }
 
@@ -292,23 +287,6 @@ typedef enum{
         [_loginButton addTarget:self action:@selector(loginButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_loginButton];
         [_loginButton setFrame:CGRectMake(kLoginTextField_OriginX, kLoginButton_OriginY, kLoginTextField_Width, kLoginTextField_Height)];
-        
-//        //添加第三方登录按钮
-//        UIImage * tencentImage = [UIImage imageNamed:@"login_qq"];
-//        CGFloat thirdLoginWidth = tencentImage.size.width+kThirdLoginButton_Space;
-//        CGFloat thirdLoginHeight = tencentImage.size.height;
-//
-//        
-//        _wechatLoginButton = [ViewFactory getAButtonWithFrame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0-thirdLoginWidth, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) nomalTitle:nil hlTitle:nil titleColor:nil bgColor:nil nImage:@"login_wechat" hImage:@"login_wechat" action:@selector(wechatLogin) target:self buttonTpye:UIButtonTypeCustom];
-//        [self addSubview:_wechatLoginButton];
-//        
-//        
-//        _tencentLoginButton = [ViewFactory getAButtonWithFrame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) nomalTitle:nil hlTitle:nil titleColor:nil bgColor:nil nImage:@"login_qq" hImage:@"login_qq" action:@selector(tencentLogin) target:self buttonTpye:UIButtonTypeCustom];
-//        [self addSubview:_tencentLoginButton];
-//        
-//        _weiboLoginButton = [ViewFactory getAButtonWithFrame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0+thirdLoginWidth, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) nomalTitle:nil hlTitle:nil titleColor:nil bgColor:nil nImage:@"login_weibo" hImage:@"login_weibo" action:@selector(weiboLogin) target:self buttonTpye:UIButtonTypeCustom];
-//        [self addSubview:_weiboLoginButton];
-        
     }
     
     return _loginButton;

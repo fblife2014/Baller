@@ -96,4 +96,17 @@ typedef enum {
  */
 - (void)dismissOldBlurEffectViewWithDuration:(NSTimeInterval)duration;
 
+/*!
+ *  @brief  显示模糊效果
+ *
+ *  @param duration  模糊消失时间，为0时不消失
+ *  @param blurStyle 模糊效果类型
+ *  @param corneradus 模糊曲率
+ */
+- (void)showBlurWithDuration:(NSTimeInterval)duration
+                   blurStyle:(BlurStyle)blurStyle
+                   belowView:(UIView *)belowView
+                  radius:(CGFloat)radius;
+
+
 @end

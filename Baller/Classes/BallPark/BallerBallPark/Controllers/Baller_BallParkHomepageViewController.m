@@ -375,6 +375,7 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     _hasIdentified = hasIdentified;
     [self.authenButton setBackgroundColor:hasIdentified?UIColorFromRGB(0x959595):CYAN_COLOR];
     self.identifyLabel.text = hasIdentified?@"已认证":@"点击认证";
+    self.authenButton.enabled = !hasIdentified;
 
 }
 
@@ -388,7 +389,8 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 }
 
 #pragma mark 认证方法
-- (void)authenButtonAction{
+- (void)authenButtonAction
+{
     [AFNHttpRequestOPManager getWithSubUrl:Baller_auth_court parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":_court_id} responseBlock:^(id result, NSError *error) {
         if (0 == [[result valueForKey:@"errorcode"] intValue]) {
             self.hasIdentified = YES;

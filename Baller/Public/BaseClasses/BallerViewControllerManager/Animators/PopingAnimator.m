@@ -17,7 +17,7 @@
 //设置过渡时间
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext
 {
-    return 0.4;
+    return 0.3;
 }
 
 //重写交互式动画效果

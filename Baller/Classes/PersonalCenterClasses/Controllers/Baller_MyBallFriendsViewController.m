@@ -19,6 +19,7 @@
     BallFriendsSearchBar* theSearchBar;
     NSMutableArray * friends; //我的球友信息数组
     NSMutableArray * filterFriends;  //搜索结果数组
+    
     NSString * searchKeyWord;
 }
 
@@ -112,7 +113,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
         case BallFriendsListTypeTable:
         {
             self.tableView.tableHeaderView = theSearchBar;
-
+            
             self.navigationItem.title = @"球友列表";
             UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithImage:@"tianjia" imageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15) target:self selection:@selector(addBallFriend)];
             self.navigationItem.rightBarButtonItem = rightItem;
@@ -295,7 +296,8 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 /*!
  *  @brief  结束邀请球友
  */
-- (void)choseBallFriendsEnd{
+- (void)choseBallFriendsEnd
+{
     self.myBallFriendsEndChoseBallFriendsBlock([_chosedFriends copy]);
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -382,10 +384,17 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 }
 
 #pragma mark - UISearchBarDelegate
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar{
+    theSearchBar.showsCancelButton = YES;
+
+}
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     self.searchBarSearching = YES;
     [filterFriends removeAllObjects];
+
     for(Baller_BallerFriendListModel * model in friends)
     {
         DLog(@"model.friend_user_name = %@",model.friend_user_name);
@@ -400,12 +409,20 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [searchBar resignFirstResponder];
     searchBar.text = nil;
+
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    [self searchBarShouldEndEditing:searchBar];
+
 }
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
+    [searchBar resignFirstResponder];
     self.searchBarSearching = NO;
     searchBar.text = nil;
     [self.tableView reloadData];
+    theSearchBar.showsCancelButton = NO;
     return YES;
 }
 
@@ -421,6 +438,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
         self.placeholder = @"搜索";
         [self setBackgroundColor:BALLER_CORLOR_CELL];
         self.showsScopeBar = YES;
+        self.tintColor = BALLER_CORLOR_NAVIGATIONBAR;
         self.autocorrectionType = UITextAutocorrectionTypeNo;
         self.autocapitalizationType = UITextAutocapitalizationTypeAllCharacters;
         UITextField * searchTF = (UITextField *)[self.subviews[0] subviews][1];

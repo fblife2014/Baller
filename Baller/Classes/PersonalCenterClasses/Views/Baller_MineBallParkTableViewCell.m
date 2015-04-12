@@ -37,7 +37,7 @@
     }
     _ballParkModel = ballParkModel;
     [self.ballParkImageView sd_setImageWithURL:[NSURL URLWithString:ballParkModel.court_img] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        [self.ballParkImageView showBlurWithDuration:0.1 blurStyle:kUIBlurEffectStyleLight belowView:nil];
+        [self.ballParkImageView showBlurWithDuration:1.0 blurStyle:kUIBlurEffectStyleLight belowView:nil radius:40];
 
     }];
     self.ballParkNameLabel.text = ballParkModel.court_name;
@@ -50,8 +50,8 @@
     }
     _myCourtInfo = myCourtInfo;
     [self.ballParkImageView sd_setImageWithURL:[NSURL URLWithString:myCourtInfo.court_img] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        [self.ballParkImageView showBlurWithDuration:0.1 blurStyle:kUIBlurEffectStyleLight belowView:nil];
-        
+        [self.ballParkImageView showBlurWithDuration:1.0 blurStyle:kUIBlurEffectStyleLight belowView:nil radius:40];
+
     }];
     self.ballParkNameLabel.text = myCourtInfo.court_name;
     self.isHomeCourt = myCourtInfo.home_court;

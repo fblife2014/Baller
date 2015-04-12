@@ -47,6 +47,7 @@ extern NSString * const Baller_get_ballers_by_court_id; //26、获取某球场�
 extern NSString * const Baller_get_attend_courts; //27、获取我关注的球场列表
 extern NSString * const Baller_get_attend_user_by_court; //28、关注球场的球员列表
 extern NSString * const Baller_get_my_courts; //29、关注球场的球员列表
+extern NSString * const Baller_upload_share_pic; //30、上传分享球员卡
 
 
 extern NSString * const Baller_activity_create;     //36、发布活动

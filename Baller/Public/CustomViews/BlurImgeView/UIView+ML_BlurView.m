@@ -167,7 +167,6 @@ static char ML_BlurView_blurViewKey;
             [self addSubview:aBlurImageView];
         }
         
-        
         /*!
          *  @brief  当duration不为零时，可让模糊视图在duration的时间内消失
          */
@@ -184,6 +183,90 @@ static char ML_BlurView_blurViewKey;
 
 
 }
+
+- (void)showBlurWithDuration:(NSTimeInterval)duration
+                   blurStyle:(BlurStyle)blurStyle
+                   belowView:(UIView *)belowView
+                  radius:(CGFloat)radius
+{
+    [self removeOldBlurEffectView];
+    //如果系统为iOS8以下，使用UIImageBlurEffectCategory
+    
+    /*!
+     根据当前视图内容，创建一个模糊视图，并添加到当前当前视图上。注意，当需要某些界面隐藏时，要先隐藏这些界面
+     */
+    UIImageView * aBlurImageView = [[UIImageView alloc]initWithFrame:self.bounds];
+    self.blurView = aBlurImageView;
+    aBlurImageView.contentMode = UIViewContentModeScaleAspectFill;
+
+    if (![self isKindOfClass:[UIImageView class]]) {
+        
+        UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, 1);
+        [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
+        UIImage * screenShot = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        switch (blurStyle) {
+            case kUIBlurEffectStyleExtraLight:
+                aBlurImageView.image = [UIImage imageByApplyingExtraLightEffectToImage:screenShot];
+                
+                break;
+            case kUIBlurEffectStyleLight:
+                aBlurImageView.image = [UIImage imageByApplyingLightEffectToImage:screenShot];
+                
+                break;
+            case kUIBlurEffectStyleDark:
+                aBlurImageView.image = [UIImage imageByApplyingDarkEffectToImage:screenShot];
+                
+                break;
+                
+            default:
+                break;
+        }
+        
+    }else{
+        NSLog(@"image = %@",[self valueForKey:@"image"]);
+        
+        switch (blurStyle) {
+            case kUIBlurEffectStyleExtraLight:
+                aBlurImageView.image = [UIImage imageByApplyingExtraLightEffectToImage:[self valueForKey:@"image"]];
+                
+                break;
+            case kUIBlurEffectStyleLight:
+                aBlurImageView.image = [UIImage imageByApplyingLightEffectToImage:[self valueForKey:@"image"]];
+                
+                break;
+            case kUIBlurEffectStyleDark:
+                aBlurImageView.image = [UIImage imageByApplyingDarkEffectToImage:[self valueForKey:@"image"]];
+                
+                break;
+                
+            default:
+                break;
+        }
+        
+    }
+    
+    if (belowView) {
+        [self insertSubview:aBlurImageView belowSubview:belowView];
+        [belowView.superview bringSubviewToFront:belowView];
+    }else{
+        [self addSubview:aBlurImageView];
+    }
+    aBlurImageView.frame = CGRectMake(0.0, 0.0, ScreenWidth, aBlurImageView.frame.size.height);
+    /*!
+     *  @brief  当duration不为零时，可让模糊视图在duration的时间内消失
+     */
+    if (duration > 0.000000) {
+        aBlurImageView.alpha = 0.0;
+        [UIView transitionWithView:aBlurImageView duration:duration options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            aBlurImageView.alpha = 1.0;
+            
+        } completion:NULL];
+    }
+
+}
+
 
 - (void)removeOldBlurEffectView{
     if (self.blurView) {

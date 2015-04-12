@@ -130,7 +130,7 @@ static dispatch_once_t once = 0;
     }
     [[[[self class] defaultDataBaseManager] dataBase]open];
     
-    NSMutableString * query = [NSMutableString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = '%@'",modelName,keyName,keyValue];
+    NSMutableString * query = [NSMutableString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = %@",modelName,keyName,keyValue];
     DLog(@"query = %@",query);
     //根据查询语句查询
     FMResultSet * set = [[[[self class] defaultDataBaseManager] dataBase] executeQuery:query];

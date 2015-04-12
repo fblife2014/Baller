@@ -281,7 +281,7 @@
     }
     Baller_MyAttentionBallPark *currentBallPark = sender.object;
     self.court_name = currentBallPark.court_name;
-    self.court_id = $str(@"%ld",currentBallPark.court_id);
+    self.court_id = $str(@"%ld",(long)currentBallPark.court_id);
     
 }
 
@@ -582,53 +582,70 @@
  *  @brief  分享按钮方法
  */
 - (void)shareButtonAction{
+    __WEAKOBJ(weakSelf, self);
+    __block NSString * share_link_url = nil;
     
-    NSString *share_content = @"有兄弟，来Baller！";
-    NSString *share_title = [_personalInfo valueForKey:@"user_name"];
-    NSString *share_link_url = @"http://www.baidu.com";
     CGRect superRect = self.superview.bounds;
-    self.superview.bounds = CGRectMake(0.0, 0.0, ScreenWidth, self.bounds.size.height+50);
-    UIImage *share_image = [ImageFactory saveImageFromView:self.superview];
-    self.superview.bounds = superRect;
+    weakSelf.superview.bounds = CGRectMake(0.0, 0.0, ScreenWidth, weakSelf.bounds.size.height+10);
+    UIImage * shareImage = [ImageFactory saveImageFromView:weakSelf.superview];
+    weakSelf.superview.bounds = superRect;
     
-    [[LShareSheetView shareInstance] showShareContent:share_content title:share_title shareUrl:share_link_url shareImage:share_image targetViewController:nil];
-    [[LShareSheetView shareInstance]actionBlock:^(NSInteger buttonIndex, Share_Type shareType) {
-        
-        if (shareType == Share_QQ) {
-            
-            NSLog(@"Share_QQ");
-            
-        }else if (shareType == Share_QQZone){
-            
-            NSLog(@"Share_QQZone");
-            
-        }else if (shareType == Share_WeiBo){
-            
-            NSLog(@"Share_WeiBo");
-            
-        }else if (shareType == Share_WX_HaoYou){
-            
-            NSLog(@"Share_WX_HaoYou");
-            
-        }else if (shareType == Share_WX_PengYouQuan){
-            
-            NSLog(@"Share_WX_PengYouQuan");
-            
-        }
-                
-    }];
-    
-    [[LShareSheetView shareInstance]shareResult:^(Share_Result result, Share_Type type) {
-        
-        if (result == Share_Success) {
-            
-           [LTools showMBProgressWithText:@"分享成功" addToView:self];
-        }else
+    [AFNHttpRequestOPManager postImageWithSubUrl:Baller_upload_share_pic parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"action":@"share"} fileName:@"shareImage" fileData:UIImageJPEGRepresentation(shareImage, 1) fileType:@"image/jpg" responseBlock:^(id result, NSError *error)
+    {
+        if ([result intForKey:@"errorcode"] == 0)
         {
-            NSLog(@"分享失败");
+            share_link_url = [[[result valueForKey:@"pics"] objectAtIndex:0]valueForKey:@"image_url"];
+            
+            NSString *share_title = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"user_name"];
+            
+            NSString *share_content = @"朋友们,我在Baller创建了球员卡，快来看看吧！";
+
+            
+            [[LShareSheetView shareInstance] showShareContent:share_content title:share_title shareUrl:share_link_url shareImage:shareImage targetViewController:nil];
+            [[LShareSheetView shareInstance]actionBlock:^(NSInteger buttonIndex, Share_Type shareType) {
+                
+                if (shareType == Share_QQ) {
+                    
+                    NSLog(@"Share_QQ");
+                    
+                }else if (shareType == Share_QQZone){
+                    
+                    NSLog(@"Share_QQZone");
+                    
+                }else if (shareType == Share_WeiBo){
+                    
+                    NSLog(@"Share_WeiBo");
+                    
+                }else if (shareType == Share_WX_HaoYou){
+                    
+                    NSLog(@"Share_WX_HaoYou");
+                    
+                }else if (shareType == Share_WX_PengYouQuan){
+                    
+                    NSLog(@"Share_WX_PengYouQuan");
+                    
+                }
+                
+            }];
+            
+            [[LShareSheetView shareInstance]shareResult:^(Share_Result result, Share_Type type) {
+                
+                if (result == Share_Success) {
+                    
+                    [LTools showMBProgressWithText:@"分享成功" addToView:weakSelf];
+                }else
+                {
+                    NSLog(@"分享失败");
+                }
+                
+            }];
+
         }
-        
     }];
+    
+   
+    
+
 }
 /*!
  *  @brief  私聊按钮方法

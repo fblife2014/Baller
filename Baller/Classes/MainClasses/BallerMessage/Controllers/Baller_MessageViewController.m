@@ -43,19 +43,14 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     [super viewDidLoad];
     [self setRCUserinfo];
     self.tableView.dataSource = self;
-    if(![DataBaseManager isTableExist:@"Baller_MessageListInfo"])[DataBaseManager  createDataBaseWithDBModelName:@"Baller_MessageListInfo"];
 
     [self.tableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
     [self.tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadMessageData) name:BallerLogoutThenLoginNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadMessageData) name:BallerUpdateHeadImageNotification object:nil];
     self.page = 1;
-    if ([[AFNetworkReachabilityManager sharedManager] isReachable]) {
-        [self reloadMessageData];
-    }else{
-        [self getMessageFromSQLTable];
+    [self reloadMessageData];
 
-    }
     // Do any additional setup after loading the view.
 }
 
@@ -86,34 +81,14 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     [self getMessageLists];
 }
 
-/*!
- *  @brief  从数据库读取数据
- */
-- (void)getMessageFromSQLTable
-{
-    self.total_num = [DataBaseManager findTheTableItemNumberWithModelName:@"Baller_MessageListInfo" keyName:nil keyValue:nil];
-    if (self.messageLists.count < self.total_num)
-    {
-        [self.messageLists addObjectsFromArray: [DataBaseManager findTheTableItemWithModelName:@"Baller_MessageListInfo" sql:$str(@"SELECT * FROM Baller_MessageListInfo limit %d,%d",self.messageLists.count,MIN(10, self.total_num-self.messageLists.count))]];
-        
-    }
-    [self.tableView reloadData];
-
-}
-
 - (void)headerRereshing{
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.tableView.header endRefreshing];
     });
     
     self.page = 1;
-    if ([[AFNetworkReachabilityManager sharedManager] isReachable]) {
-        [self getMessageLists];
-    }else{
-        [self.messageLists removeAllObjects];
-        [self getMessageFromSQLTable];
-        
-    }
+    [self getMessageLists];
+
 }
 
 - (void)footerRereshing{
@@ -123,12 +98,8 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     
     if (self.messageLists.count<self.total_num) {
         self.page = self.messageLists.count/10+1;
-        if ([[AFNetworkReachabilityManager sharedManager] isReachable]) {
-            [self getMessageLists];
-        }else{
-            [self getMessageFromSQLTable];
-            
-        }
+        [self getMessageLists];
+
 
     }
 }
@@ -161,16 +132,6 @@ static NSString * const MessageListCellId = @"MessageListCellId";
                 [strongSelf.tableView.footer setState:MJRefreshFooterStateIdle];
             }
             [self.tableView reloadData];
-            
-            BACKGROUND_BLOCK(^{
-                for (Baller_MessageListInfo * messageListInfo in self.messageLists) {
-                    if (![DataBaseManager isModelExist:@"Baller_MessageListInfo" keyName:@"msg_id" keyValue:messageListInfo.msg_id])
-                    {
-                        [DataBaseManager insertDataWithMDBModel:messageListInfo];
-                    }
-                }
-            });
-  
         }
     }];
 }

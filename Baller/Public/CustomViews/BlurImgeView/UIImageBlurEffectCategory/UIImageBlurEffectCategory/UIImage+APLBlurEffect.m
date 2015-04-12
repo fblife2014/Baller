@@ -60,8 +60,8 @@
 //| ----------------------------------------------------------------------------
 + (UIImage *)imageByApplyingLightEffectToImage:(UIImage*)inputImage
 {
-    UIColor *tintColor = [UIColor colorWithWhite:1.0 alpha:0.3];
-    return [self imageByApplyingBlurToImage:inputImage withRadius:40 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
+    UIColor *tintColor = [UIColor colorWithWhite:0.5 alpha:0.3];
+    return [self imageByApplyingBlurToImage:inputImage withRadius:20 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
 }
 
 
@@ -69,7 +69,7 @@
 + (UIImage *)imageByApplyingExtraLightEffectToImage:(UIImage*)inputImage
 {
     UIColor *tintColor = [UIColor colorWithWhite:0.97 alpha:0.82];
-    return [self imageByApplyingBlurToImage:inputImage withRadius:40 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
+    return [self imageByApplyingBlurToImage:inputImage withRadius:30 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
 }
 
 
@@ -77,7 +77,7 @@
 + (UIImage *)imageByApplyingDarkEffectToImage:(UIImage*)inputImage
 {
     UIColor *tintColor = [UIColor colorWithWhite:0.11 alpha:0.73];
-    return [self imageByApplyingBlurToImage:inputImage withRadius:40 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
+    return [self imageByApplyingBlurToImage:inputImage withRadius:30 tintColor:tintColor saturationDeltaFactor:1.8 maskImage:nil];
 }
 
 
@@ -99,7 +99,7 @@
             effectColor = [UIColor colorWithRed:r green:g blue:b alpha:EffectColorAlpha];
         }
     }
-    return [self imageByApplyingBlurToImage:inputImage withRadius:20 tintColor:effectColor saturationDeltaFactor:-1.0 maskImage:nil];
+    return [self imageByApplyingBlurToImage:inputImage withRadius:30 tintColor:effectColor saturationDeltaFactor:-1.0 maskImage:nil];
 }
 
 #pragma mark -
