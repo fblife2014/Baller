@@ -63,7 +63,7 @@
     
     self.contentView.frame = CGRectMake(0.0, BallPark_ItemSpacing/2.0, self.contentView.frame.size.width, self.contentView.frame.size.width);
     self.ballParkImageView.frame = CGRectMake(0.0, 0.0, self.contentView.frame.size.width, 435.0/561.0*self.contentView.frame.size.width);
-    whiteView.frame = CGRectMake(0.0, 435.0/561.0*self.contentView.frame.size.width-15, self.contentView.frame.size.width, 129.0/561.0*self.contentView.frame.size.width+5);
+    whiteView.frame = CGRectMake(0.0, 435.0/561.0*self.contentView.frame.size.width-5, self.contentView.frame.size.width, 129.0/561.0*self.contentView.frame.size.width+5);
 
     self.ballParkNameLabel.frame = CGRectMake(7.5, 2.5, whiteView.frame.size.width-15, whiteView.frame.size.height-5);
     

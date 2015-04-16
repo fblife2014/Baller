@@ -14,7 +14,9 @@ typedef NS_ENUM(NSUInteger, BaseCellBackgroundType)
     BaseCellBackgroundTypeMiddleGrey = 2,   //中间灰
     BaseCellBackgroundTypeMiddleWhite = 3,  //中间白
     BaseCellBackgroundTypeDownGrey = 4,     //底部灰
-    BaseCellBackgroundTypeDownWhite = 5     //底部白
+    BaseCellBackgroundTypeDownWhite = 5,    //底部白
+    BaseCellBackgroundTypeOnlyOne = 6       //只有一个cell
+
 
 };
 

@@ -62,6 +62,13 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     homeBallParkHeadView = [[Baller_BallParkHeadView alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 330)];
     homeBallParkHeadView.delegate = self;
      self.tableView.tableHeaderView = homeBallParkHeadView;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        if (homeBallParkHeadView.ballParkImageView.image) {
+            [homeBallParkHeadView refreshBlurViewForNewImage];
+
+        }
+
+    });
 
 }
 
@@ -243,6 +250,16 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     activityDetailVC.ballParkVC = self;
     [self.navigationController pushViewController:activityDetailVC animated:YES];
 }
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView == self.tableView)
+    {
+        // pass the current offset of the UITableView so that the ParallaxHeaderView layouts the subViews.
+        [(Baller_BallParkHeadView *)self.tableView.tableHeaderView layoutHeaderViewForScrollViewOffset:scrollView.contentOffset];        
+    }
+}
+
 
 #pragma mark Baller_BallParkHeadViewDelegate
 

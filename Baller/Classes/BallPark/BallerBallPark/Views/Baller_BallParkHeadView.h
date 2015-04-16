@@ -64,10 +64,15 @@
 @property (nonatomic,strong)NSDictionary * ballParkInfo;
 
 @property (nonatomic,strong)UIImageView * ballParkImageView; //球场图片
+@property (nonatomic,strong)UIImageView * ballParkBlurImageView; //球场图片
 
 @property (nonatomic)BOOL hasIdentified; //是否已经认证过
 
 @property (nonatomic,assign)id <Baller_BallParkHeadViewDelegate> delegate;
+
+- (void)refreshBlurViewForNewImage;
+
+- (void)layoutHeaderViewForScrollViewOffset:(CGPoint)offset;
 
 
 @end

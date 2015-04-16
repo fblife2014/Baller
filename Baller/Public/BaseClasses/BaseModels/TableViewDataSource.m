@@ -41,7 +41,11 @@
     Baller_BaseTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:self.cellIdentifier forIndexPath:indexPath];
     
     if (indexPath.row == 0) {
-        cell.backgroundType = BaseCellBackgroundTypeUpWhite;
+        if (self.items.count == 1) {
+            cell.backgroundType = BaseCellBackgroundTypeOnlyOne;
+        }else{
+            cell.backgroundType = BaseCellBackgroundTypeUpWhite;
+        }
     }else if (indexPath.row == (self.items.count-1)){
         cell.backgroundType = (indexPath.row%2)?BaseCellBackgroundTypeDownGrey:BaseCellBackgroundTypeDownWhite;
         

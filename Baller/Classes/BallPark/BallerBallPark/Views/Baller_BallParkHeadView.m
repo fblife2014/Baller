@@ -9,6 +9,7 @@
 #import "Baller_BallParkHeadView.h"
 #import "Baller_BallParkListModel.h"
 #import "Baller_ImagePicker.h"
+#import "UIImage+APLBlurEffect.h"
 
 @implementation Baller_BallParkHeadView
 
@@ -67,6 +68,20 @@
     }
     return _ballParkImageView;
 }
+
+- (UIImageView *)ballParkBlurImageView
+{
+    if (!_ballParkBlurImageView) {
+        UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.ballParkImageView.frame];
+        imageView.autoresizingMask = self.ballParkImageView.autoresizingMask;
+        imageView.alpha = 0.0f;
+        [self addSubview:imageView];
+        _ballParkBlurImageView = imageView;
+        
+    }
+    return _ballParkBlurImageView;
+}
+
 
 
 - (void)setHasIdentified:(BOOL)hasIdentified{
@@ -225,5 +240,37 @@
     // Drawing code
 }
 */
+
+- (UIImage *)screenShotOfView:(UIView *)view
+{
+    UIGraphicsBeginImageContextWithOptions(self.ballParkImageView.frame.size, YES, 0.0);
+    [self drawViewHierarchyInRect:self.ballParkImageView.frame afterScreenUpdates:YES];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
+- (void)refreshBlurViewForNewImage
+{
+    UIImage * blurImage = [UIImage imageByApplyingBlurToImage:self.ballParkImageView.image withRadius:5 tintColor:[UIColor colorWithWhite:0.6 alpha:0.2] saturationDeltaFactor:1 maskImage:nil];
+    self.ballParkBlurImageView.image = blurImage;
+}
+
+- (void)layoutHeaderViewForScrollViewOffset:(CGPoint)offset
+{
+    
+    if (offset.y > 0)
+    {
+        self.ballParkBlurImageView.alpha =  fabs(4*offset.y / self.ballParkImageView.frame.size.height);
+        self.ballParkImageView.frame = CGRectMake(0.0, 0.0, self.frame.size.width, self.frame.size.height-50.0);
+
+    }else{
+        self.ballParkBlurImageView.alpha =   0;
+        self.ballParkImageView.frame = CGRectMake(offset.y/2.0, offset.y, ScreenWidth-offset.y/2.0, self.frame.size.height-50.0-offset.y);
+
+    }
+ 
+}
 
 @end

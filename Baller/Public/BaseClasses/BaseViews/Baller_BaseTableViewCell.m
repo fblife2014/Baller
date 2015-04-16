@@ -20,6 +20,7 @@
 @property (nonatomic,strong)UIImage * middle_whiteImage;
 @property (nonatomic,strong)UIImage * down_greyImage;
 @property (nonatomic,strong)UIImage * down_whiteImage;
+@property (nonatomic,strong)UIImage * whiteImage;
 
 @end
 
@@ -84,6 +85,9 @@
             break;
         case BaseCellBackgroundTypeDownWhite:
             self.backgroundImageView.image = self.down_whiteImage;
+            break;
+        case BaseCellBackgroundTypeOnlyOne:
+            self.backgroundImageView.image = self.whiteImage;
 
             break;
             
@@ -151,5 +155,12 @@
     return _down_whiteImage;
 }
 
+- (UIImage *)whiteImage{
+    if (!_whiteImage) {
+        _whiteImage = [[UIImage imageNamed:@"whitelist"]resizableImageWithCapInsets:UIEdgeInsetsMake(10.0, 0.0, 10.0, 10.0)];
+        
+    }
+    return _whiteImage;
+}
 
 @end
