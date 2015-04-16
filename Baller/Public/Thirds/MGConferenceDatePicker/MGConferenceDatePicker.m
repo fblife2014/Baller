@@ -293,7 +293,7 @@ const float LBL_BORDER_OFFSET = 8.0;
     
     //Create save area
     UIView *saveArea = [[UIView alloc] initWithFrame:CGRectMake(0.0, SAVE_AREA_ORIGIN_Y, self.frame.size.width, SAVE_AREA_HEIGHT)];
-    [saveArea setBackgroundColor:SAVE_AREA_COLOR];
+    [saveArea setBackgroundColor:BALLER_CORLOR_CELL];
     
     
     //Create save button
