@@ -7,7 +7,7 @@
 //
 
 #import "Baller_AbilityView.h"
-
+#import <POP/POP.h>
 @implementation Baller_AbilityView
 
 - (void)awakeFromNib{
@@ -107,7 +107,7 @@
 - (IBAction)shootButtonAction:(id)sender {
     
     if (![self isHaveChosedThreeAttributes]) {
-        self.topView.hidden = YES;
+        [self shakeView:self.topView];
         [self.chosedAttributes setValue:@"1" forKey:@"shoot"];
     }
 }
@@ -115,7 +115,8 @@
 - (IBAction)assistButtonAction:(id)sender {
 
     if (![self isHaveChosedThreeAttributes]) {
-        self.rightTopView.hidden = YES;
+        [self shakeView:self.rightTopView];
+
         [self.chosedAttributes setValue:@"1" forKey:@"assists"];
     }
 }
@@ -124,14 +125,14 @@
 - (IBAction)boardButtonAction:(id)sender {
     
     if (![self isHaveChosedThreeAttributes]) {
-        self.rightBottomView.hidden = YES;
+        [self shakeView:self.rightBottomView];
         [self.chosedAttributes setValue:@"1" forKey:@"backboard"];
     }
 }
 - (IBAction)stealButtonAction:(id)sender {
     
     if (![self isHaveChosedThreeAttributes]) {
-        self.bottomView.hidden = YES;
+        [self shakeView:self.bottomView];
         [self.chosedAttributes setValue:@"1" forKey:@"steal"];
     }
 }
@@ -139,7 +140,7 @@
 - (IBAction)coverButtonAction:(id)sender {
 
     if (![self isHaveChosedThreeAttributes]) {
-        self.leftBottomView.hidden = YES;
+        [self shakeView:self.leftBottomView];
         [self.chosedAttributes setValue:@"1" forKey:@"over"];
 
     }
@@ -149,7 +150,8 @@
 - (IBAction)crossButtonAction:(id)sender {
 
     if (![self isHaveChosedThreeAttributes]) {
-        self.leftTopView.hidden = YES;
+        [self shakeView:self.leftTopView];
+
         [self.chosedAttributes setValue:@"1" forKey:@"breakthrough"];
 
     }
@@ -164,6 +166,22 @@
     return isHaveThree;
 }
 
+/*!
+ *  @brief  晃动按钮动画
+ */
+- (void)shakeView:(UIView *)aView
+{
+    POPSpringAnimation *positionAnimation = [POPSpringAnimation animationWithPropertyNamed:kPOPLayerPositionX];
+    positionAnimation.velocity = @1000;
+    positionAnimation.springBounciness = 10;
+    __WEAKOBJ(weakView, aView)
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        weakView.hidden = YES;
+    });
+    [aView.layer pop_addAnimation:positionAnimation forKey:@"positionAnimation"];
+    
+    
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.

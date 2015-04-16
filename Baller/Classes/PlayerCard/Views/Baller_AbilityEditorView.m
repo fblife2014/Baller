@@ -69,12 +69,7 @@
 }
 - (void)hideTheActivityInfo:(UIButton *)button{
     
-    [UIView animateWithDuration:0.5 animations:^{
-        button.alpha = 0;
-        button.bounds = CGRectMake([[AppDelegate sharedDelegate] window].center.x, [[AppDelegate sharedDelegate] window].center.y, 0, 0);
-    }completion:^(BOOL finished) {
-        [button removeFromSuperview];
-    }];
+    [button removeFromSuperview];
 }
 
 - (void)setAbilities:(NSArray *)abilities{
@@ -82,7 +77,6 @@
         return;
     }
     _abilities = [abilities copy];
-    
     //依据各个能力值，获取六个点
     
     CGFloat radius = (self.frame.size.height+self.frame.size.width)/4.0;

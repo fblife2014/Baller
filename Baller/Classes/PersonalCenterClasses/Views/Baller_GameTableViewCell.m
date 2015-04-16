@@ -16,8 +16,8 @@
         self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         CALayer * circle = [CALayer layer];
-        circle.frame = CGRectMake(18.0, PersonInfoCell_Height/2.0-5.5, 11.0, 11.0);
-        circle.cornerRadius = 5.5;
+        circle.frame = CGRectMake(18.0, PersonInfoCell_Height/2.0-5.5, 8.0, 8.0);
+        circle.cornerRadius = 4.0;
         circle.backgroundColor = BALLER_CORLOR_696969.CGColor;
         [self.layer addSublayer:circle];
     }

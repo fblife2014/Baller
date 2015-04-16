@@ -10,7 +10,7 @@
 #import "MGConferenceDatePickerDelegate.h"
 
 //Check screen macros
-#define IS_WIDESCREEN (fabs ( (double)[[UIScreen mainScreen] bounds].size.height - (double)568) < DBL_EPSILON)
+#define IS_WIDESCREEN (fabs ( (double)[[UIScreen mainScreen] bounds].size.height - (double)ScreenHeight) < DBL_EPSILON)
 #define IS_OS_6_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0 )
 #define IS_OS_7_OR_LATER    ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
 
@@ -19,15 +19,16 @@
 #define SELECTED_TEXT_COLOR [UIColor whiteColor]
 #define LINE_COLOR [UIColor colorWithWhite:0.80 alpha:1.0]
 #define SAVE_AREA_COLOR [UIColor colorWithWhite:0.95 alpha:1.0]
+#define SV_MOMENTS_WIDTH NUMBER(100*414.0/320.0, 100*375.0/320.0, 100, 100)
+
+#define SV_MERIDIANS_WIDTH NUMBER(100*414.0/320.0, 100*375.0/320.0, 100, 100)
 
 //Editable constants
 static const float VALUE_HEIGHT = 65.0;
 static const float SAVE_AREA_HEIGHT = 70.0;
 static const float SAVE_AREA_MARGIN_TOP = 20.0;
-static const float SV_MOMENTS_WIDTH = 100.0;
 static const float SV_HOURS_WIDTH = 60.0;
 static const float SV_MINUTES_WIDTH = 60.0;
-static const float SV_MERIDIANS_WIDTH = 100.0;
 
 //Editable values
 float PICKER_HEIGHT = 300.0;
@@ -39,7 +40,6 @@ NSString *NOW = @"当前";
 #define SAVE_AREA_ORIGIN_Y self.bounds.size.height-SAVE_AREA_HEIGHT
 #define PICKER_ORIGIN_Y SAVE_AREA_ORIGIN_Y-SAVE_AREA_MARGIN_TOP-PICKER_HEIGHT
 #define BAR_SEL_ORIGIN_Y PICKER_HEIGHT/2.0-VALUE_HEIGHT/2.0
-static const NSInteger SCROLLVIEW_MOMENTS_TAG = 0;
 
 
 //Custom UIButton
@@ -47,6 +47,7 @@ static const NSInteger SCROLLVIEW_MOMENTS_TAG = 0;
 
 - (id)initWithFrame:(CGRect)frame {
     if(self = [super initWithFrame:frame]) {
+        
         [self setBackgroundColor:[UIColor clearColor]];
         [self setTitleColor:BALLER_CORLOR_NAVIGATIONBAR forState:UIControlStateNormal];
         [self setTitleColor:SELECTED_TEXT_COLOR forState:UIControlStateHighlighted];
@@ -241,25 +242,25 @@ const float LBL_BORDER_OFFSET = 8.0;
     
     
     //Create the first column (moments) of the picker
-    _svMoments = [[MGPickerScrollView alloc] initWithFrame:CGRectMake(0.0, 0.0, SV_MOMENTS_WIDTH, PICKER_HEIGHT) andValues:_arrMoments withTextAlign:NSTextAlignmentRight andTextSize:14.0];
+    _svMoments = [[MGPickerScrollView alloc] initWithFrame:CGRectMake(ScreenWidth/2.0-SV_MOMENTS_WIDTH/2.0-SV_HOURS_WIDTH-20, 0.0, SV_MOMENTS_WIDTH, PICKER_HEIGHT) andValues:_arrMoments withTextAlign:NSTextAlignmentRight andTextSize:14.0];
     _svMoments.tag = 0;
     [_svMoments setDelegate:self];
     [_svMoments setDataSource:self];
     
     //Create the second column (hours) of the picker
-    _svHours = [[MGPickerScrollView alloc] initWithFrame:CGRectMake(SV_MOMENTS_WIDTH, 0.0, SV_HOURS_WIDTH, PICKER_HEIGHT) andValues:_arrHours withTextAlign:NSTextAlignmentCenter  andTextSize:25.0];
+    _svHours = [[MGPickerScrollView alloc] initWithFrame:CGRectMake(ScreenWidth/2.0-SV_MOMENTS_WIDTH/2.0, 0.0, SV_HOURS_WIDTH, PICKER_HEIGHT) andValues:_arrHours withTextAlign:NSTextAlignmentCenter  andTextSize:25.0];
     _svHours.tag = 1;
     [_svHours setDelegate:self];
     [_svHours setDataSource:self];
     
     //Create the third column (minutes) of the picker
-    _svMins = [[MGPickerScrollView alloc] initWithFrame:CGRectMake(_svHours.frame.origin.x+SV_HOURS_WIDTH, 0.0, SV_MINUTES_WIDTH, PICKER_HEIGHT) andValues:_arrMinutes withTextAlign:NSTextAlignmentCenter andTextSize:25.0];
+    _svMins = [[MGPickerScrollView alloc] initWithFrame:CGRectMake(ScreenWidth/2.0, 0.0, SV_MINUTES_WIDTH, PICKER_HEIGHT) andValues:_arrMinutes withTextAlign:NSTextAlignmentCenter andTextSize:25.0];
     _svMins.tag = 2;
     [_svMins setDelegate:self];
     [_svMins setDataSource:self];
     
     //Create the fourth column (meridians) of the picker
-    _svMeridians = [[MGPickerScrollView alloc] initWithFrame:CGRectMake(_svMins.frame.origin.x+SV_MINUTES_WIDTH, 0.0, SV_MERIDIANS_WIDTH, PICKER_HEIGHT) andValues:_arrMeridians withTextAlign:NSTextAlignmentLeft andTextSize:14.0];
+    _svMeridians = [[MGPickerScrollView alloc] initWithFrame:CGRectMake(ScreenWidth/2.0+SV_HOURS_WIDTH+20, 0.0, SV_MERIDIANS_WIDTH, PICKER_HEIGHT) andValues:_arrMeridians withTextAlign:NSTextAlignmentLeft andTextSize:14.0];
     _svMeridians.tag = 3;
     [_svMeridians setDelegate:self];
     [_svMeridians setDataSource:self];
@@ -302,8 +303,9 @@ const float LBL_BORDER_OFFSET = 8.0;
     
     //Create week day
     _lblWeekDay = [[UILabel alloc] initWithFrame:CGRectMake(60.0, PICKER_ORIGIN_Y-60.0, 200.0, 44.0)];
-    //[_lblWeekDay setBackgroundColor:[UIColor redColor]];
-    [_lblWeekDay setText:@"Wednesday"];
+    _lblWeekDay.center = CGPointMake(ScreenWidth/2.0, PICKER_ORIGIN_Y-45.0);
+    _lblWeekDay.userInteractionEnabled = YES;
+    [_lblWeekDay setText:@"周一"];
     [_lblWeekDay setTextAlignment:NSTextAlignmentCenter];
     [_lblWeekDay setFont:[UIFont fontWithName:FONT_NAME size:25.0]];
     [_lblWeekDay setTextColor:BALLER_CORLOR_NAVIGATIONBAR];
@@ -311,6 +313,7 @@ const float LBL_BORDER_OFFSET = 8.0;
     
     //Create field day and month
     _lblDayMonth = [[UILabel alloc] initWithFrame:CGRectMake(60.0, _lblWeekDay.frame.origin.y-30.0, 200.0, 30.0)];
+    _lblDayMonth.center = CGPointMake(ScreenWidth/2.0, _lblWeekDay.frame.origin.y-15.0);
     //[_lblDayMonth setBackgroundColor:[UIColor redColor]];
     [_lblDayMonth setText:@"23 December 2013"];
     [_lblDayMonth setTextAlignment:NSTextAlignmentCenter];
@@ -319,19 +322,19 @@ const float LBL_BORDER_OFFSET = 8.0;
     [self addSubview:_lblDayMonth];
     
     //Create arrow next/previous
-    _btPrev = [[UIButton alloc] initWithFrame:CGRectMake(40.0, _lblWeekDay.frame.origin.y+_lblWeekDay.frame.size.height/2-15.0, 30.0, 30.0)];
+    _btPrev = [[UIButton alloc] initWithFrame:CGRectMake(0.0, 10.0, 30.0, 30.0)];
     [_btPrev setImage:[UIImage imageNamed:@"left_date_arrow_blue"] forState:UIControlStateNormal];
     _btPrev.contentMode = UIViewContentModeCenter;
     [_btPrev setTitleColor:BALLER_CORLOR_NAVIGATIONBAR forState:UIControlStateNormal];
     [_btPrev addTarget:self action:@selector(switchToDayPrev) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_btPrev];
+    [_lblWeekDay addSubview:_btPrev];
     
-    _btNext = [[UIButton alloc] initWithFrame:CGRectMake(250.0, _lblWeekDay.frame.origin.y+_lblWeekDay.frame.size.height/2-15.0, 30.0, 30.0)];
+    _btNext = [[UIButton alloc] initWithFrame:CGRectMake(170, 10.0, 30.0, 30.0)];
     [_btNext setImage:[UIImage imageNamed:@"right_date_arrow_blue"] forState:UIControlStateNormal];
     _btNext.contentMode = UIViewContentModeCenter;
     [_btNext setTitleColor:BALLER_CORLOR_NAVIGATIONBAR forState:UIControlStateNormal];
     [_btNext addTarget:self action:@selector(switchToDayNext) forControlEvents:UIControlEventTouchUpInside];
-    [self addSubview:_btNext];
+    [_lblWeekDay addSubview:_btNext];
     
     
     //Add pickerView
@@ -374,7 +377,7 @@ const float LBL_BORDER_OFFSET = 8.0;
 //Save button pressed
 - (void)saveButtonPressed:(id)sender {
     //Create date
-    NSDate *date = [self createDateWithFormat:@"dd-MM-yyyy hh:mm:ss a" andDateString:@"%@ %@:%@:00 %@"];
+    NSDate *date = [self createDateWithFormat:@"dd-MM-yyyy hh:mm a" andDateString:@"%@ %@:%@:00 %@"];
     
     //Send the date to the delegate
     if([_delegate respondsToSelector:@selector(conferenceDatePicker:saveDate:)])
@@ -426,7 +429,7 @@ const float LBL_BORDER_OFFSET = 8.0;
 //Return a date from a string
 - (NSDate *)createDateWithFormat:(NSString *)format andDateString:(NSString *)dateString {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     [formatter setLocale:locale];
     formatter.dateFormat = format;
     return [formatter dateFromString:
@@ -441,7 +444,7 @@ const float LBL_BORDER_OFFSET = 8.0;
 //Return a string from a date
 - (NSString *)stringFromDate:(NSDate *)date withFormat:(NSString *)format {
     NSDateFormatter *formatter = [NSDateFormatter new];
-    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
     [formatter setLocale:locale];
     [formatter setDateFormat:format];
     

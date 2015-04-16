@@ -166,7 +166,7 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
  *  @brief  若已认证，添加关注按钮
  */
 - (void)addAttentionButton{
-    UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithTitle:[[courtInfoDic valueForKey:@"my_attend"] integerValue]?@"已关注":@"  关注" titleEdgeInsets:UIEdgeInsetsZero target:self selection:@selector(attentionButtonAction:)];
+    UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithTitle:[[courtInfoDic valueForKey:@"my_attend"] integerValue]?@"已关注":@"  关注" titleEdgeInsets:UIEdgeInsetsMake(0.0, 5, 0.0,-10) target:self selection:@selector(attentionButtonAction:)];
     attentionButton = (UIButton *)rightItem.customView;
     self.navigationItem.rightBarButtonItem = rightItem;
 }

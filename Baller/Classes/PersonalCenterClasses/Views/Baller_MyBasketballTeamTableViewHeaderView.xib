@@ -20,8 +20,8 @@
                         <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GZh-QW-SQB" userLabel="Content View">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="99"/>
                             <subviews>
-                                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="51a-CH-IMm" userLabel="Member Count">
-                                    <rect key="frame" x="68" y="28" width="60" height="51"/>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="51a-CH-IMm" userLabel="Member Count">
+                                    <rect key="frame" x="63" y="28.5" width="60" height="51"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="人数" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUM-94-Znd">
                                             <rect key="frame" x="0.0" y="0.0" width="60" height="25"/>
@@ -52,8 +52,8 @@
                                         <constraint firstItem="AUM-94-Znd" firstAttribute="leading" secondItem="51a-CH-IMm" secondAttribute="leading" id="zXI-PC-lz6"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="主场" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2YE-N4-r6M" userLabel="主场" customClass="BTLabel">
-                                    <rect key="frame" x="167" y="28" width="80" height="25"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主场" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2YE-N4-r6M" userLabel="主场" customClass="BTLabel">
+                                    <rect key="frame" x="162" y="28.5" width="80" height="25"/>
                                     <color key="backgroundColor" red="0.17254901959999999" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -64,8 +64,8 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="北大球场" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcZ-QI-zOO" customClass="BTLabel">
-                                    <rect key="frame" x="167" y="53" width="80" height="26"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="北大球场" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcZ-QI-zOO" customClass="BTLabel">
+                                    <rect key="frame" x="162" y="53.5" width="80" height="26"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="26" id="Lw9-LW-MUV"/>
@@ -82,8 +82,8 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="王宝强" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8nq-dx-sld" customClass="BTLabel">
-                                    <rect key="frame" x="286" y="53" width="71" height="25.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="王宝强" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8nq-dx-sld" customClass="BTLabel">
+                                    <rect key="frame" x="281" y="54" width="71" height="25.5"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -97,8 +97,8 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </label>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="队长" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8C-Z6-i26" userLabel="队长" customClass="BTLabel">
-                                    <rect key="frame" x="286" y="27.5" width="71" height="25.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="队长" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8C-Z6-i26" userLabel="队长" customClass="BTLabel">
+                                    <rect key="frame" x="281" y="28" width="71" height="25.5"/>
                                     <color key="backgroundColor" red="0.17254901959999999" green="0.23921568630000001" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -133,7 +133,7 @@
             <constraints>
                 <constraint firstItem="wOB-z5-hCj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="2uf-bo-jcz"/>
                 <constraint firstItem="kom-qF-d6Y" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="7lF-Ie-Ec3"/>
-                <constraint firstItem="kom-qF-d6Y" firstAttribute="centerX" secondItem="wcZ-QI-zOO" secondAttribute="centerX" id="9Ab-UN-6N9"/>
+                <constraint firstItem="kom-qF-d6Y" firstAttribute="centerX" secondItem="wcZ-QI-zOO" secondAttribute="centerX" constant="5" id="9Ab-UN-6N9"/>
                 <constraint firstAttribute="trailing" secondItem="kom-qF-d6Y" secondAttribute="trailing" id="SeI-Tc-vp4"/>
                 <constraint firstItem="kom-qF-d6Y" firstAttribute="centerY" secondItem="wcZ-QI-zOO" secondAttribute="centerY" constant="-16" id="YfX-NE-IRz"/>
                 <constraint firstItem="wOB-z5-hCj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="cuo-RI-cdo"/>
