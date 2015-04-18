@@ -67,7 +67,7 @@
 - (Baller_PersonalInfoView *)personalInfoView
 {
     if (!_personalInfoView) {
-        Baller_PersonalInfoView * personalInfoView = [[Baller_PersonalInfoView alloc]initWithFrame:CGRectMake(NUMBER(22.0, 20, 15, 15.0), 10.0, ScreenWidth-2*NUMBER(22.0, 20, 15, 15.0), 7.5*PersonInfoCell_Height)];
+        Baller_PersonalInfoView * personalInfoView = [[Baller_PersonalInfoView alloc]initWithFrame:CGRectMake(NUMBER(22.0, 20, 15, 15.0), 10.0, ScreenWidth-2*NUMBER(22.0, 20, 15, 15.0), 7.2*PersonInfoCell_Height)];
         [self.view addSubview:_personalInfoView = personalInfoView];
         
         __WEAKOBJ(weakSelf, self);

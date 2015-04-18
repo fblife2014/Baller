@@ -23,7 +23,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ngz-F6-7Vd">
-                        <rect key="frame" x="85" y="29" width="194" height="19.5"/>
+                        <rect key="frame" x="90" y="29" width="194" height="19.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19.5" id="4bP-xR-xRS"/>
                         </constraints>
@@ -32,7 +32,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VYA-mU-szo">
-                        <rect key="frame" x="85" y="57" width="194" height="21"/>
+                        <rect key="frame" x="90" y="57" width="194" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="nQs-vQ-Qkw"/>
                         </constraints>
@@ -42,12 +42,12 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Ngz-F6-7Vd" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="54h-rC-gIf"/>
-                    <constraint firstItem="VYA-mU-szo" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="96G-ia-DyE"/>
-                    <constraint firstItem="Ngz-F6-7Vd" firstAttribute="leading" secondItem="Ff1-6p-2RI" secondAttribute="trailing" constant="8" id="AMy-Sc-xCy"/>
+                    <constraint firstItem="Ngz-F6-7Vd" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="5" id="54h-rC-gIf"/>
+                    <constraint firstItem="VYA-mU-szo" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="5" id="96G-ia-DyE"/>
+                    <constraint firstItem="Ngz-F6-7Vd" firstAttribute="leading" secondItem="Ff1-6p-2RI" secondAttribute="trailing" constant="13" id="AMy-Sc-xCy"/>
                     <constraint firstItem="Ngz-F6-7Vd" firstAttribute="top" secondItem="Ff1-6p-2RI" secondAttribute="top" constant="5" id="NjB-Nx-EqA"/>
                     <constraint firstAttribute="centerY" secondItem="Ff1-6p-2RI" secondAttribute="centerY" constant="0.25" id="YxV-8F-VQM"/>
-                    <constraint firstItem="VYA-mU-szo" firstAttribute="leading" secondItem="Ff1-6p-2RI" secondAttribute="trailing" constant="8" id="rB9-j8-dgF"/>
+                    <constraint firstItem="VYA-mU-szo" firstAttribute="leading" secondItem="Ff1-6p-2RI" secondAttribute="trailing" constant="13" id="rB9-j8-dgF"/>
                     <constraint firstItem="VYA-mU-szo" firstAttribute="top" secondItem="Ff1-6p-2RI" secondAttribute="top" constant="33" id="wxE-zX-QcE"/>
                     <constraint firstItem="Ff1-6p-2RI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="yEN-z1-gFk"/>
                 </constraints>

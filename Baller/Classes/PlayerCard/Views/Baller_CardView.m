@@ -26,6 +26,9 @@
 
 #import "LShareSheetView.h"
 #import "Baller_MyAttentionBallPark.h"
+#import "JTSImageViewController.h"
+#import "JTSImageInfo.h"
+
 
 #import "RCIM.h"
 @interface Baller_CardView ()<RCIMUserInfoFetcherDelegagte>
@@ -167,7 +170,7 @@
     }
     if(!_personalInfo) _personalInfo = [NSMutableDictionary dictionary];
     [_personalInfo setValuesForKeysWithDictionary:personalInfo];
-    [_headImageButton setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[personalInfo valueForKey:@"photo"]] placeholderImage:[UIImage imageNamed:[personalInfo intForKey:@"gender"] == 1?@"manHead":@"womenHead"]];
+    [_headImageButton setImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[personalInfo valueForKey:@"photo"]] placeholderImage:[UIImage imageNamed:[personalInfo intForKey:@"gender"] == 1?@"manHead":@"womenHead"]];
     
     if ([[personalInfo valueForKey:@"appraise"] boolForKey:@"can_appraise"]) {
         if ([[personalInfo valueForKey:@"appraise"] boolForKey:@"friend_appraise"] && [personalInfo intForKey:@"attend_status"] == 3) {
@@ -302,7 +305,7 @@
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(0.0, HeadLayer_BorderWidth, 2*HeadLayer_CircleRadius-2*HeadLayer_BorderWidth, 2*HeadLayer_CircleRadius-2*HeadLayer_BorderWidth);
         button.center = CGPointMake(CGRectGetMidX(self.bounds), HeadLayer_CircleRadius);
-        [button addTarget:self action:@selector(pcv_headImageButtonClicked) forControlEvents:UIControlEventTouchUpInside];
+        [button addTarget:self action:@selector(pcv_headImageButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
         button.backgroundColor = [UIColor whiteColor];
         button.layer.cornerRadius = HeadLayer_CircleRadius-HeadLayer_BorderWidth;
         button.layer.masksToBounds = YES;
@@ -394,9 +397,9 @@
  */
 - (void)addPrivateChatButton
 {
-    UIButton * chatButton = [ViewFactory getAButtonWithFrame:CGRectMake(pathRect.size.width-BackLayer_CornerRadius-ShareButtonWidth, pathRect.origin.y, 87.0, 23) nomalTitle:@"私信" hlTitle:@"私信" titleColor:[UIColor whiteColor] bgColor:UIColorFromRGB(0x51d3b7) nImage:@"sixin" hImage:@"sixin" action:@selector(chatButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+    UIButton * chatButton = [ViewFactory getAButtonWithFrame:CGRectMake(pathRect.size.width-BackLayer_CornerRadius-ShareButtonWidth, pathRect.origin.y, 87.0, 28) nomalTitle:@"私信" hlTitle:@"私信" titleColor:[UIColor whiteColor] bgColor:UIColorFromRGB(0x51d3b7) nImage:@"sixin" hImage:@"sixin" action:@selector(chatButtonAction) target:self buttonTpye:UIButtonTypeCustom];
     
-    chatButton.center = CGPointMake(self.headImageButton.center.x-CGRectGetWidth(self.headImageButton.bounds)*3/4.0, self.headImageButton.center.y-15.0);
+    chatButton.center = CGPointMake(self.headImageButton.center.x-CGRectGetWidth(self.headImageButton.bounds)*3/4.0, self.headImageButton.center.y-20.0);
     
     chatButton.titleLabel.font = SYSTEM_FONT_S(13.0);
     chatButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, -25, 0.0, 0.0);
@@ -411,8 +414,8 @@
  */
 - (void)addEvaluateButton
 {
-    UIButton * evaluateButton = [ViewFactory getAButtonWithFrame:CGRectMake(pathRect.size.width-BackLayer_CornerRadius-ShareButtonWidth, pathRect.origin.y, 87.0, 23) nomalTitle:@"评价ta" hlTitle:@"评价ta" titleColor:[UIColor whiteColor] bgColor:UIColorFromRGB(0xf07d8a) nImage:@"pingjia" hImage:@"pingjia" action:@selector(evaluateButtonAction) target:self buttonTpye:UIButtonTypeCustom];
-    evaluateButton.center = CGPointMake(self.headImageButton.center.x+CGRectGetWidth(self.headImageButton.bounds)*3/4.0, self.headImageButton.center.y-15.0);
+    UIButton * evaluateButton = [ViewFactory getAButtonWithFrame:CGRectMake(pathRect.size.width-BackLayer_CornerRadius-ShareButtonWidth, pathRect.origin.y, 87.0, 28) nomalTitle:@"评价ta" hlTitle:@"评价ta" titleColor:[UIColor whiteColor] bgColor:UIColorFromRGB(0xf07d8a) nImage:@"pingjia" hImage:@"pingjia" action:@selector(evaluateButtonAction) target:self buttonTpye:UIButtonTypeCustom];
+    evaluateButton.center = CGPointMake(self.headImageButton.center.x+CGRectGetWidth(self.headImageButton.bounds)*3/4.0, self.headImageButton.center.y-20.0);
     evaluateButton.titleLabel.font = SYSTEM_FONT_S(13.0);
     evaluateButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, 15, 0.0, 0.0);
     evaluateButton.titleEdgeInsets = UIEdgeInsetsMake(1.0, 15, -1.0, 0.0);
@@ -558,23 +561,39 @@
 /*!
  *  @brief 头像点击方法
  */
-- (void)pcv_headImageButtonClicked{
-    switch (_ballerCardType) {
-        case kBallerCardType_FirstBorn:
-            
-            break;
-        case kBallerCardType_MyPlayerCard:
-            
-            break;
-        case kBallerCardType_CreateBallPark:
-            
-            break;
-        case kBallerCardType_CreateBasketBallTeam:
-            break;
-        case kBallerCardType_OtherBallerPlayerCard:
-            
-            break;
-    }
+- (void)pcv_headImageButtonClicked:(UIButton *)sender{
+    
+    JTSImageInfo *imageInfo = [[JTSImageInfo alloc] init];
+    imageInfo.image = self.headImageButton.imageView.image;
+    imageInfo.referenceRect = self.headImageButton.frame;
+    imageInfo.referenceView = self.headImageButton.superview;
+    imageInfo.referenceContentMode = self.headImageButton.contentMode;
+    imageInfo.referenceCornerRadius = self.headImageButton.layer.cornerRadius;
+    
+    // Setup view controller
+    JTSImageViewController *imageViewer = [[JTSImageViewController alloc]
+                                           initWithImageInfo:imageInfo
+                                           mode:JTSImageViewControllerMode_Image
+                                           backgroundStyle:JTSImageViewControllerBackgroundOption_Scaled];
+    // Present the view controller.
+    [imageViewer showFromViewController:[MLViewConrollerManager sharedVCMInstance].rootViewController transition:JTSImageViewControllerTransition_FromOriginalPosition];
+    
+//    switch (_ballerCardType) {
+//        case kBallerCardType_FirstBorn:
+//            
+//            break;
+//        case kBallerCardType_MyPlayerCard:
+//            
+//            break;
+//        case kBallerCardType_CreateBallPark:
+//            
+//            break;
+//        case kBallerCardType_CreateBasketBallTeam:
+//            break;
+//        case kBallerCardType_OtherBallerPlayerCard:
+//            
+//            break;
+//    }
     
 }
 

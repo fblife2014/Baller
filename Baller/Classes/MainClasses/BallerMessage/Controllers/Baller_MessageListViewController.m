@@ -21,9 +21,9 @@
 @interface Baller_MessageListViewController ()<RCIMUserInfoFetcherDelegagte,UITableViewDataSource,RCIMUserInfoFetcherDelegagte>
 {
     Baller_MessageListInfo * chosedMessageInfo;
-    UIView * buttonBottom;
-    UIButton * messageButton;
-    UIButton * chatButton;
+//    UIView * buttonBottom;
+//    UIButton * messageButton;
+//    UIButton * chatButton;
 
 }
 @property (nonatomic,strong)NSMutableArray * messageLists;
@@ -32,6 +32,11 @@
 @property (nonatomic)NSInteger total_num;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,strong)Baller_ChatListViewController * chatListViewController;
+
+@property (strong, nonatomic) IBOutlet UIButton *attentionButton;
+@property (strong, nonatomic) IBOutlet UIButton *chatButton;
+- (IBAction)attentionButtonAction:(id)sender;
+- (IBAction)chatButtonAction:(id)sender;
 
 @end
 static NSString * const Baller_MessageViewCellId = @"Baller_MessageViewCellId";
@@ -46,7 +51,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setTopBar];
+//    [self setTopBar];
     [self setRCUserinfo];
     self.tableView.dataSource = self;
     
@@ -65,7 +70,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     if (!_chatListViewController) {
         _chatListViewController = [Baller_ChatListViewController new];
         _chatListViewController.portraitStyle = RCUserAvatarRectangle;
-        _chatListViewController.view.frame = self.tableView.frame;
+        _chatListViewController.view.frame =self.tableView.frame;
         [self addChildViewController:_chatListViewController];
         [self.view addSubview:_chatListViewController.view];
     }
@@ -74,55 +79,56 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 
 
 - (void)setTopBar{
-    float bottomWidth = NUMBER(75, 68, 60, 60);
-    buttonBottom = [[UIView alloc]initWithFrame:CGRectMake(ScreenWidth/2.0-bottomWidth, 7.0, 2*bottomWidth, 30)];
-    buttonBottom.layer.cornerRadius = 10;
-    buttonBottom.layer.masksToBounds = YES;
-    buttonBottom.layer.borderColor = [UIColor whiteColor].CGColor;
-    buttonBottom.layer.borderWidth = 1.0;
-    
-    messageButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    messageButton.titleLabel.font = SYSTEM_FONT_S(15.0);
-    [messageButton setTitleColor:BALLER_CORLOR_NAVIGATIONBAR forState:UIControlStateNormal];
-    messageButton.backgroundColor = BALLER_CORLOR_CELL;
-    messageButton.frame = CGRectMake(0.0, 0.0, bottomWidth, 30);
-    [messageButton addTarget:self action:@selector(messageButtonAction) forControlEvents:UIControlEventTouchUpInside];
-    [messageButton setTitle:@"提醒" forState:UIControlStateNormal];
-    [buttonBottom addSubview:messageButton];
-    
-    chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    chatButton.titleLabel.font = SYSTEM_FONT_S(15.0);
-    [chatButton setTitleColor:BALLER_CORLOR_CELL forState:UIControlStateNormal];
-    chatButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
-    chatButton.frame = CGRectMake(bottomWidth, 0.0, bottomWidth, 30);
-    [chatButton addTarget:self action:@selector(chatButtonAction) forControlEvents:UIControlEventTouchUpInside];
-    [chatButton setTitle:@"聊天" forState:UIControlStateNormal];
-    [buttonBottom addSubview:chatButton];
-    
-    self.navigationItem.titleView = buttonBottom;
+
+//    float bottomWidth = NUMBER(75, 68, 60, 60);
+//    buttonBottom = [[UIView alloc]initWithFrame:CGRectMake(ScreenWidth/2.0-bottomWidth, 7.0, 2*bottomWidth, 30)];
+//    buttonBottom.layer.cornerRadius = 10;
+//    buttonBottom.layer.masksToBounds = YES;
+//    buttonBottom.layer.borderColor = [UIColor whiteColor].CGColor;
+//    buttonBottom.layer.borderWidth = 1.0;
+//    
+//    messageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    messageButton.titleLabel.font = SYSTEM_FONT_S(15.0);
+//    [messageButton setTitleColor:BALLER_CORLOR_NAVIGATIONBAR forState:UIControlStateNormal];
+//    messageButton.backgroundColor = BALLER_CORLOR_CELL;
+//    messageButton.frame = CGRectMake(0.0, 0.0, bottomWidth, 30);
+//    [messageButton addTarget:self action:@selector(messageButtonAction) forControlEvents:UIControlEventTouchUpInside];
+//    [messageButton setTitle:@"提醒" forState:UIControlStateNormal];
+//    [buttonBottom addSubview:messageButton];
+//    
+//    chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    chatButton.titleLabel.font = SYSTEM_FONT_S(15.0);
+//    [chatButton setTitleColor:BALLER_CORLOR_CELL forState:UIControlStateNormal];
+//    chatButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
+//    chatButton.frame = CGRectMake(bottomWidth, 0.0, bottomWidth, 30);
+//    [chatButton addTarget:self action:@selector(chatButtonAction) forControlEvents:UIControlEventTouchUpInside];
+//    [chatButton setTitle:@"聊天" forState:UIControlStateNormal];
+//    [buttonBottom addSubview:chatButton];
+//    
+//    self.navigationItem.titleView = buttonBottom;
 
 }
-
-- (void)messageButtonAction{
-    
-    [messageButton setTitleColor:BALLER_CORLOR_NAVIGATIONBAR forState:UIControlStateNormal];
-    messageButton.backgroundColor = BALLER_CORLOR_CELL;
-    [chatButton setTitleColor:BALLER_CORLOR_CELL forState:UIControlStateNormal];
-    chatButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
-    
-    self.tableView.hidden = NO;
-    self.chatListViewController.view.hidden = YES;
-}
-
-
-- (void)chatButtonAction{
-    [messageButton setTitleColor:BALLER_CORLOR_CELL forState:UIControlStateNormal];
-    messageButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
-    [chatButton setTitleColor:BALLER_CORLOR_NAVIGATIONBAR forState:UIControlStateNormal];
-    chatButton.backgroundColor = BALLER_CORLOR_CELL;
-    self.tableView.hidden = YES;
-    self.chatListViewController.view.hidden = NO;
-}
+//
+//- (void)messageButtonAction{
+//    
+//    [messageButton setTitleColor:BALLER_CORLOR_NAVIGATIONBAR forState:UIControlStateNormal];
+//    messageButton.backgroundColor = BALLER_CORLOR_CELL;
+//    [chatButton setTitleColor:BALLER_CORLOR_CELL forState:UIControlStateNormal];
+//    chatButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
+//    
+//    self.tableView.hidden = NO;
+//    self.chatListViewController.view.hidden = YES;
+//}
+//
+//
+//- (void)chatButtonAction{
+//    [messageButton setTitleColor:BALLER_CORLOR_CELL forState:UIControlStateNormal];
+//    messageButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
+//    [chatButton setTitleColor:BALLER_CORLOR_NAVIGATIONBAR forState:UIControlStateNormal];
+//    chatButton.backgroundColor = BALLER_CORLOR_CELL;
+//    self.tableView.hidden = YES;
+//    self.chatListViewController.view.hidden = NO;
+//}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if(_messageLists.count == 0)[self reloadMessageData];
@@ -397,4 +403,21 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     return completion(user);
 }
 
+- (IBAction)attentionButtonAction:(id)sender {
+    
+    [_attentionButton setTitleColor:UIColorFromRGB(0x1e8ad3) forState:UIControlStateNormal];
+    [_chatButton setTitleColor:UIColorFromRGB(0x767676) forState:UIControlStateNormal];
+    
+    self.tableView.hidden = NO;
+    self.chatListViewController.view.hidden = YES;
+}
+
+- (IBAction)chatButtonAction:(id)sender {
+    
+    [_attentionButton setTitleColor:UIColorFromRGB(0x767676) forState:UIControlStateNormal];
+    [_chatButton setTitleColor:UIColorFromRGB(0x1e8ad3) forState:UIControlStateNormal];
+    
+    self.tableView.hidden = YES;
+    self.chatListViewController.view.hidden = NO;
+}
 @end

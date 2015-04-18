@@ -179,6 +179,12 @@
 		FBF50AB01AC7973D003CBCAD /* Baller_MessageListInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AAF1AC7973D003CBCAD /* Baller_MessageListInfo.m */; };
 		FBF50AE81AC92A4C003CBCAD /* Baller_ActivityDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AE71AC92A4B003CBCAD /* Baller_ActivityDetailInfo.m */; };
 		FBF6971E1ACD59F600C34C8B /* ballericon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FBF6971D1ACD59F600C34C8B /* ballericon.jpg */; };
+		FBF895801AE2B8D500EFD551 /* JTSAnimatedGIFUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF895751AE2B8D500EFD551 /* JTSAnimatedGIFUtility.m */; };
+		FBF895811AE2B8D500EFD551 /* JTSImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF895771AE2B8D500EFD551 /* JTSImageInfo.m */; };
+		FBF895821AE2B8D500EFD551 /* JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF895791AE2B8D500EFD551 /* JTSImageViewController.m */; };
+		FBF895831AE2B8D500EFD551 /* JTSSimpleImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF8957B1AE2B8D500EFD551 /* JTSSimpleImageDownloader.m */; };
+		FBF895841AE2B8D500EFD551 /* UIApplication+JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF8957D1AE2B8D500EFD551 /* UIApplication+JTSImageViewController.m */; };
+		FBF895851AE2B8D500EFD551 /* UIImage+JTSImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF8957F1AE2B8D500EFD551 /* UIImage+JTSImageEffects.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -525,6 +531,18 @@
 		FBF50AE61AC92A4B003CBCAD /* Baller_ActivityDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_ActivityDetailInfo.h; sourceTree = SOURCE_ROOT; };
 		FBF50AE71AC92A4B003CBCAD /* Baller_ActivityDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_ActivityDetailInfo.m; sourceTree = SOURCE_ROOT; };
 		FBF6971D1ACD59F600C34C8B /* ballericon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ballericon.jpg; sourceTree = "<group>"; };
+		FBF895741AE2B8D500EFD551 /* JTSAnimatedGIFUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSAnimatedGIFUtility.h; sourceTree = "<group>"; };
+		FBF895751AE2B8D500EFD551 /* JTSAnimatedGIFUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSAnimatedGIFUtility.m; sourceTree = "<group>"; };
+		FBF895761AE2B8D500EFD551 /* JTSImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageInfo.h; sourceTree = "<group>"; };
+		FBF895771AE2B8D500EFD551 /* JTSImageInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSImageInfo.m; sourceTree = "<group>"; };
+		FBF895781AE2B8D500EFD551 /* JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageViewController.h; sourceTree = "<group>"; };
+		FBF895791AE2B8D500EFD551 /* JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSImageViewController.m; sourceTree = "<group>"; };
+		FBF8957A1AE2B8D500EFD551 /* JTSSimpleImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSSimpleImageDownloader.h; sourceTree = "<group>"; };
+		FBF8957B1AE2B8D500EFD551 /* JTSSimpleImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSSimpleImageDownloader.m; sourceTree = "<group>"; };
+		FBF8957C1AE2B8D500EFD551 /* UIApplication+JTSImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+JTSImageViewController.h"; sourceTree = "<group>"; };
+		FBF8957D1AE2B8D500EFD551 /* UIApplication+JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+JTSImageViewController.m"; sourceTree = "<group>"; };
+		FBF8957E1AE2B8D500EFD551 /* UIImage+JTSImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JTSImageEffects.h"; sourceTree = "<group>"; };
+		FBF8957F1AE2B8D500EFD551 /* UIImage+JTSImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JTSImageEffects.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1305,6 +1323,7 @@
 		FBD9B7011AAD7F7E00CDC1C6 /* Thirds */ = {
 			isa = PBXGroup;
 			children = (
+				FBF895731AE2B8D500EFD551 /* JTSImage */,
 				FBF50A941AC6345A003CBCAD /* PMCalendar */,
 				FB57269C1ABE692A006D50A2 /* MGConferenceDatePicker */,
 				FBD9B7021AAD7F7E00CDC1C6 /* FlatButton */,
@@ -1545,6 +1564,25 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		FBF895731AE2B8D500EFD551 /* JTSImage */ = {
+			isa = PBXGroup;
+			children = (
+				FBF895741AE2B8D500EFD551 /* JTSAnimatedGIFUtility.h */,
+				FBF895751AE2B8D500EFD551 /* JTSAnimatedGIFUtility.m */,
+				FBF895761AE2B8D500EFD551 /* JTSImageInfo.h */,
+				FBF895771AE2B8D500EFD551 /* JTSImageInfo.m */,
+				FBF895781AE2B8D500EFD551 /* JTSImageViewController.h */,
+				FBF895791AE2B8D500EFD551 /* JTSImageViewController.m */,
+				FBF8957A1AE2B8D500EFD551 /* JTSSimpleImageDownloader.h */,
+				FBF8957B1AE2B8D500EFD551 /* JTSSimpleImageDownloader.m */,
+				FBF8957C1AE2B8D500EFD551 /* UIApplication+JTSImageViewController.h */,
+				FBF8957D1AE2B8D500EFD551 /* UIApplication+JTSImageViewController.m */,
+				FBF8957E1AE2B8D500EFD551 /* UIImage+JTSImageEffects.h */,
+				FBF8957F1AE2B8D500EFD551 /* UIImage+JTSImageEffects.m */,
+			);
+			path = JTSImage;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1746,6 +1784,7 @@
 				FB9EF3331AADF830001D77CB /* Baller_MyBallParkViewController.m in Sources */,
 				FB9EF3351AADF830001D77CB /* Baller_MyGameListViewController.m in Sources */,
 				FB5726831ABD54C0006D50A2 /* Baller_BallParkAttentionBallerListModel.m in Sources */,
+				FBF895811AE2B8D500EFD551 /* JTSImageInfo.m in Sources */,
 				FB9EF32D1AADF830001D77CB /* Baller_InfoItemView.m in Sources */,
 				EFCC59A01ABD7241007F2D9C /* Baller_ChatListViewController.m in Sources */,
 				FB9EF34F1AADF830001D77CB /* SKInnerShadowLayer.m in Sources */,
@@ -1756,6 +1795,7 @@
 				FBF50AAB1AC6345A003CBCAD /* PMDimmingView.m in Sources */,
 				FBD9B74E1AAD7F7F00CDC1C6 /* MLViewConrollerManager.m in Sources */,
 				FBD9B7761AAD7F7F00CDC1C6 /* OpenUDID.m in Sources */,
+				FBF895801AE2B8D500EFD551 /* JTSAnimatedGIFUtility.m in Sources */,
 				FB5E8B4E1AB6B73C007F9617 /* LTools.m in Sources */,
 				FB2ABEBE1AADF97C007D7E52 /* Baller_BallParkActivityListTableViewCell.m in Sources */,
 				FBDEA3871A22042B0084FEBD /* AppDelegate.m in Sources */,
@@ -1781,6 +1821,7 @@
 				FB9EF33D1AADF830001D77CB /* Baller_BasketBallTeamTableViewCell.m in Sources */,
 				13277F6B1ABD34CD00E9621C /* LShareSheetView.m in Sources */,
 				FBD9B7731AAD7F7F00CDC1C6 /* ViewFactory.m in Sources */,
+				FBF895851AE2B8D500EFD551 /* UIImage+JTSImageEffects.m in Sources */,
 				FB9EF31E1AADF830001D77CB /* Baller_MyCenterTopTableViewCell.m in Sources */,
 				FB5726801ABD51C5006D50A2 /* Baller_BallerFriendListModel.m in Sources */,
 				FB0443751AD1809500AAD432 /* Baller_MyCourtInfo.m in Sources */,
@@ -1799,6 +1840,7 @@
 				75565A1E1ABD72ED00B4C2BC /* NSDictionary+SafeAccessor.m in Sources */,
 				FB9EF33F1AADF830001D77CB /* Baller_CreateBasketBallTeamView.m in Sources */,
 				FBF50AAA1AC6345A003CBCAD /* PMCalendarView.m in Sources */,
+				FBF895821AE2B8D500EFD551 /* JTSImageViewController.m in Sources */,
 				FBD9B7751AAD7F7F00CDC1C6 /* DeviceMemory.m in Sources */,
 				FBD9B74F1AAD7F7F00CDC1C6 /* BaseTableViewController.m in Sources */,
 				FBF50AA91AC6345A003CBCAD /* PMCalendarController.m in Sources */,
@@ -1816,6 +1858,7 @@
 				FBD9B7561AAD7F7F00CDC1C6 /* Baller_BaseTableViewCell.m in Sources */,
 				FB9EF3281AADF830001D77CB /* Baller_LoginTextField.m in Sources */,
 				FB9EF32F1AADF830001D77CB /* Baller_ChoseTeamViewController.m in Sources */,
+				FBF895831AE2B8D500EFD551 /* JTSSimpleImageDownloader.m in Sources */,
 				FB2ABEBB1AADF97C007D7E52 /* Baller_CreateBallParkViewController.m in Sources */,
 				FBF50AE81AC92A4C003CBCAD /* Baller_ActivityDetailInfo.m in Sources */,
 				FBE4F8DC1ACF953D0058978F /* Baller_WaitingEvaluateBallersViewController.m in Sources */,
@@ -1842,6 +1885,7 @@
 				FB2ABEC71AADF97C007D7E52 /* Baller_CreateBallParkView.m in Sources */,
 				FB5726A51ABE75A9006D50A2 /* Baller_BallParkAttentionTeamListModel.m in Sources */,
 				FBD9B7541AAD7F7F00CDC1C6 /* TableViewDataSource.m in Sources */,
+				FBF895841AE2B8D500EFD551 /* UIApplication+JTSImageViewController.m in Sources */,
 				FBD9B77A1AAD7F7F00CDC1C6 /* FileManager.m in Sources */,
 				FB1418341AE0FB3D009CE7B7 /* Baller_MessageListViewController.m in Sources */,
 				FBD9B76F1AAD7F7F00CDC1C6 /* AFSessionManagerClient.m in Sources */,

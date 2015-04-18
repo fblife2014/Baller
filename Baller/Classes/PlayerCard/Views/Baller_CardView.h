@@ -37,7 +37,9 @@ typedef void(^CardView_BottomButtonClicked) (BallerCardType ballerCardType);
     Baller_AbilityView * abilityView;
     Baller_AbilityEditorView * abilityEditorView;
     CAShapeLayer * abilityContentLabyer;  //能力值呈现图谱
-    UIButton * attentionButton;
+    UIButton * levelLabel; //关注按钮
+    UIButton * attentionButton; //关注按钮
+    UIButton * showDetailButton; //显示能力图谱分级的按钮
     
     UILabel * positonLabel;
     UILabel * weightLabel;

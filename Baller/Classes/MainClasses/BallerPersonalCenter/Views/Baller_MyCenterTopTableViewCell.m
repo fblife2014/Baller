@@ -13,6 +13,8 @@
 - (void)awakeFromNib {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.headImageView.layer.cornerRadius = 5.0;
+    self.headImageView.layer.borderWidth = 0.5;
+    self.headImageView.layer.borderColor = BALLER_CORLOR_NAVIGATIONBAR.CGColor;
     self.headImageView.clipsToBounds = YES;
 }
 
