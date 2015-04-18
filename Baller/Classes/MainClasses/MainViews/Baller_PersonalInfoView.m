@@ -74,7 +74,7 @@
             [button setImage:[UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]] forState:UIControlStateNormal];
         }else{
             __WEAKOBJ(weakButton, button)
-            [button setImageForState:UIControlStateNormal withURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImage]]] placeholderImage:[UIImage imageNamed:@"ballPark_default"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+            [button setImageForState:UIControlStateNormal withURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImage]]] placeholderImage:[UIImage imageNamed:@"manHead"] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                 
                 [USER_DEFAULT setValue:UIImageJPEGRepresentation(image, 1) forKey:Baller_UserInfo_HeadImageData];
                 

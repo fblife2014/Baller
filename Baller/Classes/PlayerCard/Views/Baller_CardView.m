@@ -167,7 +167,7 @@
     }
     if(!_personalInfo) _personalInfo = [NSMutableDictionary dictionary];
     [_personalInfo setValuesForKeysWithDictionary:personalInfo];
-    [_headImageButton setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[personalInfo valueForKey:@"photo"]] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+    [_headImageButton setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[personalInfo valueForKey:@"photo"]] placeholderImage:[UIImage imageNamed:[personalInfo intForKey:@"gender"] == 1?@"manHead":@"womenHead"]];
     
     if ([[personalInfo valueForKey:@"appraise"] boolForKey:@"can_appraise"]) {
         if ([[personalInfo valueForKey:@"appraise"] boolForKey:@"friend_appraise"] && [personalInfo intForKey:@"attend_status"] == 3) {
@@ -692,7 +692,7 @@
                     [self addAttentionButtonWithTitle:@"关注" imageName:@"guangzhu"];
                     break;
                 case 2:
-                    [self addAttentionButtonWithTitle:@"关注" imageName:nil];
+                    [self addAttentionButtonWithTitle:@"关注" imageName:@"guangzhu"];
                     break;
                 case 1:
                     [self addAttentionButtonWithTitle:@"已关注" imageName:nil];

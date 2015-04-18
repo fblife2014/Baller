@@ -32,7 +32,10 @@ static NSString * const CreateTeamSuccessNotification = @"CreateTeamSuccessNotif
         [[self.createTeamCardView headImageButton]setBackgroundImage:headImage forState:UIControlStateNormal];
         
     }else{
-        [[self.createTeamCardView headImageButton] setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImage]] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+        int gender = [[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"gender"] intValue];
+        BOOL isMan = gender == 1;
+
+        [[self.createTeamCardView headImageButton] setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImage]] placeholderImage:[UIImage imageNamed:isMan?@"manHead":@"womenHead"]];
         
     }
     __WEAKOBJ(weakSelf, self);

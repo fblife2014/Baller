@@ -9,7 +9,7 @@
 #import "MLViewConrollerManager.h"
 #import "BaseViewController.h"
 #import "PopingAnimator.h"
-
+#import "Baller_MessageListViewController.h"
 
 @implementation MLViewConrollerManager
 
@@ -41,14 +41,24 @@
     if (IOS7) {
         //获取navigationController
         self.navigationController = _rootViewController.navigationController;
-        
-    
-        UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+
         if ([rootViewController.navigationController.viewControllers[0] isKindOfClass:[BaseTableViewController class]] || [rootViewController.navigationController.viewControllers[0] isKindOfClass:[BaseViewController class]]) {
-            [self.navigationController.view addGestureRecognizer:panRecognizer];
+            UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+            self.sharePanRecognizer = panRecognizer;
+            
+            if (![rootViewController.navigationController.viewControllers[0] isKindOfClass:[Baller_MessageListViewController class]]) {
+
+                [rootViewController.navigationController.view addGestureRecognizer:panRecognizer];
+            }else{
+                if (![rootViewController isKindOfClass:[Baller_MessageListViewController class]]) {
+                    [rootViewController.view addGestureRecognizer:panRecognizer];
+                }
+            }
 
         }else{
             if (![_rootViewController.view isKindOfClass:[UITableView class]]) {
+                UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+                self.sharePanRecognizer = panRecognizer;
                 [_rootViewController.view addGestureRecognizer:panRecognizer];
             }
 

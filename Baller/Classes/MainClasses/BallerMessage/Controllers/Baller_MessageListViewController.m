@@ -1,12 +1,12 @@
 //
-//  Baller_MessageViewController.m
+//  Baller_MessageListViewController.m
 //  Baller
 //
-//  Created by malong on 15/1/22.
+//  Created by malong on 15/4/17.
 //  Copyright (c) 2015年 malong. All rights reserved.
 //
 
-#import "Baller_MessageViewController.h"
+#import "Baller_MessageListViewController.h"
 #import "Baller_ChatListViewController.h"
 #import "RCChatViewController.h"
 #import "Baller_PlayerCardViewController.h"
@@ -18,21 +18,26 @@
 #import "RCIM.h"
 #import "Baller_MessageListInfo.h"
 
-@interface Baller_MessageViewController ()<RCIMUserInfoFetcherDelegagte,UITableViewDataSource,RCIMUserInfoFetcherDelegagte>
+@interface Baller_MessageListViewController ()<RCIMUserInfoFetcherDelegagte,UITableViewDataSource,RCIMUserInfoFetcherDelegagte>
 {
     Baller_MessageListInfo * chosedMessageInfo;
+    UIView * buttonBottom;
+    UIButton * messageButton;
+    UIButton * chatButton;
+
 }
 @property (nonatomic,strong)NSMutableArray * messageLists;
 @property (nonatomic,strong)NSMutableArray * chatUsers;
 @property (nonatomic)NSInteger page;
 @property (nonatomic)NSInteger total_num;
-@end
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic,strong)Baller_ChatListViewController * chatListViewController;
 
+@end
 static NSString * const Baller_MessageViewCellId = @"Baller_MessageViewCellId";
 static NSString * const MessageListCellId = @"MessageListCellId";
 
-
-@implementation Baller_MessageViewController
+@implementation Baller_MessageListViewController
 
 - (void)dealloc{
     
@@ -41,9 +46,10 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setTopBar];
     [self setRCUserinfo];
     self.tableView.dataSource = self;
-
+    
     [self.tableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
     [self.tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadMessageData) name:BallerLogoutThenLoginNotification object:nil];
@@ -54,6 +60,69 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     // Do any additional setup after loading the view.
 }
 
+- (Baller_ChatListViewController *)chatListViewController
+{
+    if (!_chatListViewController) {
+        _chatListViewController = [Baller_ChatListViewController new];
+        _chatListViewController.portraitStyle = RCUserAvatarRectangle;
+        _chatListViewController.view.frame = self.tableView.frame;
+        [self addChildViewController:_chatListViewController];
+        [self.view addSubview:_chatListViewController.view];
+    }
+    return _chatListViewController;
+}
+
+
+- (void)setTopBar{
+    float bottomWidth = NUMBER(75, 68, 60, 60);
+    buttonBottom = [[UIView alloc]initWithFrame:CGRectMake(ScreenWidth/2.0-bottomWidth, 7.0, 2*bottomWidth, 30)];
+    buttonBottom.layer.cornerRadius = 10;
+    buttonBottom.layer.masksToBounds = YES;
+    buttonBottom.layer.borderColor = [UIColor whiteColor].CGColor;
+    buttonBottom.layer.borderWidth = 1.0;
+    
+    messageButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    messageButton.titleLabel.font = SYSTEM_FONT_S(15.0);
+    [messageButton setTitleColor:BALLER_CORLOR_NAVIGATIONBAR forState:UIControlStateNormal];
+    messageButton.backgroundColor = BALLER_CORLOR_CELL;
+    messageButton.frame = CGRectMake(0.0, 0.0, bottomWidth, 30);
+    [messageButton addTarget:self action:@selector(messageButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [messageButton setTitle:@"提醒" forState:UIControlStateNormal];
+    [buttonBottom addSubview:messageButton];
+    
+    chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    chatButton.titleLabel.font = SYSTEM_FONT_S(15.0);
+    [chatButton setTitleColor:BALLER_CORLOR_CELL forState:UIControlStateNormal];
+    chatButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
+    chatButton.frame = CGRectMake(bottomWidth, 0.0, bottomWidth, 30);
+    [chatButton addTarget:self action:@selector(chatButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [chatButton setTitle:@"聊天" forState:UIControlStateNormal];
+    [buttonBottom addSubview:chatButton];
+    
+    self.navigationItem.titleView = buttonBottom;
+
+}
+
+- (void)messageButtonAction{
+    
+    [messageButton setTitleColor:BALLER_CORLOR_NAVIGATIONBAR forState:UIControlStateNormal];
+    messageButton.backgroundColor = BALLER_CORLOR_CELL;
+    [chatButton setTitleColor:BALLER_CORLOR_CELL forState:UIControlStateNormal];
+    chatButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
+    
+    self.tableView.hidden = NO;
+    self.chatListViewController.view.hidden = YES;
+}
+
+
+- (void)chatButtonAction{
+    [messageButton setTitleColor:BALLER_CORLOR_CELL forState:UIControlStateNormal];
+    messageButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
+    [chatButton setTitleColor:BALLER_CORLOR_NAVIGATIONBAR forState:UIControlStateNormal];
+    chatButton.backgroundColor = BALLER_CORLOR_CELL;
+    self.tableView.hidden = YES;
+    self.chatListViewController.view.hidden = NO;
+}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if(_messageLists.count == 0)[self reloadMessageData];
@@ -77,7 +146,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 - (void)reloadMessageData
 {
     [[AppDelegate sharedDelegate] getTokenFromRC];
-       [[AppDelegate sharedDelegate]connectRC];
+    [[AppDelegate sharedDelegate]connectRC];
     [self getMessageLists];
 }
 
@@ -88,7 +157,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     
     self.page = 1;
     [self getMessageLists];
-
+    
 }
 
 - (void)footerRereshing{
@@ -99,8 +168,8 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     if (self.messageLists.count<self.total_num) {
         self.page = self.messageLists.count/10+1;
         [self getMessageLists];
-
-
+        
+        
     }
 }
 
@@ -109,31 +178,31 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 {
     __WEAKOBJ(weakSelf, self);
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_msg parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"page":@(self.page),@"per_page":@"10"} responseBlock:^(id result, NSError *error)
-    {
-        __STRONGOBJ(strongSelf, weakSelf);
-        if (error) return ;
-        
-        if ([result integerForKey:@"errorcode"] == 0) {
-            if (strongSelf.page == 1) {
-                [strongSelf.messageLists removeAllObjects];
-            }
-            self.total_num = [result integerForKey:@"total_num"];
-            for (NSDictionary * messageInfoDic in [result valueForKey:@"data"]) {
-                Baller_MessageListInfo * messageInfoModel = [Baller_MessageListInfo shareWithServerDictionary:messageInfoDic];
-                if (![strongSelf.messageLists containsObject:messageInfoModel]) {
-                    [strongSelf.messageLists addObject:messageInfoModel];
-
-                }
-            }
-            if(strongSelf.messageLists.count == self.total_num)
-            {
-                [strongSelf.tableView.footer noticeNoMoreData];
-            }else{
-                [strongSelf.tableView.footer setState:MJRefreshFooterStateIdle];
-            }
-            [self.tableView reloadData];
-        }
-    }];
+     {
+         __STRONGOBJ(strongSelf, weakSelf);
+         if (error) return ;
+         
+         if ([result integerForKey:@"errorcode"] == 0) {
+             if (strongSelf.page == 1) {
+                 [strongSelf.messageLists removeAllObjects];
+             }
+             self.total_num = [result integerForKey:@"total_num"];
+             for (NSDictionary * messageInfoDic in [result valueForKey:@"data"]) {
+                 Baller_MessageListInfo * messageInfoModel = [Baller_MessageListInfo shareWithServerDictionary:messageInfoDic];
+                 if (![strongSelf.messageLists containsObject:messageInfoModel]) {
+                     [strongSelf.messageLists addObject:messageInfoModel];
+                     
+                 }
+             }
+             if(strongSelf.messageLists.count == self.total_num)
+             {
+                 [strongSelf.tableView.footer noticeNoMoreData];
+             }else{
+                 [strongSelf.tableView.footer setState:MJRefreshFooterStateIdle];
+             }
+             [self.tableView reloadData];
+         }
+     }];
 }
 /*!
  *  @brief  删除消息
@@ -164,24 +233,14 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.messageLists.count+1;
+    return self.messageLists.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Baller_MessageViewCell * cell = [tableView dequeueReusableCellWithIdentifier:Baller_MessageViewCellId forIndexPath:indexPath];
     cell.backgroundColor = indexPath.row%2?BALLER_CORLOR_CELL:[UIColor whiteColor];
-    if (indexPath.row>0) {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.messageInfo = self.messageLists[indexPath.row-1];
-        
-    }else{
-        cell.messageTitleLabel.text = @"聊天列表";
-        cell.messageDetailLabel.text = @"快去跟你的球友聊聊吧";
-        cell.timeLabel.text = nil;
-        cell.messageNumberLable.hidden = YES;
-        cell.headImageView.image = [UIImage imageNamed:@"ballericon.jpg"];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.messageInfo = self.messageLists[indexPath.row];
     return cell;
 }
 
@@ -197,21 +256,12 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.row == 0) {
-        // 创建会话列表视图控制器。
-        Baller_ChatListViewController *chatlistVc = [[Baller_ChatListViewController alloc]init];
-        chatlistVc.portraitStyle = RCUserAvatarCycle;
-        chatlistVc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:chatlistVc animated:YES];
-        return;
-    }
     
-    chosedMessageInfo = self.messageLists[indexPath.row-1];
+    chosedMessageInfo = self.messageLists[indexPath.row];
     switch (chosedMessageInfo.type) {
         case 1:
         {
             RCChatViewController * rcChatVC = [[RCIM sharedRCIM]createPrivateChat:chosedMessageInfo.from_uid title:chosedMessageInfo.from_username completion:^{
-                
             }];
             rcChatVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:rcChatVC animated:YES];
@@ -224,7 +274,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
             playCardView.photoUrl = chosedMessageInfo.photo;
             playCardView.uid = chosedMessageInfo.from_uid;
             playCardView.hidesBottomBarWhenPushed = YES;
-
+            
             playCardView.userName = chosedMessageInfo.from_username;
             [self.navigationController pushViewController:playCardView animated:YES];
         }
@@ -235,7 +285,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
             Baller_ActivityDetailViewController * activityDVC = [[Baller_ActivityDetailViewController alloc]init];
             activityDVC.activityID = chosedMessageInfo.theme_id;
             activityDVC.activity_CreaterID = chosedMessageInfo.from_uid;
-
+            
             activityDVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:activityDVC animated:YES];
         }
@@ -316,7 +366,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     if (!_chatUsers) {
         _chatUsers = [NSMutableArray new];
         
-
+        
         RCUserInfo * myUserInfo = [[RCUserInfo alloc]initWithUserId:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"] name:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"user_name"] portrait:[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"photo"]];
         
         RCUserInfo * friendUserInfo = [[RCUserInfo alloc]initWithUserId:chosedMessageInfo.from_uid name:chosedMessageInfo.from_username portrait:chosedMessageInfo.photo];

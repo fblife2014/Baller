@@ -42,7 +42,7 @@
         self.contentView.backgroundColor = [Baller_PositionRelated  baller_PositionColorWithType:PositionType_PG];
     }
     
-    [_headImageView sd_setImageWithURL:[NSURL URLWithString:ballerModel.photo] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:ballerModel.photo] placeholderImage:[UIImage imageNamed:@"manHead"]];
     _userNameLabel.text = ballerModel.user_name;
     [self setNeedsDisplay];
 }
@@ -69,7 +69,7 @@
         self.contentView.backgroundColor = [Baller_PositionRelated  baller_PositionColorWithType:PositionType_PG];
     }
     
-    [_headImageView sd_setImageWithURL:[NSURL URLWithString:waitingEvaluateBallerInfo.photo] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+    [_headImageView sd_setImageWithURL:[NSURL URLWithString:waitingEvaluateBallerInfo.photo] placeholderImage:[UIImage imageNamed:@"manHead"]];
     _userNameLabel.text = waitingEvaluateBallerInfo.user_name;
     [self setNeedsDisplay];
 }

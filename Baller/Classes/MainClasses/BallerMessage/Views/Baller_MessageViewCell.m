@@ -29,7 +29,7 @@
 
     _messageInfo = messageInfo;
     
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_messageInfo.photo] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:_messageInfo.photo] placeholderImage:[UIImage imageNamed:@"manHead"]];
     self.messageTitleLabel.text = _messageInfo.from_username;
     self.messageDetailLabel.text = _messageInfo.content;
     self.messageNumberLable.hidden = _messageInfo.is_read;

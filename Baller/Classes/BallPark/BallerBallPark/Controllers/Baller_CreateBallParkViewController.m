@@ -60,7 +60,11 @@
         [[createCardView headImageButton]setBackgroundImage:headImage forState:UIControlStateNormal];
         
     }else{
-        [[createCardView headImageButton] setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImage]] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+        
+        int gender = [[[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"gender"] intValue];
+        BOOL isMan = gender == 1;
+        
+        [[createCardView headImageButton] setBackgroundImageForState:UIControlStateNormal withURL:[NSURL URLWithString:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImage]] placeholderImage:[UIImage imageNamed:isMan?@"manHead":@"womenHead"]];
         
     }
 

@@ -19,7 +19,7 @@
 @property (nonatomic, weak) UINavigationController * navigationController;
 
 @property (nonatomic, strong) PopingAnimator* popAnimator;    //把动画效果设置为类的一个属性，实现多个操作中共享
-
+@property (nonatomic,strong)UIPanGestureRecognizer* sharePanRecognizer;
 @property (nonatomic, strong) UIPercentDrivenInteractiveTransition* interactionController;
 
 

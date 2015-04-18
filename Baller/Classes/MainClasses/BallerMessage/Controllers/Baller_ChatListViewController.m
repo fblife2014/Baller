@@ -15,6 +15,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = nil;
+    
     [self userHeadClicked];
     // Do any additional setup after loading the view.
 }
@@ -40,7 +41,7 @@
     chat.currentTargetName = conversation.conversationTitle;
     chat.portraitStyle = RCUserAvatarCycle;
     chat.enableVoIP = NO;
-    
+    chat.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chat animated:YES];
 }
 

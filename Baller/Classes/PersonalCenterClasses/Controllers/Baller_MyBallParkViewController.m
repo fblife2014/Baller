@@ -252,7 +252,6 @@
                 
             };
         }
-        ballParkHomePageVc.isCloseMJRefresh = YES;
         [self.navigationController pushViewController:ballParkHomePageVc animated:YES];
         
     }

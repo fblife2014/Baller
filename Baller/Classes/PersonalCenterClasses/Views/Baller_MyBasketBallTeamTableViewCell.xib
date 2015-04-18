@@ -22,7 +22,7 @@
                             <constraint firstAttribute="height" constant="24" id="lSe-lg-dNa"/>
                         </constraints>
                     </imageView>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ballPark_default" translatesAutoresizingMaskIntoConstraints="NO" id="yCi-g2-Kwt">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="manHead" translatesAutoresizingMaskIntoConstraints="NO" id="yCi-g2-Kwt">
                         <rect key="frame" x="44" y="11.5" width="41" height="41"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="41" id="doe-4k-PgI"/>
@@ -93,7 +93,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="ballPark_default" width="187" height="145"/>
         <image name="duizhang" width="21" height="24"/>
+        <image name="manHead" width="300" height="300"/>
     </resources>
 </document>

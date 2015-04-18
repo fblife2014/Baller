@@ -432,12 +432,7 @@ const float LBL_BORDER_OFFSET = 8.0;
     NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     [formatter setLocale:locale];
     formatter.dateFormat = format;
-    return [formatter dateFromString:
-            [NSString stringWithFormat:dateString,
-             [self stringFromDate:_selectedDate withFormat:@"dd-MM-yyyy"],
-             _arrHours[_svHours.tagLastSelected],
-             _arrMinutes[_svMins.tagLastSelected],
-             _arrMeridians[_svMeridians.tagLastSelected]]];
+    return [formatter dateFromString:[formatter stringFromDate:_selectedDate]];
 }
 
 

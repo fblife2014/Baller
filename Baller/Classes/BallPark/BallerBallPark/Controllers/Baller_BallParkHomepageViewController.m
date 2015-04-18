@@ -112,6 +112,22 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     }];
 }
 
+- (void)headerRereshing{
+    [super headerRereshing];
+    self.page = 1;
+    [self ballerParkHome_get_activities];
+    
+}
+
+- (void)footerRereshing{
+    [super footerRereshing];
+    if (activities.count<self.total_num) {
+        self.page = activities.count/10+1;
+        [self ballerParkHome_get_activities];
+        
+        
+    }
+}
 
 #pragma mark 网络请求
 /*!
@@ -121,9 +137,7 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     if (nil == self.court_id)return;
     __WEAKOBJ(weakSelf, self);
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_court_info parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":_court_id} responseBlock:^(id result, NSError *error) {
-        if (error) {
-            
-        }else {
+        if (!error) {
             courtInfoDic = [NSMutableDictionary dictionaryWithDictionary:result];
             homeBallParkHeadView.ballParkInfo = courtInfoDic;
             if (0 == [[result valueForKey:@"errorcode"] intValue]){
@@ -147,17 +161,29 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 - (void)ballerParkHome_get_activities{
   
     NSString * standardString =[TimeManager standardDateStringWithMonthAndDay:homeBallParkHeadView.currentDate?:[NSDate date]];
-    
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_activities parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":_court_id,@"time":standardString} responseBlock:^(id result, NSError *error) {
+    __WEAKOBJ(weakSelf, self);
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_activities parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"court_id":_court_id,@"time":standardString,@"page":@(self.page)} responseBlock:^(id result, NSError *error) {
         if (error) return;
-        [activities removeAllObjects];
+        __STRONGOBJ(strongSelf, weakSelf);
+        if (self.page == 1) {
+            [activities removeAllObjects];
+
+        }
         if ([[result valueForKey:@"errorcode"] integerValue] == 0) {
+            strongSelf.total_num = [result integerForKey:@"total_num"];
             for (NSDictionary * activityInfoDic in [result valueForKey:@"list"]) {
                 Baller_BallParkActivityListModel * activityModel = [[Baller_BallParkActivityListModel alloc]initWithAttributes:activityInfoDic];
                 [activities addObject:activityModel];
             }
         }
-        [self.tableView reloadData];
+        if(activities.count == strongSelf.total_num)
+        {
+            [strongSelf.tableView.footer noticeNoMoreData];
+        }else{
+            [strongSelf.tableView.footer setState:MJRefreshFooterStateIdle];
+        }
+
+        [strongSelf.tableView reloadData];
     }];
 }
 
@@ -317,6 +343,7 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 {
     if (homeBallParkHeadView.currentDate != newPeriod.startDate) {
         homeBallParkHeadView.currentDate = newPeriod.startDate;
+        self.page = 1;
         [self ballerParkHome_get_activities];
     }
 }

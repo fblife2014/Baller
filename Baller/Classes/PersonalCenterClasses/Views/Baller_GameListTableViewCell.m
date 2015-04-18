@@ -17,7 +17,7 @@
     self.textLabel.backgroundColor = CLEARCOLOR;
     self.imageView.layer.cornerRadius = 7.0;
     self.imageView.layer.borderWidth = 0.5;
-    self.imageView.image = [UIImage imageNamed:@"ballPark_default"];
+    self.imageView.image = [UIImage imageNamed:@"manHead"];
     self.imageView.clipsToBounds = YES;
     self.imageView.layer.borderColor = BALLER_CORLOR_b2b2b2.CGColor;
     
@@ -38,7 +38,7 @@
         return;
     }
     _activityModel = activityModel;
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:activityModel.user_photo] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:activityModel.user_photo] placeholderImage:[UIImage imageNamed:@"manHead"]];
     self.textLabel.text = activityModel.user_name;
     _dateLabel.text = [TimeManager getPointStringOfTimeInterval:activityModel.start_time];
     _timeLabel.text = [TimeManager getHourAndMiniteStringOfTimeInterval:activityModel.start_time];

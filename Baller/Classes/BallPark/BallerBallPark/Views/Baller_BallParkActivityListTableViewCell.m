@@ -38,9 +38,9 @@
         return;
     }
     _activitiyModel = activitiyModel;
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:activitiyModel.user_photo] placeholderImage:[UIImage imageNamed:@"ballPark_default"]];
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:activitiyModel.user_photo] placeholderImage:[UIImage imageNamed:@"manHead"]];
     self.textLabel.text = activitiyModel.user_name;
-    self.timeLabel.text = [TimeManager getHourAndMiniteStringOfTimeInterval:activitiyModel.start_time];
+    self.timeLabel.text = [TimeManager getMessageDateStringOfTimeInterval:activitiyModel.start_time];
     self.menberLabel.text = $str(@"%ld人已加入",activitiyModel.join_num);
         
     if (activitiyModel.status == 1) {

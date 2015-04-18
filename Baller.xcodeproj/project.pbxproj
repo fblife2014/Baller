@@ -32,6 +32,7 @@
 		EFCC59A01ABD7241007F2D9C /* Baller_ChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFCC599F1ABD7241007F2D9C /* Baller_ChatListViewController.m */; };
 		FB0443721AD11DD100AAD432 /* Baller_ManageTeamRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0443711AD11DD100AAD432 /* Baller_ManageTeamRequestViewController.m */; };
 		FB0443751AD1809500AAD432 /* Baller_MyCourtInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0443741AD1809500AAD432 /* Baller_MyCourtInfo.m */; };
+		FB1418341AE0FB3D009CE7B7 /* Baller_MessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1418331AE0FB3D009CE7B7 /* Baller_MessageListViewController.m */; };
 		FB2ABEB91AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABE9D1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m */; };
 		FB2ABEBA1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABE9F1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.m */; };
 		FB2ABEBB1AADF97C007D7E52 /* Baller_CreateBallParkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABEA11AADF97C007D7E52 /* Baller_CreateBallParkViewController.m */; };
@@ -61,7 +62,6 @@
 		FB9EF3171AADF830001D77CB /* Baller_AnnotationMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9EF2841AADF830001D77CB /* Baller_AnnotationMapViewController.m */; };
 		FB9EF3181AADF830001D77CB /* Baller_BallParkMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9EF2861AADF830001D77CB /* Baller_BallParkMapViewController.m */; };
 		FB9EF3191AADF830001D77CB /* ReGeocodeAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9EF2891AADF830001D77CB /* ReGeocodeAnnotation.m */; };
-		FB9EF31A1AADF830001D77CB /* Baller_MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9EF28F1AADF830001D77CB /* Baller_MessageViewController.m */; };
 		FB9EF31B1AADF830001D77CB /* Baller_MessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9EF2931AADF830001D77CB /* Baller_MessageViewCell.m */; };
 		FB9EF31C1AADF830001D77CB /* Baller_MyPersonalCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9EF2971AADF830001D77CB /* Baller_MyPersonalCenterViewController.m */; };
 		FB9EF31D1AADF830001D77CB /* Baller_PersonalInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9EF2991AADF830001D77CB /* Baller_PersonalInfoViewController.m */; };
@@ -235,6 +235,8 @@
 		FB0443711AD11DD100AAD432 /* Baller_ManageTeamRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_ManageTeamRequestViewController.m; sourceTree = "<group>"; };
 		FB0443731AD1809500AAD432 /* Baller_MyCourtInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MyCourtInfo.h; sourceTree = "<group>"; };
 		FB0443741AD1809500AAD432 /* Baller_MyCourtInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MyCourtInfo.m; sourceTree = "<group>"; };
+		FB1418321AE0FB3D009CE7B7 /* Baller_MessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MessageListViewController.h; sourceTree = "<group>"; };
+		FB1418331AE0FB3D009CE7B7 /* Baller_MessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MessageListViewController.m; sourceTree = "<group>"; };
 		FB2ABE9C1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_BallParkHomepageViewController.h; sourceTree = "<group>"; };
 		FB2ABE9D1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_BallParkHomepageViewController.m; sourceTree = "<group>"; };
 		FB2ABE9E1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_BPAttentionPersonListViewController.h; sourceTree = "<group>"; };
@@ -294,8 +296,6 @@
 		FB9EF2861AADF830001D77CB /* Baller_BallParkMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_BallParkMapViewController.m; sourceTree = "<group>"; };
 		FB9EF2881AADF830001D77CB /* ReGeocodeAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReGeocodeAnnotation.h; sourceTree = "<group>"; };
 		FB9EF2891AADF830001D77CB /* ReGeocodeAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReGeocodeAnnotation.m; sourceTree = "<group>"; };
-		FB9EF28E1AADF830001D77CB /* Baller_MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MessageViewController.h; sourceTree = "<group>"; };
-		FB9EF28F1AADF830001D77CB /* Baller_MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MessageViewController.m; sourceTree = "<group>"; };
 		FB9EF2921AADF830001D77CB /* Baller_MessageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MessageViewCell.h; sourceTree = "<group>"; };
 		FB9EF2931AADF830001D77CB /* Baller_MessageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MessageViewCell.m; sourceTree = "<group>"; };
 		FB9EF2961AADF830001D77CB /* Baller_MyPersonalCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MyPersonalCenterViewController.h; sourceTree = "<group>"; };
@@ -837,8 +837,8 @@
 		FB9EF28D1AADF830001D77CB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				FB9EF28E1AADF830001D77CB /* Baller_MessageViewController.h */,
-				FB9EF28F1AADF830001D77CB /* Baller_MessageViewController.m */,
+				FB1418321AE0FB3D009CE7B7 /* Baller_MessageListViewController.h */,
+				FB1418331AE0FB3D009CE7B7 /* Baller_MessageListViewController.m */,
 				EFCC599E1ABD7241007F2D9C /* Baller_ChatListViewController.h */,
 				EFCC599F1ABD7241007F2D9C /* Baller_ChatListViewController.m */,
 				FB0443701AD11DD100AAD432 /* Baller_ManageTeamRequestViewController.h */,
@@ -1728,7 +1728,6 @@
 				FB9EF3231AADF830001D77CB /* Baller_BallParkListModel.m in Sources */,
 				FBF50AB01AC7973D003CBCAD /* Baller_MessageListInfo.m in Sources */,
 				FB9EF3461AADF830001D77CB /* Baller_MyBasketBallTeamTableViewCell.m in Sources */,
-				FB9EF31A1AADF830001D77CB /* Baller_MessageViewController.m in Sources */,
 				FBD9B7721AAD7F7F00CDC1C6 /* TimeManager.m in Sources */,
 				FBD9B76D1AAD7F7F00CDC1C6 /* Baller_ImageUtil.m in Sources */,
 				FBD9B75B1AAD7F7F00CDC1C6 /* Baller_CustomCalloutView.m in Sources */,
@@ -1844,6 +1843,7 @@
 				FB5726A51ABE75A9006D50A2 /* Baller_BallParkAttentionTeamListModel.m in Sources */,
 				FBD9B7541AAD7F7F00CDC1C6 /* TableViewDataSource.m in Sources */,
 				FBD9B77A1AAD7F7F00CDC1C6 /* FileManager.m in Sources */,
+				FB1418341AE0FB3D009CE7B7 /* Baller_MessageListViewController.m in Sources */,
 				FBD9B76F1AAD7F7F00CDC1C6 /* AFSessionManagerClient.m in Sources */,
 				FB2ABEC51AADF97C007D7E52 /* Baller_BPAttentionTeamTableViewCell.m in Sources */,
 				FB2ABEC11AADF97C007D7E52 /* Baller_BPAttentionPersonCellFlowLayout.m in Sources */,

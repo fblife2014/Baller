@@ -79,7 +79,7 @@
     
     NSArray * titles = @[@"主题",@"备注",@"时间",@"已参加用户",[self activityBottomButtonTitle:_activityDetailInfo.my_join]];
     
-    NSArray * details = @[_activityDetailInfo.title,_activityDetailInfo.info.length?_activityDetailInfo.info:@"无",[[TimeManager getDateStringOfTimeInterval:_activityDetailInfo.start_time] substringToIndex:10],$str(@"%@/%@",_activityDetailInfo.join_num,_activityDetailInfo.max_num)];
+    NSArray * details = @[_activityDetailInfo.title,_activityDetailInfo.info.length?_activityDetailInfo.info:@"无",[[TimeManager getDateStringOfTimeInterval:_activityDetailInfo.start_time] substringToIndex:16],$str(@"%@/%@",_activityDetailInfo.join_num,_activityDetailInfo.max_num)];
     
     for (int i = 0; i < colors.count; i++)
     {

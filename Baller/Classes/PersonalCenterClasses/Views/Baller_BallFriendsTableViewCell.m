@@ -16,13 +16,13 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.imageView.layer.cornerRadius = 4.0;
     self.imageView.layer.borderWidth = 0.5;
-    self.imageView.image = [UIImage imageNamed:@"ballPark_default"];
+    self.imageView.image = [UIImage imageNamed:@"manHead"];
     self.imageView.clipsToBounds = YES;
     self.imageView.layer.borderColor = BALLER_CORLOR_b2b2b2.CGColor;
     self.textLabel.backgroundColor = CLEARCOLOR;
     self.textLabel.textColor = BALLER_CORLOR_5c5c5c;
     self.textLabel.font = SYSTEM_FONT_S(13.0);
-    self.textLabel.text = @"Brad Pitt";
+    self.textLabel.text = @"Baller";
     
 }
 

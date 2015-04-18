@@ -338,7 +338,6 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     Baller_BallParkHomepageViewController * baller_BallParkHomepageViewController = [[Baller_BallParkHomepageViewController alloc] init];
-    baller_BallParkHomepageViewController.isCloseMJRefresh = YES;
     baller_BallParkHomepageViewController.hidesBottomBarWhenPushed = YES;
 
 //根据球场是否已经认证，选择跳转到不同的界面
