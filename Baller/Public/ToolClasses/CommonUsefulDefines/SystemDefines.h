@@ -25,9 +25,10 @@
 //#define UMKEY @"548bae91fd98c50d0c000b8b"//衣+衣
 
 #define Baller_AMAP_Key @"8a1575d24fe2d11e7ee537c50550029e" //高德地图key
-#define Baller_RongCloudAppKey @"kj7swf8o7zrx2" //容云appkey
+//#define Baller_RongCloudAppKey @"kj7swf8o7zrx2" //容云appkey测试环境
+#define Baller_RongCloudAppKey @"qf3d5gbj3ak7h" //容云appkey生产环境
 
-#define Baller_RCTestToken @"oFum0Dxv6MkkcYOPskMnXFqSqg2vN7fksoctuRRZGFdeGV9sajE+ZilAAjzB7oess4eI+YwyhFRy9UdKlLevVQ==" //容云测试token
+
 
 //第三方appkey和appSecret
 

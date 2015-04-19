@@ -11,14 +11,12 @@ typedef void (^DetailButtonClicked)();
 #import <UIKit/UIKit.h>
 
 @interface Baller_AbilityEditorView : UIView
-{
-    NSArray * layerColors;
-}
+
 
 /*!
  *  @brief 能力参数比例数组,按顺时针依次为投篮、助攻、篮板、抢断、封盖、突破
  */
-@property (nonatomic,copy)NSArray * abilities;
+@property (nonatomic,copy)NSDictionary * abilities;
 
 @property (nonatomic,strong)UIButton * detailButton; //展示说明按钮
 

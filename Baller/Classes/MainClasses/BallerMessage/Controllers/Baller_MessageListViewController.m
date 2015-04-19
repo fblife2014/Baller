@@ -341,9 +341,6 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 
 //要求委托方的编辑风格在表视图的一个特定的位置。
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0) {
-        return UITableViewCellEditingStyleNone;
-    }
     return UITableViewCellEditingStyleDelete;
 }
 
@@ -356,7 +353,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 {
     if (UITableViewCellEditingStyleDelete)
     {
-        Baller_MessageListInfo * deleteInfo = self.messageLists[indexPath.row-1];
+        Baller_MessageListInfo * deleteInfo = self.messageLists[indexPath.row];
         [self deleteMessage:deleteInfo];
     }
 }
@@ -404,7 +401,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 }
 
 - (IBAction)attentionButtonAction:(id)sender {
-    
+    self.navigationItem.title = @"提醒";
     [_attentionButton setTitleColor:UIColorFromRGB(0x1e8ad3) forState:UIControlStateNormal];
     [_chatButton setTitleColor:UIColorFromRGB(0x767676) forState:UIControlStateNormal];
     
@@ -413,7 +410,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 }
 
 - (IBAction)chatButtonAction:(id)sender {
-    
+    self.navigationItem.title = @"聊天";
     [_attentionButton setTitleColor:UIColorFromRGB(0x767676) forState:UIControlStateNormal];
     [_chatButton setTitleColor:UIColorFromRGB(0x1e8ad3) forState:UIControlStateNormal];
     

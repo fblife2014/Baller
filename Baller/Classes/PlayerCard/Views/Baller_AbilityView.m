@@ -7,8 +7,28 @@
 //
 
 #import "Baller_AbilityView.h"
+
 #import <POP/POP.h>
 @implementation Baller_AbilityView
+
+- (IBAction)showDetailInfo:(id)sender {
+    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setBackgroundColor:RGBAColor(0.0, 0.0, 0.0, 0.5)];
+    [button setImage:[UIImage imageNamed:@"activityInfo"] forState:UIControlStateNormal];
+    button.alpha = 0;
+    button.frame = [UIScreen mainScreen].bounds;
+    [button addTarget:self action:@selector(hideTheActivityInfo:) forControlEvents:UIControlEventTouchUpInside];
+    [MAINWINDOW addSubview:button];
+    [UIView animateWithDuration:0.4 animations:^{
+        button.alpha = 1;
+    }];
+
+}
+- (void)hideTheActivityInfo:(UIButton *)button{
+    
+    [button removeFromSuperview];
+}
+
 
 - (void)awakeFromNib{
     self.topView.hidden = YES;

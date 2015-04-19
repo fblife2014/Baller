@@ -185,6 +185,7 @@
 		FBF895831AE2B8D500EFD551 /* JTSSimpleImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF8957B1AE2B8D500EFD551 /* JTSSimpleImageDownloader.m */; };
 		FBF895841AE2B8D500EFD551 /* UIApplication+JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF8957D1AE2B8D500EFD551 /* UIApplication+JTSImageViewController.m */; };
 		FBF895851AE2B8D500EFD551 /* UIImage+JTSImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF8957F1AE2B8D500EFD551 /* UIImage+JTSImageEffects.m */; };
+		FBF895881AE3469C00EFD551 /* Baller_AbilityInfoEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF895871AE3469C00EFD551 /* Baller_AbilityInfoEditor.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -543,6 +544,8 @@
 		FBF8957D1AE2B8D500EFD551 /* UIApplication+JTSImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+JTSImageViewController.m"; sourceTree = "<group>"; };
 		FBF8957E1AE2B8D500EFD551 /* UIImage+JTSImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JTSImageEffects.h"; sourceTree = "<group>"; };
 		FBF8957F1AE2B8D500EFD551 /* UIImage+JTSImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JTSImageEffects.m"; sourceTree = "<group>"; };
+		FBF895861AE3469C00EFD551 /* Baller_AbilityInfoEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_AbilityInfoEditor.h; sourceTree = "<group>"; };
+		FBF895871AE3469C00EFD551 /* Baller_AbilityInfoEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_AbilityInfoEditor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1363,6 +1366,8 @@
 				13277F6A1ABD34CD00E9621C /* LShareSheetView.m */,
 				FB5E8B4C1AB6B73C007F9617 /* LTools.h */,
 				FB5E8B4D1AB6B73C007F9617 /* LTools.m */,
+				FBF895861AE3469C00EFD551 /* Baller_AbilityInfoEditor.h */,
+				FBF895871AE3469C00EFD551 /* Baller_AbilityInfoEditor.m */,
 				FBD9B71E1AAD7F7F00CDC1C6 /* AFNManager */,
 				FBD9B7231AAD7F7F00CDC1C6 /* CommonUsefulDefines */,
 				FBD9B72C1AAD7F7F00CDC1C6 /* CommonUsefulEditor */,
@@ -1635,6 +1640,7 @@
 				TargetAttributes = {
 					FBDEA37D1A22042B0084FEBD = {
 						CreatedOnToolsVersion = 6.1;
+						DevelopmentTeam = HXFU9MZ8SD;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1788,6 +1794,7 @@
 				FB9EF32D1AADF830001D77CB /* Baller_InfoItemView.m in Sources */,
 				EFCC59A01ABD7241007F2D9C /* Baller_ChatListViewController.m in Sources */,
 				FB9EF34F1AADF830001D77CB /* SKInnerShadowLayer.m in Sources */,
+				FBF895881AE3469C00EFD551 /* Baller_AbilityInfoEditor.m in Sources */,
 				FBD9B7531AAD7F7F00CDC1C6 /* Baller_PositionRelated.m in Sources */,
 				FB5726A21ABE692A006D50A2 /* MGConferenceDatePicker.m in Sources */,
 				FB9EF3241AADF830001D77CB /* Baller_BallParkCollectionReusableView.m in Sources */,
@@ -1985,7 +1992,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "fee810f9-83cb-402c-800f-ce75bc0c7ff6";
+				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
 				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(CACHE_ROOT)/SharedPrecompiledHeaders";
 				SYMROOT = build;
@@ -2026,7 +2033,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "fee810f9-83cb-402c-800f-ce75bc0c7ff6";
+				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
 				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(CACHE_ROOT)/SharedPrecompiledHeaders";
 				SYMROOT = build;
@@ -2056,7 +2063,7 @@
 					"$(PROJECT_DIR)/Baller/Umeng/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fee810f9-83cb-402c-800f-ce75bc0c7ff6";
+				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Debug;
@@ -2083,7 +2090,7 @@
 					"$(PROJECT_DIR)/Baller/Umeng/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "fee810f9-83cb-402c-800f-ce75bc0c7ff6";
+				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 			};
 			name = Release;
@@ -2092,6 +2099,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2103,6 +2111,7 @@
 				INFOPLIST_FILE = BallerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Baller.app/Baller";
 			};
 			name = Debug;
@@ -2111,6 +2120,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2118,6 +2128,7 @@
 				INFOPLIST_FILE = BallerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Baller.app/Baller";
 			};
 			name = Release;

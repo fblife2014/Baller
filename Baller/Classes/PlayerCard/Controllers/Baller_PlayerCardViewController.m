@@ -10,6 +10,7 @@
 #import "UIButton+AFNetworking.h"
 #import "Baller_MyAttentionBallPark.h"
 #import "Baller_BallerFriendListModel.h"
+#import "Baller_AbilityInfoEditor.h"
 
 @interface Baller_PlayerCardViewController ()
 
@@ -63,13 +64,33 @@
             [AFNHttpRequestOPManager getWithSubUrl:Baller_get_user_attr parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode]} responseBlock:^(id result, NSError *error) {
                 
                 if([result isKindOfClass:[NSDictionary class]]){
-                    blockPlayCard.abilityDetails =
-                    @[@(MAX([[result valueForKey:@"shoot"] floatValue]/1000.0, 0.4)),
-                      @(MAX([[result valueForKey:@"assists"] floatValue]/1000.0, 0.4)),
-                      @(MAX([[result valueForKey:@"backboard"] floatValue]/1000.0, 0.4)),
-                      @(MAX([[result valueForKey:@"steal"] floatValue]/1000.0, 0.4)),
-                      @(MAX([[result valueForKey:@"over"] floatValue]/1000.0, 0.4)),
-                      @(MAX([[result valueForKey:@"breakthrough"] floatValue]/1000.0, 0.4))];
+                    
+                    NSMutableDictionary * abilityDetail = [NSMutableDictionary dictionary];
+                    
+                    NSInteger shoot = [[result valueForKey:@"shoot"] integerValue];
+                    NSInteger assists = [[result valueForKey:@"assists"] integerValue];
+                    NSInteger backboard = [[result valueForKey:@"backboard"] integerValue];
+                    NSInteger steal = [[result valueForKey:@"steal"] integerValue];
+                    NSInteger over = [[result valueForKey:@"over"] integerValue];
+                    NSInteger breakthrough = [[result valueForKey:@"breakthrough"] integerValue];
+                    
+                    NSInteger totalNumber = shoot + assists + backboard + steal + over + breakthrough;
+                    
+                    [abilityDetail setValue:[result valueForKey:@"shoot"] forKey:@"shoot"];
+                    [abilityDetail setValue:[result valueForKey:@"assists"] forKey:@"assists"];
+                    [abilityDetail setValue:[result valueForKey:@"backboard"] forKey:@"backboard"];
+                    [abilityDetail setValue:[result valueForKey:@"steal"] forKey:@"steal"];
+                    [abilityDetail setValue:[result valueForKey:@"over"] forKey:@"over"];
+                    [abilityDetail setValue:[result valueForKey:@"breakthrough"] forKey:@"breakthrough"];
+                    [abilityDetail setValue:@(totalNumber) forKey:@"totalNumber"];
+                    
+                    [blockPlayCard addLevelLabelWithLevelText:[Baller_AbilityInfoEditor levelStringWithAbility:abilityDetail]];
+                    
+                    
+                    blockPlayCard.abilityDetailInfo = abilityDetail;
+
+                    
+        
                 }
                 
             }];

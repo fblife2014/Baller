@@ -37,7 +37,7 @@ typedef void(^CardView_BottomButtonClicked) (BallerCardType ballerCardType);
     Baller_AbilityView * abilityView;
     Baller_AbilityEditorView * abilityEditorView;
     CAShapeLayer * abilityContentLabyer;  //能力值呈现图谱
-    UIButton * levelLabel; //关注按钮
+    UILabel * levelLabel; //关注按钮
     UIButton * attentionButton; //关注按钮
     UIButton * showDetailButton; //显示能力图谱分级的按钮
     
@@ -72,12 +72,14 @@ typedef void(^CardView_BottomButtonClicked) (BallerCardType ballerCardType);
 
 @property (nonatomic, strong)Baller_CreateBallParkView * createBallParkView;
 @property (nonatomic, strong)Baller_CreateBasketBallTeamView * createTeamView;
-@property (nonatomic,copy)NSArray * abilityDetails; //能力详情
+@property (nonatomic,copy)NSMutableDictionary * abilityDetailInfo; //能力详情
 
 
 @property (nonatomic,strong)NSMutableArray * chatUsers; //聊天双方信息
 
 - (id)initWithFrame:(CGRect)frame
      playerCardType:(BallerCardType)ballerCardType;
+
+- (void)addLevelLabelWithLevelText:(NSString *)levelText;
 
 @end

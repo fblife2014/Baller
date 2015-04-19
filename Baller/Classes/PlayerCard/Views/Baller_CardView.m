@@ -28,6 +28,7 @@
 #import "Baller_MyAttentionBallPark.h"
 #import "JTSImageViewController.h"
 #import "JTSImageInfo.h"
+#import "Baller_AbilityInfoEditor.h"
 
 
 #import "RCIM.h"
@@ -204,7 +205,6 @@
             break;
     }
     
-
     if ([personalInfo intForKey:@"court_id"]) {
         self.court_name = [personalInfo valueForKey:@"court_name"];
         self.court_id = [personalInfo stringForKey:@"court_id"];
@@ -214,13 +214,27 @@
         self.team_name = [personalInfo valueForKey:@"team_name"];
         self.team_id = [personalInfo stringForKey:@"team_id"];
     }
+    NSMutableDictionary * abilityDetail = [NSMutableDictionary dictionary];
     
-    self.abilityDetails =  @[@(MAX([[personalInfo valueForKey:@"shoot"] floatValue]/1000.0, 0.4)),
-                             @(MAX([[personalInfo valueForKey:@"assists"] floatValue]/1000.0, 0.4)),
-                             @(MAX([[personalInfo valueForKey:@"backboard"] floatValue]/1000.0, 0.4)),
-                             @(MAX([[personalInfo valueForKey:@"steal"] floatValue]/1000.0, 0.4)),
-                             @(MAX([[personalInfo valueForKey:@"over"] floatValue]/1000.0, 0.4)),
-                             @(MAX([[personalInfo valueForKey:@"breakthrough"] floatValue]/1000.0, 0.4))];
+    NSInteger shoot = [[personalInfo valueForKey:@"shoot"] integerValue];
+    NSInteger assists = [[personalInfo valueForKey:@"assists"] integerValue];
+    NSInteger backboard = [[personalInfo valueForKey:@"backboard"] integerValue];
+    NSInteger steal = [[personalInfo valueForKey:@"steal"] integerValue];
+    NSInteger over = [[personalInfo valueForKey:@"over"] integerValue];
+    NSInteger breakthrough = [[personalInfo valueForKey:@"breakthrough"] integerValue];
+    
+    NSInteger totalNumber = shoot + assists + backboard + steal + over + breakthrough;
+    
+    [abilityDetail setValue:[personalInfo valueForKey:@"shoot"] forKey:@"shoot"];
+    [abilityDetail setValue:[personalInfo valueForKey:@"assists"] forKey:@"assists"];
+    [abilityDetail setValue:[personalInfo valueForKey:@"backboard"] forKey:@"backboard"];
+    [abilityDetail setValue:[personalInfo valueForKey:@"steal"] forKey:@"steal"];
+    [abilityDetail setValue:[personalInfo valueForKey:@"over"] forKey:@"over"];
+    [abilityDetail setValue:[personalInfo valueForKey:@"breakthrough"] forKey:@"breakthrough"];
+    [abilityDetail setValue:@(totalNumber) forKey:@"totalNumber"];
+    [self addLevelLabelWithLevelText:[Baller_AbilityInfoEditor levelStringWithAbility:abilityDetail]];
+
+    self.abilityDetailInfo = abilityDetail;
     
     heightLabel.text = $str(@"%@ cm",[personalInfo valueForKey:@"height"]);
     weightLabel.text = $str(@"%@ kg",[personalInfo valueForKey:@"weight"]);
@@ -238,16 +252,18 @@
     abilityView.activity_id = _activity_id;
 }
 
-- (void)setAbilityDetails:(NSArray *)abilityDetails{
-    if (_abilityDetails == abilityDetails) {
+- (void)setAbilityDetailInfo:(NSMutableDictionary *)abilityDetailInfo{
+    if (_abilityDetailInfo == abilityDetailInfo) {
         return;
     }
-    _abilityDetails = abilityDetails;
+    _abilityDetailInfo = abilityDetailInfo;
     [abilityEditorView removeFromSuperview];
     abilityEditorView = [[Baller_AbilityEditorView alloc]initWithFrame:CGRectMake(0.0, 0.0, 154.0, 158.0)];
     abilityEditorView.center = CGPointMake(abilityView.frame.size.width/2.0, abilityView.frame.size.height/2.0-5.0);
-    abilityEditorView.abilities = abilityDetails;
+    abilityEditorView.abilities = abilityDetailInfo;
     [abilityView addSubview:abilityEditorView];
+    
+    
 }
 
 #pragma mark 设置球场名或球队名
@@ -356,8 +372,11 @@
     backLayer.shadowColor = CYAN_COLOR.CGColor;
     backLayer.shadowOpacity = 0.5;
     backLayer.shadowOffset = CGSizeMake(0.5, 0.0);
+    
     [self.layer addSublayer:backLayer];
     [self layoutIfNeeded];
+    
+    
 }
 
 - (UIButton *)bottomButton
@@ -447,6 +466,20 @@
         attentionButton.titleEdgeInsets = UIEdgeInsetsMake(0.0, 0, 0.0, 0.0);
 
     }
+    
+}
+
+/*!
+ *  @brief  添加级别标签
+ */
+- (void)addLevelLabelWithLevelText:(NSString *)levelText
+{
+    if (!levelLabel) {
+        levelLabel = [ViewFactory addAlabelForAView:self withText:nil frame:CGRectMake(40, pathRect.origin.y, ShareButtonWidth, ShareButtonWidth) font:[UIFont systemFontOfSize:14.0] textColor:[UIColor whiteColor]];
+        levelLabel.textAlignment = NSTextAlignmentLeft;
+    }
+    NSString * totalString = [NSString stringWithFormat:@"等级：%@",levelText];
+    levelLabel.attributedText = [NSStringManager getAcolorfulStringWithText1:@"等级：" Color1:[UIColor whiteColor] Font1:[UIFont systemFontOfSize:11] Text2:levelText Color2:[UIColor whiteColor] Font2:[UIFont systemFontOfSize:15] AllText:totalString];
     
 }
 
@@ -728,6 +761,8 @@
     }];
     
 }
+
+
 
 /*!
  *  @brief  我的球场按钮方法
