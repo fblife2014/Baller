@@ -54,7 +54,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 //    [self setTopBar];
     [self setRCUserinfo];
     self.tableView.dataSource = self;
-    
+    self.navigationItem.title = @"提醒";
     [self.tableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
     [self.tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadMessageData) name:BallerLogoutThenLoginNotification object:nil];
