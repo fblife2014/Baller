@@ -210,6 +210,7 @@
         [[AppDelegate sharedDelegate] connectRC];
         if (0 == [[result valueForKey:@"errorcode"] integerValue]) {
             _activityDetailInfo = [Baller_ActivityDetailInfo shareWithServerDictionary:result];
+            self.navigationItem.title = [result valueForKey:@"court_name"];
             if (_activityDetailInfo.status == 1) {
                 if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.start_time]) {
                     self.activityStatus = BallerActivityStatusWaitingStart;

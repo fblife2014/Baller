@@ -29,8 +29,18 @@
                         <color key="shadowColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <size key="shadowOffset" width="-1" height="0.0"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zhuchang" translatesAutoresizingMaskIntoConstraints="NO" id="Kn8-ba-NB7">
+                        <rect key="frame" x="244" y="-4" width="80" height="77"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="EBt-LG-FRQ"/>
+                            <constraint firstAttribute="height" constant="77" id="ojY-Yn-OTd"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="hidden" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WuI-t6-LIe">
-                        <rect key="frame" x="270" y="13" width="42" height="21"/>
+                        <rect key="frame" x="274" y="9" width="42" height="21"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="21" id="mqa-x6-RSc"/>
                             <constraint firstAttribute="width" constant="42" id="yBY-1d-N7p"/>
@@ -42,28 +52,18 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="hidden" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zhuchang" translatesAutoresizingMaskIntoConstraints="NO" id="Kn8-ba-NB7">
-                        <rect key="frame" x="240" y="0.0" width="80" height="77"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="80" id="EBt-LG-FRQ"/>
-                            <constraint firstAttribute="height" constant="77" id="ojY-Yn-OTd"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="hidden" value="YES"/>
-                        </userDefinedRuntimeAttributes>
-                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Kn8-ba-NB7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="4gZ-36-6bU"/>
+                    <constraint firstItem="Kn8-ba-NB7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="-4" id="4gZ-36-6bU"/>
                     <constraint firstAttribute="trailing" secondItem="Y6K-jq-0z3" secondAttribute="trailing" id="GVO-Kd-tm3"/>
                     <constraint firstItem="Y6K-jq-0z3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Mu1-92-Wen"/>
                     <constraint firstItem="Y6K-jq-0z3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="R6B-t1-fRr"/>
                     <constraint firstAttribute="trailing" secondItem="13j-Cb-ckC" secondAttribute="trailing" constant="8" id="Tuu-hK-yLf"/>
-                    <constraint firstAttribute="trailing" secondItem="Kn8-ba-NB7" secondAttribute="trailing" id="WqM-05-RdQ"/>
+                    <constraint firstAttribute="trailing" secondItem="Kn8-ba-NB7" secondAttribute="trailing" constant="-4" id="WqM-05-RdQ"/>
                     <constraint firstItem="13j-Cb-ckC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="X4n-hQ-ovV"/>
                     <constraint firstAttribute="centerY" secondItem="13j-Cb-ckC" secondAttribute="centerY" constant="4" id="ZTN-67-YQk"/>
-                    <constraint firstAttribute="trailing" secondItem="WuI-t6-LIe" secondAttribute="trailing" constant="8" id="Zxl-pk-65O"/>
-                    <constraint firstItem="WuI-t6-LIe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="13" id="gte-2O-eTA"/>
+                    <constraint firstAttribute="trailing" secondItem="WuI-t6-LIe" secondAttribute="trailing" constant="4" id="Zxl-pk-65O"/>
+                    <constraint firstItem="WuI-t6-LIe" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="9" id="gte-2O-eTA"/>
                     <constraint firstAttribute="bottom" secondItem="Y6K-jq-0z3" secondAttribute="bottom" constant="6.5" id="s8X-0W-Hfr"/>
                 </constraints>
             </tableViewCellContentView>
