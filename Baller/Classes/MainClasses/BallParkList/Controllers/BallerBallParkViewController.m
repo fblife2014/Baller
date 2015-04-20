@@ -301,21 +301,35 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     if ([kind isEqualToString:UICollectionElementKindSectionHeader]) {
         headReusableView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:BallParkCollectionHeaderViewId forIndexPath:indexPath];
         __BLOCKOBJ(blockSelf, self);
+        __WEAKOBJ(weakSelf, self);
         headReusableView.topButtonClickBlock = ^(BallParkType ballParkType){
+            __STRONGOBJ(strongSelf, weakSelf);
             blockSelf.ballParkType = ballParkType;
             MAIN_BLOCK(^{
                 if (ballParkType == BallParkTypeIdentifing) {
                     blockSelf.navigationItem.rightBarButtonItem.customView.hidden = NO;
-                    [self.collectionView reloadData];
-                    if (self.identifyingParks.count == 0) {
-                        [self getNearbyCourts];
+                    [strongSelf.collectionView reloadData];
+                    if (strongSelf.identifyingParks.count == 0) {
+                        [strongSelf getNearbyCourts];
+                    }else if (strongSelf.identifyingParks.count < strongSelf.identifingTotalnum){
+                        [strongSelf.collectionView.footer setState:MJRefreshFooterStateIdle];
+
+                    }else{
+                        [strongSelf.collectionView.footer noticeNoMoreData];
+
                     }
                 }else{
                     blockSelf.navigationItem.rightBarButtonItem.customView.hidden = YES;
-                    [self.collectionView reloadData];
+                    [strongSelf.collectionView reloadData];
 
-                    if (self.ballParks.count == 0) {
-                        [self getNearbyCourts];
+                    if (strongSelf.ballParks.count == 0) {
+                        [strongSelf getNearbyCourts];
+                        
+                    }else if (strongSelf.ballParks.count < strongSelf.total_num){
+                        [strongSelf.collectionView.footer setState:MJRefreshFooterStateIdle];
+                        
+                    }else{
+                        [strongSelf.collectionView.footer noticeNoMoreData];
                         
                     }
                 }
