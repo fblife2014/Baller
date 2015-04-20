@@ -175,13 +175,13 @@
             [self goToGoogleMap];
             
         }]];
-        [self.alertController addAction:[UIAlertAction actionWithTitle:@"高德地图" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self goToGaoDeMap];
-        }]];
+//        [self.alertController addAction:[UIAlertAction actionWithTitle:@"高德地图" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//            [self goToGaoDeMap];
+//        }]];
         
-        [self.alertController addAction:[UIAlertAction actionWithTitle:@"百度地图" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-            [self goTobaiduMap];
-        }]];
+//        [self.alertController addAction:[UIAlertAction actionWithTitle:@"百度地图" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//            [self goTobaiduMap];
+//        }]];
         [self.alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:NULL]];
         
         [[[MLViewConrollerManager sharedVCMInstance] rootViewController] presentViewController:self.alertController animated:YES completion:nil];
@@ -253,7 +253,10 @@
 
 - (void)goTobaiduMap{
     double bdNowLat,bdNowLon;
-    bd_encrypt([self.ballParkModel.latitude doubleValue], [self.ballParkModel.longitude doubleValue], &bdNowLat, &bdNowLon);
+    CLLocationCoordinate2D currentLocation = [AppDelegate sharedDelegate].currentLocation;
+
+    bd_decrypt(currentLocation.latitude, currentLocation.longitude, &bdNowLat, &bdNowLon);
+    
     
     NSString *stringURL = [NSString stringWithFormat:@"baidumap://map/direction?origin=%.8f,%.8f&destination=%.8f,%.8f&&mode=driving",bdNowLat,bdNowLon,[self.ballParkModel.latitude doubleValue],[self.ballParkModel.longitude doubleValue]];
     NSURL *url = [NSURL URLWithString:stringURL];

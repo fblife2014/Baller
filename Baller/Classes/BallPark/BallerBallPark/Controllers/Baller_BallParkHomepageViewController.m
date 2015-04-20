@@ -59,15 +59,14 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     //添加headview图片
-    homeBallParkHeadView = [[Baller_BallParkHeadView alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 330)];
+    homeBallParkHeadView = [[Baller_BallParkHeadView alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 320)];
     homeBallParkHeadView.delegate = self;
      self.tableView.tableHeaderView = homeBallParkHeadView;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (homeBallParkHeadView.ballParkImageView.image) {
+        if (homeBallParkHeadView.ballParkImageView.image)
+        {
             [homeBallParkHeadView refreshBlurViewForNewImage];
-
         }
-
     });
 
 }

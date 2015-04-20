@@ -171,7 +171,7 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     self.total_num = [DataBaseManager findTheTableItemNumberWithModelName:@"Baller_BallParkListModel" keyName:nil keyValue:nil];
     if (self.ballParks.count < self.total_num)
     {
-        [self.ballParks addObjectsFromArray: [DataBaseManager findTheTableItemWithModelName:@"Baller_BallParkListModel" sql:$str(@"SELECT * FROM Baller_BallParkListModel limit %lu,%lu",(unsigned long)self.ballParks.count,MIN(10, self.total_num-self.ballParks.count))]];
+        [self.ballParks addObjectsFromArray: [DataBaseManager findTheTableItemWithModelName:@"Baller_BallParkListModel" sql:$str(@"SELECT * FROM Baller_BallParkListModel limit %lu,%u",(unsigned long)self.ballParks.count,MIN(10, self.total_num-self.ballParks.count))]];
         
     }
     [self.collectionView reloadData];

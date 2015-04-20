@@ -178,7 +178,6 @@
 		FBF50AAD1AC6345A003CBCAD /* PMSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AA61AC6345A003CBCAD /* PMSelectionView.m */; };
 		FBF50AB01AC7973D003CBCAD /* Baller_MessageListInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AAF1AC7973D003CBCAD /* Baller_MessageListInfo.m */; };
 		FBF50AE81AC92A4C003CBCAD /* Baller_ActivityDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AE71AC92A4B003CBCAD /* Baller_ActivityDetailInfo.m */; };
-		FBF6971E1ACD59F600C34C8B /* ballericon.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FBF6971D1ACD59F600C34C8B /* ballericon.jpg */; };
 		FBF895801AE2B8D500EFD551 /* JTSAnimatedGIFUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF895751AE2B8D500EFD551 /* JTSAnimatedGIFUtility.m */; };
 		FBF895811AE2B8D500EFD551 /* JTSImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF895771AE2B8D500EFD551 /* JTSImageInfo.m */; };
 		FBF895821AE2B8D500EFD551 /* JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF895791AE2B8D500EFD551 /* JTSImageViewController.m */; };
@@ -531,7 +530,6 @@
 		FBF50AAF1AC7973D003CBCAD /* Baller_MessageListInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MessageListInfo.m; sourceTree = SOURCE_ROOT; };
 		FBF50AE61AC92A4B003CBCAD /* Baller_ActivityDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_ActivityDetailInfo.h; sourceTree = SOURCE_ROOT; };
 		FBF50AE71AC92A4B003CBCAD /* Baller_ActivityDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_ActivityDetailInfo.m; sourceTree = SOURCE_ROOT; };
-		FBF6971D1ACD59F600C34C8B /* ballericon.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ballericon.jpg; sourceTree = "<group>"; };
 		FBF895741AE2B8D500EFD551 /* JTSAnimatedGIFUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSAnimatedGIFUtility.h; sourceTree = "<group>"; };
 		FBF895751AE2B8D500EFD551 /* JTSAnimatedGIFUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSAnimatedGIFUtility.m; sourceTree = "<group>"; };
 		FBF895761AE2B8D500EFD551 /* JTSImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageInfo.h; sourceTree = "<group>"; };
@@ -1528,7 +1526,6 @@
 		FBDEA4461A2214ED0084FEBD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FBF6971D1ACD59F600C34C8B /* ballericon.jpg */,
 				13277F6F1ABD39B700E9621C /* UM_share */,
 				FBD64B671A7E69230070E003 /* Default-568h@2x.png */,
 				FBDD31811A5FE82200EBA059 /* login_back@3x.jpg */,
@@ -1680,7 +1677,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FBF6971E1ACD59F600C34C8B /* ballericon.jpg in Resources */,
 				FBDD315B1A5FC18700EBA059 /* Main.storyboard in Resources */,
 				FB9EF3451AADF830001D77CB /* Baller_MineBallParkTableViewCell.xib in Resources */,
 				FBDD315C1A5FC18700EBA059 /* LaunchScreen.xib in Resources */,
@@ -2099,7 +2095,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2111,7 +2107,7 @@
 				INFOPLIST_FILE = BallerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
+				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Baller.app/Baller";
 			};
 			name = Debug;
@@ -2120,7 +2116,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2128,7 +2124,7 @@
 				INFOPLIST_FILE = BallerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
+				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Baller.app/Baller";
 			};
 			name = Release;
