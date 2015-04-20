@@ -377,7 +377,7 @@ const float LBL_BORDER_OFFSET = 8.0;
 //Save button pressed
 - (void)saveButtonPressed:(id)sender {
     //Create date
-    NSDate *date = [self createDateWithFormat:@"dd-MM-yyyy hh:mm a" andDateString:@"%@ %@:%@:00 %@"];
+    NSDate *date = [self createDateWithFormat:@"dd-MM-yyyy hh:mm:ss a" andDateString:@"%@ %@:%@:00 %@"];
     
     //Send the date to the delegate
     if([_delegate respondsToSelector:@selector(conferenceDatePicker:saveDate:)])
@@ -432,7 +432,13 @@ const float LBL_BORDER_OFFSET = 8.0;
     NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
     [formatter setLocale:locale];
     formatter.dateFormat = format;
-    return [formatter dateFromString:[formatter stringFromDate:_selectedDate]];
+    return [formatter dateFromString:
+            [NSString stringWithFormat:dateString,
+             [self stringFromDate:_selectedDate withFormat:@"dd-MM-yyyy"],
+             _arrHours[_svHours.tagLastSelected],
+             _arrMinutes[_svMins.tagLastSelected],
+             _arrMeridians[_svMeridians.tagLastSelected]]];
+    
 }
 
 

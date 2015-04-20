@@ -180,9 +180,11 @@
     if (!_chatButton) {
         UIButton *button = [[UIButton alloc]init];
         [button addTarget:self action:@selector(chatButtonAction) forControlEvents:UIControlEventTouchUpInside];
-        [button setImage:[UIImage imageNamed:@"qunliao"] forState:UIControlStateNormal];
-        button.frame = CGRectMake(0.0, 0.0, NavigationBarHeight, NavigationBarHeight);
-        button.imageEdgeInsets = UIEdgeInsetsMake(0.0, 15, 0.0, -15);
+        [button setTitle:@"活动聊天室" forState:UIControlStateNormal];
+//        [button setImage:[UIImage imageNamed:@"qunliao"] forState:UIControlStateNormal];
+        button.frame = CGRectMake(0.0, 0.0, 1.5*NavigationBarHeight, NavigationBarHeight);
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, -10);
+//        button.imageEdgeInsets = UIEdgeInsetsMake(0.0, 15, 0.0, -15);
         _chatButton = button;
     }
     if (![self.navigationItem.rightBarButtonItem.customView isEqual:_chatButton]) {
