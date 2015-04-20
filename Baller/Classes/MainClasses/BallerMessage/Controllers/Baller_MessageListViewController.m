@@ -18,7 +18,7 @@
 #import "RCIM.h"
 #import "Baller_MessageListInfo.h"
 
-@interface Baller_MessageListViewController ()<RCIMUserInfoFetcherDelegagte,UITableViewDataSource,RCIMFriendsFetcherDelegate>
+@interface Baller_MessageListViewController ()<RCIMUserInfoFetcherDelegagte,UITableViewDataSource>
 {
     Baller_MessageListInfo * chosedMessageInfo;
 
@@ -351,25 +351,6 @@ static NSString * const MessageListCellId = @"MessageListCellId";
         }
     }
     return completion(user);
-}
-
-
-#pragma mark RCIMFriendsFetcherDelegate
--(NSArray*)getFriends
-{
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",@"get_friends",@"action",@"1",@"page",@"100",@"per_page", nil];
-    
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_friend_list parameters:dic responseBlock:^(id result, NSError *error) {
-        if(!error)
-        {
-            for(NSDictionary *dic in [result objectForKey:@"list"])
-            {
-                
-            }
-            
-        }
-    }];
-    return nil;
 }
 
 - (IBAction)attentionButtonAction:(id)sender {

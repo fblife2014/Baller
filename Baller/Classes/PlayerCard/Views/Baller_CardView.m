@@ -32,7 +32,7 @@
 
 
 #import "RCIM.h"
-@interface Baller_CardView ()<RCIMUserInfoFetcherDelegagte,RCIMFriendsFetcherDelegate>
+@interface Baller_CardView ()<RCIMUserInfoFetcherDelegagte>
 
 
 @end
@@ -913,6 +913,7 @@
 - (void)setRCUserinfo{
     [self userHeadClicked];
     [RCIM setUserInfoFetcherWithDelegate:self isCacheUserInfo:YES];
+
 }
 
 - (NSMutableArray *)chatUsers
@@ -930,27 +931,6 @@
     
     return _chatUsers;
 }
-
-
-#pragma mark RCIMUserInfoFetcherDelegagte
--(NSArray*)getFriends
-{
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",@"get_friends",@"action",@"1",@"page",@"100",@"per_page", nil];
-
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_friend_list parameters:dic responseBlock:^(id result, NSError *error) {
-        if(!error)
-        {
-            for(NSDictionary *dic in [result objectForKey:@"list"])
-            {
-
-            }
-
-        }
-    }];
-    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:@"2" name:@"hah" portrait:nil];
-    return @[userInfo];
-}
-
 
 - (void)getUserInfoWithUserId:(NSString *)userId completion:(void(^)(RCUserInfo* userInfo))completion{
 

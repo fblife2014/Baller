@@ -40,6 +40,7 @@
     chat.conversationType = conversation.conversationType;
     chat.currentTargetName = conversation.conversationTitle;
     chat.portraitStyle = RCUserAvatarCycle;
+    chat.enableSettings = NO;
     chat.enableVoIP = NO;
     chat.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:chat animated:YES];
