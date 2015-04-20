@@ -18,12 +18,9 @@
 #import "RCIM.h"
 #import "Baller_MessageListInfo.h"
 
-@interface Baller_MessageListViewController ()<RCIMUserInfoFetcherDelegagte,UITableViewDataSource,RCIMUserInfoFetcherDelegagte>
+@interface Baller_MessageListViewController ()<RCIMUserInfoFetcherDelegagte,UITableViewDataSource,RCIMFriendsFetcherDelegate>
 {
     Baller_MessageListInfo * chosedMessageInfo;
-//    UIView * buttonBottom;
-//    UIButton * messageButton;
-//    UIButton * chatButton;
 
 }
 @property (nonatomic,strong)NSMutableArray * messageLists;
@@ -51,7 +48,6 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self setTopBar];
     [self setRCUserinfo];
     self.tableView.dataSource = self;
     self.navigationItem.title = @"提醒";
@@ -78,57 +74,6 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 }
 
 
-- (void)setTopBar{
-
-//    float bottomWidth = NUMBER(75, 68, 60, 60);
-//    buttonBottom = [[UIView alloc]initWithFrame:CGRectMake(ScreenWidth/2.0-bottomWidth, 7.0, 2*bottomWidth, 30)];
-//    buttonBottom.layer.cornerRadius = 10;
-//    buttonBottom.layer.masksToBounds = YES;
-//    buttonBottom.layer.borderColor = [UIColor whiteColor].CGColor;
-//    buttonBottom.layer.borderWidth = 1.0;
-//    
-//    messageButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    messageButton.titleLabel.font = SYSTEM_FONT_S(15.0);
-//    [messageButton setTitleColor:BALLER_CORLOR_NAVIGATIONBAR forState:UIControlStateNormal];
-//    messageButton.backgroundColor = BALLER_CORLOR_CELL;
-//    messageButton.frame = CGRectMake(0.0, 0.0, bottomWidth, 30);
-//    [messageButton addTarget:self action:@selector(messageButtonAction) forControlEvents:UIControlEventTouchUpInside];
-//    [messageButton setTitle:@"提醒" forState:UIControlStateNormal];
-//    [buttonBottom addSubview:messageButton];
-//    
-//    chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    chatButton.titleLabel.font = SYSTEM_FONT_S(15.0);
-//    [chatButton setTitleColor:BALLER_CORLOR_CELL forState:UIControlStateNormal];
-//    chatButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
-//    chatButton.frame = CGRectMake(bottomWidth, 0.0, bottomWidth, 30);
-//    [chatButton addTarget:self action:@selector(chatButtonAction) forControlEvents:UIControlEventTouchUpInside];
-//    [chatButton setTitle:@"聊天" forState:UIControlStateNormal];
-//    [buttonBottom addSubview:chatButton];
-//    
-//    self.navigationItem.titleView = buttonBottom;
-
-}
-//
-//- (void)messageButtonAction{
-//    
-//    [messageButton setTitleColor:BALLER_CORLOR_NAVIGATIONBAR forState:UIControlStateNormal];
-//    messageButton.backgroundColor = BALLER_CORLOR_CELL;
-//    [chatButton setTitleColor:BALLER_CORLOR_CELL forState:UIControlStateNormal];
-//    chatButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
-//    
-//    self.tableView.hidden = NO;
-//    self.chatListViewController.view.hidden = YES;
-//}
-//
-//
-//- (void)chatButtonAction{
-//    [messageButton setTitleColor:BALLER_CORLOR_CELL forState:UIControlStateNormal];
-//    messageButton.backgroundColor = BALLER_CORLOR_NAVIGATIONBAR;
-//    [chatButton setTitleColor:BALLER_CORLOR_NAVIGATIONBAR forState:UIControlStateNormal];
-//    chatButton.backgroundColor = BALLER_CORLOR_CELL;
-//    self.tableView.hidden = YES;
-//    self.chatListViewController.view.hidden = NO;
-//}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     if(_messageLists.count == 0)[self reloadMessageData];
@@ -329,6 +274,18 @@ static NSString * const MessageListCellId = @"MessageListCellId";
             [self.navigationController pushViewController:manageTeamRequestVC animated:YES];
         }
             break;
+        case 9:
+        {
+            Baller_PlayerCardViewController * playCardView = [[Baller_PlayerCardViewController alloc]init];
+            playCardView.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
+            playCardView.photoUrl = chosedMessageInfo.photo;
+            playCardView.uid = chosedMessageInfo.from_uid;
+            playCardView.hidesBottomBarWhenPushed = YES;
+            
+            playCardView.userName = chosedMessageInfo.from_username;
+            [self.navigationController pushViewController:playCardView animated:YES];
+        }
+            break;
         default:
             break;
     }
@@ -394,6 +351,25 @@ static NSString * const MessageListCellId = @"MessageListCellId";
         }
     }
     return completion(user);
+}
+
+
+#pragma mark RCIMFriendsFetcherDelegate
+-(NSArray*)getFriends
+{
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",@"get_friends",@"action",@"1",@"page",@"100",@"per_page", nil];
+    
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_friend_list parameters:dic responseBlock:^(id result, NSError *error) {
+        if(!error)
+        {
+            for(NSDictionary *dic in [result objectForKey:@"list"])
+            {
+                
+            }
+            
+        }
+    }];
+    return nil;
 }
 
 - (IBAction)attentionButtonAction:(id)sender {

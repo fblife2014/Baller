@@ -40,7 +40,7 @@
 - (UITableView *)systemConfigureTableView
 {
     if (!_systemConfigureTableView) {
-        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, TABLE_SPACE_INSET, ScreenWidth-2*TABLE_SPACE_INSET, 300.0) style:UITableViewStylePlain];
+        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, TABLE_SPACE_INSET, ScreenWidth-2*TABLE_SPACE_INSET, 240.0) style:UITableViewStylePlain];
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.backgroundColor = CLEARCOLOR;
@@ -88,7 +88,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -130,7 +130,7 @@
         }
     }
     cell.backgroundColor = (indexPath.row%2)?BALLER_CORLOR_CELL:[UIColor whiteColor];
-    cell.textLabel.text = @[@"密码修改",@"消息通知提醒",@"清理缓存",@"关于"][indexPath.row];
+    cell.textLabel.text = @[@"密码修改",@"消息通知提醒",@"清理缓存"][indexPath.row];
     return cell;
 }
 
@@ -151,9 +151,7 @@
             }];
         }
             break;
-        case 3:
-  
-            break;
+
         default:
             break;
     }
@@ -188,8 +186,9 @@
                 strongCell.messageSwitch.on = !strongCell.messageSwitch.on;
                 [Baller_HUDView bhud_showWithTitle:[result valueForKey:@"msg"]];
             }
-            NSDictionary *userInfo = [USER_DEFAULT valueForKey:Baller_UserInfo];
+            NSMutableDictionary *userInfo = [NSMutableDictionary dictionaryWithDictionary:[USER_DEFAULT valueForKey:Baller_UserInfo]];
             [userInfo setValue:@(strongCell.messageSwitch.on) forKey:@"msg_status"];
+            [USER_DEFAULT setValue:userInfo forKey:Baller_UserInfo];
         }];
     };
 }

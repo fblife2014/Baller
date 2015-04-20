@@ -86,7 +86,6 @@
         case Baller_TeamJoinedType:
         {
             self.navigationItem.title = @"我的球队";
-//            UIBarButtonItem *rightItem = [ViewFactory getABarButtonItemWithImage:@"qunliao" imageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15) target:self selection:@selector(goToGroupChat)];
             UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithTitle:@"球队聊天室" titleEdgeInsets:UIEdgeInsetsMake(0, 15, 0, -5) target:self selection:@selector(goToGroupChat)];
             self.navigationItem.rightBarButtonItem = rightItem;
             

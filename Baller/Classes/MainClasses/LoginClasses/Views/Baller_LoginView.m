@@ -264,7 +264,7 @@ typedef enum{
     CGFloat thirdLoginWidth = tencentImage.size.width+kThirdLoginButton_Space;
     CGFloat thirdLoginHeight = tencentImage.size.height;
     
-    _wechatLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0-thirdLoginWidth, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) normalTitle:nil image:[UIImage imageNamed:@"login_wechat"] backgroudImage:nil superView:self target:self action:@selector(wechatLogin)];
+    _wechatLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0-thirdLoginWidth-15, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) normalTitle:nil image:[UIImage imageNamed:@"login_wechat"] backgroudImage:nil superView:self target:self action:@selector(wechatLogin)];
     
     [self addSubview:_wechatLoginButton];
     
@@ -273,7 +273,7 @@ typedef enum{
     
     [self addSubview:_tencentLoginButton];
        
-    _weiboLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0+thirdLoginWidth, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) normalTitle:nil image:[UIImage imageNamed:@"login_weibo"] backgroudImage:nil superView:self target:self action:@selector(weiboLogin)];
+    _weiboLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0+thirdLoginWidth+15, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) normalTitle:nil image:[UIImage imageNamed:@"login_weibo"] backgroudImage:nil superView:self target:self action:@selector(weiboLogin)];
     [self addSubview:_weiboLoginButton];
 }
 

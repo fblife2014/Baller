@@ -88,7 +88,6 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
 
 #pragma mark 网络请求获取球场
 - (void)getNearbyCourts{
-#warning ____
     
     __WEAKOBJ(weakSelf, self);
     [AFNHttpRequestOPManager getWithSubUrl:Baller_get_nearby_courts parameters:@{@"latitude":@(currentLocation.latitude?:39.91549069),@"longitude":@(currentLocation.longitude?:116.38086026),@"type":self.ballParkType?@"authing":@"authed",@"per_page":@"10",@"page":self.ballParkType?@(self.identifyingPage):@(self.page)} responseBlock:^(id result, NSError *error) {
@@ -149,7 +148,7 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
             BACKGROUND_BLOCK(^{
                 if (strongSelf.ballParkType == BallParkTypeIdentifyed)
                 {
-                    for (int i = MAX(0, strongSelf.ballParks.count-10); i<self.ballParks.count; i++)
+                    for (NSInteger i = MAX(0, strongSelf.ballParks.count-10); i<self.ballParks.count; i++)
                     {
                         Baller_BallParkListModel * ballParkModel = self.ballParks[i];
                         if (![DataBaseManager isModelExist:@"Baller_BallParkListModel" keyName:@"court_id" keyValue:@(ballParkModel.court_id)])
@@ -244,7 +243,6 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, ScreenHeight-NavigationBarHeight-TabBarHeight) collectionViewLayout:layout];
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.backgroundColor = UIColorFromRGB(0xe7e7e7);
-    
     [self.collectionView registerClass:[Baller_BallparkCollectionViewCell class] forCellWithReuseIdentifier:Baller_BallparkCollectionViewCellId];
     
     [self.collectionView registerNib:[UINib nibWithNibName:@"Baller_BallParkCollectionReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:BallParkCollectionHeaderViewId];

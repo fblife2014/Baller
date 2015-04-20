@@ -16,7 +16,7 @@
     if (self) {
         
         self.headerReferenceSize = CGSizeMake(ScreenWidth, 40);
-        self.sectionInset = UIEdgeInsetsMake(0, BallPark_ItemSpacing, 0, BallPark_ItemSpacing);
+        self.sectionInset = UIEdgeInsetsMake(5, BallPark_ItemSpacing, 0, BallPark_ItemSpacing);
         self.scrollDirection = UICollectionViewScrollDirectionVertical;
 
         CGFloat width = (ScreenWidth-3*BallPark_ItemSpacing)/2.0;

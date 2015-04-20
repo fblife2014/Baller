@@ -65,6 +65,8 @@ NSString * const Baller_get_my_courts = @"&c=court&m=get_my_courts"; //29、关�
 
 NSString * const Baller_upload_share_pic = @"&c=upload&m=upload_pic"; //30、上传分享球员卡
 
+NSString * const Baller_user_share = @"&c=user&m=share_user"; //30.1、上传分享球员卡
+
 
 
 

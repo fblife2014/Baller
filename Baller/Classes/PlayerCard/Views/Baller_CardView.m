@@ -32,7 +32,7 @@
 
 
 #import "RCIM.h"
-@interface Baller_CardView ()<RCIMUserInfoFetcherDelegagte>
+@interface Baller_CardView ()<RCIMUserInfoFetcherDelegagte,RCIMFriendsFetcherDelegate>
 
 
 @end
@@ -475,7 +475,7 @@
 - (void)addLevelLabelWithLevelText:(NSString *)levelText
 {
     if (!levelLabel) {
-        levelLabel = [ViewFactory addAlabelForAView:self withText:nil frame:CGRectMake(40, pathRect.origin.y, ShareButtonWidth, ShareButtonWidth) font:[UIFont systemFontOfSize:14.0] textColor:[UIColor whiteColor]];
+        levelLabel = [ViewFactory addAlabelForAView:self withText:nil frame:CGRectMake(35, pathRect.origin.y, ShareButtonWidth, ShareButtonWidth) font:[UIFont systemFontOfSize:14.0] textColor:[UIColor whiteColor]];
         levelLabel.textAlignment = NSTextAlignmentLeft;
     }
     NSString * totalString = [NSString stringWithFormat:@"等级：%@",levelText];
@@ -642,11 +642,12 @@
     UIImage * shareImage = [ImageFactory saveImageFromView:weakSelf.superview];
     weakSelf.superview.bounds = superRect;
     
-    [AFNHttpRequestOPManager postImageWithSubUrl:Baller_upload_share_pic parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"action":@"share"} fileName:@"shareImage" fileData:UIImageJPEGRepresentation(shareImage, 1) fileType:@"image/jpg" responseBlock:^(id result, NSError *error)
+    [AFNHttpRequestOPManager postImageWithSubUrl:Baller_user_share parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"action":@"share"} fileName:@"shareImage" fileData:UIImageJPEGRepresentation(shareImage, 1) fileType:@"image/jpg" responseBlock:^(id result, NSError *error)
     {
         if ([result intForKey:@"errorcode"] == 0)
         {
-            share_link_url = [[[result valueForKey:@"pics"] objectAtIndex:0]valueForKey:@"image_url"];
+            
+            share_link_url = [[result valueForKey:@"pics"] valueForKey:@"image_url"];
             
             NSString *share_title = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"user_name"];
             
@@ -932,6 +933,24 @@
 
 
 #pragma mark RCIMUserInfoFetcherDelegagte
+-(NSArray*)getFriends
+{
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"authcode",@"get_friends",@"action",@"1",@"page",@"100",@"per_page", nil];
+
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_friend_list parameters:dic responseBlock:^(id result, NSError *error) {
+        if(!error)
+        {
+            for(NSDictionary *dic in [result objectForKey:@"list"])
+            {
+
+            }
+
+        }
+    }];
+    RCUserInfo * userInfo = [[RCUserInfo alloc]initWithUserId:@"2" name:@"hah" portrait:nil];
+    return @[userInfo];
+}
+
 
 - (void)getUserInfoWithUserId:(NSString *)userId completion:(void(^)(RCUserInfo* userInfo))completion{
 
@@ -948,6 +967,9 @@
     }
     return completion(user);
 }
+
+#pragma mark RCIMFriendsFetcherDelegate
+
 
 - (void)userHeadClicked
 {
