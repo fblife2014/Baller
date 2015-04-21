@@ -118,22 +118,6 @@
 }
 
 
-#pragma mark getAdvertisingIdentifier
-+ (NSString *)getAdvertisingIdentifier{
-    
-    return [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-    
-}
-
-
-#pragma mark getIdentifierForVendor
-+ (NSString *)getIdentifierForVendor{
-    
-    return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    
-    
-}
-
 
 
 @end

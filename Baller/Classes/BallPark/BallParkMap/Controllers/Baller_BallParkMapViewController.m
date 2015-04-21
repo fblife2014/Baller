@@ -178,7 +178,7 @@
 //        [self.alertController addAction:[UIAlertAction actionWithTitle:@"高德地图" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 //            [self goToGaoDeMap];
 //        }]];
-        
+//        
 //        [self.alertController addAction:[UIAlertAction actionWithTitle:@"百度地图" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
 //            [self goTobaiduMap];
 //        }]];
@@ -192,14 +192,12 @@
                                       delegate:self
                                       cancelButtonTitle:@"取消"
                                       destructiveButtonTitle:nil
-                                      otherButtonTitles:@"Google地图",@"高德地图",@"百度地图",nil];
+                                      otherButtonTitles:@"Google地图",nil];
         [actionSheet showInView:[UIApplication sharedApplication].keyWindow];
 
     }
-    
-    
-    
-    
+
+
 }
 
 
@@ -208,12 +206,6 @@
     switch (buttonIndex) {
         case 0:
             [self goToGoogleMap];
-            break;
-        case 1:
-            [self goToGaoDeMap];
-            break;
-        case 2:
-            [self goTobaiduMap];
             break;
         default:
             break;
@@ -243,24 +235,40 @@
 }
 
 - (void)goToGaoDeMap{
-    
-    NSString * urlString = [NSString stringWithFormat:@"iosamap://navi?sourceApplication=broker&backScheme=openbroker2&poiname=%@&poiid=BGVIS&lat=%.8f&lon=%.8f&dev=1&style=2",self.ballParkModel.address,[self.ballParkModel.latitude doubleValue],[self.ballParkModel.longitude doubleValue]];
-    
-    NSURL * gaodeUrl = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    [[UIApplication sharedApplication] openURL:gaodeUrl];
+    BOOL hasGaodeMap = NO;
+    if ([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:@"iosamap://"]]){
+        hasGaodeMap = YES;
+    }
+    if (hasGaodeMap) {
+        //backScheme=%
+        NSString *gaodeUrl = [[NSString stringWithFormat:@"iosamap://navi?sourceApplication=%@&@&poiname=%@&lat=%@&lon=%@&dev=1&style=2",@"Baller", @"终点", self.ballParkModel.latitude,
+                                self.ballParkModel.longitude]
+                               stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:gaodeUrl]];
+    }else{
+        [Baller_HUDView bhud_showWithTitle:@"您尚未安装高德地图客户端!"];
+    }
     
 }
 
 - (void)goTobaiduMap{
-    double bdNowLat,bdNowLon;
-    CLLocationCoordinate2D currentLocation = [AppDelegate sharedDelegate].currentLocation;
+    
+    BOOL hasBaiduMap = NO;
+    
+    if ([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:@"baidumap://map/"]]){
+        hasBaiduMap = YES;
+    }
+    
+    if (hasBaiduMap) {
+        CLLocationCoordinate2D currentLocation = [AppDelegate sharedDelegate].currentLocation;
+        NSString *urlString = [[NSString stringWithFormat:@"baidumap://map/direction?origin=latlng:%f,%f|name:我的位置&destination=latlng:%@,%@|name:终点&mode=driving",currentLocation.latitude, currentLocation.longitude,self.ballParkModel.latitude,self.ballParkModel.longitude] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] ;
+        
+        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:urlString]];
+        
+    }else{
+        [Baller_HUDView bhud_showWithTitle:@"您尚未安装百度地图客户端!"];
+    }
 
-    bd_decrypt(currentLocation.latitude, currentLocation.longitude, &bdNowLat, &bdNowLon);
-    
-    
-    NSString *stringURL = [NSString stringWithFormat:@"baidumap://map/direction?origin=%.8f,%.8f&destination=%.8f,%.8f&&mode=driving",bdNowLat,bdNowLon,[self.ballParkModel.latitude doubleValue],[self.ballParkModel.longitude doubleValue]];
-    NSURL *url = [NSURL URLWithString:stringURL];
-    [[UIApplication sharedApplication] openURL:url];
 }
 
 #pragma mark - Utility

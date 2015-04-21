@@ -94,18 +94,6 @@
 
 
 
-/*
- 六、Vendor标示符:ADF开发商 （取的到，不靠谱）
- 
- ＊identifierForVendor
- 
- *同一开发商的APP在指定机器上都会获得同一个ID。当我们删除了某一个设备上某个开发商的所有APP之后，下次获取将会获取到不同的ID。” 也就是说我们通过该接口不能获取用来唯一标识设备的ID
- 
- */
-
-+ (NSString *)getIdentifierForVendor;
-
-
 
 
 /*
