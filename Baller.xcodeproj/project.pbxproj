@@ -168,7 +168,6 @@
 		FBE0F5111ACA9CA8000FA8C0 /* Baller_SearchUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE0F50F1ACA9CA8000FA8C0 /* Baller_SearchUserViewController.m */; };
 		FBE0F5121ACA9CA8000FA8C0 /* Baller_SearchUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBE0F5101ACA9CA8000FA8C0 /* Baller_SearchUserViewController.xib */; };
 		FBE4F8DC1ACF953D0058978F /* Baller_WaitingEvaluateBallersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE4F8DB1ACF953D0058978F /* Baller_WaitingEvaluateBallersViewController.m */; };
-		FBE4F8DF1ACF95D30058978F /* Baller_WaitingEvaluateBallerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBE4F8DE1ACF95D30058978F /* Baller_WaitingEvaluateBallerInfo.m */; };
 		FBF2C7321AE5DA2100EABD31 /* icon-114@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF2C72B1AE5DA2100EABD31 /* icon-114@2x.png */; };
 		FBF2C7331AE5DA2100EABD31 /* icon-120@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF2C72C1AE5DA2100EABD31 /* icon-120@2x.png */; };
 		FBF2C7341AE5DA2100EABD31 /* icon-120@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF2C72D1AE5DA2100EABD31 /* icon-120@3x.png */; };
@@ -176,6 +175,9 @@
 		FBF2C7361AE5DA2100EABD31 /* icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF2C72F1AE5DA2100EABD31 /* icon-40.png */; };
 		FBF2C7371AE5DA2100EABD31 /* icon-57.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF2C7301AE5DA2100EABD31 /* icon-57.png */; };
 		FBF2C7381AE5DA2100EABD31 /* icon-80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FBF2C7311AE5DA2100EABD31 /* icon-80@2x.png */; };
+		FBF2C7481AE5EBAB00EABD31 /* Baller_ActivityDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF2C7451AE5EBAB00EABD31 /* Baller_ActivityDetailInfo.m */; };
+		FBF2C7491AE5EBAB00EABD31 /* Baller_WaitingEvaluateBallerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF2C7471AE5EBAB00EABD31 /* Baller_WaitingEvaluateBallerInfo.m */; };
+		FBF2C74D1AE5EBDF00EABD31 /* Baller_MessageListInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF2C74C1AE5EBDF00EABD31 /* Baller_MessageListInfo.m */; };
 		FBF50AA71AC6345A003CBCAD /* NSDate+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50A981AC6345A003CBCAD /* NSDate+Helpers.m */; };
 		FBF50AA81AC6345A003CBCAD /* PMCalendarBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50A9A1AC6345A003CBCAD /* PMCalendarBackgroundView.m */; };
 		FBF50AA91AC6345A003CBCAD /* PMCalendarController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50A9D1AC6345A003CBCAD /* PMCalendarController.m */; };
@@ -183,8 +185,6 @@
 		FBF50AAB1AC6345A003CBCAD /* PMDimmingView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AA21AC6345A003CBCAD /* PMDimmingView.m */; };
 		FBF50AAC1AC6345A003CBCAD /* PMPeriod.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AA41AC6345A003CBCAD /* PMPeriod.m */; };
 		FBF50AAD1AC6345A003CBCAD /* PMSelectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AA61AC6345A003CBCAD /* PMSelectionView.m */; };
-		FBF50AB01AC7973D003CBCAD /* Baller_MessageListInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AAF1AC7973D003CBCAD /* Baller_MessageListInfo.m */; };
-		FBF50AE81AC92A4C003CBCAD /* Baller_ActivityDetailInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF50AE71AC92A4B003CBCAD /* Baller_ActivityDetailInfo.m */; };
 		FBF895801AE2B8D500EFD551 /* JTSAnimatedGIFUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF895751AE2B8D500EFD551 /* JTSAnimatedGIFUtility.m */; };
 		FBF895811AE2B8D500EFD551 /* JTSImageInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF895771AE2B8D500EFD551 /* JTSImageInfo.m */; };
 		FBF895821AE2B8D500EFD551 /* JTSImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF895791AE2B8D500EFD551 /* JTSImageViewController.m */; };
@@ -514,8 +514,6 @@
 		FBE0F5101ACA9CA8000FA8C0 /* Baller_SearchUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Baller_SearchUserViewController.xib; sourceTree = "<group>"; };
 		FBE4F8DA1ACF953D0058978F /* Baller_WaitingEvaluateBallersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_WaitingEvaluateBallersViewController.h; sourceTree = "<group>"; };
 		FBE4F8DB1ACF953D0058978F /* Baller_WaitingEvaluateBallersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_WaitingEvaluateBallersViewController.m; sourceTree = "<group>"; };
-		FBE4F8DD1ACF95D30058978F /* Baller_WaitingEvaluateBallerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_WaitingEvaluateBallerInfo.h; sourceTree = SOURCE_ROOT; };
-		FBE4F8DE1ACF95D30058978F /* Baller_WaitingEvaluateBallerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_WaitingEvaluateBallerInfo.m; sourceTree = SOURCE_ROOT; };
 		FBF2C72B1AE5DA2100EABD31 /* icon-114@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-114@2x.png"; sourceTree = "<group>"; };
 		FBF2C72C1AE5DA2100EABD31 /* icon-120@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-120@2x.png"; sourceTree = "<group>"; };
 		FBF2C72D1AE5DA2100EABD31 /* icon-120@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-120@3x.png"; sourceTree = "<group>"; };
@@ -525,6 +523,12 @@
 		FBF2C7311AE5DA2100EABD31 /* icon-80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-80@2x.png"; sourceTree = "<group>"; };
 		FBF2C73A1AE5E4CE00EABD31 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		FBF2C73C1AE5E53300EABD31 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		FBF2C7441AE5EBAB00EABD31 /* Baller_ActivityDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_ActivityDetailInfo.h; sourceTree = "<group>"; };
+		FBF2C7451AE5EBAB00EABD31 /* Baller_ActivityDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_ActivityDetailInfo.m; sourceTree = "<group>"; };
+		FBF2C7461AE5EBAB00EABD31 /* Baller_WaitingEvaluateBallerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_WaitingEvaluateBallerInfo.h; sourceTree = "<group>"; };
+		FBF2C7471AE5EBAB00EABD31 /* Baller_WaitingEvaluateBallerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_WaitingEvaluateBallerInfo.m; sourceTree = "<group>"; };
+		FBF2C74B1AE5EBDF00EABD31 /* Baller_MessageListInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MessageListInfo.h; sourceTree = "<group>"; };
+		FBF2C74C1AE5EBDF00EABD31 /* Baller_MessageListInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MessageListInfo.m; sourceTree = "<group>"; };
 		FBF50A951AC6345A003CBCAD /* PMCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMCalendar.h; sourceTree = "<group>"; };
 		FBF50A971AC6345A003CBCAD /* NSDate+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Helpers.h"; sourceTree = "<group>"; };
 		FBF50A981AC6345A003CBCAD /* NSDate+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Helpers.m"; sourceTree = "<group>"; };
@@ -542,10 +546,6 @@
 		FBF50AA41AC6345A003CBCAD /* PMPeriod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMPeriod.m; sourceTree = "<group>"; };
 		FBF50AA51AC6345A003CBCAD /* PMSelectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PMSelectionView.h; sourceTree = "<group>"; };
 		FBF50AA61AC6345A003CBCAD /* PMSelectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PMSelectionView.m; sourceTree = "<group>"; };
-		FBF50AAE1AC7973D003CBCAD /* Baller_MessageListInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MessageListInfo.h; sourceTree = SOURCE_ROOT; };
-		FBF50AAF1AC7973D003CBCAD /* Baller_MessageListInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MessageListInfo.m; sourceTree = SOURCE_ROOT; };
-		FBF50AE61AC92A4B003CBCAD /* Baller_ActivityDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_ActivityDetailInfo.h; sourceTree = SOURCE_ROOT; };
-		FBF50AE71AC92A4B003CBCAD /* Baller_ActivityDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_ActivityDetailInfo.m; sourceTree = SOURCE_ROOT; };
 		FBF895741AE2B8D500EFD551 /* JTSAnimatedGIFUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSAnimatedGIFUtility.h; sourceTree = "<group>"; };
 		FBF895751AE2B8D500EFD551 /* JTSAnimatedGIFUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTSAnimatedGIFUtility.m; sourceTree = "<group>"; };
 		FBF895761AE2B8D500EFD551 /* JTSImageInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTSImageInfo.h; sourceTree = "<group>"; };
@@ -769,9 +769,8 @@
 		FB9EF25A1AADF830001D77CB /* BallerActivity */ = {
 			isa = PBXGroup;
 			children = (
+				FBF2C7431AE5EBAB00EABD31 /* Models */,
 				FB9EF25B1AADF830001D77CB /* Controllers */,
-				FB9EF2601AADF830001D77CB /* Model */,
-				FB9EF2611AADF830001D77CB /* View */,
 			);
 			path = BallerActivity;
 			sourceTree = "<group>";
@@ -787,24 +786,6 @@
 				FBE4F8DB1ACF953D0058978F /* Baller_WaitingEvaluateBallersViewController.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		FB9EF2601AADF830001D77CB /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				FBF50AE61AC92A4B003CBCAD /* Baller_ActivityDetailInfo.h */,
-				FBF50AE71AC92A4B003CBCAD /* Baller_ActivityDetailInfo.m */,
-				FBE4F8DD1ACF95D30058978F /* Baller_WaitingEvaluateBallerInfo.h */,
-				FBE4F8DE1ACF95D30058978F /* Baller_WaitingEvaluateBallerInfo.m */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		FB9EF2611AADF830001D77CB /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		FB9EF2811AADF830001D77CB /* BallParkMap */ = {
@@ -862,8 +843,8 @@
 		FB9EF28C1AADF830001D77CB /* BallerMessage */ = {
 			isa = PBXGroup;
 			children = (
+				FBF2C74A1AE5EBDF00EABD31 /* Models */,
 				FB9EF28D1AADF830001D77CB /* Controllers */,
-				FB9EF2901AADF830001D77CB /* Models */,
 				FB9EF2911AADF830001D77CB /* Views */,
 			);
 			path = BallerMessage;
@@ -880,15 +861,6 @@
 				FB0443711AD11DD100AAD432 /* Baller_ManageTeamRequestViewController.m */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		FB9EF2901AADF830001D77CB /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				FBF50AAE1AC7973D003CBCAD /* Baller_MessageListInfo.h */,
-				FBF50AAF1AC7973D003CBCAD /* Baller_MessageListInfo.m */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		FB9EF2911AADF830001D77CB /* Views */ = {
@@ -1565,6 +1537,26 @@
 			path = AppIcon;
 			sourceTree = "<group>";
 		};
+		FBF2C7431AE5EBAB00EABD31 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FBF2C7441AE5EBAB00EABD31 /* Baller_ActivityDetailInfo.h */,
+				FBF2C7451AE5EBAB00EABD31 /* Baller_ActivityDetailInfo.m */,
+				FBF2C7461AE5EBAB00EABD31 /* Baller_WaitingEvaluateBallerInfo.h */,
+				FBF2C7471AE5EBAB00EABD31 /* Baller_WaitingEvaluateBallerInfo.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FBF2C74A1AE5EBDF00EABD31 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FBF2C74B1AE5EBDF00EABD31 /* Baller_MessageListInfo.h */,
+				FBF2C74C1AE5EBDF00EABD31 /* Baller_MessageListInfo.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		FBF50A941AC6345A003CBCAD /* PMCalendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -1801,10 +1793,10 @@
 			files = (
 				FB9EF3271AADF830001D77CB /* Baller_BallParkCollectionViewLayout.m in Sources */,
 				FB9EF3291AADF830001D77CB /* Baller_LoginView.m in Sources */,
+				FBF2C74D1AE5EBDF00EABD31 /* Baller_MessageListInfo.m in Sources */,
 				FB2ABEC41AADF97C007D7E52 /* Baller_BPAttentionPersonListHeader.m in Sources */,
 				13277F6E1ABD368C00E9621C /* UIView+Frame.m in Sources */,
 				FB9EF3231AADF830001D77CB /* Baller_BallParkListModel.m in Sources */,
-				FBF50AB01AC7973D003CBCAD /* Baller_MessageListInfo.m in Sources */,
 				FB9EF3461AADF830001D77CB /* Baller_MyBasketBallTeamTableViewCell.m in Sources */,
 				FBD9B7721AAD7F7F00CDC1C6 /* TimeManager.m in Sources */,
 				FBD9B76D1AAD7F7F00CDC1C6 /* Baller_ImageUtil.m in Sources */,
@@ -1846,7 +1838,6 @@
 				FBD9B7551AAD7F7F00CDC1C6 /* Baller_AlertLabel.m in Sources */,
 				FB9EF3371AADF830001D77CB /* Baller_SystemConfigureViewController.m in Sources */,
 				FBD9B7601AAD7F7F00CDC1C6 /* UIImage+APLBlurEffect.m in Sources */,
-				FBE4F8DF1ACF95D30058978F /* Baller_WaitingEvaluateBallerInfo.m in Sources */,
 				FBD9B74B1AAD7F7F00CDC1C6 /* DismissingAnimator.m in Sources */,
 				FBD9B7631AAD7F7F00CDC1C6 /* JSONKit.m in Sources */,
 				FB9EF33B1AADF830001D77CB /* Baller_BallFriendsTableViewCell.m in Sources */,
@@ -1868,6 +1859,7 @@
 				FB0443751AD1809500AAD432 /* Baller_MyCourtInfo.m in Sources */,
 				FBD9B7711AAD7F7F00CDC1C6 /* NSStringManager.m in Sources */,
 				FB9EF32E1AADF830001D77CB /* Baller_PersonalInfoView.m in Sources */,
+				FBF2C7481AE5EBAB00EABD31 /* Baller_ActivityDetailInfo.m in Sources */,
 				FBD9B7621AAD7F7F00CDC1C6 /* FlatButton.m in Sources */,
 				FBD9B7781AAD7F7F00CDC1C6 /* ArchiveDataBase.m in Sources */,
 				FB9EF3221AADF830001D77CB /* BallerBallParkViewController.m in Sources */,
@@ -1892,6 +1884,7 @@
 				FBD9B77B1AAD7F7F00CDC1C6 /* NSObject+DateBaseModel.m in Sources */,
 				FB9EF3341AADF830001D77CB /* Baller_MyBasketballTeamViewController.m in Sources */,
 				FBD9B7611AAD7F7F00CDC1C6 /* UIView+ML_BlurView.m in Sources */,
+				FBF2C7491AE5EBAB00EABD31 /* Baller_WaitingEvaluateBallerInfo.m in Sources */,
 				FB9EF3171AADF830001D77CB /* Baller_AnnotationMapViewController.m in Sources */,
 				FB9EF3201AADF830001D77CB /* Baller_MyPersonalCenterTableViewCell.m in Sources */,
 				FB2ABEBC1AADF97C007D7E52 /* Baller_BallParkActivityListModel.m in Sources */,
@@ -1901,7 +1894,6 @@
 				FB9EF32F1AADF830001D77CB /* Baller_ChoseTeamViewController.m in Sources */,
 				FBF895831AE2B8D500EFD551 /* JTSSimpleImageDownloader.m in Sources */,
 				FB2ABEBB1AADF97C007D7E52 /* Baller_CreateBallParkViewController.m in Sources */,
-				FBF50AE81AC92A4C003CBCAD /* Baller_ActivityDetailInfo.m in Sources */,
 				FBE4F8DC1ACF953D0058978F /* Baller_WaitingEvaluateBallersViewController.m in Sources */,
 				FBF50AAC1AC6345A003CBCAD /* PMPeriod.m in Sources */,
 				FB9EF3481AADF830001D77CB /* Baller_SystemConfigureTableViewCell.m in Sources */,
@@ -2028,7 +2020,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
 				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(CACHE_ROOT)/SharedPrecompiledHeaders";
@@ -2071,7 +2063,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
 				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(CACHE_ROOT)/SharedPrecompiledHeaders";
@@ -2101,7 +2093,7 @@
 					"$(PROJECT_DIR)/Baller/Umeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/Baller/Umeng/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
@@ -2130,7 +2122,7 @@
 					"$(PROJECT_DIR)/Baller/Umeng/UMSocial_Sdk_Extra_Frameworks/TencentOpenAPI",
 					"$(PROJECT_DIR)/Baller/Umeng/UMSocial_Sdk_Extra_Frameworks/Wechat",
 				);
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
