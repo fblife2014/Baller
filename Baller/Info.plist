@@ -82,6 +82,7 @@
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
+		<string>arm64</string>
 	</array>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleLightContent</string>
@@ -91,5 +92,15 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>icon-114@2x.png</string>
+		<string>icon-120@2x.png</string>
+		<string>icon-120@3x.png</string>
+		<string>icon-180@3x.png</string>
+		<string>icon-140.png</string>
+		<string>icon-57.png</string>
+		<string>icon-80@2x.png</string>
+	</array>
 </dict>
 </plist>

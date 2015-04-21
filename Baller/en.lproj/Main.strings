@@ -1,0 +1,27 @@
+
+/* Class = "UILabel"; text = "1"; ObjectID = "01x-jZ-RjK"; */
+"01x-jZ-RjK.text" = "1";
+
+/* Class = "UILabel"; text = "聊天列表"; ObjectID = "3iS-JE-fX4"; */
+"3iS-JE-fX4.text" = "聊天列表";
+
+/* Class = "UINavigationItem"; title = "球场"; ObjectID = "5pQ-aH-Kbm"; */
+"5pQ-aH-Kbm.title" = "球场";
+
+/* Class = "UIButton"; normalTitle = "聊天"; ObjectID = "ETn-sn-1fB"; */
+"ETn-sn-1fB.normalTitle" = "聊天";
+
+/* Class = "UINavigationItem"; title = "个人中心"; ObjectID = "L1e-ap-SUm"; */
+"L1e-ap-SUm.title" = "个人中心";
+
+/* Class = "UIButton"; normalTitle = "提醒"; ObjectID = "S11-en-6xy"; */
+"S11-en-6xy.normalTitle" = "提醒";
+
+/* Class = "UILabel"; text = "快去跟你的球友聊聊天吧"; ObjectID = "eJ9-RS-Bz5"; */
+"eJ9-RS-Bz5.text" = "快去跟你的球友聊聊天吧";
+
+/* Class = "UILabel"; text = "今天"; ObjectID = "fcS-SL-Cwg"; */
+"fcS-SL-Cwg.text" = "今天";
+
+/* Class = "UIBarButtonItem"; title = "设置"; ObjectID = "sQt-Me-xNE"; */
+"sQt-Me-xNE.title" = "设置";
