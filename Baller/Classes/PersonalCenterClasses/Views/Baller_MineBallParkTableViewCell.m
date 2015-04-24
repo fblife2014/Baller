@@ -36,8 +36,15 @@
         return;
     }
     _ballParkModel = ballParkModel;
+    __WEAKOBJ(weakSelf, self);
     [self.ballParkImageView sd_setImageWithURL:[NSURL URLWithString:ballParkModel.court_img] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        [self.ballParkImageView showBlurWithDuration:1.0 blurStyle:kUIBlurEffectStyleLight belowView:nil radius:40];
+        __STRONGOBJ(strongSelf, weakSelf);
+        BACKGROUND_BLOCK(^{
+            MAIN_BLOCK(^{
+            [strongSelf.ballParkImageView showBlurWithDuration:1.0 blurStyle:kUIBlurEffectStyleLight belowView:nil radius:40];
+            });
+        });
+
 
     }];
     self.ballParkNameLabel.text = ballParkModel.court_name;
@@ -49,10 +56,18 @@
         return;
     }
     _myCourtInfo = myCourtInfo;
-    [self.ballParkImageView sd_setImageWithURL:[NSURL URLWithString:myCourtInfo.court_img] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        [self.ballParkImageView showBlurWithDuration:1.0 blurStyle:kUIBlurEffectStyleLight belowView:nil radius:40];
+    __WEAKOBJ(weakSelf, self);
 
+    [self.ballParkImageView sd_setImageWithURL:[NSURL URLWithString:myCourtInfo.court_img] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        __STRONGOBJ(strongSelf, weakSelf);
+
+        BACKGROUND_BLOCK(^{
+            MAIN_BLOCK(^{
+        [strongSelf.ballParkImageView showBlurWithDuration:1.0 blurStyle:kUIBlurEffectStyleLight belowView:nil radius:40];
+            });
+        });
     }];
+
     self.ballParkNameLabel.text = myCourtInfo.court_name;
     self.isHomeCourt = myCourtInfo.home_court;
     

@@ -10,15 +10,13 @@ import UIKit
 
 class Baller_NaviTitleScrollView: UIScrollView {
 
-    let titleLable:UILabel = UILabel()
+    var titleLable:UILabel = UILabel(frame: CGRectZero)
   
     convenience init(frame: CGRect, title:NSString) {
         self.init(frame: frame)
         self.backgroundColor = UIColor.clearColor()
         self.clipsToBounds = true
         self.showsHorizontalScrollIndicator = false
-        
-        self.titleLable.frame = CGRectZero
         self.titleLable.textColor = UIColor(red: 245.0/255.0, green: 245.0/255.0, blue: 245.0/255.0, alpha: 1.0)
         self.titleLable.font = UIFont.systemFontOfSize(18)
         self.titleLable.textAlignment = NSTextAlignment.Center

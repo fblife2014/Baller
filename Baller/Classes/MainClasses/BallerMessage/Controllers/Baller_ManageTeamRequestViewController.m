@@ -19,7 +19,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.navigationItem.titleView = nil;
+
     buttonBottom = [[UIView alloc]initWithFrame:CGRectMake(ScreenWidth/2.0-60.0, 7.0, 120, 30)];
     buttonBottom.layer.cornerRadius = 6;
     buttonBottom.layer.masksToBounds = YES;
@@ -41,7 +42,6 @@
     [rejectButton addTarget:self action:@selector(rejectButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [rejectButton setTitle:@"拒绝" forState:UIControlStateNormal];
     [buttonBottom addSubview:rejectButton];
-    
     self.navigationItem.titleView = buttonBottom;
     
     // Do any additional setup after loading the view.

@@ -19,9 +19,9 @@
 - (void)loadView{
     [super loadView];
     self.page = 1; //列表默认页码为1
-    if (!_naviTitleScrollView)
+    if (!_naviTitleScrollView && !_dontNeedTitle)
     {
-        _naviTitleScrollView = [[Baller_NaviTitleScrollView alloc]initWithFrame:CGRectMake(0.0, 0, ScreenWidth-180, 20) title:@""];
+        _naviTitleScrollView = [[Baller_NaviTitleScrollView alloc]initWithFrame:CGRectMake(0.0, 0, NUMBER(170, 150, 120, 120), 20) title:@""];
         self.navigationItem.titleView = _naviTitleScrollView;
     }
 

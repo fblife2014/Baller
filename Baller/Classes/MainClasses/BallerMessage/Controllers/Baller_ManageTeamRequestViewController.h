@@ -10,4 +10,5 @@
 
 @interface Baller_ManageTeamRequestViewController : Baller_PlayerCardViewController
 @property (nonatomic,copy)NSString * tm_id;
+
 @end

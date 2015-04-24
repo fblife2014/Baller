@@ -233,7 +233,6 @@ static NSString * const MessageListCellId = @"MessageListCellId";
             Baller_ActivityDetailViewController * activityDVC = [[Baller_ActivityDetailViewController alloc]init];
             activityDVC.activityID = chosedMessageInfo.theme_id;
             activityDVC.activity_CreaterID = chosedMessageInfo.from_uid;
-            
             activityDVC.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:activityDVC animated:YES];
         }
@@ -267,6 +266,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
         case 8:
         {
             Baller_ManageTeamRequestViewController * manageTeamRequestVC = [[Baller_ManageTeamRequestViewController alloc]init];
+            manageTeamRequestVC.dontNeedTitle = YES;
             manageTeamRequestVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
             manageTeamRequestVC.photoUrl = chosedMessageInfo.photo;
             manageTeamRequestVC.uid = chosedMessageInfo.from_uid;

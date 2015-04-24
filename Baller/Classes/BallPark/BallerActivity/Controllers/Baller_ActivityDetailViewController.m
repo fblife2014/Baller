@@ -116,11 +116,7 @@
             bottomButton.enabled = YES;
             if (_activityDetailInfo.my_join) {
                 [self chatButton];
-                if (isCreator) {
-                    bottomButton.backgroundColor = BALLER_CORLOR_RED;
-
-                }else{
-                }
+                bottomButton.backgroundColor = BALLER_CORLOR_RED;
 
             }else{
                 [self collectButton];
@@ -203,32 +199,36 @@
  */
 - (void)getActivityInfo
 {
+    __WEAKOBJ(weakSelf, self);
+
     [AFNHttpRequestOPManager getWithSubUrl:Baller_activity_get_info parameters:@{@"authcode":[USER_DEFAULT valueForKey:Baller_UserInfo_Authcode],@"activity_id":_activityID} responseBlock:^(id result, NSError *error) {
         if (error)return;
-        [self userHeadClicked];
+        __STRONGOBJ(strongSelf, weakSelf);
+
+        [strongSelf userHeadClicked];
         [[AppDelegate sharedDelegate] connectRC];
         if (0 == [[result valueForKey:@"errorcode"] integerValue]) {
             _activityDetailInfo = [Baller_ActivityDetailInfo shareWithServerDictionary:result];
-            [self.naviTitleScrollView resetTitle:[result valueForKey:@"court_name"]];
+            [strongSelf.naviTitleScrollView resetTitle:[result valueForKey:@"court_name"]];
 
             if (_activityDetailInfo.status == 1) {
                 if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.start_time]) {
-                    self.activityStatus = BallerActivityStatusWaitingStart;
+                    strongSelf.activityStatus = BallerActivityStatusWaitingStart;
 
                 }else if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.end_time]){
-                    self.activityStatus = BallerActivityStatusUnderway;
+                    strongSelf.activityStatus = BallerActivityStatusUnderway;
                 }else{
-                    self.activityStatus = BallerActivityStatusFinished;
+                    strongSelf.activityStatus = BallerActivityStatusFinished;
                 }
                 
             }else{
-                self.activityStatus = BallerActivityStatusDissolved;
+                strongSelf.activityStatus = BallerActivityStatusDissolved;
             }
             
-            [self setupSubViews];
+            [strongSelf setupSubViews];
         }else{
             [Baller_HUDView bhud_showWithTitle:[result stringForKey:@"msg"]];
-            [self PopToLastViewController];
+            [strongSelf PopToLastViewController];
         }
     }];
 }
@@ -244,21 +244,21 @@
         if (error) return ;
         
         __STRONGOBJ(strongSelf, weakSelf);
-        __BLOCKOBJ(blockInfo, self.activityDetailInfo);
+        __BLOCKOBJ(blockInfo, strongSelf.activityDetailInfo);
         if (0 == [[result valueForKey:@"errorcode"] integerValue]) {
             isDataChanged = YES;
             if (isCreator) {
                 blockInfo.status = 2;
-                self.activityStatus = BallerActivityStatusDissolved;
+                strongSelf.activityStatus = BallerActivityStatusDissolved;
             }else{
                 strongSelf.activityDetailInfo.my_join = !strongSelf.activityDetailInfo.my_join;
                 if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.start_time]) {
-                    self.activityStatus = BallerActivityStatusWaitingStart;
+                    strongSelf.activityStatus = BallerActivityStatusWaitingStart;
                     
                 }else if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.end_time]){
-                    self.activityStatus = BallerActivityStatusUnderway;
+                    strongSelf.activityStatus = BallerActivityStatusUnderway;
                 }else{
-                    self.activityStatus = BallerActivityStatusFinished;
+                    strongSelf.activityStatus = BallerActivityStatusFinished;
                 }
             }
         }

@@ -436,12 +436,18 @@
     }
     cell.positionLabel.text = teamMemberInfo.position.length==2?teamMemberInfo.position:$str(@"  %@",teamMemberInfo.position);
     cell.heightLabel.text = $str(@"%@ cm",teamMemberInfo.height);
+    
     if (indexPath.row == 0) {
-        cell.backgroundType = BaseCellBackgroundTypeUpWhite;
-    } else if (indexPath.row == 9) {
-        cell.backgroundType = (indexPath.row % 2) ? BaseCellBackgroundTypeDownGrey : BaseCellBackgroundTypeDownWhite;
-    } else {
-        cell.backgroundType = indexPath.row % 2 ? BaseCellBackgroundTypeMiddleGrey : BaseCellBackgroundTypeMiddleWhite;
+        if (self.teamInfo.members.count == 1) {
+            cell.backgroundType = BaseCellBackgroundTypeOnlyOne;
+        }else{
+            cell.backgroundType = BaseCellBackgroundTypeUpWhite;
+        }
+    }else if (indexPath.row == (self.teamInfo.members.count-1)){
+        cell.backgroundType = (indexPath.row%2)?BaseCellBackgroundTypeDownGrey:BaseCellBackgroundTypeDownWhite;
+        
+    }else{
+        cell.backgroundType = indexPath.row%2?BaseCellBackgroundTypeMiddleGrey:BaseCellBackgroundTypeMiddleWhite;
     }
 }
 

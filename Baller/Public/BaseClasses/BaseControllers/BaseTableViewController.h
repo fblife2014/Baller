@@ -12,6 +12,7 @@
 #import "Baller-Swift.h"
 
 @interface BaseTableViewController : UITableViewController
+@property (nonatomic)BOOL dontNeedTitle;
 @property (nonatomic,strong)Baller_NaviTitleScrollView * naviTitleScrollView;
 
 @property (nonatomic, weak) UIImageView * blurBackImageView;

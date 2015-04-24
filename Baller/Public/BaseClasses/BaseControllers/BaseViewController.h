@@ -13,6 +13,7 @@
 
 @interface BaseViewController : UIViewController
 
+@property (nonatomic)BOOL dontNeedTitle;
 @property (nonatomic,strong)Baller_NaviTitleScrollView * naviTitleScrollView;
 @property (nonatomic,strong) id pushInfo;    //推到下级界面时携带的数据
 @property (nonatomic)NSInteger page;         //页码

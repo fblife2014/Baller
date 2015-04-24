@@ -26,9 +26,9 @@
 - (void)showSubViews{
     if (_friendModel) {
         _uid = _friendModel.friend_uid;
-        [self.naviTitleScrollView resetTitle:_friendModel.friend_user_name];
 
         _photoUrl = _friendModel.friend_user_photo;
+        _userName = _friendModel.friend_user_name;
     }
     if (_userName) {
         [self.naviTitleScrollView resetTitle:_userName];
@@ -38,10 +38,9 @@
         case kBallerCardType_FirstBorn:
         case kBallerCardType_MyPlayerCard:
             [self.naviTitleScrollView resetTitle:@"我的球员卡"];
-
+            
             break;
         case kBallerCardType_OtherBallerPlayerCard:
-            [self.naviTitleScrollView resetTitle:_userName];
             break;
             
         default:
