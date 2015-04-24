@@ -7,6 +7,7 @@
 //
 
 #import "Baller_BaseTableViewCell.h"
+#import "Baller-Swift.h"
 
 @interface Baller_BaseTableViewCell()
 

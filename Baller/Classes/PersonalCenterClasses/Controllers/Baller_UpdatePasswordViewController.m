@@ -24,7 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"密码修改";
+    [self.naviTitleScrollView resetTitle:@"密码修改"];
+
     UIImage * image = nil;
     if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData])
     {

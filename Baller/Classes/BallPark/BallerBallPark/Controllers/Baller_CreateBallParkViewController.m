@@ -21,7 +21,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"创建球场";
+    [self.naviTitleScrollView resetTitle:@"创建球场"];
+
     chosedPositionInfo = [NSMutableDictionary dictionary];
     Baller_CardView * createCardView = [[Baller_CardView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, 10.0, ScreenWidth-2*TABLE_SPACE_INSET, self.view.frame.size.height-20.0) playerCardType:kBallerCardType_CreateBallPark];
     __WEAKOBJ(weakCardView, createCardView);

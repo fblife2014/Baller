@@ -10,7 +10,6 @@
 #import "Masonry.h"
 #import "UIView+ML_BlurView.h"
 #import "TableViewDataSource.h"
-
 @interface BaseViewController ()
 
 @end
@@ -20,6 +19,11 @@
 - (void)loadView{
     [super loadView];
     self.page = 1; //列表默认页码为1
+    if (!_naviTitleScrollView)
+    {
+        _naviTitleScrollView = [[Baller_NaviTitleScrollView alloc]initWithFrame:CGRectMake(0.0, 0, ScreenWidth-180, 20) title:@""];
+        self.navigationItem.titleView = _naviTitleScrollView;
+    }
 
 }
 

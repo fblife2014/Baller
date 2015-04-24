@@ -10,13 +10,20 @@
 #import "UIView+ML_BlurView.h"
 
 @interface BaseTableViewController ()
-
+{
+    
+}
 @end
 
 @implementation BaseTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (!_naviTitleScrollView)
+    {
+        _naviTitleScrollView = [[Baller_NaviTitleScrollView alloc]initWithFrame:CGRectMake(0.0, 0, ScreenWidth-180, 20) title:@""];
+        self.navigationItem.titleView = _naviTitleScrollView;
+    }
     
     self.navigationController.navigationBar.translucent = NO;
     self.view.backgroundColor = UIColorFromRGB(0xe7e7e7);

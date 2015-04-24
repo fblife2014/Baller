@@ -26,7 +26,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"编辑活动详情";
+    [self.naviTitleScrollView resetTitle:@"编辑活动详情"];
+
     UIImage * image = nil;
     if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]) {
         image = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];

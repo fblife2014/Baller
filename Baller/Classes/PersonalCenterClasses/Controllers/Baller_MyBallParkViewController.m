@@ -33,13 +33,15 @@
     dataSourceArray = [NSMutableArray arrayWithCapacity:1];
     if([soureVC intValue] == 1)
     {
-        self.navigationItem.title = @"我的球场";
+        [self.naviTitleScrollView resetTitle:@"我的球场"];
+
         [self getMyCourts];
 
     }
     if([soureVC intValue] == 2)
     {
-        self.navigationItem.title = @"选择球场";
+        [self.naviTitleScrollView resetTitle:@"选择球场"];
+
         [self getNearbyCourts];
     }
 }

@@ -23,7 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"系统设置";
+    [self.naviTitleScrollView resetTitle:@"系统设置"];
+
     UIImage * image = nil;
     if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]) {
         image = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];

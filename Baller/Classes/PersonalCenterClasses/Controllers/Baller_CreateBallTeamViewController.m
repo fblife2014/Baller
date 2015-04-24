@@ -21,8 +21,8 @@ static NSString * const CreateTeamSuccessNotification = @"CreateTeamSuccessNotif
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"创建球队";
-    
+    [self.naviTitleScrollView resetTitle:@"创建球队"];
+
     self.createTeamCardView = [[Baller_CardView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, TABLE_SPACE_INSET, ScreenWidth-2*TABLE_SPACE_INSET, self.view.frame.size.height-2*TABLE_SPACE_INSET) playerCardType:kBallerCardType_CreateBasketBallTeam];
     
     if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]) {

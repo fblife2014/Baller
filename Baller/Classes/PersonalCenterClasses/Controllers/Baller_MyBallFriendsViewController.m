@@ -113,8 +113,8 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
         case BallFriendsListTypeTable:
         {
             self.tableView.tableHeaderView = theSearchBar;
-            
-            self.navigationItem.title = @"球友列表";
+            [self.naviTitleScrollView resetTitle:@"球友列表"];
+
             UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithImage:@"tianjia" imageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15) target:self selection:@selector(addBallFriend)];
             self.navigationItem.rightBarButtonItem = rightItem;
             self.tableView.dataSource = self.tableViewDataSource;
@@ -126,7 +126,8 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
         case BallFriendsListTypeChosing:
         {
             self.tableView.tableHeaderView = theSearchBar;
-            self.navigationItem.title = @"邀请球友";
+            [self.naviTitleScrollView resetTitle:@"邀请球友"];
+
             UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithTitle:@"完成" titleEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15.0) target:self selection:@selector(choseBallFriendsEnd)];
             self.navigationItem.rightBarButtonItem = rightItem;
         }
@@ -134,7 +135,8 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
         case BallFriendsListTypeSearching:
         {
             self.tableView.tableHeaderView = nil;
-            self.navigationItem.title = @"搜索结果";
+            [self.naviTitleScrollView resetTitle:@"搜索结果"];
+
             UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithTitle:@"列表" titleEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15.0) target:self selection:@selector(changeToTabel)];
             self.navigationItem.rightBarButtonItem = rightItem;
             self.tableView.dataSource = self.resultTableDataSource;

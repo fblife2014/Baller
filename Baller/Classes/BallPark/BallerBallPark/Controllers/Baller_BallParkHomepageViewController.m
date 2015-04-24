@@ -73,7 +73,7 @@ static NSString * const Baller_BallParkHomepageTableViewCellId = @"Baller_BallPa
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = self.court_name;
+    [self.naviTitleScrollView resetTitle:self.court_name];
     [self getCourtInfo];
     [[AppDelegate sharedDelegate] connectRC];
 

@@ -52,8 +52,10 @@ static NSString * const Baller_MyCenterTopTableViewCellId = @"Baller_MyCenterTop
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.naviTitleScrollView resetTitle:@"个人中心"];
     cellHeight = NUMBER(80.0, 70.0, 60.0, 60.0);
     [self getPersonalInfo];
+    
     UIImage * image = nil;
     if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]) {
         image = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];

@@ -50,7 +50,8 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     [super viewDidLoad];
     [self setRCUserinfo];
     self.tableView.dataSource = self;
-    self.navigationItem.title = @"提醒";
+    [self.naviTitleScrollView resetTitle:@"提醒"];
+
     [self.tableView addLegendFooterWithRefreshingTarget:self refreshingAction:@selector(footerRereshing)];
     [self.tableView addLegendHeaderWithRefreshingTarget:self refreshingAction:@selector(headerRereshing)];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadMessageData) name:BallerLogoutThenLoginNotification object:nil];
@@ -354,7 +355,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 }
 
 - (IBAction)attentionButtonAction:(id)sender {
-    self.navigationItem.title = @"提醒";
+    [self.naviTitleScrollView resetTitle:@"提醒"];
     [_attentionButton setTitleColor:UIColorFromRGB(0x1e8ad3) forState:UIControlStateNormal];
     [_chatButton setTitleColor:UIColorFromRGB(0x767676) forState:UIControlStateNormal];
     
@@ -363,7 +364,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
 }
 
 - (IBAction)chatButtonAction:(id)sender {
-    self.navigationItem.title = @"聊天";
+    [self.naviTitleScrollView resetTitle:@"聊天"];
     [_attentionButton setTitleColor:UIColorFromRGB(0x767676) forState:UIControlStateNormal];
     [_chatButton setTitleColor:UIColorFromRGB(0x1e8ad3) forState:UIControlStateNormal];
     

@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Baller-Swift.h"
+
 @class TableViewDataSource;
 
 @interface BaseViewController : UIViewController
 
+@property (nonatomic,strong)Baller_NaviTitleScrollView * naviTitleScrollView;
 @property (nonatomic,strong) id pushInfo;    //推到下级界面时携带的数据
 @property (nonatomic)NSInteger page;         //页码
 @property (nonatomic)NSInteger total_num;    //总条数

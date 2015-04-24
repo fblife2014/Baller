@@ -27,26 +27,27 @@
     [super viewDidLoad];
     switch (self.gameListType) {
         case GameListType_MyOriginate:
-            self.navigationItem.title = @"我发起的比赛";
+            [self.naviTitleScrollView resetTitle:@"我发起的比赛"];
+
             actionString = @"create";
             break;
         case GameListType_MyCollected:
-            self.navigationItem.title = @"我收藏的比赛";
+            [self.naviTitleScrollView resetTitle:@"我收藏的比赛"];
             actionString = @"favo";
 
             break;
         case GameListType_MyJoined:
-            self.navigationItem.title = @"我参加的比赛";
+            [self.naviTitleScrollView resetTitle:@"我参加的比赛"];
             actionString = @"join";
 
             break;
         case GameListType_MyEvaluated:
-            self.navigationItem.title = @"我评价的比赛";
+            [self.naviTitleScrollView resetTitle:@"我评价的比赛"];
             actionString = @"marked";
 
             break;
         case GameListType_WaitEvaluated:
-            self.navigationItem.title = @"待评价的比赛";
+            [self.naviTitleScrollView resetTitle: @"待评价的比赛"];
             actionString = @"no_marked";
 
             break;

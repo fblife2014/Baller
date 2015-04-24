@@ -37,7 +37,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.title = _autoAnnotion?@"自动定位球场位置":@"手动标注球场位置";
+    [self.naviTitleScrollView resetTitle:_autoAnnotion?@"自动定位球场位置":@"手动标注球场位置"];
+
     xcoordinate = [[AppDelegate sharedDelegate] currentLocation];
     
     UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithTitle:@"完成" titleEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15) target:self selection:@selector(doneButtonAction)];

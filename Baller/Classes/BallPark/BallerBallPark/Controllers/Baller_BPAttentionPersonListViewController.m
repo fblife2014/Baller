@@ -107,7 +107,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = self.court_name;
+    [self.naviTitleScrollView resetTitle:self.court_name];
     
     // Do any additional setup after loading the view.
 }

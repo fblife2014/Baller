@@ -37,8 +37,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"活动详情";
-    
+    [self.naviTitleScrollView resetTitle:@"活动详情"];
+
     NSString * userId = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"uid"];
     
     isCreator = ([_activity_CreaterID integerValue] == [userId integerValue]);
@@ -209,7 +209,8 @@
         [[AppDelegate sharedDelegate] connectRC];
         if (0 == [[result valueForKey:@"errorcode"] integerValue]) {
             _activityDetailInfo = [Baller_ActivityDetailInfo shareWithServerDictionary:result];
-            self.navigationItem.title = [result valueForKey:@"court_name"];
+            [self.naviTitleScrollView resetTitle:[result valueForKey:@"court_name"]];
+
             if (_activityDetailInfo.status == 1) {
                 if ([TimeManager theSuccessivelyWithCurrentTimeFrom:_activityDetailInfo.start_time]) {
                     self.activityStatus = BallerActivityStatusWaitingStart;

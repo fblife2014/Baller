@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "MJRefresh.h"
 #import "TableViewDataSource.h"
+#import "Baller-Swift.h"
 
 @interface BaseTableViewController : UITableViewController
+@property (nonatomic,strong)Baller_NaviTitleScrollView * naviTitleScrollView;
 
 @property (nonatomic, weak) UIImageView * blurBackImageView;
 @property (nonatomic)NSInteger page; //列表页码

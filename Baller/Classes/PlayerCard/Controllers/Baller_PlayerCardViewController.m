@@ -26,19 +26,22 @@
 - (void)showSubViews{
     if (_friendModel) {
         _uid = _friendModel.friend_uid;
-        self.navigationItem.title = _friendModel.friend_user_name;
+        [self.naviTitleScrollView resetTitle:_friendModel.friend_user_name];
+
         _photoUrl = _friendModel.friend_user_photo;
     }
     if (_userName) {
-        self.navigationItem.title = _userName;
+        [self.naviTitleScrollView resetTitle:_userName];
+
     }
     switch (_ballerCardType) {
         case kBallerCardType_FirstBorn:
         case kBallerCardType_MyPlayerCard:
-            self.navigationItem.title = @"我的球员卡";
+            [self.naviTitleScrollView resetTitle:@"我的球员卡"];
+
             break;
         case kBallerCardType_OtherBallerPlayerCard:
-            self.navigationItem.title = _userName;
+            [self.naviTitleScrollView resetTitle:_userName];
             break;
             
         default:

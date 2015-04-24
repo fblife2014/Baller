@@ -32,7 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"球场位置";
+    [self.naviTitleScrollView resetTitle:@"球场位置"];
     [self initMapView];
     [self addBottomPositionButton];
     // Do any additional setup after loading the view.

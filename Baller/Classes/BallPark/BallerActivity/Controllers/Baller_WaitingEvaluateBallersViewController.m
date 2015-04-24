@@ -31,7 +31,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"待评价球员列表";
+    [self.naviTitleScrollView resetTitle:@"待评价球员列表"];
+
     self.items = [NSMutableArray arrayWithCapacity:1];
     
     Baller_BPAttentionPersonCellFlowLayout * layout = [[Baller_BPAttentionPersonCellFlowLayout alloc] init];

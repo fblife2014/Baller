@@ -77,15 +77,17 @@
         case Baller_TeamOtherTeamType:
         {
             if (_teamName) {
-                self.navigationItem.title = _teamName;
+                [self.naviTitleScrollView resetTitle:_teamName];
+
             }else{
-                self.navigationItem.title = @"球队详情";
+                [self.naviTitleScrollView resetTitle:@"球队详情"];
             }
         }
             break;
         case Baller_TeamJoinedType:
         {
-            self.navigationItem.title = @"我的球队";
+            [self.naviTitleScrollView resetTitle:@"我的球队"];
+
             UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithTitle:@"球队聊天室" titleEdgeInsets:UIEdgeInsetsMake(0, 15, 0, -5) target:self selection:@selector(goToGroupChat)];
             self.navigationItem.rightBarButtonItem = rightItem;
             
@@ -100,8 +102,8 @@
             break;
         case Baller_TeamNotJoinedType:
         {
-            self.navigationItem.title = @"我的球队";
-            
+            [self.naviTitleScrollView resetTitle:@"我的球队"];
+
             UIView *hasNoTeamHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, ScreenWidth)];
             UIView *whiteView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 43.0)];
             whiteView.backgroundColor = [UIColor whiteColor];
@@ -127,9 +129,11 @@
         case Baller_TeamInvitingType:
         {
             if (_teamName) {
-                self.navigationItem.title = _teamName;
+                [self.naviTitleScrollView resetTitle:_teamName];
+
             }else{
-                self.navigationItem.title = @"球队详情";
+                [self.naviTitleScrollView resetTitle:@"球队详情"];
+
             }
 
             UIView *footerView = [ViewFactory clearViewWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, 150.0)];
@@ -151,7 +155,7 @@
             break;
         case Baller_TeamWaitingCheckType:
         {
-            self.navigationItem.title = @"我的球队(申请中)";
+            [self.naviTitleScrollView resetTitle:@"我的球队(申请中)"];
             DLog(@"teamid = %@",[USER_DEFAULT valueForKey:Baller_UserInfo]);
             _teamId = [[USER_DEFAULT valueForKey:Baller_UserInfo] valueForKey:@"team_id"];
 
@@ -237,7 +241,8 @@
                                      NSMutableDictionary * userinfo = [USER_DEFAULT valueForKey:Baller_UserInfo];
                                      for (Baller_BallTeamMemberInfo * teamMemberInfo in strongSelf.teamInfo.members) {
                                          if ([teamMemberInfo.uid isEqualToString:[userinfo valueForKey:@"uid"]]) {
-                                             strongSelf.navigationItem.title = @"我的球队";
+                                             [strongSelf.naviTitleScrollView resetTitle:@"我的球队"];
+
                                          }
                                      }
                                  }
