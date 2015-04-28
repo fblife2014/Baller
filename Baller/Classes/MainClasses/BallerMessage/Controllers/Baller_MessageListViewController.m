@@ -58,7 +58,7 @@ static NSString * const MessageListCellId = @"MessageListCellId";
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadMessageData) name:BallerUpdateHeadImageNotification object:nil];
     self.page = 1;
     [self reloadMessageData];
-
+    
     // Do any additional setup after loading the view.
 }
 
