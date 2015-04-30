@@ -103,7 +103,6 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
             NSInteger totalnum = [result integerForKey:@"total_num"];
             if (strongSelf.ballParkType == BallParkTypeIdentifyed) {
                 strongSelf.total_num = totalnum;
-
                 if (1 == strongSelf.page)[strongSelf.ballParks removeAllObjects];
                 courtsArray = strongSelf.ballParks;
 
@@ -141,7 +140,6 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
                 
                 }else{
                     [strongSelf.collectionView.footer noticeNoMoreData];
-                    
                 }
             }
             [self.collectionView reloadData];

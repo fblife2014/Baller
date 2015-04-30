@@ -15,6 +15,7 @@
     if (!dic) {
         return nil;
     }
+    
     Baller_MyCourtInfo *info = [[Baller_MyCourtInfo alloc] init];
     info.address = [dic stringForKey:@"address"];
     info.attend_court = [dic boolForKey:@"attend_court"];
