@@ -87,7 +87,6 @@
             line = i / 3;
             
             CustomButton *itemBtn = [CustomButton buttonWithType:UIButtonTypeCustom];
-//            itemBtn.backgroundColor = [UIColor orangeColor];
             [itemBtn setFrame:CGRectMake(left + (left + aWidth) * (i % 3), top + (20 + aWidth + 10) * line, aWidth, aHeight)];
             [itemBtn setBackgroundImage:[UIImage imageNamed:[images objectAtIndex:i]] forState:UIControlStateNormal];
             [bgView addSubview:itemBtn];

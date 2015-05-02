@@ -2147,7 +2147,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2159,7 +2159,7 @@
 				INFOPLIST_FILE = BallerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
+				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Baller.app/Baller";
 			};
 			name = Debug;
@@ -2168,7 +2168,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2176,7 +2176,7 @@
 				INFOPLIST_FILE = BallerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
+				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Baller.app/Baller";
 			};
 			name = Release;

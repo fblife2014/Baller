@@ -16,7 +16,7 @@
 #import "UMSocialQQHandler.h"
 #import "UMSocialSinaHandler.h"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<CLLocationManagerDelegate>
 {
     CLLocationManager * _locationManager;
 
@@ -131,6 +131,7 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
@@ -226,29 +227,51 @@
 
 #pragma mark 开启定位
 - (void)setLocation{
-    _locationManager =[[CLLocationManager alloc] init];
     
-    // fix ios8 location issue
-    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
-#ifdef __IPHONE_8_0
-        if ([_locationManager respondsToSelector:@selector(requestAlwaysAuthorization)])
-        {
-            [_locationManager performSelector:@selector(requestAlwaysAuthorization)];//用这个方法，plist中需要NSLocationAlwaysUsageDescription
+    if ([CLLocationManager locationServicesEnabled])
+    {
+        // fix ios8 location issue
+        if (!_locationManager) {
+            _locationManager =[[CLLocationManager alloc] init];
         }
+        _locationManager.distanceFilter = kCLDistanceFilterNone;
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        _locationManager.delegate = self;
         
-        if ([_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
-        {
-            [_locationManager performSelector:@selector(requestWhenInUseAuthorization)];//用这个方法，plist里要加字段NSLocationWhenInUseUsageDescription
+        if (IOS8) {
+            [_locationManager requestWhenInUseAuthorization];
         }
         [_locationManager startUpdatingLocation];
-        
-#endif
+
     }
     
-
 }
 
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    switch (status) {
+        case kCLAuthorizationStatusNotDetermined:
+            if ([_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+            {
+                [_locationManager requestWhenInUseAuthorization];
+            }
+            break;
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            [[NSNotificationCenter defaultCenter]postNotificationName:BallerOpenLocationNotification object:nil];
+            break;
 
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
+{
+    self.currentLocation = newLocation.coordinate;
+}
 #pragma mark   设置导航栏
 - (void)setNavigationBar{
     [[UINavigationBar appearance] setBarTintColor:RGB(44, 60, 80)]; //ios7以后，使用这个方法设置导航栏的颜色

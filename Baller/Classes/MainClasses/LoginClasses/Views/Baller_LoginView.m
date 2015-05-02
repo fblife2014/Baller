@@ -9,12 +9,15 @@
 #import "Baller_LoginView.h"
 #import "UIView+ML_BlurView.h"
 #import "Baller_LoginTextField.h"
+#import "Baller_LoginViewController.h"
 #import "FlatButton.h"
 #import "Baller_AlertLabel.h"
 #import <POP/POP.h>
 
 #import "UMSocial.h"
+#import <TencentOpenAPI/QQApi.h>
 
+#import "WXApi.h"
 
 
 //登录类型 normal为正常手机登陆，sweibo、qq、weixin分别代表新浪微博、qq、微信登陆
@@ -264,17 +267,22 @@ typedef enum{
     CGFloat thirdLoginWidth = tencentImage.size.width+kThirdLoginButton_Space;
     CGFloat thirdLoginHeight = tencentImage.size.height;
     
-    _wechatLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0-thirdLoginWidth-15, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) normalTitle:nil image:[UIImage imageNamed:@"login_wechat"] backgroudImage:nil superView:self target:self action:@selector(wechatLogin)];
+    CGRect firstFrame = CGRectMake((ScreenWidth-thirdLoginWidth)/2.0-thirdLoginWidth-15, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight);
+    CGRect secondFrame = CGRectMake((ScreenWidth-thirdLoginWidth)/2.0, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight);
+    CGRect thirdFrame = CGRectMake((ScreenWidth-thirdLoginWidth)/2.0+thirdLoginWidth+15, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight);
+    
+    _wechatLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:firstFrame normalTitle:nil image:[UIImage imageNamed:@"login_wechat"] backgroudImage:nil superView:self target:self action:@selector(wechatLogin)];
     
     [self addSubview:_wechatLoginButton];
     
-    
-    _tencentLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) normalTitle:nil image:[UIImage imageNamed:@"login_qq"] backgroudImage:nil superView:self target:self action:@selector(tencentLogin)];
+    _tencentLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:secondFrame normalTitle:nil image:[UIImage imageNamed:@"login_qq"] backgroudImage:nil superView:self target:self action:@selector(tencentLogin)];
     
     [self addSubview:_tencentLoginButton];
-       
-    _weiboLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:CGRectMake((ScreenWidth-thirdLoginWidth)/2.0+thirdLoginWidth+15, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight) normalTitle:nil image:[UIImage imageNamed:@"login_weibo"] backgroudImage:nil superView:self target:self action:@selector(weiboLogin)];
+    
+    _weiboLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:thirdFrame normalTitle:nil image:[UIImage imageNamed:@"login_weibo"] backgroudImage:nil superView:self target:self action:@selector(weiboLogin)];
     [self addSubview:_weiboLoginButton];
+    
+
 }
 
 - (UIButton *)addButtons{
@@ -334,8 +342,9 @@ typedef enum{
     
     UIViewController *rootVc = delegate.window.rootViewController;
     
-//    rootVc = [[((UINavigationController *)rootVc) viewControllers] lastObject];
-    
+    if ([[MLViewConrollerManager sharedVCMInstance].rootViewController isKindOfClass:[Baller_LoginViewController class]]) {
+        rootVc = [MLViewConrollerManager sharedVCMInstance].rootViewController;
+    }
     
     UMSocialSnsPlatform *snsPlatform = [UMSocialSnsPlatformManager getSocialPlatformWithName:snsPlatName];
     snsPlatform.loginClickHandler(rootVc,[UMSocialControllerService defaultControllerService],YES,^(UMSocialResponseEntity *response){
@@ -786,7 +795,12 @@ typedef enum{
 - (void)wechatLogin{
     DLog(@"%s",__FUNCTION__);
 
-    NSLog(@"微信");
+    if (![WXApi isWXAppInstalled] || ![WXApi isWXAppSupportApi])
+    {
+        [Baller_HUDView bhud_showWithTitle:@"尚未安装微信"];
+        return;
+    }
+
     [self loginToPlat:UMShareToWechatSession];
 
 }
@@ -796,6 +810,10 @@ typedef enum{
  */
 - (void)tencentLogin{
     DLog(@"%s",__FUNCTION__);
+    if (![QQApi isQQInstalled] || ![QQApi isQQSupportApi]) {
+        [Baller_HUDView bhud_showWithTitle:@"尚未安装QQ"];
+        return;
+    }
     [self loginToPlat:UMShareToQQ];
 
 }
@@ -814,8 +832,9 @@ typedef enum{
  */
 - (void)registerButtonAction{
     DLog(@"%s",__FUNCTION__);
-    if (self.loginStatus == kWaitingForLogin) {
-        
+    
+    if (self.loginStatus == kWaitingForLogin)
+    {
         self.loginStatus = kWaitingForRegister;
         [_passwordNameTF addTarget:_passwordNameTF action:@selector(textFielddidChange:) forControlEvents:UIControlEventEditingChanged];
         ;

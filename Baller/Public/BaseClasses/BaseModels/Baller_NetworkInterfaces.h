@@ -18,6 +18,8 @@ extern NSString * const Baller_update_user_photo;   //8、更新个人头像
 extern NSString * const BallerUpdateHeadImageNotification;  //个人头像更新通知
 
 extern NSString * const Baller_logout;              //9、退出登录
+extern NSString * const BallerOpenLocationNotification;//打开定位成功通知
+extern NSString * const BallerLoginSuccessNotification;//登录通知成功通知
 extern NSString * const BallerLogoutThenLoginNotification;  //注销后从新等登录通知
 
 extern NSString * const Baller_get_back_password;   //10、找回密码，重置密码

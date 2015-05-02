@@ -16,14 +16,9 @@
 #import "Baller_BallParkCollectionViewLayout.h"
 #import "Baller_BallParkCollectionReusableView.h"
 
-#import <AMapSearchKit/AMapSearchAPI.h>
-#import <MAMapKit/MAMapKit.h>
-
-@interface BallerBallParkViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,AMapSearchDelegate,MAMapViewDelegate>
+@interface BallerBallParkViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UIAlertViewDelegate>
 {
     CLLocationCoordinate2D currentLocation;
-    BOOL hasLocationed;
-    MAMapView * _mapView;
 }
 @property (nonatomic,strong)UICollectionView * collectionView;
 @property (nonatomic,strong)NSMutableArray * ballParks; //认证通过了的球场
@@ -40,7 +35,7 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
 @implementation BallerBallParkViewController
 
 - (void)dealloc{
-    [[NSNotificationCenter defaultCenter]removeObserver:self name:BallerLogoutThenLoginNotification object:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 - (void)viewDidLoad {
@@ -54,24 +49,51 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     self.navigationItem.rightBarButtonItem = createBallParkItem;
     
     if(![DataBaseManager isTableExist:@"Baller_BallParkListModel"])[DataBaseManager  createDataBaseWithDBModelName:@"Baller_BallParkListModel"];
-
     
     self.ballParks = [NSMutableArray array];
     self.identifyingParks = [NSMutableArray array];
     [self setupCollectionView];
-    [self initMapView];
 
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadData) name:BallerLogoutThenLoginNotification object:nil];
-
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadData) name:BallerOpenLocationNotification object:nil];
 
 }
 
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    switch (buttonIndex) {
+        case 1:
+        {
+            NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+            if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                [[UIApplication sharedApplication] openURL:url];
+                
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
 - (void)reloadData
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self getNearbyCourts];
+        self.identifyingPage = 1;
+        self.page = 1;
+        if (self.ballParkType == BallParkTypeIdentifyed)
+        {
+            if ([[AFNetworkReachabilityManager sharedManager] isReachable]) {
+                [self getNearbyCourts];
+            }else{
+                [self getIdentifyedBallParkFromSQLTable];
+            }
+        }else{
+            [self getNearbyCourts];
+        }
     });
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,16 +105,64 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
 #pragma mark 创建球场
 
 - (void)createBallPark{
+    if (![self hasOpenUserLocation]) {
+        return;
+    }
+
     Baller_CreateBallParkViewController * createBallParkVC = [[Baller_CreateBallParkViewController alloc]init];
     createBallParkVC.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:createBallParkVC animated:YES];
 }
 
 #pragma mark 网络请求获取球场
+/*!
+ *  @brief  判断用户是否打开定位
+ */
+- (BOOL)hasOpenUserLocation
+{
+    if (kCLAuthorizationStatusDenied == [CLLocationManager authorizationStatus])
+    {
+        NSString * alertTitle = @"定位服务已关闭";
+        NSString * alertMessage = @"请到设置->隐私->定位服务中开启【Baller】定位服务，已便Baller能够准确获取您的位置信息";
+        
+        if (IOS8) {
+            UIAlertController * alertController = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
+                [alertController dismissViewControllerAnimated:YES completion:nil];
+            }];
+            UIAlertAction * setting = [UIAlertAction actionWithTitle:@"设置" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                NSURL *url = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+                if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                    [[UIApplication sharedApplication] openURL:url];
+                }
+            }];
+            
+            [alertController addAction:cancel];
+            [alertController addAction:setting];
+            [self presentViewController:alertController animated:NO completion:nil];
+            
+        }else if (IOS7){
+            
+            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:alertTitle message:alertMessage delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"设置", nil];
+            [alert show];
+            
+        }
+        return NO;
+    }
+    return YES;
+}
+
+
 - (void)getNearbyCourts{
-    
+    if (![self hasOpenUserLocation]) {
+        return;
+    }
     __WEAKOBJ(weakSelf, self);
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_nearby_courts parameters:@{@"latitude":@(currentLocation.latitude?:39.91549069),@"longitude":@(currentLocation.longitude?:116.38086026),@"type":self.ballParkType?@"authing":@"authed",@"per_page":@"10",@"page":self.ballParkType?@(self.identifyingPage):@(self.page)} responseBlock:^(id result, NSError *error) {
+    AppDelegate * appDelegate = (AppDelegate *)[AppDelegate sharedDelegate];
+    currentLocation = appDelegate.currentLocation;
+    
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_get_nearby_courts parameters:@{@"latitude":@(currentLocation.latitude),@"longitude":@(currentLocation.longitude),@"type":self.ballParkType?@"authing":@"authed",@"per_page":@"10",@"page":self.ballParkType?@(self.identifyingPage):@(self.page)} responseBlock:^(id result, NSError *error) {
         __STRONGOBJ(strongSelf, weakSelf);
         if (error) {
             
@@ -119,7 +189,7 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
                 }
             }
             
-            if (self.ballParkType == BallParkTypeIdentifyed) {
+            if (strongSelf.ballParkType == BallParkTypeIdentifyed) {
                 if (strongSelf.ballParks.count<strongSelf.total_num)
                 {
                     if (strongSelf.collectionView.footer.state == MJRefreshFooterStateNoMoreData) {
@@ -142,15 +212,15 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
                     [strongSelf.collectionView.footer noticeNoMoreData];
                 }
             }
-            [self.collectionView reloadData];
+            [strongSelf.collectionView reloadData];
             
             
             BACKGROUND_BLOCK(^{
                 if (strongSelf.ballParkType == BallParkTypeIdentifyed)
                 {
-                    for (NSInteger i = MAX(0, strongSelf.ballParks.count-10); i<self.ballParks.count; i++)
+                    for (NSInteger i = MAX(0, strongSelf.ballParks.count-10); i<strongSelf.ballParks.count; i++)
                     {
-                        Baller_BallParkListModel * ballParkModel = self.ballParks[i];
+                        Baller_BallParkListModel * ballParkModel = strongSelf.ballParks[i];
                         if (![DataBaseManager isModelExist:@"Baller_BallParkListModel" keyName:@"court_id" keyValue:@(ballParkModel.court_id)])
                         {
                             [DataBaseManager insertDataWithMDBModel:ballParkModel];
@@ -171,7 +241,7 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     self.total_num = [DataBaseManager findTheTableItemNumberWithModelName:@"Baller_BallParkListModel" keyName:nil keyValue:nil];
     if (self.ballParks.count < self.total_num)
     {
-        [self.ballParks addObjectsFromArray: [DataBaseManager findTheTableItemWithModelName:@"Baller_BallParkListModel" sql:$str(@"SELECT * FROM Baller_BallParkListModel limit %lu,%lu",(unsigned long)self.ballParks.count,MIN(10, self.total_num-self.ballParks.count))]];
+        [self.ballParks addObjectsFromArray: [DataBaseManager findTheTableItemWithModelName:@"Baller_BallParkListModel" sql:$str(@"SELECT * FROM Baller_BallParkListModel limit %lu,%u",(unsigned long)self.ballParks.count,MIN(10, self.total_num-self.ballParks.count))]];
         
     }
     [self.collectionView reloadData];
@@ -221,19 +291,6 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     }
 }
 
-#pragma mark - Initialization
-
-- (void)initMapView{
-    
-    [MAMapServices sharedServices].apiKey = Baller_AMAP_Key;
-    
-    _mapView = [[MAMapView alloc]initWithFrame:CGRectMake(0.0, 0.0, CGRectGetWidth(self.view.bounds), CGRectGetMaxY(self.view.bounds)-NUMBER(80.0, 70.0, 60.0, 60.0))];
-    _mapView.showsUserLocation = YES;
-    _mapView.delegate = self;
-    
-}
-
-
 /*!
  *  @brief  设置列表
  */
@@ -254,26 +311,6 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
 }
 
 
-#pragma mark - MAMapViewDelegate
-
-- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation updatingLocation:(BOOL)updatingLocation{
-    
-    if (updatingLocation) {
-        currentLocation = userLocation.location.coordinate;
-        AppDelegate * appDelegate = (AppDelegate *)[AppDelegate sharedDelegate];
-        appDelegate.currentLocation = currentLocation;
-    }
-    if (currentLocation.latitude && !hasLocationed) {
-        hasLocationed = YES;
-        if (self.ballParkType == BallParkTypeIdentifyed) {
-            if ([[AFNetworkReachabilityManager sharedManager] isReachable]) {
-                [self getNearbyCourts];
-            }else{
-                [self getIdentifyedBallParkFromSQLTable];
-            }
-        }
-    }
-}
 
 
 #pragma mark UICollectionViewDataSource

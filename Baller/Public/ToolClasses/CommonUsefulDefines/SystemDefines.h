@@ -41,6 +41,6 @@
 #define WXAPPID @"wx2e98a5a243ad127b"//正式
 #define WXAPPSECRET @"59c7980f44e111a29e2bb91dd694c494"
 
-#define RedirectUrl @"http://sns.whalecloud.com/sina2/callback" //回调地址
+#define RedirectUrl @"https://api.weibo.com/oauth2/default.html" //回调地址
 
 #endif

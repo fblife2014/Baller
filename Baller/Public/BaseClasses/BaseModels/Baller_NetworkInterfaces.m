@@ -25,7 +25,11 @@ NSString * const BallerUpdateHeadImageNotification = @"BallerUpdateHeadImageNoti
 
 
 NSString * const Baller_logout = @"&c=user&m=login_out";  //9、退出登录
+NSString * const BallerOpenLocationNotification = @"BallerOpenLocationNotification";//打开定位成功通知
+NSString * const BallerLoginSuccessNotification = @"BallerLoginSuccessNotification";//登录通知成功通知
+
 NSString * const BallerLogoutThenLoginNotification = @"BallerLogoutThenLoginNotification";  //注销后从新等登录通知
+
 NSString * const Baller_get_back_password = @"&c=user&m=get_back_password";  //10、找回密码，重置密码
 
 NSString * const Baller_msg_switch = @"&c=user&m=msg_switch";   //11、开/关消息通知接口
