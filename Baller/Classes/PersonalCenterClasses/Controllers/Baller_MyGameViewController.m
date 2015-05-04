@@ -25,7 +25,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.naviTitleScrollView resetTitle:@"我的比赛"];
-
     UIImage * image = nil;
     if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]) {
         image = [UIImage imageWithData:[USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData]];

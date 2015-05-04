@@ -57,6 +57,9 @@
 		FB5E8B511AB6D157007F9617 /* LocationChange.m in Sources */ = {isa = PBXBuildFile; fileRef = FB5E8B501AB6D157007F9617 /* LocationChange.m */; };
 		FB5E8B531AB6D516007F9617 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB5E8B521AB6D516007F9617 /* MapKit.framework */; };
 		FB64E4891AE9CF46002876BD /* Baller_NaviTitleScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB64E4881AE9CF46002876BD /* Baller_NaviTitleScrollView.swift */; };
+		FB6FAAC41AF758C400053825 /* Baller_PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6FAAC31AF758C400053825 /* Baller_PrivacyPolicyViewController.swift */; };
+		FB6FAAC91AF76D0900053825 /* Baller_AboutUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB6FAAC71AF76D0900053825 /* Baller_AboutUserViewController.swift */; };
+		FB6FAACA1AF76D0900053825 /* Baller_AboutUserViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB6FAAC81AF76D0900053825 /* Baller_AboutUserViewController.xib */; };
 		FB8EAAAB1A6A4CE800460B8C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = FB8EAAAD1A6A4CE800460B8C /* Localizable.strings */; };
 		FB9EF3061AADF830001D77CB /* Baller_ActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9EF25D1AADF830001D77CB /* Baller_ActivityDetailViewController.m */; };
 		FB9EF3071AADF830001D77CB /* Baller_EditActivityDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB9EF25F1AADF830001D77CB /* Baller_EditActivityDetailViewController.m */; };
@@ -298,6 +301,9 @@
 		FB5E8B521AB6D516007F9617 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		FB64E4871AE9CF45002876BD /* Baller-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Baller-Bridging-Header.h"; sourceTree = "<group>"; };
 		FB64E4881AE9CF46002876BD /* Baller_NaviTitleScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Baller_NaviTitleScrollView.swift; sourceTree = "<group>"; };
+		FB6FAAC31AF758C400053825 /* Baller_PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Baller_PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
+		FB6FAAC71AF76D0900053825 /* Baller_AboutUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Baller_AboutUserViewController.swift; sourceTree = "<group>"; };
+		FB6FAAC81AF76D0900053825 /* Baller_AboutUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Baller_AboutUserViewController.xib; sourceTree = "<group>"; };
 		FB8EAAA91A6A4CCA00460B8C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		FB8EAAAA1A6A4CCA00460B8C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		FB8EAAAC1A6A4CE800460B8C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -1051,6 +1057,9 @@
 				FB9EF2D61AADF830001D77CB /* Baller_MyGameViewController.m */,
 				FB9EF2D71AADF830001D77CB /* Baller_SystemConfigureViewController.h */,
 				FB9EF2D81AADF830001D77CB /* Baller_SystemConfigureViewController.m */,
+				FB6FAAC31AF758C400053825 /* Baller_PrivacyPolicyViewController.swift */,
+				FB6FAAC71AF76D0900053825 /* Baller_AboutUserViewController.swift */,
+				FB6FAAC81AF76D0900053825 /* Baller_AboutUserViewController.xib */,
 				FB9EF2D91AADF830001D77CB /* Baller_UpdatePasswordViewController.h */,
 				FB9EF2DA1AADF830001D77CB /* Baller_UpdatePasswordViewController.m */,
 				FB9EF2DB1AADF830001D77CB /* Baller_UpdatePasswordViewController.xib */,
@@ -1738,6 +1747,7 @@
 				13277F771ABD39B700E9621C /* QQ72_72@2x.png in Resources */,
 				FB2ABEBF1AADF97C007D7E52 /* Baller_BallParkActivityListTableViewCell.xib in Resources */,
 				FBF2C7321AE5DA2100EABD31 /* icon-114@2x.png in Resources */,
+				FB6FAACA1AF76D0900053825 /* Baller_AboutUserViewController.xib in Resources */,
 				FB2ABEC31AADF97C007D7E52 /* Baller_BPAttentionPersonCollectionViewCell.xib in Resources */,
 				FBF2C7361AE5DA2100EABD31 /* icon-40.png in Resources */,
 				FB2ABEC61AADF97C007D7E52 /* Baller_BPAttentionTeamTableViewCell.xib in Resources */,
@@ -1819,6 +1829,7 @@
 				FBE0F5111ACA9CA8000FA8C0 /* Baller_SearchUserViewController.m in Sources */,
 				FB9EF3061AADF830001D77CB /* Baller_ActivityDetailViewController.m in Sources */,
 				FBD9B75C1AAD7F7F00CDC1C6 /* Baller_HUDView.m in Sources */,
+				FB6FAAC41AF758C400053825 /* Baller_PrivacyPolicyViewController.swift in Sources */,
 				FB9EF3331AADF830001D77CB /* Baller_MyBallParkViewController.m in Sources */,
 				FB9EF3351AADF830001D77CB /* Baller_MyGameListViewController.m in Sources */,
 				FB5726831ABD54C0006D50A2 /* Baller_BallParkAttentionBallerListModel.m in Sources */,
@@ -1920,6 +1931,7 @@
 				FB2ABEC01AADF97C007D7E52 /* Baller_BallParkHeadView.m in Sources */,
 				FB9EF3261AADF830001D77CB /* Baller_BallparkCollectionViewCell.m in Sources */,
 				FBD9B74C1AAD7F7F00CDC1C6 /* PopingAnimator.m in Sources */,
+				FB6FAAC91AF76D0900053825 /* Baller_AboutUserViewController.swift in Sources */,
 				FB9EF31D1AADF830001D77CB /* Baller_PersonalInfoViewController.m in Sources */,
 				FB2ABEC71AADF97C007D7E52 /* Baller_CreateBallParkView.m in Sources */,
 				FB5726A51ABE75A9006D50A2 /* Baller_BallParkAttentionTeamListModel.m in Sources */,

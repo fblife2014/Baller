@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Baller_AboutUserViewController" customModule="Baller" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-180@3x.png" translatesAutoresizingMaskIntoConstraints="NO" id="3kG-aU-Im3">
+                    <rect key="frame" x="250" y="42" width="100" height="100"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="100" id="rsh-l7-Oe0"/>
+                        <constraint firstAttribute="width" constant="100" id="u3o-Wo-w6b"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="15"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Baller" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E7K-oP-5wm">
+                    <rect key="frame" x="250" y="162" width="100" height="39"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="39" id="L2T-AH-HsG"/>
+                        <constraint firstAttribute="width" constant="100" id="aZq-i9-aJW"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                    <color key="textColor" red="0.16862745098039217" green="0.23529411764705882" blue="0.31764705882352939" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="北京三分线科技有限公司" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JRw-Ic-l4x">
+                    <rect key="frame" x="147" y="560" width="307" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="307" id="QG4-a9-pLB"/>
+                        <constraint firstAttribute="height" constant="21" id="uDJ-zh-MRO"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="最真实的篮球社区" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUV-cz-FBw">
+                    <rect key="frame" x="210" y="211" width="180" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="180" id="9zI-On-lB3"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.46274509800000002" green="0.46274509800000002" blue="0.46274509800000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sFW-5T-TPv">
+                    <rect key="frame" x="260" y="534" width="81" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="81" id="O18-pp-yqC"/>
+                        <constraint firstAttribute="height" constant="21" id="yPh-OE-cOz"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="官方微信：yeqiudi23" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghY-GO-mLo">
+                    <rect key="frame" x="207" y="297" width="187" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="187" id="uIW-oQ-5Fh"/>
+                        <constraint firstAttribute="height" constant="21" id="uvn-5H-QuA"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="ghY-GO-mLo" firstAttribute="top" secondItem="eUV-cz-FBw" secondAttribute="bottom" constant="65" id="9aM-VO-W5Y"/>
+                <constraint firstItem="3kG-aU-Im3" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="42" id="DgU-yT-Px5"/>
+                <constraint firstItem="eUV-cz-FBw" firstAttribute="centerX" secondItem="E7K-oP-5wm" secondAttribute="centerX" id="JHM-h3-k4g"/>
+                <constraint firstItem="3kG-aU-Im3" firstAttribute="centerX" secondItem="E7K-oP-5wm" secondAttribute="centerX" id="Ngg-Qv-PZC"/>
+                <constraint firstItem="JRw-Ic-l4x" firstAttribute="centerX" secondItem="sFW-5T-TPv" secondAttribute="centerX" id="UWR-Ac-wV6"/>
+                <constraint firstItem="eUV-cz-FBw" firstAttribute="top" secondItem="E7K-oP-5wm" secondAttribute="bottom" constant="10" id="WAS-Ta-b7t"/>
+                <constraint firstItem="eUV-cz-FBw" firstAttribute="centerX" secondItem="ghY-GO-mLo" secondAttribute="centerX" constant="-0.5" id="WQK-uP-jvt"/>
+                <constraint firstAttribute="centerX" secondItem="JRw-Ic-l4x" secondAttribute="centerX" constant="-0.5" id="eiO-TD-0eI"/>
+                <constraint firstItem="E7K-oP-5wm" firstAttribute="top" secondItem="3kG-aU-Im3" secondAttribute="bottom" constant="20" id="j9G-rY-S6V"/>
+                <constraint firstAttribute="bottom" secondItem="JRw-Ic-l4x" secondAttribute="bottom" constant="19" id="kIZ-DX-4KD"/>
+                <constraint firstAttribute="centerX" secondItem="3kG-aU-Im3" secondAttribute="centerX" id="kOk-jn-fYj"/>
+                <constraint firstItem="JRw-Ic-l4x" firstAttribute="top" secondItem="sFW-5T-TPv" secondAttribute="bottom" constant="5" id="wmc-NA-tOw"/>
+            </constraints>
+            <point key="canvasLocation" x="383" y="185"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon-180@3x.png" width="180" height="180"/>
+    </resources>
+</document>

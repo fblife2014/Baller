@@ -286,7 +286,6 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 - (void)addBallFriend{
     
     [theSearchBar resignFirstResponder];
-    
     Baller_SearchUserViewController * searchUserVC = [[Baller_SearchUserViewController alloc]initWithNibName:@"Baller_SearchUserViewController" bundle:nil];
     searchUserVC.ballFriendVC = self;
     searchUserVC.view.backgroundColor = RGBAColor(50, 50, 50, 0.5);

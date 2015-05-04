@@ -9,7 +9,6 @@
 #import "Baller_SystemConfigureViewController.h"
 #import "Baller_UpdatePasswordViewController.h"
 #import "Baller_LoginViewController.h"
-
 #import "Baller_SystemConfigureTableViewCell.h"
 
 @interface Baller_SystemConfigureViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -41,7 +40,7 @@
 - (UITableView *)systemConfigureTableView
 {
     if (!_systemConfigureTableView) {
-        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, TABLE_SPACE_INSET, ScreenWidth-2*TABLE_SPACE_INSET, 240.0) style:UITableViewStylePlain];
+        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(TABLE_SPACE_INSET, TABLE_SPACE_INSET, ScreenWidth-2*TABLE_SPACE_INSET, 360.0) style:UITableViewStylePlain];
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.backgroundColor = CLEARCOLOR;
@@ -89,7 +88,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 5;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -131,7 +130,7 @@
         }
     }
     cell.backgroundColor = (indexPath.row%2)?BALLER_CORLOR_CELL:[UIColor whiteColor];
-    cell.textLabel.text = @[@"密码修改",@"消息通知提醒",@"清理缓存"][indexPath.row];
+    cell.textLabel.text = @[@"密码修改",@"消息通知提醒",@"清理缓存",@"隐私条款",@"关于"][indexPath.row];
     return cell;
 }
 
@@ -152,7 +151,18 @@
             }];
         }
             break;
-
+        case 3:
+        {
+            Baller_PrivacyPolicyViewController * privacyVC = [[Baller_PrivacyPolicyViewController alloc]init];
+            [self.navigationController pushViewController:privacyVC animated:YES];
+        }
+            break;
+        case 4:
+        {
+            Baller_AboutUserViewController * aboutUsVC = [[Baller_AboutUserViewController alloc]initWithNibName:@"Baller_AboutUserViewController" bundle:nil];
+            [self.navigationController pushViewController:aboutUsVC animated:YES];
+        }
+            break;
         default:
             break;
     }

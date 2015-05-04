@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Baller-Swift.h"
 
 @class TableViewDataSource;
+@class Baller_NaviTitleScrollView;
 
 @interface BaseViewController : UIViewController
 
