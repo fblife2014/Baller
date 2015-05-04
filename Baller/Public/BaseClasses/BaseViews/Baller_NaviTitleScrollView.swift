@@ -21,7 +21,7 @@ class Baller_NaviTitleScrollView: UIScrollView {
         self.titleLable.font = UIFont.systemFontOfSize(18)
         self.titleLable.textAlignment = NSTextAlignment.Center
         self.titleLable.backgroundColor = UIColor.clearColor()
-        self.titleLable.text = title
+        self.titleLable.text = title as String
         self.titleLable.shadowColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.8)
         self.titleLable.shadowOffset = CGSizeMake(0.0, 1.0);
         self.addSubview(self.titleLable)
@@ -29,8 +29,8 @@ class Baller_NaviTitleScrollView: UIScrollView {
 
     func resetTitle(title:NSString)
     {
-        self.titleLable.text = title
-        let  width:CGFloat = NSStringManager.sizeOfCurrentString(title, font: 18, contentSize: CGSizeMake(CGFloat.max, 20)).width
+        self.titleLable.text = title as String
+        let  width:CGFloat = NSStringManager.sizeOfCurrentString(title as String, font: 18, contentSize: CGSizeMake(CGFloat.max, 20)).width
         self.contentSize = CGSizeMake(width, 20);
 
         if width > self.frame.size.width {
