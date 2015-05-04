@@ -810,10 +810,10 @@ typedef enum{
  */
 - (void)tencentLogin{
     DLog(@"%s",__FUNCTION__);
-    if (![QQApi isQQInstalled] || ![QQApi isQQSupportApi]) {
-        [Baller_HUDView bhud_showWithTitle:@"尚未安装QQ"];
-        return;
-    }
+//    if (![QQApi isQQInstalled] || ![QQApi isQQSupportApi]) {
+//        [Baller_HUDView bhud_showWithTitle:@"尚未安装QQ"];
+//        return;
+//    }
     [self loginToPlat:UMShareToQQ];
 
 }
