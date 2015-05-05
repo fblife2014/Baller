@@ -304,6 +304,7 @@
 		FB6FAAC31AF758C400053825 /* Baller_PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Baller_PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		FB6FAAC71AF76D0900053825 /* Baller_AboutUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Baller_AboutUserViewController.swift; sourceTree = "<group>"; };
 		FB6FAAC81AF76D0900053825 /* Baller_AboutUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Baller_AboutUserViewController.xib; sourceTree = "<group>"; };
+		FB6FAACC1AF8EF1400053825 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		FB8EAAA91A6A4CCA00460B8C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		FB8EAAAA1A6A4CCA00460B8C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		FB8EAAAC1A6A4CE800460B8C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
@@ -530,7 +531,6 @@
 		FBF2C72F1AE5DA2100EABD31 /* icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-40.png"; sourceTree = "<group>"; };
 		FBF2C7301AE5DA2100EABD31 /* icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-57.png"; sourceTree = "<group>"; };
 		FBF2C7311AE5DA2100EABD31 /* icon-80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-80@2x.png"; sourceTree = "<group>"; };
-		FBF2C73A1AE5E4CE00EABD31 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		FBF2C73C1AE5E53300EABD31 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		FBF2C7441AE5EBAB00EABD31 /* Baller_ActivityDetailInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_ActivityDetailInfo.h; sourceTree = "<group>"; };
 		FBF2C7451AE5EBAB00EABD31 /* Baller_ActivityDetailInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_ActivityDetailInfo.m; sourceTree = "<group>"; };
@@ -1980,7 +1980,7 @@
 			children = (
 				FBDD31561A5FBF9300EBA059 /* Base */,
 				FB8EAAA91A6A4CCA00460B8C /* zh-Hans */,
-				FBF2C73A1AE5E4CE00EABD31 /* en */,
+				FB6FAACC1AF8EF1400053825 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -2159,7 +2159,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2171,7 +2171,7 @@
 				INFOPLIST_FILE = BallerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
+				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Baller.app/Baller";
 			};
 			name = Debug;
@@ -2180,7 +2180,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2188,7 +2188,7 @@
 				INFOPLIST_FILE = BallerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
+				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Baller.app/Baller";
 			};
 			name = Release;
