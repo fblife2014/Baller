@@ -458,7 +458,7 @@
  */
 - (void)goToGroupChat {
     if (!self.teamInfo.group_id) {
-        [Baller_HUDView bhud_showWithTitle:@"尚未开通"];
+        [Baller_HUDView bhud_showWithTitle:@"您未开通"];
         return;
     }
     if (!teamGroup) {

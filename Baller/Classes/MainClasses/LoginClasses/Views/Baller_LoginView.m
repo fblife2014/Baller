@@ -797,7 +797,7 @@ typedef enum{
 
     if (![WXApi isWXAppInstalled] || ![WXApi isWXAppSupportApi])
     {
-        [Baller_HUDView bhud_showWithTitle:@"尚未安装微信"];
+        [Baller_HUDView bhud_showWithTitle:@"您未安装微信"];
         return;
     }
 

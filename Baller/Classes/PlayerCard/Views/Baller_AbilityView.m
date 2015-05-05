@@ -71,7 +71,7 @@
 
 - (IBAction)doneButtonAction:(id)sender {
     if (0 == self.chosedAttributes.allValues.count) {
-        [Baller_HUDView bhud_showWithTitle:@"尚未选择要评价的能力"];
+        [Baller_HUDView bhud_showWithTitle:@"您未选择要评价的能力"];
         return;
     }
     

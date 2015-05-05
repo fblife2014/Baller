@@ -246,7 +246,7 @@
                                stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:gaodeUrl]];
     }else{
-        [Baller_HUDView bhud_showWithTitle:@"您尚未安装高德地图客户端!"];
+        [Baller_HUDView bhud_showWithTitle:@"您未安装高德地图客户端!"];
     }
     
 }
@@ -266,7 +266,7 @@
         [[UIApplication sharedApplication]openURL:[NSURL URLWithString:urlString]];
         
     }else{
-        [Baller_HUDView bhud_showWithTitle:@"您尚未安装百度地图客户端!"];
+        [Baller_HUDView bhud_showWithTitle:@"您未安装百度地图客户端!"];
     }
 
 }
