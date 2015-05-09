@@ -33,6 +33,7 @@
 		FB0443721AD11DD100AAD432 /* Baller_ManageTeamRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0443711AD11DD100AAD432 /* Baller_ManageTeamRequestViewController.m */; };
 		FB0443751AD1809500AAD432 /* Baller_MyCourtInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = FB0443741AD1809500AAD432 /* Baller_MyCourtInfo.m */; };
 		FB1418341AE0FB3D009CE7B7 /* Baller_MessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB1418331AE0FB3D009CE7B7 /* Baller_MessageListViewController.m */; };
+		FB1F47611AFB044600895B76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FB1F475F1AFB044600895B76 /* Main.storyboard */; };
 		FB2ABEB91AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABE9D1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m */; };
 		FB2ABEBA1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABE9F1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.m */; };
 		FB2ABEBB1AADF97C007D7E52 /* Baller_CreateBallParkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB2ABEA11AADF97C007D7E52 /* Baller_CreateBallParkViewController.m */; };
@@ -160,7 +161,6 @@
 		FBD9B77B1AAD7F7F00CDC1C6 /* NSObject+DateBaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B7481AAD7F7F00CDC1C6 /* NSObject+DateBaseModel.m */; };
 		FBD9B77C1AAD7F7F00CDC1C6 /* NSUserDefaultManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B74A1AAD7F7F00CDC1C6 /* NSUserDefaultManager.m */; };
 		FBD9B85C1AADF63C00CDC1C6 /* Baller_ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = FBD9B85B1AADF63C00CDC1C6 /* Baller_ImagePicker.m */; };
-		FBDD315B1A5FC18700EBA059 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FBDD31551A5FBF9300EBA059 /* Main.storyboard */; };
 		FBDD315C1A5FC18700EBA059 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBDD31581A5FC12300EBA059 /* LaunchScreen.xib */; };
 		FBDD31801A5FE7F900EBA059 /* login_back@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FBDD317F1A5FE7F900EBA059 /* login_back@2x.jpg */; };
 		FBDD31821A5FE82200EBA059 /* login_back@3x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FBDD31811A5FE82200EBA059 /* login_back@3x.jpg */; };
@@ -254,6 +254,9 @@
 		FB0443741AD1809500AAD432 /* Baller_MyCourtInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MyCourtInfo.m; sourceTree = "<group>"; };
 		FB1418321AE0FB3D009CE7B7 /* Baller_MessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_MessageListViewController.h; sourceTree = "<group>"; };
 		FB1418331AE0FB3D009CE7B7 /* Baller_MessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_MessageListViewController.m; sourceTree = "<group>"; };
+		FB1F47601AFB044600895B76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FB1F47621AFB045100895B76 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		FB1F47631AFB045400895B76 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		FB2ABE9C1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_BallParkHomepageViewController.h; sourceTree = "<group>"; };
 		FB2ABE9D1AADF97C007D7E52 /* Baller_BallParkHomepageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_BallParkHomepageViewController.m; sourceTree = "<group>"; };
 		FB2ABE9E1AADF97C007D7E52 /* Baller_BPAttentionPersonListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_BPAttentionPersonListViewController.h; sourceTree = "<group>"; };
@@ -304,8 +307,7 @@
 		FB6FAAC31AF758C400053825 /* Baller_PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Baller_PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		FB6FAAC71AF76D0900053825 /* Baller_AboutUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Baller_AboutUserViewController.swift; sourceTree = "<group>"; };
 		FB6FAAC81AF76D0900053825 /* Baller_AboutUserViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Baller_AboutUserViewController.xib; sourceTree = "<group>"; };
-		FB6FAACC1AF8EF1400053825 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
-		FB8EAAA91A6A4CCA00460B8C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		FB6FAAD11AF8FC3D00053825 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		FB8EAAAA1A6A4CCA00460B8C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		FB8EAAAC1A6A4CE800460B8C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		FB8EAAAE1A6A4CEE00460B8C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -504,7 +506,6 @@
 		FBD9B74A1AAD7F7F00CDC1C6 /* NSUserDefaultManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSUserDefaultManager.m; sourceTree = "<group>"; };
 		FBD9B85A1AADF63C00CDC1C6 /* Baller_ImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Baller_ImagePicker.h; sourceTree = "<group>"; };
 		FBD9B85B1AADF63C00CDC1C6 /* Baller_ImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Baller_ImagePicker.m; sourceTree = "<group>"; };
-		FBDD31561A5FBF9300EBA059 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FBDD31591A5FC12300EBA059 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		FBDD317F1A5FE7F900EBA059 /* login_back@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "login_back@2x.jpg"; sourceTree = "<group>"; };
 		FBDD31811A5FE82200EBA059 /* login_back@3x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "login_back@3x.jpg"; sourceTree = "<group>"; };
@@ -1489,7 +1490,7 @@
 				FBDEA4461A2214ED0084FEBD /* Resources */,
 				FBDEA3851A22042B0084FEBD /* AppDelegate.h */,
 				FBDEA3861A22042B0084FEBD /* AppDelegate.m */,
-				FBDD31551A5FBF9300EBA059 /* Main.storyboard */,
+				FB1F475F1AFB044600895B76 /* Main.storyboard */,
 				FBDD31581A5FC12300EBA059 /* LaunchScreen.xib */,
 				FBDEA38E1A22042B0084FEBD /* Images.xcassets */,
 				FBDEA3811A22042B0084FEBD /* Supporting Files */,
@@ -1715,7 +1716,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FBF2C7351AE5DA2100EABD31 /* icon-180@3x.png in Resources */,
-				FBDD315B1A5FC18700EBA059 /* Main.storyboard in Resources */,
 				FB9EF3451AADF830001D77CB /* Baller_MineBallParkTableViewCell.xib in Resources */,
 				FBDD315C1A5FC18700EBA059 /* LaunchScreen.xib in Resources */,
 				FB9EF3421AADF830001D77CB /* Baller_GameListTableViewCell.xib in Resources */,
@@ -1736,6 +1736,7 @@
 				FBD64B681A7E69230070E003 /* Default-568h@2x.png in Resources */,
 				FBF2C7381AE5DA2100EABD31 /* icon-80@2x.png in Resources */,
 				13277F761ABD39B700E9621C /* pengyouquan72_7222x.png in Resources */,
+				FB1F47611AFB044600895B76 /* Main.storyboard in Resources */,
 				FB9EF3471AADF830001D77CB /* Baller_MyBasketBallTeamTableViewCell.xib in Resources */,
 				FBF2C7331AE5DA2100EABD31 /* icon-120@2x.png in Resources */,
 				FB9EF33C1AADF830001D77CB /* Baller_BallFriendsTableViewCell.xib in Resources */,
@@ -1966,23 +1967,24 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		FB1F475F1AFB044600895B76 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FB1F47601AFB044600895B76 /* Base */,
+				FB1F47621AFB045100895B76 /* en */,
+				FB1F47631AFB045400895B76 /* zh-Hans */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		FB8EAAAD1A6A4CE800460B8C /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				FB8EAAAC1A6A4CE800460B8C /* zh-Hans */,
 				FB8EAAAE1A6A4CEE00460B8C /* en */,
+				FB6FAAD11AF8FC3D00053825 /* Base */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		FBDD31551A5FBF9300EBA059 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FBDD31561A5FBF9300EBA059 /* Base */,
-				FB8EAAA91A6A4CCA00460B8C /* zh-Hans */,
-				FB6FAACC1AF8EF1400053825 /* en */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		FBDD31581A5FC12300EBA059 /* LaunchScreen.xib */ = {
@@ -2016,8 +2018,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = NO;
@@ -2039,7 +2041,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
+				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
 				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(CACHE_ROOT)/SharedPrecompiledHeaders";
 				SYMROOT = build;
@@ -2065,8 +2067,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				COPY_PHASE_STRIP = YES;
@@ -2082,7 +2084,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
+				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
 				SDKROOT = iphoneos;
 				SHARED_PRECOMPS_DIR = "$(CACHE_ROOT)/SharedPrecompiledHeaders";
 				SYMROOT = build;
@@ -2096,8 +2098,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
 				DEFINES_MODULE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2115,7 +2117,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
+				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
 				SWIFT_OBJC_BRIDGING_HEADER = "Baller/Public/BaseClasses/BaseViews/Baller-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
@@ -2129,8 +2131,8 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
 				DEFINES_MODULE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2148,7 +2150,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
+				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
 				SWIFT_OBJC_BRIDGING_HEADER = "Baller/Public/BaseClasses/BaseViews/Baller-Bridging-Header.h";
 				USER_HEADER_SEARCH_PATHS = "${SRCROOT}/**";
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -2159,7 +2161,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2171,7 +2173,7 @@
 				INFOPLIST_FILE = BallerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
+				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Baller.app/Baller";
 			};
 			name = Debug;
@@ -2180,7 +2182,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhong Kun Shi (6NH6VCUU57)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Zhong Kun Shi (HXFU9MZ8SD)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2188,7 +2190,7 @@
 				INFOPLIST_FILE = BallerTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "bd86a2b3-f86b-4dac-a75a-6a081b9bea17";
+				PROVISIONING_PROFILE = "47fb7adf-791d-4d48-9d5d-ed6985223f70";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Baller.app/Baller";
 			};
 			name = Release;

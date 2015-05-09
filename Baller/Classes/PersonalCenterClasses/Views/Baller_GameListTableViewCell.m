@@ -43,7 +43,7 @@
     _dateLabel.text = [TimeManager getPointStringOfTimeInterval:activityModel.start_time];
     _timeLabel.text = [TimeManager getHourAndMiniteStringOfTimeInterval:activityModel.start_time];
     
-    _joinedNumberLabel.text = $str(@"%ld人已加入",activityModel.join_num);
+    _joinedNumberLabel.text = $str(@"%ld人已加入",(long)activityModel.join_num);
     
     self.line.hidden = YES;
     self.gameStadusButton.userInteractionEnabled = NO;
