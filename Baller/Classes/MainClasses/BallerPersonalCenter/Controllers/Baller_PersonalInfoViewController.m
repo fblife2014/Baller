@@ -25,6 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.naviTitleScrollView resetTitle:@"个人资料"];
     [self getUserInfo];
     
     if ([USER_DEFAULT valueForKey:Baller_UserInfo_HeadImageData])

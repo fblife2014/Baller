@@ -17,12 +17,11 @@
 @interface Baller_MyBallFriendsViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 {
     BallFriendsSearchBar* theSearchBar;
-    NSMutableArray * friends; //我的球友信息数组
     NSMutableArray * filterFriends;  //搜索结果数组
     
     NSString * searchKeyWord;
 }
-
+@property (nonatomic,strong)NSMutableArray * friends; //我的球友信息数组
 @property (nonatomic)BOOL searchBarSearching;
 @property (nonatomic,strong)TableViewDataSource * searchBarTableViewDataSource;
 
@@ -41,7 +40,6 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    friends = [NSMutableArray arrayWithCapacity:1];
     filterFriends = [NSMutableArray arrayWithCapacity:1];
     [self getNetData];
     // Do any additional setup after loading the view.
@@ -61,6 +59,15 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
         self.tableView.dataSource = self.tableViewDataSource;
     }
 }
+
+- (NSMutableArray *)friends
+{
+    if (!_friends) {
+        _friends = [NSMutableArray new];
+    }
+    return _friends;
+}
+
 
 - (NSMutableArray *)chosedFriends
 {
@@ -117,7 +124,6 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 
             UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithImage:@"tianjia" imageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15) target:self selection:@selector(addBallFriend)];
             self.navigationItem.rightBarButtonItem = rightItem;
-            self.tableView.dataSource = nil;
             self.tableView.dataSource = self.tableViewDataSource;
         }
             break;
@@ -140,6 +146,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 
             UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithTitle:@"好友" titleEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15.0) target:self selection:@selector(changeToTabel)];
             self.navigationItem.rightBarButtonItem = rightItem;
+            
             self.tableView.dataSource = self.resultTableDataSource;
             
         }
@@ -148,8 +155,10 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
         default:
             break;
     }
+    
     [self.tableView reloadData];
 }
+
 
 /*!
  *  @brief  设置子视图
@@ -161,7 +170,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     }
     [self.tableView registerNib:[UINib nibWithNibName:@"Baller_BallFriendsTableViewCell" bundle:nil] forCellReuseIdentifier:Baller_BallFriendsTableViewCellId];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableViewDataSource = [[TableViewDataSource alloc] initWithItems:friends cellIdentifier:Baller_BallFriendsTableViewCellId tableViewConfigureBlock:^(Baller_BallFriendsTableViewCell * cell, Baller_BallerFriendListModel * item)
+    self.tableViewDataSource = [[TableViewDataSource alloc] initWithItems:self.friends cellIdentifier:Baller_BallFriendsTableViewCellId tableViewConfigureBlock:^(Baller_BallFriendsTableViewCell * cell, Baller_BallerFriendListModel * item)
     {
         if (self.ballFriendsListType == BallFriendsListTypeChosing)
         {
@@ -192,15 +201,15 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
         if(!error)
         {
             if (self.page == 1) {
-                [friends removeAllObjects];
+                [self.friends removeAllObjects];
             }
             self.total_num = [result integerForKey:@"total_num"];
            for(NSDictionary *dic in [result objectForKey:@"list"])
            {
                Baller_BallerFriendListModel *ballerFriendListModel = [[Baller_BallerFriendListModel alloc] initWithAttributes:dic];
-               [friends addObject:ballerFriendListModel];
+               [self.friends addObject:ballerFriendListModel];
            }
-            if (friends.count >= self.total_num) {
+            if (self.friends.count >= self.total_num) {
                 [self.tableView.footer noticeNoMoreData];
             }else{
                 [self.tableView.footer setState:MJRefreshFooterStateIdle];
@@ -216,7 +225,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 - (void)searchUsers
 {
     __WEAKOBJ(weakSelf, self);
-    [AFNHttpRequestOPManager getWithSubUrl:Baller_search_user parameters:@{@"keywords":searchKeyWord,@"page":@(self.page),@"per_page":@(10)} responseBlock:^(id result, NSError *error) {
+    [AFNHttpRequestOPManager getWithSubUrl:Baller_search_user parameters:@{@"keywords":searchKeyWord,@"page":@(self.page),@"per_page":@(100)} responseBlock:^(id result, NSError *error) {
         DLog(@"result = %@",result);
         if (!error) {
             if ([result intForKey:@"errorcode"] == 0) {
@@ -259,13 +268,13 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 {
     [super footerRereshing];
     if (_ballFriendsListType == BallFriendsListTypeTable) {
-        if (friends.count<self.total_num) {
-            self.page = friends.count/10+1;
+        if (self.friends.count<self.total_num) {
+            self.page = self.friends.count/10+1;
             [self getNetData];
         }
     }else if (_ballFriendsListType == BallFriendsListTypeSearching){
         if (_searchResultFriends.count%10 == 0) {
-            self.searchPage = friends.count/10+1;
+            self.searchPage = self.friends.count/10+1;
             [self searchResultFriends];
         }
     }
@@ -348,7 +357,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
         case BallFriendsListTypeTable:
             if (!_searchBarSearching) {
                 
-                Baller_BallerFriendListModel * ballFriendModel = friends[indexPath.row];
+                Baller_BallerFriendListModel * ballFriendModel = self.friends[indexPath.row];
                 Baller_PlayerCardViewController * playCardVC = [[Baller_PlayerCardViewController alloc]init];
                 playCardVC.friendModel = ballFriendModel;
                 playCardVC.ballerCardType = kBallerCardType_OtherBallerPlayerCard;
@@ -403,7 +412,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
     self.searchBarSearching = YES;
     [filterFriends removeAllObjects];
 
-    for(Baller_BallerFriendListModel * model in friends)
+    for(Baller_BallerFriendListModel * model in self.friends)
     {
         DLog(@"model.friend_user_name = %@",model.friend_user_name);
         if([model.friend_user_name rangeOfString:searchText].length || [model.friend_uid rangeOfString:searchText].length)

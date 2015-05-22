@@ -197,7 +197,6 @@
     {
         @autoreleasepool {
             Baller_InfoItemView * itemView = [[Baller_InfoItemView alloc]initWithFrame:CGRectMake(0.0, originY+PersonInfoCell_Height*i, self.frame.size.width, PersonInfoCell_Height) title:(titles.count>i)?titles[i]:nil placeHolder:(placeHolders.count>i)?placeHolders[i]:nil];
-            
             itemView.infoTextField.text = (infoDetails.count>i)?infoDetails[i]:nil;
             itemView.infoCanEdited = canEdited;
             itemView.grayCircleLayerRadius = circleRadius;
@@ -248,12 +247,12 @@
     if (!_ballerPickerView) {
         _ballerPickerView = [[Baller_PickView alloc]initWithFrame:CGRectMake(0.0, 0.0, ScreenWidth, ScreenHeight)];
         heights = [NSMutableArray array];
-        for (int i = 155; i < 210; i++) {
+        for (int i = 135; i < 220; i++) {
             [heights addObject:[NSString stringWithFormat:@"%d cm",i]];
         }
         
         weidghts = [NSMutableArray array];
-        for (int i = 50; i < 100; i++) {
+        for (int i = 35; i < 150; i++) {
             [weidghts addObject:[NSString stringWithFormat:@"%d kg",i]];
         }
         
@@ -275,6 +274,12 @@
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+
+    //触发弹出选择框
+    UITouch * touch = [touches anyObject];
+    Baller_InfoItemView * view =  (Baller_InfoItemView *)[touch view];
+    [self textFieldShouldBeginEditing:view.infoTextField];
+    
     [UIView animateWithDuration:0.4 animations:^{
         self.contentOffset = CGPointMake(0.0,0.0);
     }];
