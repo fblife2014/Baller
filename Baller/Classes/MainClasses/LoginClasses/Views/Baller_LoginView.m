@@ -271,13 +271,20 @@ typedef enum{
     CGRect secondFrame = CGRectMake((ScreenWidth-thirdLoginWidth)/2.0, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight);
     CGRect thirdFrame = CGRectMake((ScreenWidth-thirdLoginWidth)/2.0+thirdLoginWidth+15, kThirdLoginButton_OriginY, thirdLoginWidth, thirdLoginHeight);
     
-    _wechatLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:firstFrame normalTitle:nil image:[UIImage imageNamed:@"login_wechat"] backgroudImage:nil superView:self target:self action:@selector(wechatLogin)];
-    
-    [self addSubview:_wechatLoginButton];
-    
-    _tencentLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:secondFrame normalTitle:nil image:[UIImage imageNamed:@"login_qq"] backgroudImage:nil superView:self target:self action:@selector(tencentLogin)];
+    _tencentLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:firstFrame normalTitle:nil image:[UIImage imageNamed:@"login_qq"] backgroudImage:nil superView:self target:self action:@selector(tencentLogin)];
     
     [self addSubview:_tencentLoginButton];
+    
+    if ([WXApi isWXAppInstalled] || [WXApi isWXAppSupportApi])
+    {
+        _wechatLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:secondFrame normalTitle:nil image:[UIImage imageNamed:@"login_wechat"] backgroudImage:nil superView:self target:self action:@selector(wechatLogin)];
+        
+        [self addSubview:_wechatLoginButton];
+    }
+
+
+    
+
     
     _weiboLoginButton = [LTools createButtonWithType:UIButtonTypeCustom frame:thirdFrame normalTitle:nil image:[UIImage imageNamed:@"login_weibo"] backgroudImage:nil superView:self target:self action:@selector(weiboLogin)];
     [self addSubview:_weiboLoginButton];
@@ -795,11 +802,6 @@ typedef enum{
 - (void)wechatLogin{
     DLog(@"%s",__FUNCTION__);
 
-    if (![WXApi isWXAppInstalled] || ![WXApi isWXAppSupportApi])
-    {
-        [Baller_HUDView bhud_showWithTitle:@"您未安装微信"];
-        return;
-    }
 
     [self loginToPlat:UMShareToWechatSession];
 

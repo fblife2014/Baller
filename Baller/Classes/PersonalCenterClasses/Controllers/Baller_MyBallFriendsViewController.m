@@ -117,6 +117,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
 
             UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithImage:@"tianjia" imageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15) target:self selection:@selector(addBallFriend)];
             self.navigationItem.rightBarButtonItem = rightItem;
+            self.tableView.dataSource = nil;
             self.tableView.dataSource = self.tableViewDataSource;
         }
             break;
@@ -137,7 +138,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
             self.tableView.tableHeaderView = nil;
             [self.naviTitleScrollView resetTitle:@"搜索结果"];
 
-            UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithTitle:@"列表" titleEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15.0) target:self selection:@selector(changeToTabel)];
+            UIBarButtonItem * rightItem = [ViewFactory getABarButtonItemWithTitle:@"好友" titleEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, 0.0, -15.0) target:self selection:@selector(changeToTabel)];
             self.navigationItem.rightBarButtonItem = rightItem;
             self.tableView.dataSource = self.resultTableDataSource;
             
@@ -214,20 +215,25 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
  */
 - (void)searchUsers
 {
+    __WEAKOBJ(weakSelf, self);
     [AFNHttpRequestOPManager getWithSubUrl:Baller_search_user parameters:@{@"keywords":searchKeyWord,@"page":@(self.page),@"per_page":@(10)} responseBlock:^(id result, NSError *error) {
+        DLog(@"result = %@",result);
         if (!error) {
             if ([result intForKey:@"errorcode"] == 0) {
-                if (self.searchPage == 1) {
-                    [self.searchResultFriends removeAllObjects];
+                if (weakSelf.searchPage == 1) {
+                    [weakSelf.searchResultFriends removeAllObjects];
                 }
                 for (NSDictionary * memberDic in [result valueForKey:@"list"]) {
-                    [self.searchResultFriends addObject:[Baller_BallTeamMemberInfo shareWithServerDictionary:memberDic]];
+                    [weakSelf.searchResultFriends addObject:[Baller_BallTeamMemberInfo shareWithServerDictionary:memberDic]];
                 }
 
-                if (self.searchPage == 1 && self.searchResultFriends.count == 0) {
+                if (weakSelf.searchPage == 1 && self.searchResultFriends.count == 0) {
                     [Baller_HUDView bhud_showWithTitle:@"没有找到对应用户，换个关键字试试"];
                 }
-                [self.tableView reloadData];
+                __STRONGOBJ(strongSelf, self);
+                MAIN_BLOCK(^{
+                    [strongSelf.tableView reloadData];
+                });
 
             }
         }
@@ -308,6 +314,7 @@ static NSString * const SearchFriendsTableViewCellId = @"SearchFriendsTableViewC
  */
 - (void)changeToTabel{
     self.ballFriendsListType = BallFriendsListTypeTable;
+    
 }
 
 

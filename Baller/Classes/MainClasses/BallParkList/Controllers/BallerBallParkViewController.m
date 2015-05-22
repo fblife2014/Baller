@@ -212,22 +212,28 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
                     [strongSelf.collectionView.footer noticeNoMoreData];
                 }
             }
-            [strongSelf.collectionView reloadData];
-            
-            
-            BACKGROUND_BLOCK(^{
-                if (strongSelf.ballParkType == BallParkTypeIdentifyed)
-                {
+            MAIN_BLOCK(^{
+                [strongSelf.collectionView reloadData];
+            });
+            if (strongSelf.ballParkType == BallParkTypeIdentifyed)
+            {
+                dispatch_queue_t serailQueue = dispatch_queue_create([@"com.serailQueue.BallerBallParkViewController" UTF8String], NULL);
+                
+                dispatch_async(serailQueue, ^{
                     for (NSInteger i = MAX(0, strongSelf.ballParks.count-10); i<strongSelf.ballParks.count; i++)
                     {
-                        Baller_BallParkListModel * ballParkModel = strongSelf.ballParks[i];
-                        if (![DataBaseManager isModelExist:@"Baller_BallParkListModel" keyName:@"court_id" keyValue:@(ballParkModel.court_id)])
-                        {
-                            [DataBaseManager insertDataWithMDBModel:ballParkModel];
+                        @autoreleasepool {
+                            Baller_BallParkListModel * ballParkModel = strongSelf.ballParks[i];
+                            if (![DataBaseManager isModelExist:@"Baller_BallParkListModel" keyName:@"court_id" keyValue:@(ballParkModel.court_id)])
+                            {
+                                [DataBaseManager insertDataWithMDBModel:ballParkModel];
+                            }
                         }
+                        
                     }
-                }
-            });
+                }); 
+            }
+
             
         }
     }];
@@ -241,7 +247,7 @@ static NSString * const BallParkCollectionHeaderViewId = @"BallParkCollectionHea
     self.total_num = [DataBaseManager findTheTableItemNumberWithModelName:@"Baller_BallParkListModel" keyName:nil keyValue:nil];
     if (self.ballParks.count < self.total_num)
     {
-        [self.ballParks addObjectsFromArray: [DataBaseManager findTheTableItemWithModelName:@"Baller_BallParkListModel" sql:$str(@"SELECT * FROM Baller_BallParkListModel limit %lu,%u",(unsigned long)self.ballParks.count,MIN(10, self.total_num-self.ballParks.count))]];
+        [self.ballParks addObjectsFromArray: [DataBaseManager findTheTableItemWithModelName:@"Baller_BallParkListModel" sql:$str(@"SELECT * FROM Baller_BallParkListModel limit %lu,%lu",(unsigned long)self.ballParks.count,MIN(10, self.total_num-self.ballParks.count))]];
         
     }
     [self.collectionView reloadData];

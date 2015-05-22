@@ -21,7 +21,7 @@ NSString * const Baller_update_user_attr= @"&c=user&m=update_user_attr"; //6、�
 NSString * const Baller_update_user_info= @"&c=user&m=update_user_info"; //7、更新个人资料
 
 NSString * const Baller_update_user_photo= @"&c=user&m=update_user_photo"; //8、更新个人头像
-NSString * const BallerUpdateHeadImageNotification = @"BallerUpdateHeadImageNotification";  //个人头像更新通知
+NSString * const BallerUpdateUserInfoNotification = @"BallerUpdateUserInfoNotification";  //个人头像更新通知
 
 
 NSString * const Baller_logout = @"&c=user&m=login_out";  //9、退出登录

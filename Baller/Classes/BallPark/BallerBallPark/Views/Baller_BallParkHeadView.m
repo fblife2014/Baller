@@ -243,7 +243,7 @@
 
 - (UIImage *)screenShotOfView:(UIView *)view
 {
-    UIGraphicsBeginImageContextWithOptions(self.ballParkImageView.frame.size, YES, 0.0);
+    UIGraphicsBeginImageContextWithOptions(self.ballParkImageView.frame.size, YES, 0);
     [self drawViewHierarchyInRect:self.ballParkImageView.frame afterScreenUpdates:YES];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

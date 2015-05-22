@@ -33,6 +33,7 @@ static char ML_BlurView_blurViewKey;
 - (void)setBlurView:(UIView *)blurView{
     [self willChangeValueForKey:@"ML_BlurView_blurViewKey"];
     objc_setAssociatedObject(self, &ML_BlurView_blurViewKey, blurView, OBJC_ASSOCIATION_ASSIGN);
+    [self didChangeValueForKey:@"ML_BlurView_blurViewKey"];
 }
 
 - (UIView *)blurView{

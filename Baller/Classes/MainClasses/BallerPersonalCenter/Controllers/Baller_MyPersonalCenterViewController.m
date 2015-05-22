@@ -71,7 +71,7 @@ static NSString * const Baller_MyCenterTopTableViewCellId = @"Baller_MyCenterTop
     
     
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadData) name:BallerLogoutThenLoginNotification object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadData) name:BallerUpdateHeadImageNotification object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadData) name:BallerUpdateUserInfoNotification object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(reloadData) name:@"CreateTeamSuccessNotification" object:nil];
     
     // Do any additional setup after loading the view.

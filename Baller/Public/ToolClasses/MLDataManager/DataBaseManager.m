@@ -112,7 +112,7 @@ static dispatch_once_t once = 0;
         DLog(@"TableExist %ld", (long)count);
         return (BOOL)count;
     }
-    [[[[self class] defaultDataBaseManager] dataBase]open];
+    [[[[self class] defaultDataBaseManager] dataBase]close];
     
     return NO;
 }
@@ -130,7 +130,7 @@ static dispatch_once_t once = 0;
     }
     [[[[self class] defaultDataBaseManager] dataBase]open];
     
-    NSMutableString * query = [NSMutableString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = %@",modelName,keyName,keyValue];
+    NSString * query = [NSString stringWithFormat:@"SELECT * FROM %@ WHERE %@ = %@",modelName,keyName,keyValue];
     DLog(@"query = %@",query);
     //根据查询语句查询
     FMResultSet * set = [[[[self class] defaultDataBaseManager] dataBase] executeQuery:query];
@@ -196,10 +196,8 @@ static dispatch_once_t once = 0;
     {
         [[[[self class] defaultDataBaseManager] dataBase]close];
         success = [DEFAULTFILEMANAGER removeItemAtPath:[[[self class] defaultDataBaseManager] dataBasePath] error:&error];
-        if (!success) {
-            NSAssert1(0, @"Failed to delete old database file with message '%@'.", [error localizedDescription]);
-            
-        }
+        NSAssert1(success, @"Failed to delete old database file with message '%@'.", [error localizedDescription]);
+
     }
     return success;
 }
@@ -287,6 +285,49 @@ static dispatch_once_t once = 0;
     
     [[[[self class] defaultDataBaseManager] dataBase]close];
     
+}
+
+
++ (void) insertDataWithMDBModel:(NSObject *) dbModel database:(FMDatabase *)database
+{
+    [database open];
+    
+    NSString * modelClassName = NSStringFromClass([dbModel class]);
+    if (![DataBaseManager isTableExist:modelClassName]) {
+        [DataBaseManager createDataBaseWithDBModelName:modelClassName];
+    }
+    //编辑插入语句
+    NSMutableString * query = [NSMutableString stringWithFormat:@"INSERT INTO %@",modelClassName];
+    NSMutableString * keys = [NSMutableString stringWithFormat:@" ("];
+    
+    NSMutableString * values = [NSMutableString stringWithFormat:@" ( "];
+    NSMutableArray * arguments = [NSMutableArray arrayWithCapacity:dbModel.propertyNames.count];
+    
+    //遍历数组并将数组属性名称拼接
+    for (NSString * propertyName in dbModel.propertyNames) {
+        [keys appendString:[NSString stringWithFormat:@"%@,",propertyName]];
+        [values appendString:@"?,"];
+        //添加数据
+        if ([dbModel valueForKey:propertyName]) {
+            [arguments addObject:[dbModel valueForKey:propertyName]];
+        }else{
+            [arguments addObject:[NSNull new]];
+        }
+        
+    }
+    
+    [keys appendString:@")"];
+    [values appendString:@")"];
+    [query appendFormat:@" %@ VALUES%@",
+     [keys stringByReplacingOccurrencesOfString:@",)" withString:@")"],
+     [values stringByReplacingOccurrencesOfString:@",)" withString:@")"]];
+    DLog(@"%@",query);
+    
+    if ([database executeUpdate:query withArgumentsInArray:arguments]) {
+        DLog(@"插入一条数据");
+    }
+    
+    [database close];
 }
 
 
@@ -378,6 +419,7 @@ static dispatch_once_t once = 0;
     {
         number++;
     }
+    [set close];
     return number;
 }
 
@@ -386,7 +428,7 @@ static dispatch_once_t once = 0;
  *
  * @param modelName 需要查询的表名
  */
-+ (NSMutableArray *)findTheTableItemWithModelName:(NSString *)modelName
++ (NSArray *)findTheTableItemWithModelName:(NSString *)modelName
 {
     NSString *sql = [NSString stringWithFormat:@"SELECT * FROM %@", modelName];
     
@@ -414,14 +456,14 @@ static dispatch_once_t once = 0;
     [set close];
     [[[[self class] defaultDataBaseManager] dataBase]close];
     
-    return results;
+    return results.copy;
     
 }
 
 /**
  * @brief 查询获取表modelName的数据
  */
-+ (NSMutableArray *)findTheTableItemWithModelName:(NSString *)modelName sql:(NSString *)sql{
++ (NSArray *)findTheTableItemWithModelName:(NSString *)modelName sql:(NSString *)sql{
     
     [[[[self class] defaultDataBaseManager] dataBase]open];
     
@@ -445,7 +487,7 @@ static dispatch_once_t once = 0;
     [set close];
     [[[[self class] defaultDataBaseManager] dataBase]close];
     DLog(@"TableItemCount %ld", (long)results.count);
-    return results;
+    return results.copy;
     
 }
 
@@ -502,7 +544,7 @@ static dispatch_once_t once = 0;
     
     [[[[self class] defaultDataBaseManager] dataBase]close];
     
-    return results;
+    return results.copy;
     
     
 }

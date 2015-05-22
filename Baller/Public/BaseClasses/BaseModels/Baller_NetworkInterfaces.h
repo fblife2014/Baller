@@ -15,7 +15,7 @@ extern NSString * const Baller_get_user_attr;       //5、获取球员属性
 extern NSString * const Baller_update_user_attr;    //6、更新球员属性
 extern NSString * const Baller_update_user_info;    //7、更新个人资料
 extern NSString * const Baller_update_user_photo;   //8、更新个人头像
-extern NSString * const BallerUpdateHeadImageNotification;  //个人头像更新通知
+extern NSString * const BallerUpdateUserInfoNotification;  //个人头像更新通知
 
 extern NSString * const Baller_logout;              //9、退出登录
 extern NSString * const BallerOpenLocationNotification;//打开定位成功通知

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "FMDatabaseAdditions.h"
+#import "FMDatabaseQueue.h"
+
 //#import "DBModel.h"
 
 
@@ -81,6 +83,13 @@ typedef enum{
  */
 + (void) insertDataWithMDBModel:(NSObject *) dbModel;
 
+/**
+ * @brief 插入一条用户记录
+ *
+ * @param dbModel 需要插入的数据模型
+ * @param database 正在操作的database
+ */
++ (void) insertDataWithMDBModel:(NSObject *) dbModel database:(FMDatabase *)database;
 
 
 /**
@@ -122,12 +131,12 @@ typedef enum{
  *
  * @param modelName 需要查询的表名
  */
-+ (NSMutableArray *)findTheTableItemWithModelName:(NSString *)modelName;
++ (NSArray *)findTheTableItemWithModelName:(NSString *)modelName;
 
 /**
  * @brief 查询获取表modelName的数据
  */
-+ (NSMutableArray *)findTheTableItemWithModelName:(NSString *)modelName sql:(NSString *)sql;
++ (NSArray *)findTheTableItemWithModelName:(NSString *)modelName sql:(NSString *)sql;
 /**
  * @brief 模拟分页查找数据。取modelId大于某个值以后的limit个数据
  *

@@ -56,6 +56,8 @@
             
             NSArray * infoDetails = @[$str(@"%@ cm",[userinfo valueForKey:@"height"]),$str(@"%@ kg",[userinfo valueForKey:@"weight"]),[userinfo valueForKey:@"position"],[[userinfo valueForKey:@"gender"] integerValue]==1?@"男":@"女"];
             [_personalInfoView addPersonInfoViewWithTitles:titles placeHolders:placeHolders infoDetails:infoDetails canEdited:YES originY:(_personalInfoView.frame.size.height-5*PersonInfoCell_Height) circleRadius:3.5];
+            [[NSNotificationCenter defaultCenter]postNotificationName:BallerUpdateUserInfoNotification object:nil];
+
 
         }
     }];

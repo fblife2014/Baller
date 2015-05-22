@@ -235,7 +235,7 @@
                         [USER_DEFAULT synchronize];
 
                     }
-                    [[NSNotificationCenter defaultCenter]postNotificationName:BallerUpdateHeadImageNotification object:nil];
+                    [[NSNotificationCenter defaultCenter]postNotificationName:BallerUpdateUserInfoNotification object:nil];
                 }
             }];
         });
