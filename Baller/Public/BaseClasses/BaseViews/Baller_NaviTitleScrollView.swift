@@ -14,6 +14,7 @@ class Baller_NaviTitleScrollView: UIScrollView {
   
     convenience init(frame: CGRect, title:NSString) {
         self.init(frame: frame)
+        self.scrollsToTop = false
         self.backgroundColor = UIColor.clearColor()
         self.clipsToBounds = true
         self.showsHorizontalScrollIndicator = false
