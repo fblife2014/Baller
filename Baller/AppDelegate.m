@@ -19,7 +19,6 @@
 @interface AppDelegate ()<CLLocationManagerDelegate>
 {
     CLLocationManager * _locationManager;
-
 }
 @end
 
@@ -38,7 +37,7 @@
     [self setNavigationBar];
     [self getTokenFromRC];
     [self userUM];
-
+    
     return YES;
 }
 
@@ -77,7 +76,8 @@
 
 #pragma mark--使用友盟统计
 
--(void)userUM{
+-(void)userUM
+{
     [MobClick startWithAppkey:UMKEY];
     
     [UMSocialData setAppKey:UMKEY];
